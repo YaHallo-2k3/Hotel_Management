@@ -115,7 +115,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
         DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetTrangThai.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd/MM/yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd/MM/yy", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd/MM/yy", ngayGioDi), txtCCCD.getText(), Integer.parseInt(txtSoLuong.getText()), txtGhiChu.getText(), Integer.parseInt(txtGiamGia.getText()), Integer.parseInt(txtDatCoc.getText()));
         BLL_ThuePhong.add(thuePhong);
-
+        System.out.println(ngayGioDen);
+        Date date = HELPER_ChuyenDoi.getNgayDate("dd/MM/yy HH:mm", ngayGioDen);
+        String string = HELPER_ChuyenDoi.getNgayString("dd/MM/yyyy HH:mm", date);
+        System.out.println(date);
+        System.out.println(string);
     }
 
     public void editthuePhong(int index) {

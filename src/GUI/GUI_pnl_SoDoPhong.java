@@ -25,6 +25,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
      */
     public GUI_pnl_SoDoPhong() {
         initComponents();
+        
         for (int i = 1; i <= BLL_SoDoPhong.countPhong(); i++) {
             index = i;
             pnlFormChinh.add(new GUI_pnl_ChiTietPhong().sdoChiTietPhong);
