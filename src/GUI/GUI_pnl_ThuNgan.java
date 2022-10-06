@@ -51,6 +51,7 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
         lblTongTien = new javax.swing.JLabel();
         lblDenNgay = new javax.swing.JLabel();
         lblTuNgay = new javax.swing.JLabel();
+        lblGiaoCa = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -143,6 +144,19 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
         lblTuNgay.setText("Từ Ngày");
         sdoChucNang.add(lblTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 20));
 
+        lblGiaoCa.setBackground(new java.awt.Color(255, 255, 255));
+        lblGiaoCa.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblGiaoCa.setForeground(new java.awt.Color(33, 150, 243));
+        lblGiaoCa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/exchange (3).png"))); // NOI18N
+        lblGiaoCa.setText("Giao Ca");
+        lblGiaoCa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        lblGiaoCa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblGiaoCaMouseClicked(evt);
+            }
+        });
+        sdoChucNang.add(lblGiaoCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 40, 90, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,6 +173,11 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lblGiaoCaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGiaoCaMouseClicked
+        // TODO add your handling code here:
+        new GUI_dal_ThongTinGiaoCa(null, true).setVisible(true);
+    }//GEN-LAST:event_lblGiaoCaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboNhanVien;
@@ -166,6 +185,7 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser dateTuNgay;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblDenNgay;
+    private javax.swing.JLabel lblGiaoCa;
     private javax.swing.JLabel lblGioPhutRa;
     private javax.swing.JLabel lblGioPhutVao;
     private javax.swing.JLabel lblNhanVien;

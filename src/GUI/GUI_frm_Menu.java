@@ -48,13 +48,13 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblLichSuThuePhong = new javax.swing.JLabel();
         lblDichVu = new javax.swing.JLabel();
         lblThietDatPhong = new javax.swing.JLabel();
-        lblGiaoCa = new javax.swing.JLabel();
         lblQuanLiChiPhi = new javax.swing.JLabel();
         lblThietDatGiaPhong = new javax.swing.JLabel();
         lblThayDoiMatKhau = new javax.swing.JLabel();
         lblThongKeTrongNgay = new javax.swing.JLabel();
         lblDangXuat = new javax.swing.JLabel();
         lblQuanLiNguoiDung = new javax.swing.JLabel();
+        lblQuanLiSanPham = new javax.swing.JLabel();
         pnlFormChinh = new javax.swing.JPanel();
         pnlKhoangTrang = new javax.swing.JPanel();
 
@@ -264,27 +264,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         });
         pnlMenuBar.add(lblThietDatPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 190, 40));
 
-        lblGiaoCa.setBackground(new java.awt.Color(62, 73, 95));
-        lblGiaoCa.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblGiaoCa.setForeground(new java.awt.Color(255, 255, 255));
-        lblGiaoCa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/exchange (1).png"))); // NOI18N
-        lblGiaoCa.setText("Giao Ca");
-        lblGiaoCa.setOpaque(true);
-        lblGiaoCa.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                lblGiaoCaMouseMoved(evt);
-            }
-        });
-        lblGiaoCa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblGiaoCaMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblGiaoCaMouseExited(evt);
-            }
-        });
-        pnlMenuBar.add(lblGiaoCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 190, 40));
-
         lblQuanLiChiPhi.setBackground(new java.awt.Color(62, 73, 95));
         lblQuanLiChiPhi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblQuanLiChiPhi.setForeground(new java.awt.Color(255, 255, 255));
@@ -411,6 +390,27 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         });
         pnlMenuBar.add(lblQuanLiNguoiDung, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 190, 40));
 
+        lblQuanLiSanPham.setBackground(new java.awt.Color(62, 73, 95));
+        lblQuanLiSanPham.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblQuanLiSanPham.setForeground(new java.awt.Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/line-chart.png"))); // NOI18N
+        lblQuanLiSanPham.setText("Quản Lí  Sản Phẩm");
+        lblQuanLiSanPham.setOpaque(true);
+        lblQuanLiSanPham.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblQuanLiSanPhamMouseMoved(evt);
+            }
+        });
+        lblQuanLiSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuanLiSanPhamMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblQuanLiSanPhamMouseExited(evt);
+            }
+        });
+        pnlMenuBar.add(lblQuanLiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 190, 40));
+
         pnlFormChinh.setBackground(new java.awt.Color(255, 255, 255));
         pnlFormChinh.setMinimumSize(new java.awt.Dimension(1150, 730));
         pnlFormChinh.setPreferredSize(new java.awt.Dimension(1150, 730));
@@ -456,8 +456,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblLichSuThuePhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel.png")));
         lblDichVu.setForeground(new Color(255, 255, 255));
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
         lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
@@ -495,8 +495,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblLichSuThuePhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel.png")));
         lblDichVu.setForeground(new Color(255, 255, 255));
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
         lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
@@ -529,8 +529,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblLichSuThuePhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel.png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
         lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
@@ -565,8 +565,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
         lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
         lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
@@ -582,40 +582,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblDangXuat.setForeground(new Color(255, 255, 255));
         lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout.png")));
     }//GEN-LAST:event_lblThietDatPhongMouseClicked
-
-    private void lblGiaoCaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGiaoCaMouseClicked
-        // TODO add your handling code here:
-        pnlFormChinh.removeAll();
-        pnlFormChinh.add(new GUI_pnl_GiaoCa());
-        lblSetTenMenu.setText("Game2K - " + lblGiaoCa.getText());
-        lblGiaoCa.setForeground(new Color(33, 150, 243));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (4).png")));
-
-        lblSoDoPhong.setForeground(new Color(255, 255, 255));
-        lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
-        lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
-        lblLichSuThuePhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel.png")));
-        lblDichVu.setForeground(new Color(255, 255, 255));
-        lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
-        lblThuNgan.setForeground(new Color(255, 255, 255));
-        lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
-        lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart.png")));
-        lblQuanLiKho.setForeground(new Color(255, 255, 255));
-        lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
-        lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
-        lblQuanLiChiPhi.setIcon(new ImageIcon(getClass().getResource("/IMG/assets (1).png")));
-        lblThietDatPhong.setForeground(new Color(255, 255, 255));
-        lblThietDatPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/bed (1).png")));
-        lblThietDatGiaPhong.setForeground(new Color(255, 255, 255));
-        lblThietDatGiaPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/card.png")));
-        lblQuanLiNguoiDung.setForeground(new Color(255, 255, 255));
-        lblQuanLiNguoiDung.setIcon(new ImageIcon(getClass().getResource("/IMG/profile-user (2).png")));
-        lblThayDoiMatKhau.setForeground(new Color(255, 255, 255));
-        lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (1).png")));
-        lblDangXuat.setForeground(new Color(255, 255, 255));
-        lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout.png")));
-    }//GEN-LAST:event_lblGiaoCaMouseClicked
 
     private void lblThietDatGiaPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThietDatGiaPhongMouseClicked
         // TODO add your handling code here:
@@ -633,8 +599,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
         lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
         lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
@@ -667,8 +633,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
         lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
         lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
@@ -719,8 +685,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
         lblDichVu.setForeground(new Color(255, 255, 255));
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
         lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
@@ -809,16 +775,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblThongKeTrongNgay.setBackground(new Color(78, 87, 103));
     }//GEN-LAST:event_lblThongKeTrongNgayMouseMoved
 
-    private void lblGiaoCaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGiaoCaMouseExited
-        // TODO add your handling code here:
-        lblGiaoCa.setBackground(new Color(62, 73, 95));
-    }//GEN-LAST:event_lblGiaoCaMouseExited
-
-    private void lblGiaoCaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGiaoCaMouseMoved
-        // TODO add your handling code here:
-        lblGiaoCa.setBackground(new Color(78, 87, 103));
-    }//GEN-LAST:event_lblGiaoCaMouseMoved
-
     private void lblQuanLiChiPhiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiChiPhiMouseExited
         // TODO add your handling code here:
         lblQuanLiChiPhi.setBackground(new Color(62, 73, 95));
@@ -895,8 +851,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
         lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
         lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
@@ -929,8 +885,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
         lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart.png")));
         lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
@@ -963,8 +919,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
         lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
         lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
@@ -997,8 +953,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
         lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
         lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
@@ -1030,8 +986,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblGiaoCa.setForeground(new Color(255, 255, 255));
-        lblGiaoCa.setIcon(new ImageIcon(getClass().getResource("/IMG/exchange (1).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
         lblQuanLiKho.setForeground(new Color(255, 255, 255));
         lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
         lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
@@ -1055,7 +1011,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
             lblThuNgan.setText(null);
             lblLichSuThuePhong.setText(null);
             lblDichVu.setText(null);
-            lblGiaoCa.setText(null);
+            lblQuanLiSanPham.setText(null);
             lblThongKeTrongNgay.setText(null);
             lblQuanLiKho.setText(null);
             lblQuanLiChiPhi.setText(null);
@@ -1074,7 +1030,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
             lblThuNgan.setText("Thu Ngân");
             lblLichSuThuePhong.setText("Lịch Sử Thuê Phòng");
             lblDichVu.setText("Minibar - Dịch Vụ");
-            lblGiaoCa.setText("Giao Ca");
+            lblQuanLiSanPham.setText("Giao Ca");
             lblThongKeTrongNgay.setText("Thống Kê Trong Ngày");
             lblQuanLiKho.setText("Quản Lí Kho");
             lblQuanLiChiPhi.setText("Quản Lí Chi Phí");
@@ -1091,6 +1047,18 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
             isShowHidden = false;
         }
     }//GEN-LAST:event_lblShowHiddenMenuMouseClicked
+
+    private void lblQuanLiSanPhamMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiSanPhamMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblQuanLiSanPhamMouseMoved
+
+    private void lblQuanLiSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiSanPhamMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblQuanLiSanPhamMouseClicked
+
+    private void lblQuanLiSanPhamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiSanPhamMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblQuanLiSanPhamMouseExited
 
     /**
      * @param args the command line arguments
@@ -1132,12 +1100,12 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     private javax.swing.JLabel lblDangXuat;
     private javax.swing.JLabel lblDichVu;
     private javax.swing.JLabel lblExit;
-    private javax.swing.JLabel lblGiaoCa;
     private javax.swing.JLabel lblHidden;
     private javax.swing.JLabel lblLichSuThuePhong;
     private javax.swing.JLabel lblQuanLiChiPhi;
     private javax.swing.JLabel lblQuanLiKho;
     private javax.swing.JLabel lblQuanLiNguoiDung;
+    private javax.swing.JLabel lblQuanLiSanPham;
     private javax.swing.JLabel lblSetTenMenu;
     private javax.swing.JLabel lblShowHiddenMenu;
     private javax.swing.JLabel lblSoDoPhong;
