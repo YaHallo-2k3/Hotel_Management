@@ -61,7 +61,6 @@ public class BLL_Phong {
         try {
             while (rs.next()) {
                 DTO_Phong phong = new DTO_Phong();
-                phong.setSTT(rs.getInt("STT"));
                 phong.setMaPhong(rs.getString("MaPhong"));
                 phong.setTenPhong(rs.getString("TenPhong"));
                 phong.setMaTang(rs.getString("MaTang"));
@@ -81,7 +80,7 @@ public class BLL_Phong {
         tblModel.setRowCount(0);
         for (DTO_Phong phong : array) {
             Object obj[] = new Object[6];
-            obj[0] = phong.getSTT();
+            obj[0] = array;
             obj[1] = phong.getMaPhong();
             obj[2] = phong.getTenPhong();
             obj[3] = BLL_MaTenLoai.findTenTang(phong.getMaTang());

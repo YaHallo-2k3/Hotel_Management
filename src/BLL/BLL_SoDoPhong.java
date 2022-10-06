@@ -39,7 +39,6 @@ public class BLL_SoDoPhong {
         try {
             while (rs.next()) {
                 DTO_Phong phong = new DTO_Phong();
-                phong.setSTT(rs.getInt("STT"));
                 phong.setMaPhong(rs.getString("MaPhong"));
                 phong.setTenPhong(rs.getString("TenPhong"));
                 phong.setMaTang(rs.getString("MaTang"));

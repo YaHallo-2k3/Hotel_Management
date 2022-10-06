@@ -11,7 +11,6 @@ package DTO;
  */
 public class DTO_Phong {
 
-    public int STT;
     public String maPhong;
     public String tenPhong;
     public String maTang;
@@ -27,14 +26,6 @@ public class DTO_Phong {
         this.maTang = maTang;
         this.maLoaiPhong = maLoaiPhong;
         this.maTrangThaiPhong = maTrangThaiPhong;
-    }
-
-    public int getSTT() {
-        return STT;
-    }
-
-    public void setSTT(int STT) {
-        this.STT = STT;
     }
 
     public String getMaPhong() {
