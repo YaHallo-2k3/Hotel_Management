@@ -44,4 +44,14 @@ public class DAL_ThuePhong {
         String sqlSelect = "SELECT COUNT(*) FROM ThuePhong WHERE MaPhieuThue LIKE ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + thoiGian + "%");
     }
+    
+    public static ResultSet count() {
+        String sqlSelect = "SELECT COUNT(*) FROM ThuePhong";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    }
+    
+    public static ResultSet rowNumber(int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuThue) AS RowNumber FROM ThuePhong) AS ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE ThuePhong.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
+    }
 }

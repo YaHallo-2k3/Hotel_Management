@@ -70,7 +70,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             } else if (lblSetTrangThai.getText().equals("Trả Phòng")) {
                 lblSetTrangThai.setBackground(new Color(255, 153, 0));
             }
-            
+
             lblThanhToanPhong.setVisible(true);
 
             try {

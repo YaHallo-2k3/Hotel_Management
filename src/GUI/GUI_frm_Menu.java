@@ -1042,7 +1042,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
             pnlMenuBar.setPreferredSize(new Dimension(200, 730));
             pnlFormChinh.setPreferredSize(new Dimension(1150, 730));
-            GUI_pnl_SoDoPhong.sdoChuThich.setPreferredSize(new Dimension(1150, 110));
 
             isShowHidden = false;
         }

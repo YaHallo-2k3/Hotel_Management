@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import BLL.BLL_ThuNgan;
 import GUI.GUI_pnl_ChiTietPhong;
 import java.awt.GridLayout;
 
@@ -21,9 +22,9 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
      */
     public GUI_pnl_ThuNgan() {
         initComponents();
-        for (int i = 1; i <= 10; i++) {
-            pnlFormChinh.add(new GUI_pnl_ChiTietThuNgan().sdoChiTietThuNgan);
+        for (int i = 1; i <= BLL_ThuNgan.countThuePhong(); i++) {
             index = i;
+            pnlFormChinh.add(new GUI_pnl_ChiTietThuNgan().sdoChiTietThuNgan);
         }
     }
 

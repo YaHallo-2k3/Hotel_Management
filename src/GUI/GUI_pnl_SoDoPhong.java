@@ -31,16 +31,6 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         }
     }
 
-    public void test() {
-        if (GUI_frm_Menu.isShowHidden) {
-            this.setPreferredSize(new Dimension(1300, 730));
-            sdoChuThich.setPreferredSize(new Dimension(1300, 110));
-        } else {
-            this.setPreferredSize(new Dimension(1150, 730));
-            sdoChuThich.setPreferredSize(new Dimension(1150, 110));
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

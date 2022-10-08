@@ -26,7 +26,7 @@ import javax.swing.ImageIcon;
  * @author CherryCe
  */
 public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
-    
+
     boolean isShowHidden = false;
     boolean isDonPhong = false;
     boolean isKhachRaNgoai = false;
@@ -41,14 +41,14 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         lblDonPhong.setVisible(false);
         lblRaNgoai.setVisible(false);
         isHidden();
-        
+
     }
-    
+
     public void load() {
         ArrayList<DTO_Phong> arrayPhong = BLL_SoDoPhong.selectPhong(GUI_pnl_SoDoPhong.index);
         BLL_SoDoPhong.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong, lblSetTrangThai);
-        ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_SoDoPhong.selectThoiGian(lblSoPhong.getText());
-        BLL_SoDoPhong.loadThoiGian(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblSetDatCoc);
+        ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_SoDoPhong.selectThuePhong(lblSoPhong.getText());
+        BLL_SoDoPhong.loadThuePhong(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblSetDatCoc);
         if (lblSetTrangThai.getText().equals("Phòng Trống")) {
             lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/bed (3).png")));
             sdoChiTietPhong.setBackground(new Color(97, 177, 90));
@@ -64,13 +64,12 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         } else {
             if (lblSetTrangThai.getText().equals("Có Khách")) {
                 sdoChiTietPhong.setBackground(new Color(255, 142, 113));
-                lblGioPhutDi.setText(HELPER_ChuyenDoi.getTimeNow("HH:mm"));
             } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
                 sdoChiTietPhong.setBackground(new Color(102, 153, 255));
             } else if (lblSetTrangThai.getText().equals("Trả Phòng")) {
                 sdoChiTietPhong.setBackground(new Color(255, 153, 0));
             }
-            
+
             lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (2).png")));
             lblTongThoiGian.setVisible(true);
             lblNgayDefault.setVisible(false);
@@ -82,17 +81,17 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             tongThoiGian();
         }
     }
-    
+
     public void tongThoiGian() {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
         Date d1 = null;
         Date d2 = null;
-        
+
         String dateStart = lblGioPhutDen.getText();
         String dateStop = lblGioPhutDi.getText();
-        
+
         try {
             String ngayDen = HELPER_ChuyenDoi.convertDate("dd-MM", "yyyy-MM-dd", lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yy"));
             String ngayDi = HELPER_ChuyenDoi.convertDate("dd-MM", "yyyy-MM-dd", lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yy"));
@@ -105,15 +104,15 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         long noDay = (c2.getTime().getTime() - c1.getTime().getTime()) / (24 * 3600 * 1000);
         long diff = (d2.getTime() - d1.getTime()) / 1000;
         long diffHours = diff / (60 * 60);
         long diffMinutes = (diff % (60 * 60)) / 60;
-        
+
         lblTongThoiGian.setText(String.valueOf(noDay + "d " + diffHours + "h " + diffMinutes + "m"));
     }
-    
+
     public void isHidden() {
         lblNgayDen.setVisible(false);
         lblNgayDi.setVisible(false);
@@ -125,7 +124,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         spt_1.setVisible(false);
         spt_2.setVisible(false);
     }
-    
+
     public void isShow() {
         lblNgayDen.setVisible(true);
         lblNgayDi.setVisible(true);
@@ -137,7 +136,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         spt_1.setVisible(true);
         spt_2.setVisible(true);
     }
-    
+
     public void showPopUp(MouseEvent evt) {
         popMenu.show(this, evt.getX(), evt.getY());
     }
