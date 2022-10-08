@@ -167,4 +167,28 @@ public class BLL_MaTenLoai {
         }
         return null;
     }
+    
+    public static String findTenNhanVien(String maNhanVien) {
+        ResultSet rs = DAL_MaTenLoai.findTenNhanVien(maNhanVien);
+        try {
+            while (rs.next()) {
+                return rs.getString("TenNhanVien");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String findMaNhanVien(String tenNhanVien) {
+        ResultSet rs = DAL_MaTenLoai.findMaPhong(tenNhanVien);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaNhanVien");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

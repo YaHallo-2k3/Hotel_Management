@@ -9,6 +9,8 @@ import DAL.DAL_MaTenLoai;
 import DAL.DAL_Phong;
 import DAL.DAL_SoDoPhong;
 import DTO.DTO_Phong;
+import DTO.DTO_ThuePhong;
+import HELPER.HELPER_ChuyenDoi;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -33,7 +35,7 @@ public class BLL_SoDoPhong {
         return 0;
     }
 
-    public static ArrayList<DTO_Phong> select(int index) {
+    public static ArrayList<DTO_Phong> selectPhong(int index) {
         ResultSet rs = DAL_SoDoPhong.rowNumber(index);
         ArrayList<DTO_Phong> array = new ArrayList<>();
         try {
@@ -52,11 +54,50 @@ public class BLL_SoDoPhong {
         return array;
     }
 
-    public static void load(ArrayList<DTO_Phong> array, JLabel lblSetPhong, JLabel lblSetLoaiPhong, JLabel lblSetTrangThaiPhong) {
+    public static ArrayList<DTO_ThuePhong> selectThoiGian(String tenPhong) {
+        ResultSet rs = DAL_SoDoPhong.selectThoiGian(tenPhong);
+        ArrayList<DTO_ThuePhong> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_ThuePhong thuePhong = new DTO_ThuePhong();
+                thuePhong.setMaPhong(rs.getString("MaPhong"));
+                thuePhong.setMaPhieuThue(rs.getString("MaPhieuThue"));
+                thuePhong.setMaNhanVien(rs.getString("MaNhanVien"));
+                thuePhong.setNgayTao(rs.getTimestamp("NgayTao"));
+                thuePhong.setNgayDen(rs.getTimestamp("NgayDen"));
+                thuePhong.setNgayDi(rs.getTimestamp("NgayDi"));
+                thuePhong.setCMND(rs.getString("CMND"));
+                thuePhong.setTenKhachHang(rs.getString("TenKhachHang"));
+                thuePhong.setSoLuong(rs.getInt("SoLuongKhach"));
+                thuePhong.setGhiChu(rs.getString("GhiChu"));
+                thuePhong.setTienCoc(rs.getInt("TienCoc"));
+                thuePhong.setGiamGia(rs.getInt("GiamGia"));
+                thuePhong.setTrangThaiThanhToan(rs.getInt("TrangThaiThanhToan"));
+                array.add(thuePhong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public static void loadPhong(ArrayList<DTO_Phong> array, JLabel lblSetPhong, JLabel lblSetLoaiPhong, JLabel lblSetTrangThaiPhong) {
         for (DTO_Phong phong : array) {
             lblSetPhong.setText(phong.getTenPhong());
             lblSetLoaiPhong.setText(BLL_MaTenLoai.findTenLoaiPhong(phong.getMaLoaiPhong()));
             lblSetTrangThaiPhong.setText(BLL_MaTenLoai.findTenTrangThaiPhong(phong.getMaTrangThaiPhong()));
+        }
+    }
+
+    public static void loadThoiGian(ArrayList<DTO_ThuePhong> array, JLabel lblNgayDen, JLabel lblThangDen, JLabel lblGioPhutDen, JLabel lblNgayDi, JLabel lblThangDi, JLabel lblGioPhutDi, JLabel lblDatCoc) {
+        for (DTO_ThuePhong thuePhong : array) {
+            lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd", thuePhong.getNgayDen()));
+            lblThangDen.setText(HELPER_ChuyenDoi.getNgayString("MM", thuePhong.getNgayDen()));
+            lblGioPhutDen.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDen()));
+            lblNgayDi.setText(HELPER_ChuyenDoi.getNgayString("dd", thuePhong.getNgayDen()));
+            lblThangDi.setText(HELPER_ChuyenDoi.getNgayString("MM", thuePhong.getNgayDen()));
+            lblGioPhutDi.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDen()));
+            lblDatCoc.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getTienCoc()));
         }
     }
 

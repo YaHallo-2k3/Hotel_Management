@@ -15,33 +15,35 @@ public class DTO_ThuePhong {
 
     public String maPhong;
     public String maPhieuThue;
-    public String maTrangThaiPhong;
     public String maNhanVien;
     public Date ngayTao;
     public Date ngayDen;
     public Date ngayDi;
-    public String CCCD;
+    public String CMND;
+    public String tenKhachHang;
     public int soLuong;
     public String ghiChu;
-    public int giamGia;
     public int tienCoc;
+    public int giamGia;
+    public int trangThaiThanhToan;
 
     public DTO_ThuePhong() {
     }
 
-    public DTO_ThuePhong(String maPhong, String maPhieuThue, String maTrangThaiPhong, String maNhanVien, Date ngayTao, Date ngayDen, Date ngayDi, String CCCD, int soLuong, String ghiChu, int giamGia, int tienCoc) {
+    public DTO_ThuePhong(String maPhong, String maPhieuThue, String maNhanVien, Date ngayTao, Date ngayDen, Date ngayDi, String CMND, String tenKhachHang, int soLuong, String ghiChu, int tienCoc, int giamGia, int trangThaiThanhToan) {
         this.maPhong = maPhong;
         this.maPhieuThue = maPhieuThue;
-        this.maTrangThaiPhong = maTrangThaiPhong;
         this.maNhanVien = maNhanVien;
         this.ngayTao = ngayTao;
         this.ngayDen = ngayDen;
         this.ngayDi = ngayDi;
-        this.CCCD = CCCD;
+        this.CMND = CMND;
+        this.tenKhachHang = tenKhachHang;
         this.soLuong = soLuong;
         this.ghiChu = ghiChu;
-        this.giamGia = giamGia;
         this.tienCoc = tienCoc;
+        this.giamGia = giamGia;
+        this.trangThaiThanhToan = trangThaiThanhToan;
     }
 
     public String getMaPhong() {
@@ -58,14 +60,6 @@ public class DTO_ThuePhong {
 
     public void setMaPhieuThue(String maPhieuThue) {
         this.maPhieuThue = maPhieuThue;
-    }
-
-    public String getMaTrangThaiPhong() {
-        return maTrangThaiPhong;
-    }
-
-    public void setMaTrangThaiPhong(String maTrangThaiPhong) {
-        this.maTrangThaiPhong = maTrangThaiPhong;
     }
 
     public String getMaNhanVien() {
@@ -100,12 +94,20 @@ public class DTO_ThuePhong {
         this.ngayDi = ngayDi;
     }
 
-    public String getCCCD() {
-        return CCCD;
+    public String getCMND() {
+        return CMND;
     }
 
-    public void setCCCD(String CCCD) {
-        this.CCCD = CCCD;
+    public void setCMND(String CMND) {
+        this.CMND = CMND;
+    }
+
+    public String getTenKhachHang() {
+        return tenKhachHang;
+    }
+
+    public void setTenKhachHang(String tenKhachHang) {
+        this.tenKhachHang = tenKhachHang;
     }
 
     public int getSoLuong() {
@@ -124,6 +126,14 @@ public class DTO_ThuePhong {
         this.ghiChu = ghiChu;
     }
 
+    public int getTienCoc() {
+        return tienCoc;
+    }
+
+    public void setTienCoc(int tienCoc) {
+        this.tienCoc = tienCoc;
+    }
+
     public int getGiamGia() {
         return giamGia;
     }
@@ -132,11 +142,11 @@ public class DTO_ThuePhong {
         this.giamGia = giamGia;
     }
 
-    public int getTienCoc() {
-        return tienCoc;
+    public int getTrangThaiThanhToan() {
+        return trangThaiThanhToan;
     }
 
-    public void setTienCoc(int tienCoc) {
-        this.tienCoc = tienCoc;
+    public void setTrangThaiThanhToan(int trangThaiThanhToan) {
+        this.trangThaiThanhToan = trangThaiThanhToan;
     }
 }

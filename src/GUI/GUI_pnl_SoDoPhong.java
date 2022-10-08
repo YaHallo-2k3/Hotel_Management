@@ -107,7 +107,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblSetDatTruoc.setOpaque(true);
         sdoChuThich.add(lblSetDatTruoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 50, 110, 20));
 
-        lblSetPhongTrong.setBackground(new java.awt.Color(0, 255, 51));
+        lblSetPhongTrong.setBackground(new java.awt.Color(97, 177, 90));
         lblSetPhongTrong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetPhongTrong.setForeground(new java.awt.Color(255, 255, 255));
         lblSetPhongTrong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -125,7 +125,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblSetTraPhong.setOpaque(true);
         sdoChuThich.add(lblSetTraPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, 110, 20));
 
-        lblSetCoKhach.setBackground(new java.awt.Color(255, 102, 102));
+        lblSetCoKhach.setBackground(new java.awt.Color(255, 142, 113));
         lblSetCoKhach.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetCoKhach.setForeground(new java.awt.Color(255, 255, 255));
         lblSetCoKhach.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

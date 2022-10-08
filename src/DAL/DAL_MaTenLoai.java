@@ -67,4 +67,14 @@ public class DAL_MaTenLoai {
         String sqlSelect = "SELECT * FROM Phong WHERE TenPhong = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tenPhong);
     }
+    
+    public static ResultSet findTenNhanVien(String maNhanVien) {
+        String sqlSelect = "SELECT * FROM NhanVien WHERE MaNhanVien = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maNhanVien);
+    }
+
+    public static ResultSet findMaNhanVien(String tenNhanVien) {
+        String sqlSelect = "SELECT * FROM NhanVien WHERE TenNhanVien = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tenNhanVien);
+    }
 }

@@ -10,9 +10,14 @@ import BLL.BLL_SoDoPhong;
 import BLL.BLL_SoTang;
 import DTO.DTO_Phong;
 import DTO.DTO_SoTang;
+import DTO.DTO_ThuePhong;
+import HELPER.HELPER_ChuyenDoi;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
@@ -21,7 +26,7 @@ import javax.swing.ImageIcon;
  * @author CherryCe
  */
 public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
-
+    
     boolean isShowHidden = false;
     boolean isDonPhong = false;
     boolean isKhachRaNgoai = false;
@@ -36,17 +41,20 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         lblDonPhong.setVisible(false);
         lblRaNgoai.setVisible(false);
         isHidden();
-
+        
     }
-
+    
     public void load() {
-        ArrayList<DTO_Phong> array = BLL_SoDoPhong.select(GUI_pnl_SoDoPhong.index);
-        BLL_SoDoPhong.load(array, lblSoPhong, lblLoaiPhong, lblSetTrangThai);
+        ArrayList<DTO_Phong> arrayPhong = BLL_SoDoPhong.selectPhong(GUI_pnl_SoDoPhong.index);
+        BLL_SoDoPhong.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong, lblSetTrangThai);
+        ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_SoDoPhong.selectThoiGian(lblSoPhong.getText());
+        BLL_SoDoPhong.loadThoiGian(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblSetDatCoc);
         if (lblSetTrangThai.getText().equals("Phòng Trống")) {
             lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/bed (3).png")));
+            sdoChiTietPhong.setBackground(new Color(97, 177, 90));
             lblTongThoiGian.setVisible(false);
             lblNgayDefault.setVisible(true);
-            lblTongThoiGian.setVisible(false);
+            lblNgayDefault.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy"));
             lblTongTien.setVisible(false);
             lblDatCoc.setVisible(false);
             lblConLai.setVisible(false);
@@ -54,34 +62,82 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             lblSetDatCoc.setText(null);
             lblSetConLai.setText(null);
         } else {
+            if (lblSetTrangThai.getText().equals("Có Khách")) {
+                sdoChiTietPhong.setBackground(new Color(255, 142, 113));
+                lblGioPhutDi.setText(HELPER_ChuyenDoi.getTimeNow("HH:mm"));
+            } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
+                sdoChiTietPhong.setBackground(new Color(102, 153, 255));
+            } else if (lblSetTrangThai.getText().equals("Trả Phòng")) {
+                sdoChiTietPhong.setBackground(new Color(255, 153, 0));
+            }
+            
             lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (2).png")));
+            lblTongThoiGian.setVisible(true);
+            lblNgayDefault.setVisible(false);
+            lblTongTien.setVisible(true);
+            lblDatCoc.setVisible(true);
+            lblConLai.setVisible(true);
+            lblSetTongTien.setText(null);
+            lblSetConLai.setText(null);
+            tongThoiGian();
         }
     }
-
+    
+    public void tongThoiGian() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        Date d1 = null;
+        Date d2 = null;
+        
+        String dateStart = lblGioPhutDen.getText();
+        String dateStop = lblGioPhutDi.getText();
+        
+        try {
+            String ngayDen = HELPER_ChuyenDoi.convertDate("dd-MM", "yyyy-MM-dd", lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yy"));
+            String ngayDi = HELPER_ChuyenDoi.convertDate("dd-MM", "yyyy-MM-dd", lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yy"));
+            java.sql.Date date1 = java.sql.Date.valueOf(ngayDen);
+            java.sql.Date date2 = java.sql.Date.valueOf(ngayDi);
+            c1.setTime(date1);
+            c2.setTime(date2);
+            d1 = (Date) format.parse(dateStart);
+            d2 = (Date) format.parse(dateStop);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        long noDay = (c2.getTime().getTime() - c1.getTime().getTime()) / (24 * 3600 * 1000);
+        long diff = (d2.getTime() - d1.getTime()) / 1000;
+        long diffHours = diff / (60 * 60);
+        long diffMinutes = (diff % (60 * 60)) / 60;
+        
+        lblTongThoiGian.setText(String.valueOf(noDay + "d " + diffHours + "h " + diffMinutes + "m"));
+    }
+    
     public void isHidden() {
-        lblNgayVao.setVisible(false);
-        lblNgayRa.setVisible(false);
-        lblGioPhutVao.setVisible(false);
-        lblThoiGianRa.setVisible(false);
-        lblThangVao.setVisible(false);
-        lblThangRa.setVisible(false);
-        lblNgayVao.setVisible(false);
+        lblNgayDen.setVisible(false);
+        lblNgayDi.setVisible(false);
+        lblGioPhutDen.setVisible(false);
+        lblGioPhutDi.setVisible(false);
+        lblThangDen.setVisible(false);
+        lblThangDi.setVisible(false);
+        lblNgayDen.setVisible(false);
         spt_1.setVisible(false);
         spt_2.setVisible(false);
     }
-
+    
     public void isShow() {
-        lblNgayVao.setVisible(true);
-        lblNgayRa.setVisible(true);
-        lblGioPhutVao.setVisible(true);
-        lblThoiGianRa.setVisible(true);
-        lblThangVao.setVisible(true);
-        lblThangRa.setVisible(true);
-        lblNgayVao.setVisible(true);
+        lblNgayDen.setVisible(true);
+        lblNgayDi.setVisible(true);
+        lblGioPhutDen.setVisible(true);
+        lblGioPhutDi.setVisible(true);
+        lblThangDen.setVisible(true);
+        lblThangDi.setVisible(true);
+        lblNgayDen.setVisible(true);
         spt_1.setVisible(true);
         spt_2.setVisible(true);
     }
-
+    
     public void showPopUp(MouseEvent evt) {
         popMenu.show(this, evt.getX(), evt.getY());
     }
@@ -101,10 +157,10 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniKhachRaNgoai = new javax.swing.JMenuItem();
         mniThanhToanNhom = new javax.swing.JMenuItem();
         sdoChiTietPhong = new HELPER.PanelShadow();
-        lblThoiGianRa = new javax.swing.JLabel();
+        lblGioPhutDi = new javax.swing.JLabel();
         spt_1 = new javax.swing.JSeparator();
-        lblNgayRa = new javax.swing.JLabel();
-        lblThangRa = new javax.swing.JLabel();
+        lblNgayDi = new javax.swing.JLabel();
+        lblThangDi = new javax.swing.JLabel();
         lblSetDatCoc = new javax.swing.JLabel();
         lblDonPhong = new javax.swing.JLabel();
         lblDatCoc = new javax.swing.JLabel();
@@ -112,12 +168,12 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         lblSetTongTien = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
         lblSetConLai = new javax.swing.JLabel();
-        lblGioPhutVao = new javax.swing.JLabel();
+        lblGioPhutDen = new javax.swing.JLabel();
         lblLoaiPhong = new javax.swing.JLabel();
         lblConLai = new javax.swing.JLabel();
-        lblThangVao = new javax.swing.JLabel();
+        lblThangDen = new javax.swing.JLabel();
         lblSetTrangThai = new javax.swing.JLabel();
-        lblNgayVao = new javax.swing.JLabel();
+        lblNgayDen = new javax.swing.JLabel();
         lblIconTrangThai = new javax.swing.JLabel();
         lblSoPhong = new javax.swing.JLabel();
         lblRaNgoai = new javax.swing.JLabel();
@@ -218,29 +274,29 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         });
         sdoChiTietPhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblThoiGianRa.setBackground(new java.awt.Color(255, 255, 255));
-        lblThoiGianRa.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblThoiGianRa.setForeground(new java.awt.Color(255, 255, 255));
-        lblThoiGianRa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThoiGianRa.setText("19:09");
-        sdoChiTietPhong.add(lblThoiGianRa, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 40, 20));
+        lblGioPhutDi.setBackground(new java.awt.Color(255, 255, 255));
+        lblGioPhutDi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblGioPhutDi.setForeground(new java.awt.Color(255, 255, 255));
+        lblGioPhutDi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGioPhutDi.setText("19:09");
+        sdoChiTietPhong.add(lblGioPhutDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 40, 20));
         sdoChiTietPhong.add(spt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 20, 10));
 
-        lblNgayRa.setBackground(new java.awt.Color(255, 255, 255));
-        lblNgayRa.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblNgayRa.setForeground(new java.awt.Color(255, 255, 255));
-        lblNgayRa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNgayRa.setText("16");
-        lblNgayRa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        sdoChiTietPhong.add(lblNgayRa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 20, 20));
+        lblNgayDi.setBackground(new java.awt.Color(255, 255, 255));
+        lblNgayDi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblNgayDi.setForeground(new java.awt.Color(255, 255, 255));
+        lblNgayDi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNgayDi.setText("16");
+        lblNgayDi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sdoChiTietPhong.add(lblNgayDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 20, 20));
 
-        lblThangRa.setBackground(new java.awt.Color(255, 255, 255));
-        lblThangRa.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblThangRa.setForeground(new java.awt.Color(255, 255, 255));
-        lblThangRa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThangRa.setText("9");
-        lblThangRa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        sdoChiTietPhong.add(lblThangRa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 20, 30));
+        lblThangDi.setBackground(new java.awt.Color(255, 255, 255));
+        lblThangDi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblThangDi.setForeground(new java.awt.Color(255, 255, 255));
+        lblThangDi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblThangDi.setText("9");
+        lblThangDi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sdoChiTietPhong.add(lblThangDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 20, 30));
 
         lblSetDatCoc.setBackground(new java.awt.Color(255, 255, 255));
         lblSetDatCoc.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -279,12 +335,12 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         lblSetConLai.setText("1,200k");
         sdoChiTietPhong.add(lblSetConLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 50, 30));
 
-        lblGioPhutVao.setBackground(new java.awt.Color(255, 255, 255));
-        lblGioPhutVao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblGioPhutVao.setForeground(new java.awt.Color(255, 255, 255));
-        lblGioPhutVao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGioPhutVao.setText("19:09");
-        sdoChiTietPhong.add(lblGioPhutVao, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 40, 20));
+        lblGioPhutDen.setBackground(new java.awt.Color(255, 255, 255));
+        lblGioPhutDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblGioPhutDen.setForeground(new java.awt.Color(255, 255, 255));
+        lblGioPhutDen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGioPhutDen.setText("19:09");
+        sdoChiTietPhong.add(lblGioPhutDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 40, 20));
 
         lblLoaiPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -298,13 +354,13 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         lblConLai.setText("Còn Lại");
         sdoChiTietPhong.add(lblConLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, 30));
 
-        lblThangVao.setBackground(new java.awt.Color(255, 255, 255));
-        lblThangVao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblThangVao.setForeground(new java.awt.Color(255, 255, 255));
-        lblThangVao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThangVao.setText("9");
-        lblThangVao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        sdoChiTietPhong.add(lblThangVao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 20, 30));
+        lblThangDen.setBackground(new java.awt.Color(255, 255, 255));
+        lblThangDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblThangDen.setForeground(new java.awt.Color(255, 255, 255));
+        lblThangDen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblThangDen.setText("9");
+        lblThangDen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sdoChiTietPhong.add(lblThangDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 20, 30));
 
         lblSetTrangThai.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTrangThai.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -313,13 +369,13 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         lblSetTrangThai.setText("Có Khách");
         sdoChiTietPhong.add(lblSetTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 70, 20));
 
-        lblNgayVao.setBackground(new java.awt.Color(255, 255, 255));
-        lblNgayVao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblNgayVao.setForeground(new java.awt.Color(255, 255, 255));
-        lblNgayVao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNgayVao.setText("16");
-        lblNgayVao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        sdoChiTietPhong.add(lblNgayVao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 20, 20));
+        lblNgayDen.setBackground(new java.awt.Color(255, 255, 255));
+        lblNgayDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblNgayDen.setForeground(new java.awt.Color(255, 255, 255));
+        lblNgayDen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNgayDen.setText("16");
+        lblNgayDen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sdoChiTietPhong.add(lblNgayDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 20, 20));
 
         lblIconTrangThai.setBackground(new java.awt.Color(255, 255, 255));
         lblIconTrangThai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/hotel-sign (2).png"))); // NOI18N
@@ -338,11 +394,11 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         sdoChiTietPhong.add(lblRaNgoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 30, 20));
 
         lblTongThoiGian.setBackground(new java.awt.Color(255, 255, 255));
-        lblTongThoiGian.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblTongThoiGian.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
         lblTongThoiGian.setForeground(new java.awt.Color(62, 73, 95));
         lblTongThoiGian.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongThoiGian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/circle (1).png"))); // NOI18N
-        lblTongThoiGian.setText("6h30m");
+        lblTongThoiGian.setText("8d 6h 30m");
         lblTongThoiGian.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblTongThoiGian.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -363,7 +419,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         lblNgayDefault.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lblNgayDefault.setForeground(new java.awt.Color(255, 255, 255));
         lblNgayDefault.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNgayDefault.setText("22/09/22");
+        lblNgayDefault.setText("22-09-2022");
         sdoChiTietPhong.add(lblNgayDefault, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 100, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -463,21 +519,21 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     public javax.swing.JLabel lblConLai;
     public javax.swing.JLabel lblDatCoc;
     public javax.swing.JLabel lblDonPhong;
-    public javax.swing.JLabel lblGioPhutVao;
+    public javax.swing.JLabel lblGioPhutDen;
+    public javax.swing.JLabel lblGioPhutDi;
     public javax.swing.JLabel lblIconTrangThai;
     public static javax.swing.JLabel lblLoaiPhong;
     public javax.swing.JLabel lblNgayDefault;
-    public javax.swing.JLabel lblNgayRa;
-    public javax.swing.JLabel lblNgayVao;
+    public javax.swing.JLabel lblNgayDen;
+    public javax.swing.JLabel lblNgayDi;
     public javax.swing.JLabel lblRaNgoai;
     public javax.swing.JLabel lblSetConLai;
     public javax.swing.JLabel lblSetDatCoc;
     public javax.swing.JLabel lblSetTongTien;
     public javax.swing.JLabel lblSetTrangThai;
     public static javax.swing.JLabel lblSoPhong;
-    public javax.swing.JLabel lblThangRa;
-    public javax.swing.JLabel lblThangVao;
-    public javax.swing.JLabel lblThoiGianRa;
+    public javax.swing.JLabel lblThangDen;
+    public javax.swing.JLabel lblThangDi;
     public javax.swing.JLabel lblTongThoiGian;
     public javax.swing.JLabel lblTongTien;
     public javax.swing.JMenuItem mniDatPhong;

@@ -13,6 +13,7 @@ import DTO.DTO_Phong;
 import DTO.DTO_ThuePhong;
 import HELPER.HELPER_ChuyenDoi;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -45,14 +47,40 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     }
 
     public void trangThaiPhong() {
+        JLabel dateTimeNgayDen = new JLabel();
+        JLabel dateTimeNgayDi = new JLabel();
+
+        ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuePhong.select(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), BLL_MaTenLoai.findMaTrangThaiPhong(lblSetTrangThai.getText()));
+        BLL_ThuePhong.load(arrayThuePhong, lblSetMaPhieuThue, lblSetNhanVien, lblNgayTao, dateTimeNgayDen, dateTimeNgayDi, txtCMND, txtTenKhach, txtSoLuong, txtGhiChu, txtTienCoc, txtGiamGia);
+
         if (lblSetTrangThai.getText().equals("Phòng Trống")) {
+            lblSetTrangThai.setBackground(new Color(97, 177, 90));
             lblSetMaPhieuThue.setText(setMaPhieuThue());
-            lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd/MM/yy HH:mm"));
-            dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd/MM/yyyy", HELPER_ChuyenDoi.getTimeNow("dd/MM/yyyy")));
-            dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd/MM/yyyy", HELPER_ChuyenDoi.getTimeNow("dd/MM/yyyy")));
+            lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm"));
+            dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy")));
+            dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy")));
             lblGioPhutDen.setText(HELPER_ChuyenDoi.getTimeNow("HH:mm"));
             lblGioPhutDi.setText(HELPER_ChuyenDoi.getTimeNow("HH:mm"));
             lblThanhToanPhong.setVisible(false);
+        } else {
+            if (lblSetTrangThai.getText().equals("Có Khách")) {
+                lblSetTrangThai.setBackground(new Color(255, 142, 113));
+            } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
+                lblSetTrangThai.setBackground(new Color(102, 153, 255));
+            } else if (lblSetTrangThai.getText().equals("Trả Phòng")) {
+                lblSetTrangThai.setBackground(new Color(255, 153, 0));
+            }
+            
+            lblThanhToanPhong.setVisible(true);
+
+            try {
+                dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDen.getText()));
+                lblGioPhutDen.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH:mm", dateTimeNgayDen.getText()));
+                dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDi.getText()));
+                lblGioPhutDi.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH:mm", dateTimeNgayDi.getText()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -89,8 +117,8 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         String dateStop = lblGioPhutDi.getText();
 
         try {
-            String ngayDen = HELPER_ChuyenDoi.convertDate("dd/MM/yyyy", "yyyy-MM-dd", HELPER_ChuyenDoi.getNgayString("dd/MM/yyyy", dateNgayDen.getDate()));
-            String ngayDi = HELPER_ChuyenDoi.convertDate("dd/MM/yyyy", "yyyy-MM-dd", HELPER_ChuyenDoi.getNgayString("dd/MM/yyyy", dateNgayDi.getDate()));
+            String ngayDen = HELPER_ChuyenDoi.convertDate("dd-MM-yyyy", "yyyy-MM-dd", HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()));
+            String ngayDi = HELPER_ChuyenDoi.convertDate("dd-MM-yyyy", "yyyy-MM-dd", HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()));
             java.sql.Date date1 = java.sql.Date.valueOf(ngayDen);
             java.sql.Date date2 = java.sql.Date.valueOf(ngayDi);
             c1.setTime(date1);
@@ -109,29 +137,32 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblTongThoiGian.setText(String.valueOf(noDay + "d " + diffHours + "h " + diffMinutes + "m"));
     }
 
-    public void addthuePhong() {
-        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd/MM/yy", dateNgayDen.getDate()) + " " + lblGioPhutDen.getText();
-        String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd/MM/yy", dateNgayDi.getDate()) + " " + lblGioPhutDi.getText();
+//    public void validate() {
+//        if (lblSetSoPhong.getText().isEmpty() || lblSetMaPhieuThue.getText().isEmpty() || lblSetTrangThai.getText().isEmpty() || lblSetNhanVien.getText().isEmpty() || lblSetNgayTao.getText().isEmpty() || dateNgayDen.getDate().equals(null) || lblGioPhutDen.getText().isEmpty() || dateNgayDi.getDate().equals(null) || lblGioPhutDi.getText().isEmpty() || txtCMND.getText().isEmpty() || txtTenKhach.getText().isEmpty() || txtSoLuong.getText().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Dữ Liệu Không Được Để Trống !!!");
+//        }
+//       
+//    }
+    public void addThuePhong() {
+//        validate();
+        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + lblGioPhutDen.getText();
+        String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + lblGioPhutDi.getText();
 
-        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetTrangThai.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd/MM/yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd/MM/yy", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd/MM/yy", ngayGioDi), txtCCCD.getText(), Integer.parseInt(txtSoLuong.getText()), txtGhiChu.getText(), Integer.parseInt(txtGiamGia.getText()), Integer.parseInt(txtDatCoc.getText()));
+        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyyy HH:mm", ngayGioDen), null, txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), 1);
         BLL_ThuePhong.add(thuePhong);
-
     }
 
-    public void editthuePhong(int index) {
-        String ngayGioDen = new SimpleDateFormat("dd/MM/yy").format(dateNgayDen.getDate()) + " " + lblGioPhutDen.getText();
-        String ngayGioDi = new SimpleDateFormat("dd/MM/yy").format(dateNgayDi.getDate()) + " " + lblGioPhutDi.getText();
+    public void editThuePhong(int index) {
+//        validate();
+        String ngayGioDen = new SimpleDateFormat("dd-MM-yyyy").format(dateNgayDen.getDate()) + " " + lblGioPhutDen.getText();
+        String ngayGioDi = new SimpleDateFormat("dd-MM-yyyy").format(dateNgayDi.getDate()) + " " + lblGioPhutDi.getText();
 
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
-        }
-
-        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetTrangThai.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd/MM/yy HH:mm", lblNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd/MM/yy", ngayGioDen), null, txtCCCD.getText(), Integer.parseInt(txtSoLuong.getText()), txtGhiChu.getText(), Integer.parseInt(txtGiamGia.getText()), Integer.parseInt(txtDatCoc.getText()));
+        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtCMND.getText(), txtTenKhach.getText(), Integer.parseInt(txtSoLuong.getText()), txtGhiChu.getText(), Integer.parseInt(txtTienCoc.getText()), Integer.parseInt(txtGiamGia.getText()), 0);
         BLL_ThuePhong.edit(thuePhong);
     }
 
     public void loadThongTinPhong() {
-        ArrayList<DTO_Phong> array = BLL_SoDoPhong.select(GUI_pnl_ChiTietPhong.indexPosition + 1);
+        ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(GUI_pnl_ChiTietPhong.indexPosition + 1);
         BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
     }
 
@@ -151,14 +182,14 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         sdoThongTinPhong = new HELPER.PanelShadow();
         txtSoLuong = new javax.swing.JTextField();
         txtTenKhach = new javax.swing.JTextField();
-        txtCCCD = new javax.swing.JTextField();
+        txtCMND = new javax.swing.JTextField();
         txtGhiChu = new javax.swing.JTextField();
         lblSetTrangThai = new javax.swing.JLabel();
         lblSetMaPhieuThue = new javax.swing.JLabel();
         lblNhanPhong = new javax.swing.JLabel();
         lblSoLuong = new javax.swing.JLabel();
         lblTenKhach = new javax.swing.JLabel();
-        lblCCCD = new javax.swing.JLabel();
+        lblCMND = new javax.swing.JLabel();
         lblSoPhong = new javax.swing.JLabel();
         lblGhiChu = new javax.swing.JLabel();
         spt_2 = new javax.swing.JSeparator();
@@ -189,12 +220,12 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblSetGiaPhong = new javax.swing.JLabel();
         txtGiamGia = new javax.swing.JTextField();
         lblSetCoLai = new javax.swing.JLabel();
-        txtDatCoc = new javax.swing.JTextField();
+        txtTienCoc = new javax.swing.JTextField();
         lblSetDichVu = new javax.swing.JLabel();
         cboThanhToan = new javax.swing.JComboBox<>();
         lblSetTongTien = new javax.swing.JLabel();
         lblThanhToan = new javax.swing.JLabel();
-        lblDatCoc = new javax.swing.JLabel();
+        lblTienCoc = new javax.swing.JLabel();
         lblConLai = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
         lblGiamGia = new javax.swing.JLabel();
@@ -258,10 +289,10 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         txtTenKhach.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         sdoThongTinPhong.add(txtTenKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 120, 20));
 
-        txtCCCD.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        txtCCCD.setForeground(new java.awt.Color(62, 73, 95));
-        txtCCCD.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoThongTinPhong.add(txtCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 20));
+        txtCMND.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtCMND.setForeground(new java.awt.Color(62, 73, 95));
+        txtCMND.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        sdoThongTinPhong.add(txtCMND, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 20));
 
         txtGhiChu.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         txtGhiChu.setForeground(new java.awt.Color(62, 73, 95));
@@ -301,11 +332,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblTenKhach.setText("Tên Khách");
         sdoThongTinPhong.add(lblTenKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, -1, -1));
 
-        lblCCCD.setBackground(new java.awt.Color(255, 255, 255));
-        lblCCCD.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
-        lblCCCD.setForeground(new java.awt.Color(153, 153, 153));
-        lblCCCD.setText("CCCD/ Hộ Chiếu");
-        sdoThongTinPhong.add(lblCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        lblCMND.setBackground(new java.awt.Color(255, 255, 255));
+        lblCMND.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblCMND.setForeground(new java.awt.Color(153, 153, 153));
+        lblCMND.setText("CMND/ Hộ Chiếu");
+        sdoThongTinPhong.add(lblCMND, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         lblSoPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblSoPhong.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
@@ -372,13 +403,13 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayTao.setText("16/09/22 22:08");
+        lblSetNgayTao.setText("16-09-22 22:08");
         sdoThongTinPhong.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, -1, 20));
 
         dateNgayDi.setBackground(new java.awt.Color(255, 255, 255));
         dateNgayDi.setForeground(new java.awt.Color(62, 73, 95));
         dateNgayDi.setToolTipText("");
-        dateNgayDi.setDateFormatString("dd/MM/yyyy");
+        dateNgayDi.setDateFormatString("dd-MM-yyyy");
         dateNgayDi.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 dateNgayDiPropertyChange(evt);
@@ -389,7 +420,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         dateNgayDen.setBackground(new java.awt.Color(255, 255, 255));
         dateNgayDen.setForeground(new java.awt.Color(62, 73, 95));
         dateNgayDen.setToolTipText("");
-        dateNgayDen.setDateFormatString("dd/MM/yyyy");
+        dateNgayDen.setDateFormatString("dd-MM-yyyy");
         dateNgayDen.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 dateNgayDenPropertyChange(evt);
@@ -514,10 +545,10 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblSetCoLai.setText("220912001");
         sdoGiaPhong.add(lblSetCoLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, -1, 30));
 
-        txtDatCoc.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        txtDatCoc.setForeground(new java.awt.Color(62, 73, 95));
-        txtDatCoc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoGiaPhong.add(txtDatCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 80, 20));
+        txtTienCoc.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtTienCoc.setForeground(new java.awt.Color(62, 73, 95));
+        txtTienCoc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        sdoGiaPhong.add(txtTienCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 80, 20));
 
         lblSetDichVu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetDichVu.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
@@ -526,6 +557,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         sdoGiaPhong.add(lblSetDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, 30));
 
         cboThanhToan.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        cboThanhToan.setForeground(new java.awt.Color(62, 73, 95));
         cboThanhToan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         sdoGiaPhong.add(cboThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 80, -1));
 
@@ -541,11 +573,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblThanhToan.setText("Thanh Toán");
         sdoGiaPhong.add(lblThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, 30));
 
-        lblDatCoc.setBackground(new java.awt.Color(255, 255, 255));
-        lblDatCoc.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
-        lblDatCoc.setForeground(new java.awt.Color(153, 153, 153));
-        lblDatCoc.setText("Đặt Cọc");
-        sdoGiaPhong.add(lblDatCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, 30));
+        lblTienCoc.setBackground(new java.awt.Color(255, 255, 255));
+        lblTienCoc.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblTienCoc.setForeground(new java.awt.Color(153, 153, 153));
+        lblTienCoc.setText("Tiền Cọc");
+        sdoGiaPhong.add(lblTienCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, 30));
 
         lblConLai.setBackground(new java.awt.Color(255, 255, 255));
         lblConLai.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
@@ -649,7 +681,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void lblCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseClicked
         // TODO add your handling code here:
-        addthuePhong();
+        addThuePhong();
     }//GEN-LAST:event_lblCapNhatMouseClicked
 
     /**
@@ -699,10 +731,9 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cboThanhToan;
     private com.toedter.calendar.JDateChooser dateNgayDen;
     private com.toedter.calendar.JDateChooser dateNgayDi;
-    private javax.swing.JLabel lblCCCD;
+    private javax.swing.JLabel lblCMND;
     private javax.swing.JLabel lblCapNhat;
     private javax.swing.JLabel lblConLai;
-    private javax.swing.JLabel lblDatCoc;
     private javax.swing.JLabel lblDichVu;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblGhiChu;
@@ -730,6 +761,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private javax.swing.JLabel lblThanhToanPhong;
     private javax.swing.JLabel lblThoat;
     private javax.swing.JLabel lblThongTinPhong;
+    private javax.swing.JLabel lblTienCoc;
     private javax.swing.JLabel lblTongThoiGian;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lblTraPhong;
@@ -745,12 +777,12 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private javax.swing.JSeparator spt_2;
     private javax.swing.JTable tblDichVu;
     private javax.swing.JTable tblKhoDichVu;
-    private javax.swing.JTextField txtCCCD;
-    private javax.swing.JTextField txtDatCoc;
+    private javax.swing.JTextField txtCMND;
     private javax.swing.JTextField txtGhiChu;
     private javax.swing.JTextField txtGiamGia;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenKhach;
     private javax.swing.JTextField txtThanhToan;
+    private javax.swing.JTextField txtTienCoc;
     // End of variables declaration//GEN-END:variables
 }

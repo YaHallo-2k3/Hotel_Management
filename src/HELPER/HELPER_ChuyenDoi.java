@@ -52,6 +52,10 @@ public class HELPER_ChuyenDoi {
     public static String getSoString(double so) {
         return NumberFormat.getNumberInstance().format(so);
     }
+    
+    public static String getSoString(int so) {
+        return NumberFormat.getNumberInstance().format(so);
+    }
 
     public static int getSoInt(String so) {
         try {

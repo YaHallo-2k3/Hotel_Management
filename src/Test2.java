@@ -1,4 +1,5 @@
 
+import HELPER.HELPER_ChuyenDoi;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -22,45 +23,12 @@ import javax.swing.SwingUtilities;
 
 public class Test2 {
 
-     public static void main(String[] args) {
-
-        String dateStart = "09:33:00";
-
-        String dateStop = "10:36:00";
-
-        // Custom date format
-
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-
-        Date d1 = null;
-
-        Date d2 = null;
-
+    public static void main(String[] args) {
         try {
-
-            d1 = format.parse(dateStart);
-
-            d2 = format.parse(dateStop);
-
-        } catch (ParseException e) {
-
+            System.out.println(HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", null));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        // Get msec from each, and subtract.
-
-        long diff = (d2.getTime() - d1.getTime())/1000;
-
-        long diffHours = diff / (60 * 60);
-        
-        long diffMinutes = (diff % (60 * 60)) / 60;
-
-
-        System.out.println("Số phút: " + diffMinutes + " minutes.");
-
-        System.out.println("Số giờ: " + diffHours + " hours.");
-        
-
-
     }
 
 }

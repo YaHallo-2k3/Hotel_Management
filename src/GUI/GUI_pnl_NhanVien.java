@@ -57,7 +57,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1150, 730));
         setPreferredSize(new java.awt.Dimension(1150, 730));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scrNhanVien.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -95,73 +94,60 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         tblNhanVien.setShowHorizontalLines(false);
         scrNhanVien.setViewportView(tblNhanVien);
 
-        add(scrNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 1130, 430));
-
         lblChucVu.setBackground(new java.awt.Color(255, 255, 255));
         lblChucVu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblChucVu.setForeground(new java.awt.Color(153, 153, 153));
         lblChucVu.setText("Chức Vụ");
-        add(lblChucVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 60, 30));
 
         lblNgaySinh.setBackground(new java.awt.Color(255, 255, 255));
         lblNgaySinh.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNgaySinh.setForeground(new java.awt.Color(153, 153, 153));
         lblNgaySinh.setText("Ngày Sinh");
-        add(lblNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 60, 30));
 
         lblTenNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblTenNhanVien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTenNhanVien.setForeground(new java.awt.Color(153, 153, 153));
         lblTenNhanVien.setText("Tên Nhân Viên");
-        add(lblTenNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 90, 30));
 
         lblSoDienThoai.setBackground(new java.awt.Color(255, 255, 255));
         lblSoDienThoai.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSoDienThoai.setForeground(new java.awt.Color(153, 153, 153));
         lblSoDienThoai.setText("Số Điện Thoại");
-        add(lblSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 90, 30));
 
         lblGioiTinh.setBackground(new java.awt.Color(255, 255, 255));
         lblGioiTinh.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblGioiTinh.setForeground(new java.awt.Color(153, 153, 153));
         lblGioiTinh.setText("Giới Tính");
-        add(lblGioiTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 60, 30));
 
         lblMaNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblMaNhanVien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblMaNhanVien.setForeground(new java.awt.Color(153, 153, 153));
         lblMaNhanVien.setText("Mã Nhân Viên");
-        add(lblMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 90, 30));
 
         lblCCCD.setBackground(new java.awt.Color(255, 255, 255));
         lblCCCD.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblCCCD.setForeground(new java.awt.Color(153, 153, 153));
         lblCCCD.setText("CCCD");
-        add(lblCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 40, 30));
 
         lblLuong.setBackground(new java.awt.Color(255, 255, 255));
         lblLuong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblLuong.setForeground(new java.awt.Color(153, 153, 153));
         lblLuong.setText("Lương");
-        add(lblLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 50, 30));
 
         lblSetTrangThai.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTrangThai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTrangThai.setForeground(new java.awt.Color(62, 73, 95));
         lblSetTrangThai.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        add(lblSetTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 80, 20));
 
         lblNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblNgayTao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNgayTao.setForeground(new java.awt.Color(153, 153, 153));
         lblNgayTao.setText("Ngày Tạo");
-        add(lblNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 60, 30));
 
         lblQuanLiNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblQuanLiNhanVien.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lblQuanLiNhanVien.setForeground(new java.awt.Color(62, 73, 95));
         lblQuanLiNhanVien.setText("QUẢN LÍ NHÂN VIÊN :");
-        add(lblQuanLiNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 190, 30));
 
         txtMaNhanVien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtMaNhanVien.setForeground(new java.awt.Color(62, 73, 95));
@@ -171,7 +157,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 txtMaNhanVienActionPerformed(evt);
             }
         });
-        add(txtMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, 20));
 
         txtTenNhanVien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTenNhanVien.setForeground(new java.awt.Color(62, 73, 95));
@@ -181,7 +166,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 txtTenNhanVienActionPerformed(evt);
             }
         });
-        add(txtTenNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 90, 20));
 
         txtSoDienThoai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtSoDienThoai.setForeground(new java.awt.Color(62, 73, 95));
@@ -191,7 +175,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 txtSoDienThoaiActionPerformed(evt);
             }
         });
-        add(txtSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 90, 20));
 
         txtCCCD.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtCCCD.setForeground(new java.awt.Color(62, 73, 95));
@@ -201,7 +184,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 txtCCCDActionPerformed(evt);
             }
         });
-        add(txtCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 100, 20));
 
         txtLuong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtLuong.setForeground(new java.awt.Color(62, 73, 95));
@@ -211,35 +193,29 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 txtLuongActionPerformed(evt);
             }
         });
-        add(txtLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 70, 20));
 
         dateNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         dateNgayTao.setForeground(new java.awt.Color(62, 73, 95));
         dateNgayTao.setDateFormatString("dd-MM-yyyy");
-        add(dateNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 90, 20));
 
         cboGioiTinh.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboGioiTinh.setForeground(new java.awt.Color(62, 73, 95));
         cboGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboGioiTinh.setBorder(null);
-        add(cboGioiTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 70, 20));
 
         cboChucVu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboChucVu.setForeground(new java.awt.Color(62, 73, 95));
         cboChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboChucVu.setBorder(null);
-        add(cboChucVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 80, 20));
 
         dateNgaySinh.setBackground(new java.awt.Color(255, 255, 255));
         dateNgaySinh.setForeground(new java.awt.Color(62, 73, 95));
         dateNgaySinh.setDateFormatString("dd-MM-yyyy");
-        add(dateNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 90, 20));
 
         lblTrangThai.setBackground(new java.awt.Color(255, 255, 255));
         lblTrangThai.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTrangThai.setForeground(new java.awt.Color(153, 153, 153));
         lblTrangThai.setText("Trạng Thái");
-        add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 70, 30));
 
         lblLamMoi.setBackground(new java.awt.Color(255, 255, 255));
         lblLamMoi.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -251,10 +227,8 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 lblLamMoiMouseClicked(evt);
             }
         });
-        add(lblLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 180, 90, 30));
 
         spt_1.setForeground(new java.awt.Color(62, 73, 95));
-        add(spt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 1110, 20));
 
         lblThem.setBackground(new java.awt.Color(255, 255, 255));
         lblThem.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -266,7 +240,118 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 lblThemMouseClicked(evt);
             }
         });
-        add(lblThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 180, 70, 30));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblQuanLiNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblMaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(lblTenNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(lblGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addComponent(lblNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addComponent(lblChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(txtMaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(txtTenNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(cboGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(dateNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(cboChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSetTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(180, 180, 180)
+                .addComponent(lblLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(lblThem, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(spt_1, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(scrNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 1130, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblQuanLiNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTenNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtMaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtCCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(dateNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(lblSetTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblThem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(40, 40, 40)
+                .addComponent(spt_1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(scrNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtMaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNhanVienActionPerformed
