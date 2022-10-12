@@ -26,14 +26,6 @@ import javax.swing.table.DefaultTableModel;
 public class Test1 {
 
     public static void main(String[] args) throws ParseException {
-        DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String dateAsString = "25/12/2010";
-        Date date = (Date) sourceFormat.parse(dateAsString);
-        System.out.println(date);
-
-        DateFormat dateFormat = new SimpleDateFormat(
-                "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-        dateFormat.parse("Tue Jul 13 00:00:00 CEST 2011");
-        System.out.println(dateFormat.format(new Date()));
+        System.out.println(Integer.valueOf("1"));
     }
 }

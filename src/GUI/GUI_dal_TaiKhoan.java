@@ -5,11 +5,18 @@
  */
 package GUI;
 
+import BLL.BLL_TaiKhoan;
+import DTO.DTO_TaiKhoan;
+import java.util.ArrayList;
+
 /**
  *
  * @author CherryCe
  */
 public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
+
+    public String maNhanVien = GUI_pnl_NhanVien.maNhanVien;
+    public boolean isAddEdit;
 
     /**
      * Creates new form GUI_dalThongTinPhong
@@ -18,6 +25,28 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        load();
+    }
+
+    public void add() {
+        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText());
+        BLL_TaiKhoan.add(taiKhoan);
+    }
+
+    public void edit() {
+        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText());
+        BLL_TaiKhoan.edit(taiKhoan);
+    }
+
+    public void load() {
+        ArrayList<DTO_TaiKhoan> array = BLL_TaiKhoan.select(maNhanVien);
+        BLL_TaiKhoan.load(array, txtTaiKhoan, psdMatKhau, cboBaoMat, txtTraLoi);
+
+        if (txtTaiKhoan.getText().isEmpty()) {
+            isAddEdit = false;
+        } else {
+            isAddEdit = true;
+        }
     }
 
     /**
@@ -37,14 +66,15 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         lblIconTaiKhoan = new javax.swing.JLabel();
         lblTaiKhoan = new javax.swing.JLabel();
         txtTaiKhoan = new javax.swing.JTextField();
-        txtMatKhau = new javax.swing.JTextField();
         lblExit = new javax.swing.JLabel();
         cboBaoMat = new javax.swing.JComboBox<>();
-        txtBaoMat = new javax.swing.JTextField();
+        txtTraLoi = new javax.swing.JTextField();
         lblIconBaoMat = new javax.swing.JLabel();
+        lblIconTraLoi = new javax.swing.JLabel();
+        psdMatKhau = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(330, 340));
+        setMinimumSize(new java.awt.Dimension(360, 400));
         setUndecorated(true);
 
         sdoChucNang.setBackground(new java.awt.Color(255, 255, 255));
@@ -64,7 +94,7 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
                 lblThoatMouseClicked(evt);
             }
         });
-        sdoChucNang.add(lblThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 80, 40));
+        sdoChucNang.add(lblThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 80, 40));
 
         lblCapNhat.setBackground(new java.awt.Color(255, 255, 255));
         lblCapNhat.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -72,7 +102,12 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         lblCapNhat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/cart (3).png"))); // NOI18N
         lblCapNhat.setText("Cập Nhật");
-        sdoChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 100, 40));
+        lblCapNhat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCapNhatMouseClicked(evt);
+            }
+        });
+        sdoChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 100, 40));
 
         sdoTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
         sdoTaiKhoan.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(33, 150, 243)));
@@ -106,56 +141,56 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
                 txtTaiKhoanActionPerformed(evt);
             }
         });
-        sdoTaiKhoan.add(txtTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 230, 30));
-
-        txtMatKhau.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        txtMatKhau.setForeground(new java.awt.Color(62, 73, 95));
-        txtMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMatKhauActionPerformed(evt);
-            }
-        });
-        sdoTaiKhoan.add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 230, 30));
+        sdoTaiKhoan.add(txtTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 250, 30));
 
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/close (1).png"))); // NOI18N
-        sdoTaiKhoan.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 30, 30));
+        sdoTaiKhoan.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 30, 30));
 
         cboBaoMat.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboBaoMat.setForeground(new java.awt.Color(62, 73, 95));
         cboBaoMat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboBaoMat.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoTaiKhoan.add(cboBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 140, 30));
+        sdoTaiKhoan.add(cboBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 250, 30));
 
-        txtBaoMat.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        txtBaoMat.setForeground(new java.awt.Color(62, 73, 95));
-        txtBaoMat.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtBaoMat.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtBaoMat.addActionListener(new java.awt.event.ActionListener() {
+        txtTraLoi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        txtTraLoi.setForeground(new java.awt.Color(62, 73, 95));
+        txtTraLoi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtTraLoi.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtTraLoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBaoMatActionPerformed(evt);
+                txtTraLoiActionPerformed(evt);
             }
         });
-        sdoTaiKhoan.add(txtBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 80, 30));
+        sdoTaiKhoan.add(txtTraLoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 250, 30));
 
         lblIconBaoMat.setBackground(new java.awt.Color(255, 255, 255));
         lblIconBaoMat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIconBaoMat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/iconfinder-securityprotectlockshield04-4021479_113137.png"))); // NOI18N
         sdoTaiKhoan.add(lblIconBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
 
+        lblIconTraLoi.setBackground(new java.awt.Color(255, 255, 255));
+        lblIconTraLoi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIconTraLoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/conversation.png"))); // NOI18N
+        sdoTaiKhoan.add(lblIconTraLoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, 30));
+
+        psdMatKhau.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        psdMatKhau.setForeground(new java.awt.Color(62, 73, 95));
+        psdMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
+        sdoTaiKhoan.add(psdMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 138, 250, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sdoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(sdoChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(sdoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sdoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(sdoChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -167,18 +202,23 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTaiKhoanActionPerformed
 
-    private void txtMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMatKhauActionPerformed
-
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        dispose();
     }//GEN-LAST:event_lblThoatMouseClicked
 
-    private void txtBaoMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBaoMatActionPerformed
+    private void txtTraLoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTraLoiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtBaoMatActionPerformed
+    }//GEN-LAST:event_txtTraLoiActionPerformed
+
+    private void lblCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseClicked
+        // TODO add your handling code here:
+        if (!isAddEdit) {
+            add();
+        } else {
+            edit();
+        }
+    }//GEN-LAST:event_lblCapNhatMouseClicked
 
     /**
      * @param args the command line arguments
@@ -740,12 +780,13 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
     private javax.swing.JLabel lblIconBaoMat;
     private javax.swing.JLabel lblIconMatKhau;
     private javax.swing.JLabel lblIconTaiKhoan;
+    private javax.swing.JLabel lblIconTraLoi;
     private javax.swing.JLabel lblTaiKhoan;
     private javax.swing.JLabel lblThoat;
+    private javax.swing.JPasswordField psdMatKhau;
     private HELPER.PanelShadow sdoChucNang;
     private HELPER.PanelShadow sdoTaiKhoan;
-    private javax.swing.JTextField txtBaoMat;
-    private javax.swing.JTextField txtMatKhau;
     private javax.swing.JTextField txtTaiKhoan;
+    private javax.swing.JTextField txtTraLoi;
     // End of variables declaration//GEN-END:variables
 }

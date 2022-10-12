@@ -62,8 +62,8 @@ public class BLL_ThuePhong {
         }
     }
 
-    public static ArrayList<DTO_ThuePhong> select(String maPhong, String maTrangThaiPhong) {
-        ResultSet rs = DAL_ThuePhong.select(maPhong, maTrangThaiPhong);
+    public static ArrayList<DTO_ThuePhong> select(String maPhong) {
+        ResultSet rs = DAL_ThuePhong.select(maPhong);
         ArrayList<DTO_ThuePhong> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -142,8 +142,8 @@ public class BLL_ThuePhong {
             lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", thuePhong.getNgayTao()));
             dateNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy HH:mm", thuePhong.getNgayDen()));
 
-            if (dateNgayDi == null) {
-                dateNgayDi.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"))));
+            if (thuePhong.getNgayDi() == null) {
+                dateNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
             } else {
                 dateNgayDi.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy HH:mm", thuePhong.getNgayDi()));
             }
@@ -152,8 +152,8 @@ public class BLL_ThuePhong {
             txtTenKhach.setText(thuePhong.getTenKhachHang());
             txtSoLuong.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getSoLuong()));
             txtGhiChu.setText(thuePhong.getGhiChu());
-            txtTienCoc.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getTienCoc()));
             txtGiamGia.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getGiamGia()));
+            txtTienCoc.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getTienCoc()));
         }
     }
 

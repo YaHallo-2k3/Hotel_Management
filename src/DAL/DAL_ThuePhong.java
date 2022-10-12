@@ -35,9 +35,9 @@ public class DAL_ThuePhong {
         HELPER_ConnectSQL.executeUpdate(sqlUpdate, BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()), thuePhong.getMaNhanVien(), HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy HH:mm", thuePhong.getNgayTao()), HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy HH:mm", thuePhong.getNgayDen()), HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy HH:mm", thuePhong.getNgayDi()), thuePhong.getCMND(), thuePhong.getTenKhachHang(), thuePhong.getSoLuong(), thuePhong.getGhiChu(), thuePhong.getTienCoc(), thuePhong.getGiamGia(), thuePhong.getTrangThaiThanhToan(), thuePhong.getMaPhieuThue());
     }
 
-    public static ResultSet select(String maPhong, String maTrangThaiPhong) {
-        String sqlSelect = "SELECT * FROM ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE Phong.MaPhong = ? AND MaTrangThaiPhong = ? ORDER BY MaPhieuThue";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong, maTrangThaiPhong);
+    public static ResultSet select(String maPhong) {
+        String sqlSelect = "SELECT * FROM ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE Phong.MaPhong = ? AND TrangThaiThanhToan = 0 ORDER BY MaPhieuThue";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong);
     }
 
     public static ResultSet count(String thoiGian) {

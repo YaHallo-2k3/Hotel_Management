@@ -10,8 +10,8 @@ package DTO;
  */
 public class DTO_MaTenLoai {
 
-    String maLoai;
-    String tenLoai;
+    public String maLoai;
+    public String tenLoai;
 
     public DTO_MaTenLoai() {
     }

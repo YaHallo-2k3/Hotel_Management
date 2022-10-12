@@ -23,7 +23,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     public GUI_frm_Menu() {
         initComponents();
         setLocationRelativeTo(null);
-        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
+//        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
     }
 
     /**
@@ -620,7 +620,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     private void lblQuanLiNguoiDungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiNguoiDungMouseClicked
         // TODO add your handling code here:
         pnlFormChinh.removeAll();
-//        pnlFormChinh.add(new GUI_pnl_());
+        pnlFormChinh.add(new GUI_pnl_NhanVien());
         lblSetTenMenu.setText("Game2K - " + lblQuanLiNguoiDung.getText());
         lblQuanLiNguoiDung.setForeground(new Color(33, 150, 243));
         lblQuanLiNguoiDung.setIcon(new ImageIcon(getClass().getResource("/IMG/profile-user (3).png")));

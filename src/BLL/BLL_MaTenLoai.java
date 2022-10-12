@@ -191,4 +191,28 @@ public class BLL_MaTenLoai {
         }
         return null;
     }
+    
+    public static String findTenChucVu(String maChucVu) {
+        ResultSet rs = DAL_MaTenLoai.findTenChucVu(maChucVu);
+        try {
+            while (rs.next()) {
+                return rs.getString("TenChucVu");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String findMaChucVu(String tenChucVu) {
+        ResultSet rs = DAL_MaTenLoai.findMaChucVu(tenChucVu);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaChucVu");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

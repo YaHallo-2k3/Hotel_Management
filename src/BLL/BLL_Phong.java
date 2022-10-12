@@ -32,7 +32,7 @@ public class BLL_Phong {
     }
 
     public static void add(DTO_Phong phong) {
-        if (check(phong) == false) {
+        if (!check(phong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_Phong.add(phong);

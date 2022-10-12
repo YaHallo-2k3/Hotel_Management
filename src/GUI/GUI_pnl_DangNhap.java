@@ -5,11 +5,18 @@
  */
 package GUI;
 
+import BLL.BLL_TaiKhoan;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author CherryCe
  */
 public class GUI_pnl_DangNhap extends javax.swing.JPanel {
+
+    public boolean isPassword = false;
+    public static String taiKhoan = null;
 
     /**
      * Creates new form GUI_pnlDangNhap
@@ -18,8 +25,39 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         initComponents();
     }
 
-    public void loading() {
-        GUI_dal_Loading loading = new GUI_dal_Loading(null, true);
+    public void login() {
+        String tenDangNhap = txtTenDangNhap.getText();
+        String matKhau = String.valueOf(psdMatKhau.getPassword());
+
+        if (tenDangNhap.isEmpty() || matKhau.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tài Khoản Hoặc Mật Khẩu Không Được Để Trống");
+        } else {
+            try {
+                if (BLL_TaiKhoan.select(tenDangNhap, matKhau).isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Tài Khoản Hoặc Mật Khẩu Không Đúng");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Đăng Nhập Thành Công");
+                    taiKhoan = txtTenDangNhap.getText();
+                    this.setVisible(false);
+                    new GUI_frm_Menu().setVisible(true);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void isPassword() {
+        if (!isPassword) {
+            psdMatKhau.setEchoChar((char) 0);
+            isPassword = true;
+            lblShowHiddenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden.png")));
+
+        } else {
+            psdMatKhau.setEchoChar('*');
+            isPassword = false;
+            lblShowHiddenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden (1).png")));
+        }
     }
 
     /**
@@ -31,6 +69,7 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblShowHiddenMatKhau = new javax.swing.JLabel();
         lblMatKhau = new javax.swing.JLabel();
         txtTenDangNhap = new javax.swing.JTextField();
         cboLuuDangNhap = new javax.swing.JCheckBox();
@@ -38,13 +77,21 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         lblSetHoTro = new javax.swing.JLabel();
         lblSetWebsite = new javax.swing.JLabel();
         lblHoTro = new javax.swing.JLabel();
-        txtMatKhau = new javax.swing.JPasswordField();
         lblDangNhap = new javax.swing.JLabel();
         lblTenDangNhap = new javax.swing.JLabel();
+        psdMatKhau = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(400, 450));
         setPreferredSize(new java.awt.Dimension(400, 450));
+
+        lblShowHiddenMatKhau.setBackground(new java.awt.Color(255, 255, 255));
+        lblShowHiddenMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/hidden (1).png"))); // NOI18N
+        lblShowHiddenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblShowHiddenMatKhauMouseClicked(evt);
+            }
+        });
 
         lblMatKhau.setBackground(new java.awt.Color(255, 255, 255));
         lblMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -53,7 +100,7 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         txtTenDangNhap.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         txtTenDangNhap.setForeground(new java.awt.Color(62, 73, 95));
         txtTenDangNhap.setText("admin");
-        txtTenDangNhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtTenDangNhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
         txtTenDangNhap.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtTenDangNhapFocusGained(evt);
@@ -98,15 +145,6 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         lblHoTro.setForeground(new java.awt.Color(153, 153, 153));
         lblHoTro.setText("Hỗ Trợ:");
 
-        txtMatKhau.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        txtMatKhau.setForeground(new java.awt.Color(62, 73, 95));
-        txtMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMatKhauActionPerformed(evt);
-            }
-        });
-
         lblDangNhap.setBackground(new java.awt.Color(62, 73, 95));
         lblDangNhap.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblDangNhap.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,6 +161,10 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         lblTenDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTenDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/profile-user.png"))); // NOI18N
 
+        psdMatKhau.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        psdMatKhau.setForeground(new java.awt.Color(62, 73, 95));
+        psdMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,7 +178,11 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(lblMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(270, 270, 270)
+                        .addComponent(lblShowHiddenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(psdMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(lblDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,7 +209,8 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblShowHiddenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(psdMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addComponent(lblDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
@@ -181,10 +228,6 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenDangNhapActionPerformed
 
-    private void txtMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMatKhauActionPerformed
-
     private void txtTenDangNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTenDangNhapMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenDangNhapMouseClicked
@@ -198,9 +241,7 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
 
     private void lblDangNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangNhapMouseClicked
         // TODO add your handling code here:
-        new GUI_dal_Loading(null, true).setVisible(true);
-        this.setVisible(false);
-        new GUI_frm_Menu().setVisible(true);
+        login();
     }//GEN-LAST:event_lblDangNhapMouseClicked
 
     private void txtTenDangNhapFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenDangNhapFocusLost
@@ -210,6 +251,11 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtTenDangNhapFocusLost
 
+    private void lblShowHiddenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblShowHiddenMatKhauMouseClicked
+        // TODO add your handling code here:
+        isPassword();
+    }//GEN-LAST:event_lblShowHiddenMatKhauMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox cboLuuDangNhap;
@@ -218,9 +264,10 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblSetHoTro;
     private javax.swing.JLabel lblSetWebsite;
+    private javax.swing.JLabel lblShowHiddenMatKhau;
     private javax.swing.JLabel lblTenDangNhap;
     private javax.swing.JLabel lblWebsite;
-    private javax.swing.JPasswordField txtMatKhau;
+    private javax.swing.JPasswordField psdMatKhau;
     private javax.swing.JTextField txtTenDangNhap;
     // End of variables declaration//GEN-END:variables
 }

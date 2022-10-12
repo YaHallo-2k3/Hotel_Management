@@ -32,7 +32,7 @@ public class BLL_LoaiPhong {
     }
 
     public static void add(DTO_LoaiPhong loaiPhong) {
-        if (check(loaiPhong) == false) {
+        if (!check(loaiPhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_LoaiPhong.add(loaiPhong);
@@ -48,7 +48,7 @@ public class BLL_LoaiPhong {
     }
 
     public static void edit(DTO_LoaiPhong loaiPhong) {
-        if (check(loaiPhong) == false) {
+        if (!check(loaiPhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_LoaiPhong.edit(loaiPhong);

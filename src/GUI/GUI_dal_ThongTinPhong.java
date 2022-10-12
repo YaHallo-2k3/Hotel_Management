@@ -50,19 +50,17 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         JLabel dateTimeNgayDen = new JLabel();
         JLabel dateTimeNgayDi = new JLabel();
 
-        ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuePhong.select(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), BLL_MaTenLoai.findMaTrangThaiPhong(lblSetTrangThai.getText()));
-        BLL_ThuePhong.load(arrayThuePhong, lblSetMaPhieuThue, lblSetNhanVien, lblNgayTao, dateTimeNgayDen, dateTimeNgayDi, txtCMND, txtTenKhach, txtSoLuong, txtGhiChu, txtTienCoc, txtGiamGia);
-
         if (lblSetTrangThai.getText().equals("Phòng Trống")) {
+            dateTimeNgayDen.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
+            dateTimeNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
             lblSetTrangThai.setBackground(new Color(97, 177, 90));
             lblSetMaPhieuThue.setText(setMaPhieuThue());
             lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm"));
-            dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy")));
-            dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy")));
-            lblGioPhutDen.setText(HELPER_ChuyenDoi.getTimeNow("HH:mm"));
-            lblGioPhutDi.setText(HELPER_ChuyenDoi.getTimeNow("HH:mm"));
             lblThanhToanPhong.setVisible(false);
         } else {
+            ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuePhong.select(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)));
+            BLL_ThuePhong.load(arrayThuePhong, lblSetMaPhieuThue, lblSetNhanVien, lblSetNgayTao, dateTimeNgayDen, dateTimeNgayDi, txtCMND, txtTenKhach, txtSoLuong, txtGhiChu, txtTienCoc, txtGiamGia);
+
             if (lblSetTrangThai.getText().equals("Có Khách")) {
                 lblSetTrangThai.setBackground(new Color(255, 142, 113));
             } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
@@ -72,15 +70,15 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             }
 
             lblThanhToanPhong.setVisible(true);
+        }
 
-            try {
-                dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDen.getText()));
-                lblGioPhutDen.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH:mm", dateTimeNgayDen.getText()));
-                dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDi.getText()));
-                lblGioPhutDi.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH:mm", dateTimeNgayDi.getText()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDen.getText()));
+            lblGioPhutDen.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH:mm", dateTimeNgayDen.getText()));
+            dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDi.getText()));
+            lblGioPhutDi.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH:mm", dateTimeNgayDi.getText()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -130,9 +128,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         }
 
         long noDay = (c2.getTime().getTime() - c1.getTime().getTime()) / (24 * 3600 * 1000);
-        long diff = (d2.getTime() - d1.getTime()) / 1000;
-        long diffHours = diff / (60 * 60);
-        long diffMinutes = (diff % (60 * 60)) / 60;
+        long diff = (d2.getTime() - d1.getTime()) / 1000 / 60;
+        long diffHours = diff / 60;
+        long diffMinutes = diff % (diffHours * 60);
+        System.out.println(d2.getTime());
+        System.out.println(d1.getTime());
 
         lblTongThoiGian.setText(String.valueOf(noDay + "d " + diffHours + "h " + diffMinutes + "m"));
     }
@@ -148,7 +148,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + lblGioPhutDen.getText();
         String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + lblGioPhutDi.getText();
 
-        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyyy HH:mm", ngayGioDen), null, txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), 1);
+        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyyy HH:mm", ngayGioDen), null, txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), 0);
         BLL_ThuePhong.add(thuePhong);
     }
 

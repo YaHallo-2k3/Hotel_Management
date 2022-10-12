@@ -271,7 +271,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         });
         sdoTang.add(txtMaTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 60, 20));
 
-        tblTang.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        tblTang.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         tblTang.setForeground(new java.awt.Color(62, 73, 95));
         tblTang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -292,7 +292,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblTang.setRowHeight(24);
+        tblTang.setRowHeight(30);
         tblTang.setShowHorizontalLines(false);
         tblTang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -362,7 +362,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         });
         sdoPhong.add(txtMaPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 70, 20));
 
-        tblPhong.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        tblPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         tblPhong.setForeground(new java.awt.Color(62, 73, 95));
         tblPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -518,7 +518,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         });
         sdoLoaiPhong.add(txtMaLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 50, 20));
 
-        tblLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        tblLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         tblLoaiPhong.setForeground(new java.awt.Color(62, 73, 95));
         tblLoaiPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -539,7 +539,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblLoaiPhong.setRowHeight(24);
+        tblLoaiPhong.setRowHeight(30);
         tblLoaiPhong.setShowHorizontalLines(false);
         tblLoaiPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -61,6 +61,10 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             lblSetTongTien.setText(null);
             lblSetDatCoc.setText(null);
             lblSetConLai.setText(null);
+            mniKhachRaNgoai.setVisible(false);
+            mniChuyenPhong.setVisible(false);
+            mniHuyPhong.setVisible(false);
+            mniThanhToanNhom.setVisible(false);
         } else {
             if (lblSetTrangThai.getText().equals("Có Khách")) {
                 sdoChiTietPhong.setBackground(new Color(255, 142, 113));
@@ -151,10 +155,13 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     private void initComponents() {
 
         popMenu = new javax.swing.JPopupMenu();
-        mniDatPhong = new javax.swing.JMenuItem();
+        mniThuePhong = new javax.swing.JMenuItem();
         mniDonPhong = new javax.swing.JMenuItem();
         mniKhachRaNgoai = new javax.swing.JMenuItem();
+        mniDatPhong = new javax.swing.JMenuItem();
         mniThanhToanNhom = new javax.swing.JMenuItem();
+        mniChuyenPhong = new javax.swing.JMenuItem();
+        mniHuyPhong = new javax.swing.JMenuItem();
         sdoChiTietPhong = new HELPER.PanelShadow();
         lblGioPhutDi = new javax.swing.JLabel();
         spt_1 = new javax.swing.JSeparator();
@@ -184,25 +191,25 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         popMenu.setForeground(new java.awt.Color(62, 73, 95));
         popMenu.setComponentPopupMenu(popMenu);
 
-        mniDatPhong.setBackground(new java.awt.Color(255, 255, 255));
-        mniDatPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        mniDatPhong.setForeground(new java.awt.Color(62, 73, 95));
-        mniDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/calendar.png"))); // NOI18N
-        mniDatPhong.setText("Đặt Phòng");
-        mniDatPhong.setMinimumSize(new java.awt.Dimension(150, 30));
-        mniDatPhong.setOpaque(true);
-        mniDatPhong.setPreferredSize(new java.awt.Dimension(150, 30));
-        mniDatPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+        mniThuePhong.setBackground(new java.awt.Color(255, 255, 255));
+        mniThuePhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        mniThuePhong.setForeground(new java.awt.Color(62, 73, 95));
+        mniThuePhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/personal-profile.png"))); // NOI18N
+        mniThuePhong.setText("Thuê Phòng");
+        mniThuePhong.setMinimumSize(new java.awt.Dimension(150, 30));
+        mniThuePhong.setOpaque(true);
+        mniThuePhong.setPreferredSize(new java.awt.Dimension(150, 30));
+        mniThuePhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mniDatPhongMouseClicked(evt);
+                mniThuePhongMouseClicked(evt);
             }
         });
-        mniDatPhong.addActionListener(new java.awt.event.ActionListener() {
+        mniThuePhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniDatPhongActionPerformed(evt);
+                mniThuePhongActionPerformed(evt);
             }
         });
-        popMenu.add(mniDatPhong);
+        popMenu.add(mniThuePhong);
 
         mniDonPhong.setBackground(new java.awt.Color(255, 255, 255));
         mniDonPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -234,6 +241,16 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         });
         popMenu.add(mniKhachRaNgoai);
 
+        mniDatPhong.setBackground(new java.awt.Color(255, 255, 255));
+        mniDatPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        mniDatPhong.setForeground(new java.awt.Color(62, 73, 95));
+        mniDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/calendar.png"))); // NOI18N
+        mniDatPhong.setText("Đặt Phòng");
+        mniDatPhong.setMinimumSize(new java.awt.Dimension(150, 30));
+        mniDatPhong.setOpaque(true);
+        mniDatPhong.setPreferredSize(new java.awt.Dimension(150, 30));
+        popMenu.add(mniDatPhong);
+
         mniThanhToanNhom.setBackground(new java.awt.Color(255, 255, 255));
         mniThanhToanNhom.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         mniThanhToanNhom.setForeground(new java.awt.Color(62, 73, 95));
@@ -243,6 +260,26 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniThanhToanNhom.setOpaque(true);
         mniThanhToanNhom.setPreferredSize(new java.awt.Dimension(150, 30));
         popMenu.add(mniThanhToanNhom);
+
+        mniChuyenPhong.setBackground(new java.awt.Color(255, 255, 255));
+        mniChuyenPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        mniChuyenPhong.setForeground(new java.awt.Color(62, 73, 95));
+        mniChuyenPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/exchange (5).png"))); // NOI18N
+        mniChuyenPhong.setText("Chuyển Phòng");
+        mniChuyenPhong.setMinimumSize(new java.awt.Dimension(150, 30));
+        mniChuyenPhong.setOpaque(true);
+        mniChuyenPhong.setPreferredSize(new java.awt.Dimension(150, 30));
+        popMenu.add(mniChuyenPhong);
+
+        mniHuyPhong.setBackground(new java.awt.Color(255, 255, 255));
+        mniHuyPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        mniHuyPhong.setForeground(new java.awt.Color(62, 73, 95));
+        mniHuyPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/delete (1).png"))); // NOI18N
+        mniHuyPhong.setText("Hủy Phòng");
+        mniHuyPhong.setMinimumSize(new java.awt.Dimension(150, 30));
+        mniHuyPhong.setOpaque(true);
+        mniHuyPhong.setPreferredSize(new java.awt.Dimension(150, 30));
+        popMenu.add(mniHuyPhong);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(220, 180));
@@ -481,15 +518,15 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_sdoChiTietPhongMouseReleased
 
-    private void mniDatPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniDatPhongMouseClicked
+    private void mniThuePhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniThuePhongMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_mniDatPhongMouseClicked
+    }//GEN-LAST:event_mniThuePhongMouseClicked
 
-    private void mniDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDatPhongActionPerformed
+    private void mniThuePhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThuePhongActionPerformed
         // TODO add your handling code here:  
         indexPosition = GUI_pnl_SoDoPhong.pnlFormChinh.getComponentZOrder(sdoChiTietPhong);
         new GUI_dal_ThongTinPhong(null, true).setVisible(true);
-    }//GEN-LAST:event_mniDatPhongActionPerformed
+    }//GEN-LAST:event_mniThuePhongActionPerformed
 
     private void mniDonPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDonPhongActionPerformed
         // TODO add your handling code here:
@@ -535,10 +572,13 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     public javax.swing.JLabel lblThangDi;
     public javax.swing.JLabel lblTongThoiGian;
     public javax.swing.JLabel lblTongTien;
+    public javax.swing.JMenuItem mniChuyenPhong;
     public javax.swing.JMenuItem mniDatPhong;
     public javax.swing.JMenuItem mniDonPhong;
+    public javax.swing.JMenuItem mniHuyPhong;
     public javax.swing.JMenuItem mniKhachRaNgoai;
     public javax.swing.JMenuItem mniThanhToanNhom;
+    public javax.swing.JMenuItem mniThuePhong;
     public javax.swing.JPopupMenu popMenu;
     public HELPER.PanelShadow sdoChiTietPhong;
     public javax.swing.JSeparator spt_1;
