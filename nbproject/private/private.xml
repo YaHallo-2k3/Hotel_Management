@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Github/Hotel_Management/src/GUI/GUI_frm_Menu.java</file>
+            <file>file:/D:/Github/Hotel_Management/src/DTO/DTO_SanPham.java</file>
+            <file>file:/D:/Github/Hotel_Management/src/DAL/DAL_LoaiSanPham.java</file>
+            <file>file:/D:/Github/Hotel_Management/src/GUI/GUI_pnl_ThietDatPhong.java</file>
+            <file>file:/D:/Github/Hotel_Management/src/BLL/BLL_LoaiSanPham.java</file>
+            <file>file:/D:/Github/Hotel_Management/src/BLL/BLL_SanPham.java</file>
+            <file>file:/D:/Github/Hotel_Management/src/GUI/GUI_dal_SanPham.java</file>
+            <file>file:/D:/Github/Hotel_Management/src/DAL/DAL_SanPham.java</file>
+            <file>file:/D:/Github/Hotel_Management/src/BLL/BLL_MaTenLoai.java</file>
+            <file>file:/D:/Github/Hotel_Management/src/BLL/BLL_Phong.java</file>
+        </group>
     </open-files>
 </project-private>

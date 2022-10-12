@@ -293,7 +293,6 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
             }
         });
         tblTang.setRowHeight(24);
-        tblTang.setShowHorizontalLines(false);
         tblTang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTangMouseClicked(evt);
@@ -393,7 +392,6 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
             }
         });
         tblPhong.setRowHeight(30);
-        tblPhong.setShowHorizontalLines(false);
         tblPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPhongMouseClicked(evt);
@@ -540,7 +538,6 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
             }
         });
         tblLoaiPhong.setRowHeight(24);
-        tblLoaiPhong.setShowHorizontalLines(false);
         tblLoaiPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblLoaiPhongMouseClicked(evt);

@@ -19,7 +19,7 @@ public class HELPER_ConnectSQL {
     private static String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String Url = "jdbc:sqlserver://localhost:1433;database=Hotel_Management";
     private static String User = "sa";
-    private static String Pass = "64647428";
+    private static String Pass = "123456789";
     public static Connection conn;
 
     static {

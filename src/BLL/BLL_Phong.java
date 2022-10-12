@@ -61,7 +61,7 @@ public class BLL_Phong {
         try {
             while (rs.next()) {
                 DTO_Phong phong = new DTO_Phong();
-                phong.setSTT(rs.getInt("STT"));
+                phong.setSTT(rs.getRow());
                 phong.setMaPhong(rs.getString("MaPhong"));
                 phong.setTenPhong(rs.getString("TenPhong"));
                 phong.setMaTang(rs.getString("MaTang"));
@@ -96,7 +96,7 @@ public class BLL_Phong {
     public class iconEdit extends DefaultTableCellRenderer {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\edit.png"));
+            setIcon(new ImageIcon("D:\\Github\\Hotel_Management\\src\\IMG\\edit.png"));
             setHorizontalAlignment(CENTER);
             return this;
         }
@@ -105,7 +105,7 @@ public class BLL_Phong {
     public class iconDelete extends DefaultTableCellRenderer {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\trash.png"));
+            setIcon(new ImageIcon("D:\\Github\\Hotel_Management\\src\\IMG\\trash.png"));
             setHorizontalAlignment(CENTER);
             return this;
         }
