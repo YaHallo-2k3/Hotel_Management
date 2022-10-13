@@ -147,9 +147,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         }
         if (diffHours >= 5) {
             giaPhong += BLL_LoaiPhong.findGiaPhong(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), "GiaNgay");
+        } else {
+            giaPhong = 0;
         }
 
-        lblSetGiaPhong.setText(HELPER_ChuyenDoi.getSoString(giaPhong)+"K");
+        lblSetGiaPhong.setText(HELPER_ChuyenDoi.getSoString(giaPhong) + "K");
     }
 
     public void phuongThucThanhToan() {

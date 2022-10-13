@@ -55,7 +55,6 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         if (index < 0) {
             JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
         }
-
         DTO_LoaiSanPham loaiSanPham = new DTO_LoaiSanPham(txtMaLoai.getText(), txtTenLoai.getText());
         BLL_LoaiSanPham.edit(loaiSanPham);
     }
@@ -76,7 +75,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     }
 
     public void addSanPham() {
-        DTO_SanPham sanPham = new DTO_SanPham(txtMaHang.getText(), txtTenHang.getText(), String.valueOf(cboLoaiHang.getSelectedItem()), String.valueOf(cboDonVi.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtGiaBan.getText()), dateNgayTao.getDate());
+        DTO_SanPham sanPham = new DTO_SanPham(txtMaHang.getText(), txtTenHang.getText(), String.valueOf(cboLoaiHang.getSelectedItem()), String.valueOf(cboDonVi.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtGiaBan.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")));
         BLL_SanPham.add(sanPham);
     }
 
@@ -101,7 +100,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
         }
 
-        DTO_SanPham sanPham = new DTO_SanPham(txtMaHang.getText(), txtTenHang.getText(), String.valueOf(cboLoaiHang.getSelectedItem()), String.valueOf(cboDonVi.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtGiaBan.getText()), dateNgayTao.getDate());
+        DTO_SanPham sanPham = new DTO_SanPham(txtMaHang.getText(), txtTenHang.getText(), String.valueOf(cboLoaiHang.getSelectedItem()), String.valueOf(cboDonVi.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtGiaBan.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()));
         BLL_SanPham.edit(sanPham);
     }
 
@@ -111,7 +110,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         cboLoaiHang.setSelectedItem(tblSanPham.getValueAt(index, 2).toString());
         cboDonVi.setSelectedItem(tblSanPham.getValueAt(index, 3).toString());
         txtGiaBan.setText(tblSanPham.getValueAt(index, 4).toString());
-        dateNgayTao.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblSanPham.getValueAt(index, 5).toString()));
+        lblSetNgayTao.setText(tblSanPham.getValueAt(index, 5).toString());
     }
 
     public void loadSanPham() {
@@ -141,11 +140,10 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         lblThemHang = new javax.swing.JLabel();
         scrSanPham = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
-        lblExit = new javax.swing.JLabel();
         txtMaHang = new javax.swing.JTextField();
         cboLoaiHang = new javax.swing.JComboBox<>();
-        dateNgayTao = new com.toedter.calendar.JDateChooser();
         lblGiaBan = new javax.swing.JLabel();
+        lblSetNgayTao = new javax.swing.JLabel();
         sdoLoaiSanPham = new HELPER.PanelShadow();
         scrLoaiSanPham = new javax.swing.JScrollPane();
         tblLoaiSanPham = new javax.swing.JTable();
@@ -256,7 +254,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hàng", "Tên Hàng", "Loại Hàng", "Đơn Vị", "Giá Bán", "Ngày Tạo", "Sửa", "Xóa"
+                "Mã Hàng", "Tên Hàng", "Loại Hàng", "Đơn Vị", "Giá Bán", "Ngày Tạo", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -275,18 +273,12 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
             }
         });
         scrSanPham.setViewportView(tblSanPham);
+        if (tblSanPham.getColumnModel().getColumnCount() > 0) {
+            tblSanPham.getColumnModel().getColumn(6).setMaxWidth(40);
+            tblSanPham.getColumnModel().getColumn(7).setMaxWidth(40);
+        }
 
         sdoSanPham.add(scrSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 790, 530));
-
-        lblExit.setBackground(new java.awt.Color(255, 255, 255));
-        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/close (1).png"))); // NOI18N
-        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblExitMouseClicked(evt);
-            }
-        });
-        sdoSanPham.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 30, 30));
 
         txtMaHang.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         txtMaHang.setForeground(new java.awt.Color(62, 73, 95));
@@ -301,22 +293,16 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         cboLoaiHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         sdoSanPham.add(cboLoaiHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 100, 20));
 
-        dateNgayTao.setBackground(new java.awt.Color(255, 255, 255));
-        dateNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        dateNgayTao.setToolTipText("");
-        dateNgayTao.setDateFormatString("dd-MM-yyyy");
-        dateNgayTao.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                dateNgayTaoPropertyChange(evt);
-            }
-        });
-        sdoSanPham.add(dateNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 100, 20));
-
         lblGiaBan.setBackground(new java.awt.Color(255, 255, 255));
         lblGiaBan.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
         lblGiaBan.setForeground(new java.awt.Color(153, 153, 153));
         lblGiaBan.setText("Giá Bán");
         sdoSanPham.add(lblGiaBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, -1, 30));
+
+        lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
+        sdoSanPham.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 100, 20));
 
         sdoLoaiSanPham.setBackground(new java.awt.Color(255, 255, 255));
         sdoLoaiSanPham.setMinimumSize(new java.awt.Dimension(560, 280));
@@ -348,7 +334,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Mã Loại", "Tên Loại", "Sửa", "Xóa"
+                "Mã Loại", "Tên Loại", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -367,6 +353,10 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
             }
         });
         scrLoaiSanPham.setViewportView(tblLoaiSanPham);
+        if (tblLoaiSanPham.getColumnModel().getColumnCount() > 0) {
+            tblLoaiSanPham.getColumnModel().getColumn(2).setMaxWidth(40);
+            tblLoaiSanPham.getColumnModel().getColumn(3).setMaxWidth(40);
+        }
 
         sdoLoaiSanPham.add(scrLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 180, 300, 530));
 
@@ -449,15 +439,6 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
-    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_lblExitMouseClicked
-
-    private void dateNgayTaoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgayTaoPropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dateNgayTaoPropertyChange
-
     private void tblLoaiSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiSanPhamMouseClicked
         // TODO add your handling code here:
         int row = tblLoaiSanPham.getSelectedRow();
@@ -488,9 +469,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboDonVi;
     private javax.swing.JComboBox<String> cboLoaiHang;
-    private com.toedter.calendar.JDateChooser dateNgayTao;
     private javax.swing.JLabel lblDonVi;
-    private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblGiaBan;
     private javax.swing.JLabel lblLoaiHang;
     private javax.swing.JLabel lblLoaiSanPham;
@@ -498,6 +477,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     private javax.swing.JLabel lblMaLoai;
     private javax.swing.JLabel lblNgayTao;
     private javax.swing.JLabel lblSanPham;
+    private javax.swing.JLabel lblSetNgayTao;
     private javax.swing.JLabel lblTenHang;
     private javax.swing.JLabel lblTenLoai;
     private javax.swing.JLabel lblThemHang;

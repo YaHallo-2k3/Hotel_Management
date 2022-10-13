@@ -39,4 +39,9 @@ public class DAL_ChiTietNhapKho {
         String sqlSelect = "SELECT COUNT(*) FROM ChiTietNhapkho WHERE MaNhapKho LIKE ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + thoiGian + "%");
     }
+    
+    public static ResultSet rowNumber(int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaNhapKho) AS RowNumber FROM ChiTietNhapKho) AS ChiTietNhapKho  WHERE ChiTietNhapKho.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
+    }
 }

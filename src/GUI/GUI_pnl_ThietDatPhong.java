@@ -306,7 +306,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         lblThietDatSoTang.setBackground(new java.awt.Color(255, 255, 255));
         lblThietDatSoTang.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lblThietDatSoTang.setForeground(new java.awt.Color(62, 73, 95));
-        lblThietDatSoTang.setText("SỐ TẦNG :");
+        lblThietDatSoTang.setText("SỐ TẦNG");
         sdoTang.add(lblThietDatSoTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
 
         lblThemTang.setBackground(new java.awt.Color(255, 255, 255));
@@ -349,7 +349,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         lblThietDatPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblThietDatPhong.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lblThietDatPhong.setForeground(new java.awt.Color(62, 73, 95));
-        lblThietDatPhong.setText("THIẾT ĐẶT PHÒNG :");
+        lblThietDatPhong.setText("THIẾT ĐẶT PHÒNG");
         sdoPhong.add(lblThietDatPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 180, 30));
 
         txtMaPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -485,7 +485,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         lblThietDatLoaiPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblThietDatLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lblThietDatLoaiPhong.setForeground(new java.awt.Color(62, 73, 95));
-        lblThietDatLoaiPhong.setText("LOẠI PHÒNG :");
+        lblThietDatLoaiPhong.setText("LOẠI PHÒNG");
         sdoLoaiPhong.add(lblThietDatLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
 
         txtTenLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N

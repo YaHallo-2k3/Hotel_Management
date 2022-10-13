@@ -7,9 +7,11 @@ package GUI;
 
 import BLL.BLL_MaTenLoai;
 import BLL.BLL_NhanVien;
+import DAL.DAL_NhanVien;
 import DTO.DTO_NhanVien;
 import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_ShowHinhAnh;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -26,72 +28,84 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
      */
     public GUI_pnl_NhanVien() {
         initComponents();
-        load();
+//        load();
+        System.out.println(test());
     }
-
-    public void add() {
-        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), cboGioiTinh.getSelectedItem().toString().equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), cboChucVu.getSelectedItem().toString(), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), dateNgayTao.getDate(), cboTrangThai.getSelectedItem().toString().equals("Online") ? 1 : 0);
-        BLL_NhanVien.add(nhanVien);
-    }
-
-    public void delete(int index) {
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
-        } else {
-            int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
-                int indexs[] = tblNhanVien.getSelectedRows();
-                for (int i = 0; i < indexs.length; i++) {
-                    String maNhanVien = tblNhanVien.getValueAt(indexs[i], 0).toString();
-                    BLL_NhanVien.delete(maNhanVien);
-                }
+    
+    public String test(){
+        ResultSet rs = DAL_NhanVien.select();
+        try {
+            while (rs.next()) {                
+                return rs.getString("NgaySinh");
             }
-            return;
+        } catch (Exception e) {
         }
+        return null;
     }
 
-    public void edit(int index) {
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
-        }
-        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), cboGioiTinh.getSelectedItem().toString().equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), cboChucVu.getSelectedItem().toString(), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), dateNgayTao.getDate(), cboTrangThai.getSelectedItem().toString().equals("Online") ? 1 : 0);
-        BLL_NhanVien.edit(nhanVien);
-    }
-
-    public void reset() {
-        txtMaNhanVien.setText(null);
-        txtTenNhanVien.setText(null);
-        cboGioiTinh.setSelectedItem("Nam");
-        dateNgaySinh.setDate(null);
-        txtSoDienThoai.setText(null);
-        txtCMND.setText(null);
-        cboChucVu.setSelectedItem("Nhân Viên");
-        txtLuong.setText(null);
-        dateNgayTao.setDate(null);
-        cboTrangThai.setSelectedItem("Offline");
-    }
-
-    public void fill(int index) {
-        txtMaNhanVien.setText(tblNhanVien.getValueAt(index, 0).toString());
-        txtTenNhanVien.setText(tblNhanVien.getValueAt(index, 1).toString());
-        cboGioiTinh.setSelectedItem(tblNhanVien.getValueAt(index, 2).toString());
-        dateNgaySinh.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblNhanVien.getValueAt(index, 3).toString()));
-        txtSoDienThoai.setText(tblNhanVien.getValueAt(index, 4).toString());
-        txtCMND.setText(tblNhanVien.getValueAt(index, 5).toString());
-        cboChucVu.setSelectedItem(tblNhanVien.getValueAt(index, 6).toString());
-        txtLuong.setText(tblNhanVien.getValueAt(index, 7).toString());
-        dateNgayTao.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblNhanVien.getValueAt(index, 8).toString()));
-        cboTrangThai.setSelectedItem(tblNhanVien.getValueAt(index, 9).toString());
-    }
-
-    public void load() {
-        ArrayList<DTO_NhanVien> array = BLL_NhanVien.select();
-        new BLL_NhanVien().load(array, tblNhanVien);
-    }
-
-    public void loadTaiKhoan() {
-        new GUI_dal_TaiKhoan(null, true).setVisible(true);
-    }
+//    public void add() {
+//        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), String.valueOf(cboTrangThai.getSelectedItem()).equals("Online") ? 1 : 0);
+//        BLL_NhanVien.add(nhanVien);
+//    }
+//
+//    public void delete(int index) {
+//        if (index < 0) {
+//            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
+//        } else {
+//            int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
+//            if (choice == JOptionPane.YES_OPTION) {
+//                int indexs[] = tblNhanVien.getSelectedRows();
+//                for (int i = 0; i < indexs.length; i++) {
+//                    String maNhanVien = tblNhanVien.getValueAt(indexs[i], 0).toString();
+//                    BLL_NhanVien.delete(maNhanVien);
+//                }
+//            }
+//            return;
+//        }
+//    }
+//
+//    public void edit(int index) {
+//        if (index < 0) {
+//            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
+//        }
+//        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), String.valueOf(cboTrangThai.getSelectedItem()).equals("Online") ? 1 : 0);
+//        BLL_NhanVien.edit(nhanVien);
+//    }
+//
+//    public void reset() {
+//        txtMaNhanVien.setText(null);
+//        txtTenNhanVien.setText(null);
+//        cboGioiTinh.setSelectedItem("Nam");
+//        dateNgaySinh.setDate(null);
+//        txtSoDienThoai.setText(null);
+//        txtCMND.setText(null);
+//        cboChucVu.setSelectedItem("Nhân Viên");
+//        txtLuong.setText(null);
+//        lblSetNgayTao.setText(null);
+//        cboTrangThai.setSelectedItem("Offline");
+//    }
+//
+//    public void fill(int index) {
+//        txtMaNhanVien.setText(tblNhanVien.getValueAt(index, 0).toString());
+//        txtTenNhanVien.setText(tblNhanVien.getValueAt(index, 1).toString());
+//        cboGioiTinh.setSelectedItem(tblNhanVien.getValueAt(index, 2).toString());
+//        dateNgaySinh.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblNhanVien.getValueAt(index, 3).toString()));
+//        txtSoDienThoai.setText(tblNhanVien.getValueAt(index, 4).toString());
+//        txtCMND.setText(tblNhanVien.getValueAt(index, 5).toString());
+//        cboChucVu.setSelectedItem(tblNhanVien.getValueAt(index, 6).toString());
+//        txtLuong.setText(tblNhanVien.getValueAt(index, 7).toString());
+//        lblSetNgayTao.setText(tblNhanVien.getValueAt(index, 8).toString());
+//        cboTrangThai.setSelectedItem(tblNhanVien.getValueAt(index, 9).toString());
+//    }
+//
+//    public void load() {
+//        ArrayList<DTO_NhanVien> array = BLL_NhanVien.select();
+//        new BLL_NhanVien().load(array, tblNhanVien);
+//    }
+//
+//    public void loadTaiKhoan() {
+//        new GUI_dal_TaiKhoan(null, true).setVisible(true);
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,10 +121,8 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         spt_1 = new javax.swing.JSeparator();
         lblLamMoi = new javax.swing.JLabel();
         lblTrangThai = new javax.swing.JLabel();
-        dateNgaySinh = new com.toedter.calendar.JDateChooser();
         cboChucVu = new javax.swing.JComboBox<>();
         cboGioiTinh = new javax.swing.JComboBox<>();
-        dateNgayTao = new com.toedter.calendar.JDateChooser();
         txtLuong = new javax.swing.JTextField();
         txtCMND = new javax.swing.JTextField();
         txtSoDienThoai = new javax.swing.JTextField();
@@ -127,6 +139,8 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         lblNgaySinh = new javax.swing.JLabel();
         lblChucVu = new javax.swing.JLabel();
         cboTrangThai = new javax.swing.JComboBox<>();
+        lblSetNgayTao = new javax.swing.JLabel();
+        dateNgaySinh = new com.toedter.calendar.JDateChooser();
         sdoNhanVien = new HELPER.PanelShadow();
         scrNhanVien = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
@@ -174,11 +188,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         lblTrangThai.setText("Trạng Thái");
         sdoFormChinh.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 160, 70, 30));
 
-        dateNgaySinh.setBackground(new java.awt.Color(255, 255, 255));
-        dateNgaySinh.setForeground(new java.awt.Color(62, 73, 95));
-        dateNgaySinh.setDateFormatString("dd-MM-yyyy");
-        sdoFormChinh.add(dateNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 90, -1));
-
         cboChucVu.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         cboChucVu.setForeground(new java.awt.Color(62, 73, 95));
         cboChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản Lí", "Nhân Viên" }));
@@ -190,11 +199,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         cboGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
         cboGioiTinh.setBorder(null);
         sdoFormChinh.add(cboGioiTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 70, 20));
-
-        dateNgayTao.setBackground(new java.awt.Color(255, 255, 255));
-        dateNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        dateNgayTao.setDateFormatString("dd-MM-yyyy");
-        sdoFormChinh.add(dateNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 90, -1));
 
         txtLuong.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         txtLuong.setForeground(new java.awt.Color(62, 73, 95));
@@ -312,6 +316,22 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         cboTrangThai.setBorder(null);
         sdoFormChinh.add(cboTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 190, 80, 20));
 
+        lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
+        sdoFormChinh.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 100, 20));
+
+        dateNgaySinh.setBackground(new java.awt.Color(255, 255, 255));
+        dateNgaySinh.setForeground(new java.awt.Color(62, 73, 95));
+        dateNgaySinh.setToolTipText("");
+        dateNgaySinh.setDateFormatString("dd-MM-yyyy");
+        dateNgaySinh.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateNgaySinhPropertyChange(evt);
+            }
+        });
+        sdoFormChinh.add(dateNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 100, 20));
+
         sdoNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         sdoNhanVien.setShadowOpacity(0.4F);
         sdoNhanVien.setShadowSize(9);
@@ -340,7 +360,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Ngày Sinh", "Số Điện Thoại", "CCCD", "Chức Vụ", "Lương", "Ngày Tạo", "Trạng Thái", "Tài Khoản", "Sửa", "Xóa"
+                "Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Ngày Sinh", "Số Điện Thoại", "CCCD", "Chức Vụ", "Lương", "Ngày Tạo", "Trạng Thái", "", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -359,6 +379,11 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
             }
         });
         scrNhanVien.setViewportView(tblNhanVien);
+        if (tblNhanVien.getColumnModel().getColumnCount() > 0) {
+            tblNhanVien.getColumnModel().getColumn(10).setMaxWidth(40);
+            tblNhanVien.getColumnModel().getColumn(11).setMaxWidth(40);
+            tblNhanVien.getColumnModel().getColumn(12).setMaxWidth(40);
+        }
 
         sdoNhanVien.add(scrNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1110, 400));
 
@@ -400,34 +425,36 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
 
     private void lblLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLamMoiMouseClicked
         // TODO add your handling code here:
-        reset();
+//        reset();
     }//GEN-LAST:event_lblLamMoiMouseClicked
 
     private void lblThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemMouseClicked
         // TODO add your handling code here:
-        add();
-        load();
+//        add();
+//        load();
     }//GEN-LAST:event_lblThemMouseClicked
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
         // TODO add your handling code here:
-        int row = tblNhanVien.getSelectedRow();
-        int column = tblNhanVien.getSelectedColumn();
-
-        if (tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column + 1) != null || tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column - 1) != null) {
-            fill(row);
-        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column - 2) == null) {
-            delete(row);
-            load();
-        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column + 1) == null) {
-            edit(row);
-            load();
-        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) != null && tblNhanVien.getValueAt(row, column + 1) == null) {
-            loadTaiKhoan();
-        }
-
-        maNhanVien = tblNhanVien.getValueAt(row, 0).toString();
+//        int row = tblNhanVien.getSelectedRow();
+//        int column = tblNhanVien.getSelectedColumn();
+//        maNhanVien = tblNhanVien.getValueAt(row, 0).toString();
+//        if (tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column + 1) != null || tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column - 1) != null) {
+//            fill(row);
+//        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column - 2) == null) {
+//            delete(row);
+//            load();
+//        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column + 1) == null) {
+//            edit(row);
+//            load();
+//        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) != null && tblNhanVien.getValueAt(row, column + 1) == null) {
+//            loadTaiKhoan();
+//        }
     }//GEN-LAST:event_tblNhanVienMouseClicked
+
+    private void dateNgaySinhPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgaySinhPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateNgaySinhPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -435,7 +462,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cboGioiTinh;
     private javax.swing.JComboBox<String> cboTrangThai;
     private com.toedter.calendar.JDateChooser dateNgaySinh;
-    private com.toedter.calendar.JDateChooser dateNgayTao;
     private javax.swing.JLabel lblCMND;
     private javax.swing.JLabel lblChucVu;
     private javax.swing.JLabel lblGioiTinh;
@@ -445,6 +471,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     private javax.swing.JLabel lblNgaySinh;
     private javax.swing.JLabel lblNgayTao;
     private javax.swing.JLabel lblQuanLiNhanVien;
+    private javax.swing.JLabel lblSetNgayTao;
     private javax.swing.JLabel lblSoDienThoai;
     private javax.swing.JLabel lblTenNhanVien;
     private javax.swing.JLabel lblThem;

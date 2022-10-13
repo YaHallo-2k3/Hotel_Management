@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import BLL.BLL_NhapKho;
 import GUI.GUI_pnl_ChiTietPhong;
 import java.awt.GridLayout;
 
@@ -21,9 +22,9 @@ public class GUI_pnl_QuanLiKho extends javax.swing.JPanel {
      */
     public GUI_pnl_QuanLiKho() {
         initComponents();
-        for (int i = 1; i <= 10; i++) {
-            pnlFormChinh.add(new GUI_pnl_ChiTietThuNgan().sdoChiTietThuNgan);
+        for (int i = 1; i <= BLL_NhapKho.countNhapKho(); i++) {
             index = i;
+            pnlFormChinh.add(new GUI_pnl_ChiTietNhapKho().sdoChiTietNhapKho);
         }
     }
 
@@ -36,7 +37,6 @@ public class GUI_pnl_QuanLiKho extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
         scrFormChinh = new javax.swing.JScrollPane();
         pnlFormChinh = new javax.swing.JPanel();
         sdoChucNang = new HELPER.PanelShadow();
@@ -49,17 +49,6 @@ public class GUI_pnl_QuanLiKho extends javax.swing.JPanel {
         lblTuNgay = new javax.swing.JLabel();
         lblTonKho = new javax.swing.JLabel();
         lblThemPhieu = new javax.swing.JLabel();
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1150, 730));
@@ -162,14 +151,13 @@ public class GUI_pnl_QuanLiKho extends javax.swing.JPanel {
 
     private void lblThemPhieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemPhieuMouseClicked
         // TODO add your handling code here:
-         new GUI_dal_PhieuNhap(null, true).setVisible(true);
+        new GUI_dal_PhieuNhap(null, true).setVisible(true);
     }//GEN-LAST:event_lblThemPhieuMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dateDenNgay;
     private com.toedter.calendar.JDateChooser dateTuNgay;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblDenNgay;
     private javax.swing.JLabel lblSetTongTien;
     private javax.swing.JLabel lblThemPhieu;

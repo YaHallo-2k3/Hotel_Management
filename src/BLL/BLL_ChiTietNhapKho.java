@@ -67,6 +67,25 @@ public class BLL_ChiTietNhapKho {
         }
         return array;
     }
+    
+    public static ArrayList<DTO_ChiTietNhapKho> selectChiTietNhapKho(int index) {
+        ResultSet rs = DAL_ChiTietNhapKho.rowNumber(index);
+        ArrayList<DTO_ChiTietNhapKho> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_ChiTietNhapKho chiTietNhapKho = new DTO_ChiTietNhapKho();
+                chiTietNhapKho.setMaChiTietNhapKho(rs.getString("MaChiTietNhapKho"));
+                chiTietNhapKho.setMaNhapKho(rs.getString("MaNhapKho"));
+                chiTietNhapKho.setMaSanPham(rs.getString("MaSanPham"));
+                chiTietNhapKho.setSoLuong(rs.getInt("SoLuong"));
+                chiTietNhapKho.setGiaNhap(rs.getInt("GiaNhap"));
+                array.add(chiTietNhapKho);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
 
     public void load(ArrayList<DTO_ChiTietNhapKho> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
@@ -83,18 +102,17 @@ public class BLL_ChiTietNhapKho {
             tblModel.addRow(obj);
         }
     }
-
-    public void loadPhieuNhap(ArrayList<DTO_SanPham> array, JTable tbl) {
+    
+    public static void loadChiTietNhapKho(ArrayList<DTO_ChiTietNhapKho> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"Mã Hàng", "Tên Hàng", "Số Lượng", "Giá Nhập", "Thêm"});
+        tblModel.setColumnIdentifiers(new Object[]{"Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền"});
         tblModel.setRowCount(0);
-        for (DTO_SanPham sanPham : array) {
+        for (DTO_ChiTietNhapKho chiTietNhapKho : array) {
             Object obj[] = new Object[4];
-            obj[0] = sanPham.getMaSanPham();
-            obj[1] = sanPham.getTenSanPham();
-            obj[2] = 0;
-            obj[3] = 0;
-            tbl.getColumnModel().getColumn(4).setCellRenderer(new iconAdd());
+            obj[0] = BLL_MaTenLoai.findTenSanPham(chiTietNhapKho.getMaSanPham());
+            obj[1] = chiTietNhapKho.getSoLuong();
+            obj[2] = chiTietNhapKho.getGiaNhap();
+            obj[3] = chiTietNhapKho.getSoLuong() * chiTietNhapKho.getGiaNhap();
             tblModel.addRow(obj);
         }
     }

@@ -72,7 +72,7 @@ public class BLL_SanPham {
                 sanPham.setMaLoaiSanPham(rs.getString("MaLoaiSanPham"));
                 sanPham.setDonViTinh(rs.getString("DonViTinh"));
                 sanPham.setGiaBan(rs.getInt("GiaBan"));
-                sanPham.setNgayTao(rs.getDate("NgayTao"));
+                sanPham.setNgayTao(rs.getTimestamp("NgayTao"));
                 array.add(sanPham);
             }
         } catch (Exception e) {
@@ -83,7 +83,6 @@ public class BLL_SanPham {
 
     public void load(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"Mã Hàng", "Tên Hàng", "Loại Hàng", "Đơn Vị", "Giá Bán", "Ngày Tạo", "Sửa", "Xóa"});
         tblModel.setRowCount(0);
         for (DTO_SanPham sanPham : array) {
             Object obj[] = new Object[6];
@@ -92,14 +91,14 @@ public class BLL_SanPham {
             obj[2] = BLL_MaTenLoai.findTenLoaiSanPham(sanPham.getMaLoaiSanPham());
             obj[3] = sanPham.getDonViTinh();
             obj[4] = sanPham.getGiaBan();
-            obj[5] = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", sanPham.getNgayTao());
+            obj[5] = HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", sanPham.getNgayTao());
             tbl.getColumnModel().getColumn(6).setCellRenderer(new iconEdit());
             tbl.getColumnModel().getColumn(7).setCellRenderer(new iconDelete());
             tblModel.addRow(obj);
         }
     }
 
-    public void loadPhieuNhap(ArrayList<DTO_SanPham> array, JTable tbl) {
+    public void loadSanPham(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setColumnIdentifiers(new Object[]{"Mã Hàng", "Tên Hàng", "Số Lượng", "Giá Nhập", "Thêm"});
         tblModel.setRowCount(0);

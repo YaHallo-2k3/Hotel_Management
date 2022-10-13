@@ -6,11 +6,13 @@
 package GUI;
 
 import BLL.BLL_ChiTietNhapKho;
+import BLL.BLL_NhapKho;
 import BLL.BLL_NhanVien;
 import BLL.BLL_SanPham;
 import DAL.DAL_ChiTietNhapKho;
 import DAL.DAL_ThuePhong;
 import DTO.DTO_ChiTietNhapKho;
+import DTO.DTO_NhapKho;
 import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
 import java.sql.ResultSet;
@@ -22,8 +24,10 @@ import java.util.ArrayList;
  */
 public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
 
-    int row;
-    int column;
+    public int row;
+    public int column;
+    public boolean isAddEdit;
+    
 
     /**
      * Creates new form GUI_dalThongTinPhong
@@ -34,7 +38,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         load();
         loadSanPham();
-        loadNhapKho();
+        loadChiTietNhapKho();
     }
 
     public String setMaPhieuNhap() {
@@ -59,7 +63,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         return maPhieuNhap;
     }
 
-    public void addNhapKho(int row, int column) {
+    public void addChiTietNhapKho(int row, int column) {
         String maChiTietNhapKho = "CT";
         try {
             ResultSet rs = DAL_ChiTietNhapKho.count();
@@ -77,23 +81,32 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         DTO_ChiTietNhapKho chiTietNhapKho = new DTO_ChiTietNhapKho(maChiTietNhapKho, lblSetSoPhieu.getText(), tblDichVu.getValueAt(row, 0).toString(), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()));
         BLL_ChiTietNhapKho.add(chiTietNhapKho);
     }
 
-    public void deleteNhapKho(int row) {
+    public void deleteChiTietNhapKho(int row) {
         BLL_ChiTietNhapKho.delete(lblSetSoPhieu.getText(), tblKhoDichVu.getValueAt(row, 0).toString());
     }
 
     public void loadSanPham() {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select();
-        new BLL_SanPham().loadPhieuNhap(array, tblDichVu);
+        new BLL_SanPham().loadSanPham(array, tblDichVu);
     }
 
-    public void loadNhapKho() {
+    public void loadChiTietNhapKho() {
         ArrayList<DTO_ChiTietNhapKho> array = BLL_ChiTietNhapKho.select(lblSetSoPhieu.getText());
         new BLL_ChiTietNhapKho().load(array, tblKhoDichVu);
+    }
+
+    public void addNhapKho() {
+        DTO_NhapKho nhapKho = new DTO_NhapKho(lblSetSoPhieu.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText());
+        BLL_NhapKho.add(nhapKho);
+    }
+
+    public void editNhapKho() {
+        DTO_NhapKho nhapKho = new DTO_NhapKho(lblSetSoPhieu.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText());
+        BLL_NhapKho.edit(nhapKho);
     }
 
     public void load() {
@@ -113,7 +126,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
 
         sdoThongTinPhong = new HELPER.PanelShadow();
         lblSetSoPhieu = new javax.swing.JLabel();
-        lblSoPhieu = new javax.swing.JLabel();
+        lblMaPhieu = new javax.swing.JLabel();
         lblSetNhanVien = new javax.swing.JLabel();
         lblNhanVien = new javax.swing.JLabel();
         lblGhiChu = new javax.swing.JLabel();
@@ -158,17 +171,17 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblSetSoPhieu.setText("220912001");
         sdoThongTinPhong.add(lblSetSoPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, 20));
 
-        lblSoPhieu.setBackground(new java.awt.Color(255, 255, 255));
-        lblSoPhieu.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
-        lblSoPhieu.setForeground(new java.awt.Color(153, 153, 153));
-        lblSoPhieu.setText("Số Phiếu");
-        sdoThongTinPhong.add(lblSoPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 70, 20));
+        lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblMaPhieu.setForeground(new java.awt.Color(153, 153, 153));
+        lblMaPhieu.setText("Mã Phiếu");
+        sdoThongTinPhong.add(lblMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 60, 20));
 
         lblSetNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNhanVien.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         lblSetNhanVien.setForeground(new java.awt.Color(62, 73, 95));
         lblSetNhanVien.setText("CherryCe");
-        sdoThongTinPhong.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, -1, 20));
+        sdoThongTinPhong.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, -1, 20));
 
         lblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblNhanVien.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
@@ -415,7 +428,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        dispose();
     }//GEN-LAST:event_lblThoatMouseClicked
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
@@ -427,10 +440,9 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         // TODO add your handling code here:
         row = tblDichVu.getSelectedRow();
         column = tblDichVu.getSelectedColumn();
-
         if (tblDichVu.getValueAt(row, column) == null) {
-            addNhapKho(row, column);
-            loadNhapKho();
+            addChiTietNhapKho(row, column);
+            loadChiTietNhapKho();
         }
     }//GEN-LAST:event_tblDichVuMouseClicked
 
@@ -438,15 +450,15 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         // TODO add your handling code here:
         row = tblKhoDichVu.getSelectedRow();
         column = tblKhoDichVu.getSelectedColumn();
-
         if (tblKhoDichVu.getValueAt(row, column) == null) {
-            deleteNhapKho(row);
-            loadNhapKho();
+            deleteChiTietNhapKho(row);
+            loadChiTietNhapKho();
         }
     }//GEN-LAST:event_tblKhoDichVuMouseClicked
 
     private void lblCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseClicked
         // TODO add your handling code here:
+        addNhapKho();
     }//GEN-LAST:event_lblCapNhatMouseClicked
 
     /**
@@ -515,6 +527,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblGhiChu;
     private javax.swing.JLabel lblInPhieu;
+    private javax.swing.JLabel lblMaPhieu;
     private javax.swing.JLabel lblNgayTao;
     private javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lblPhieuNhap;
@@ -523,7 +536,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     private javax.swing.JLabel lblSetNhanVien;
     private javax.swing.JLabel lblSetSoPhieu;
     private javax.swing.JLabel lblSetTongTien;
-    private javax.swing.JLabel lblSoPhieu;
     private javax.swing.JLabel lblThoat;
     private javax.swing.JLabel lblThucAn;
     private javax.swing.JLabel lblTongTien;

@@ -90,12 +90,12 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         sdoThongTinPhong.add(lblHangTonKho, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 30));
 
         lblSetTienBan.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetTienBan.setFont(new java.awt.Font("DialogInput", 1, 15)); // NOI18N
+        lblSetTienBan.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         lblSetTienBan.setForeground(new java.awt.Color(62, 73, 95));
         lblSetTienBan.setText("00");
         sdoThongTinPhong.add(lblSetTienBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 80, 70, 20));
 
-        txtTenHang.setFont(new java.awt.Font("DialogInput", 1, 15)); // NOI18N
+        txtTenHang.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         txtTenHang.setForeground(new java.awt.Color(62, 73, 95));
         txtTenHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtTenHang.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +121,7 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         lblMaHang.setText("Mã Hàng");
         sdoThongTinPhong.add(lblMaHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, -1, 20));
 
-        txtMaHang.setFont(new java.awt.Font("DialogInput", 1, 15)); // NOI18N
+        txtMaHang.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         txtMaHang.setForeground(new java.awt.Color(62, 73, 95));
         txtMaHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtMaHang.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +138,7 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         sdoThongTinPhong.add(lblTienNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, -1, 20));
 
         lblSetTienNhap.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetTienNhap.setFont(new java.awt.Font("DialogInput", 1, 15)); // NOI18N
+        lblSetTienNhap.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         lblSetTienNhap.setForeground(new java.awt.Color(62, 73, 95));
         lblSetTienNhap.setText("0");
         sdoThongTinPhong.add(lblSetTienNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, 70, 20));
@@ -168,9 +168,11 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblHangTon.setRowHeight(30);
+        tblHangTon.setShowHorizontalLines(false);
         scrHangTon.setViewportView(tblHangTon);
 
-        sdoHangTon.add(scrHangTon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 740, 330));
+        sdoHangTon.add(scrHangTon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 730, 330));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

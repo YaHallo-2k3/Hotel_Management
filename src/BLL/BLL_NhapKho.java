@@ -5,16 +5,18 @@
  */
 package BLL;
 
-import DAL.DAL_ChiTietNhapKho;
-import DTO.DTO_ChiTietNhapKho;
-import DTO.DTO_SanPham;
+import DAL.DAL_NhapKho;
+import DTO.DTO_NhapKho;
+import DTO.DTO_NhapKho;
 import HELPER.HELPER_ChuyenDoi;
 import java.awt.Component;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -25,42 +27,67 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BLL_NhapKho {
 
-    public static boolean check(DTO_ChiTietNhapKho chiTietNhapKho) {
-        if (chiTietNhapKho.getMaChiTietNhapKho().isEmpty() || chiTietNhapKho.getMaNhapKho().isEmpty() || chiTietNhapKho.getMaSanPham().isEmpty() || chiTietNhapKho.getSoLuong() == 0 || chiTietNhapKho.getGiaNhap() == 0) {
+    public static boolean check(DTO_NhapKho nhapKho) {
+        if (nhapKho.getMaNhapKho().isEmpty() || nhapKho.getMaNhanVien().isEmpty() || nhapKho.getNgayTao() == null || nhapKho.getGhiChu().isEmpty()) {
             return false;
         } else {
             return true;
         }
     }
 
-    public static void add(DTO_ChiTietNhapKho chiTietNhapKho) {
-        if (!check(chiTietNhapKho)) {
+    public static void add(DTO_NhapKho nhapKho) {
+        if (!check(nhapKho)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
-            DAL_ChiTietNhapKho.add(chiTietNhapKho);
+            DAL_NhapKho.add(nhapKho);
         }
     }
 
-    public static void delete(String maNhapKho, String maSanPham) {
+    public static void delete(String maNhapKho) {
         try {
-            DAL_ChiTietNhapKho.delete(maNhapKho, maSanPham);
+            DAL_NhapKho.delete(maNhapKho);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
         }
     }
+    
+    public static void edit(DTO_NhapKho nhapKho) {
+        if (check(nhapKho) == false) {
+            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else {
+            DAL_NhapKho.edit(nhapKho);
+        }
+    }
 
-    public static ArrayList<DTO_ChiTietNhapKho> select(String maNhapKho) {
-        ResultSet rs = DAL_ChiTietNhapKho.select(maNhapKho);
-        ArrayList<DTO_ChiTietNhapKho> array = new ArrayList<>();
+    public static ArrayList<DTO_NhapKho> select(String maNhapKho) {
+        ResultSet rs = DAL_NhapKho.select(maNhapKho);
+        ArrayList<DTO_NhapKho> array = new ArrayList<>();
         try {
             while (rs.next()) {
-                DTO_ChiTietNhapKho chiTietNhapKho = new DTO_ChiTietNhapKho();
-                chiTietNhapKho.setMaChiTietNhapKho(rs.getString("MaChiTietNhapKho"));
-                chiTietNhapKho.setMaNhapKho(rs.getString("MaNhapKho"));
-                chiTietNhapKho.setMaSanPham(rs.getString("MaSanPham"));
-                chiTietNhapKho.setSoLuong(rs.getInt("SoLuong"));
-                chiTietNhapKho.setGiaNhap(rs.getInt("GiaNhap"));
-                array.add(chiTietNhapKho);
+                DTO_NhapKho nhapKho = new DTO_NhapKho();
+                nhapKho.setMaNhapKho(rs.getString("MaNhapKho"));
+                nhapKho.setMaNhanVien(rs.getString("MaNhanVien"));
+                nhapKho.setNgayTao(rs.getTimestamp("NgayTao"));
+                nhapKho.setGhiChu(rs.getString("GhiChu"));
+                array.add(nhapKho);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+    
+    public static ArrayList<DTO_NhapKho> selectNhapKho(int index) {
+        ResultSet rs = DAL_NhapKho.rowNumber(index);
+        ArrayList<DTO_NhapKho> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_NhapKho nhapKho = new DTO_NhapKho();
+                nhapKho.setMaNhapKho(rs.getString("MaNhapKho"));
+                nhapKho.setMaNhanVien(rs.getString("MaNhanVien"));
+                nhapKho.setNgayTao(rs.getTimestamp("NgayTao"));
+                nhapKho.setGhiChu(rs.getString("GhiChu"));
+                array.add(nhapKho);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,34 +95,11 @@ public class BLL_NhapKho {
         return array;
     }
 
-    public void load(ArrayList<DTO_ChiTietNhapKho> array, JTable tbl) {
-        DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"Mã Hàng", "Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền", "Xóa"});
-        tblModel.setRowCount(0);
-        for (DTO_ChiTietNhapKho chiTietNhapKho : array) {
-            Object obj[] = new Object[5];
-            obj[0] = chiTietNhapKho.getMaSanPham();
-            obj[1] = BLL_MaTenLoai.findTenSanPham(chiTietNhapKho.getMaSanPham());
-            obj[2] = chiTietNhapKho.getSoLuong();
-            obj[3] = chiTietNhapKho.getGiaNhap();
-            obj[4] = chiTietNhapKho.getSoLuong() * chiTietNhapKho.getGiaNhap();
-            tbl.getColumnModel().getColumn(5).setCellRenderer(new iconDelete());
-            tblModel.addRow(obj);
-        }
-    }
-
-    public void loadPhieuNhap(ArrayList<DTO_SanPham> array, JTable tbl) {
-        DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"Mã Hàng", "Tên Hàng", "Số Lượng", "Giá Nhập", "Thêm"});
-        tblModel.setRowCount(0);
-        for (DTO_SanPham sanPham : array) {
-            Object obj[] = new Object[4];
-            obj[0] = sanPham.getMaSanPham();
-            obj[1] = sanPham.getTenSanPham();
-            obj[2] = 0;
-            obj[3] = 0;
-            tbl.getColumnModel().getColumn(4).setCellRenderer(new iconAdd());
-            tblModel.addRow(obj);
+    public static void loadNhapKho(ArrayList<DTO_NhapKho> array, JLabel lblMaPhieu, JLabel lblMaNhanVien, JLabel lblNgayTao) {
+        for (DTO_NhapKho nhapKho : array) {
+            lblMaPhieu.setText(nhapKho.getMaNhapKho());
+            lblMaNhanVien.setText(nhapKho.getMaNhanVien());
+            lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", nhapKho.getNgayTao()));
         }
     }
 
@@ -106,6 +110,18 @@ public class BLL_NhapKho {
             setHorizontalAlignment(CENTER);
             return this;
         }
+    }
+    
+    public static int countNhapKho() {
+        ResultSet rs = DAL_NhapKho.count();
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public class iconEdit extends DefaultTableCellRenderer {
@@ -125,5 +141,4 @@ public class BLL_NhapKho {
             return this;
         }
     }
-
 }

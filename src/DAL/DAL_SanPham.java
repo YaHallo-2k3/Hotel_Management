@@ -19,22 +19,22 @@ import java.util.Date;
 public class DAL_SanPham {
 
     public static ResultSet select() {
-        String sqlSelect = "SELECT * FROM SanPham";
-        return HELPER.HELPER_ConnectSQL.executeQuery(sqlSelect);
+        String sqlSelect = "SELECT * FROM SanPham ORDER BY MaSanPham";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
 
     public static void add(DTO_SanPham sanPham) {
         String sqlInsert = "INSERT INTO SanPham VALUES(?, ?, ?, ?, ?, CONVERT(VARCHAR, ?))";
-        HELPER_ConnectSQL.executeUpdate(sqlInsert, sanPham.getMaSanPham(), sanPham.getTenSanPham(), BLL_MaTenLoai.findMaLoaiSanPham(sanPham.getMaLoaiSanPham()), sanPham.getDonViTinh(), sanPham.getGiaBan(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", sanPham.getNgayTao()));
+        HELPER_ConnectSQL.executeUpdate(sqlInsert, sanPham.getMaSanPham(), sanPham.getTenSanPham(), BLL_MaTenLoai.findMaLoaiSanPham(sanPham.getMaLoaiSanPham()), sanPham.getDonViTinh(), sanPham.getGiaBan(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", sanPham.getNgayTao()));
     }
 
     public static void edit(DTO_SanPham sanPham) {
         String sqlUpdate = "UPDATE SanPham SET TenSanPham = ?, MaLoaiSanPham = ?, DonViTinh = ?, GiaBan = ?, NgayTao = CONVERT(VARCHAR, ?) WHERE MaSanPham = ?";
-        HELPER.HELPER_ConnectSQL.executeUpdate(sqlUpdate, sanPham.getTenSanPham(), BLL_MaTenLoai.findMaLoaiSanPham(sanPham.getMaLoaiSanPham()), sanPham.getDonViTinh(), sanPham.getGiaBan(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", sanPham.getNgayTao()), sanPham.getMaSanPham());
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, sanPham.getTenSanPham(), BLL_MaTenLoai.findMaLoaiSanPham(sanPham.getMaLoaiSanPham()), sanPham.getDonViTinh(), sanPham.getGiaBan(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", sanPham.getNgayTao()), sanPham.getMaSanPham());
     }
 
     public static void delete(String maSanPham) {
         String sqlDelete = "DELETE FROM SanPham WHERE MaSanPham = ?";
-        HELPER.HELPER_ConnectSQL.executeUpdate(sqlDelete, maSanPham);
+        HELPER_ConnectSQL.executeUpdate(sqlDelete, maSanPham);
     }
 }
