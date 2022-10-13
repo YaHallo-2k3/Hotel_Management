@@ -5,9 +5,12 @@
  */
 package GUI;
 
+import BLL.BLL_LoaiPhong;
+import BLL.BLL_MaTenLoai;
 import BLL.BLL_Phong;
 import BLL.BLL_SoDoPhong;
 import BLL.BLL_SoTang;
+import DAL.DAL_ThuePhong;
 import DTO.DTO_Phong;
 import DTO.DTO_SoTang;
 import DTO.DTO_ThuePhong;
@@ -82,6 +85,12 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             lblConLai.setVisible(true);
             lblSetTongTien.setText(null);
             lblSetConLai.setText(null);
+            mniDatPhong.setVisible(false);
+            mniThuePhong.setVisible(false);
+            mniKhachRaNgoai.setVisible(true);
+            mniChuyenPhong.setVisible(true);
+            mniHuyPhong.setVisible(true);
+            mniThanhToanNhom.setVisible(true);
             tongThoiGian();
         }
     }
@@ -95,6 +104,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
 
         String dateStart = lblGioPhutDen.getText();
         String dateStop = lblGioPhutDi.getText();
+        int giaPhong = 0;
 
         try {
             String ngayDen = HELPER_ChuyenDoi.convertDate("dd-MM", "yyyy-MM-dd", lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yy"));
@@ -530,12 +540,17 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
 
     private void mniDonPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDonPhongActionPerformed
         // TODO add your handling code here:
-        if (!isDonPhong) {
-            lblDonPhong.setVisible(true);
-            isDonPhong = true;
+        if (lblSetTrangThai.equals("Trả Phòng")) {
+            DAL_ThuePhong.setTrangThaiPhong("PhongTrong", BLL_MaTenLoai.findMaPhong(lblSoPhong.getText().substring(0, 3)));
+            load();
         } else {
-            lblDonPhong.setVisible(false);
-            isDonPhong = false;
+            if (!isDonPhong) {
+                lblDonPhong.setVisible(true);
+                isDonPhong = true;
+            } else {
+                lblDonPhong.setVisible(false);
+                isDonPhong = false;
+            }
         }
     }//GEN-LAST:event_mniDonPhongActionPerformed
 

@@ -1055,7 +1055,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     private void lblQuanLiSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiSanPhamMouseClicked
         // TODO add your handling code here:
         pnlFormChinh.removeAll();
-//        pnlFormChinh.add(new GUI_pnl_QuanLiChiPhi());
+        pnlFormChinh.add(new GUI_pnl_SanPham());
         lblSetTenMenu.setText("Game2K - " + lblQuanLiSanPham.getText());
         lblQuanLiSanPham.setForeground(new Color(33, 150, 243));
         lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box (1).png")));

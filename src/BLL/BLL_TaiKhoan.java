@@ -27,13 +27,13 @@ import javax.swing.table.DefaultTableModel;
 public class BLL_TaiKhoan {
 
     public static boolean check(DTO_TaiKhoan taiKhoan) {
-        if (taiKhoan.getMaNhanVien().isEmpty() || taiKhoan.getTenDangNhap().isEmpty() || taiKhoan.getMatKhau().isEmpty() || taiKhoan.getCauHoi().isEmpty() || taiKhoan.getTraLoi().isEmpty()) {
+        if (taiKhoan.getMaTaiKhoan().isEmpty() || taiKhoan.getMaNhanVien().isEmpty() || taiKhoan.getTenDangNhap().isEmpty() || taiKhoan.getMatKhau().isEmpty() || taiKhoan.getCauHoi().isEmpty() || taiKhoan.getTraLoi().isEmpty()) {
             return false;
         } else {
             return true;
         }
     }
-    
+
     public static void add(DTO_TaiKhoan taiKhoan) {
         if (!check(taiKhoan)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -41,7 +41,6 @@ public class BLL_TaiKhoan {
             DAL_TaiKhoan.add(taiKhoan);
         }
     }
-
 
     public static void delete(String maNhanVien) {
         try {
@@ -65,6 +64,7 @@ public class BLL_TaiKhoan {
         try {
             while (rs.next()) {
                 DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan();
+                taiKhoan.setMaTaiKhoan(rs.getString("MaTaiKhoan"));
                 taiKhoan.setMaNhanVien(rs.getString("MaNhanVien"));
                 taiKhoan.setTenDangNhap(rs.getString("TenDangNhap"));
                 taiKhoan.setMatKhau(rs.getString("MatKhau"));
@@ -84,6 +84,7 @@ public class BLL_TaiKhoan {
         try {
             while (rs.next()) {
                 DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan();
+                taiKhoan.setMaTaiKhoan(rs.getString("MaTaiKhoan"));
                 taiKhoan.setMaNhanVien(rs.getString("MaNhanVien"));
                 taiKhoan.setTenDangNhap(rs.getString("TenDangNhap"));
                 taiKhoan.setMatKhau(rs.getString("MatKhau"));

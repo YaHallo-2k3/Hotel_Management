@@ -11,6 +11,7 @@ package DTO;
  */
 public class DTO_TaiKhoan {
 
+    public String maTaiKhoan;
     public String maNhanVien;
     public String tenDangNhap;
     public String matKhau;
@@ -20,12 +21,21 @@ public class DTO_TaiKhoan {
     public DTO_TaiKhoan() {
     }
 
-    public DTO_TaiKhoan(String maNhanVien, String tenDangNhap, String matKhau, String cauHoi, String traLoi) {
+    public DTO_TaiKhoan(String maTaiKhoan, String maNhanVien, String tenDangNhap, String matKhau, String cauHoi, String traLoi) {
+        this.maTaiKhoan = maTaiKhoan;
         this.maNhanVien = maNhanVien;
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
         this.cauHoi = cauHoi;
         this.traLoi = traLoi;
+    }
+
+    public String getMaTaiKhoan() {
+        return maTaiKhoan;
+    }
+
+    public void setMaTaiKhoan(String maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
     }
 
     public String getMaNhanVien() {

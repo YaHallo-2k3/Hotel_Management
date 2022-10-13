@@ -7,6 +7,7 @@ package BLL;
 import DAL.DAL_MaTenLoai;
 import DAL.DAL_SoTang;
 import DTO.DTO_LoaiPhong;
+import DTO.DTO_LoaiSanPham;
 import DTO.DTO_MaTenLoai;
 import DTO.DTO_SoTang;
 import java.sql.ResultSet;
@@ -167,7 +168,7 @@ public class BLL_MaTenLoai {
         }
         return null;
     }
-    
+
     public static String findTenNhanVien(String maNhanVien) {
         ResultSet rs = DAL_MaTenLoai.findTenNhanVien(maNhanVien);
         try {
@@ -191,7 +192,7 @@ public class BLL_MaTenLoai {
         }
         return null;
     }
-    
+
     public static String findTenChucVu(String maChucVu) {
         ResultSet rs = DAL_MaTenLoai.findTenChucVu(maChucVu);
         try {
@@ -209,6 +210,78 @@ public class BLL_MaTenLoai {
         try {
             while (rs.next()) {
                 return rs.getString("MaChucVu");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<DTO_LoaiSanPham> selectTenLoaiSanPham() {
+        ResultSet rs = DAL_MaTenLoai.selectTenLoaiSanPham();
+        ArrayList<DTO_LoaiSanPham> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_LoaiSanPham sanPham = new DTO_LoaiSanPham();
+                sanPham.setTenLoaiSanPham(rs.getString("TenLoaiSanPham"));
+                array.add(sanPham);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public static void loadTenLoaiSanPham(ArrayList<DTO_LoaiSanPham> array, JComboBox cbo) {
+        DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cbo.getModel();
+        cboModel.removeAllElements();
+        for (DTO_LoaiSanPham loaiSanPham : array) {
+            Object obj = loaiSanPham.getTenLoaiSanPham();
+            cboModel.addElement(obj);
+        }
+    }
+
+    public static String findTenLoaiSanPham(String maLoaiSanPham) {
+        ResultSet rs = DAL_MaTenLoai.findTenLoaiSanPham(maLoaiSanPham);
+        try {
+            while (rs.next()) {
+                return rs.getString("TenLoaiSanPham");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String findMaLoaiSanPham(String tenLoaiSanPham) {
+        ResultSet rs = DAL_MaTenLoai.findMaLoaiSanPham(tenLoaiSanPham);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaLoaiSanPham");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static String findTenSanPham(String maSanPham) {
+        ResultSet rs = DAL_MaTenLoai.findTenSanPham(maSanPham);
+        try {
+            while (rs.next()) {
+                return rs.getString("TenSanPham");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String findMaSanPham(String tenSanPham) {
+        ResultSet rs = DAL_MaTenLoai.findMaSanPham(tenSanPham);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaSanPham");
             }
         } catch (Exception e) {
             e.printStackTrace();

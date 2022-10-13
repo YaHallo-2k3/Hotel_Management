@@ -5,6 +5,7 @@
  */
 package BLL;
 
+import DAL.DAL_MaTenLoai;
 import DAL.DAL_NhanVien;
 import DTO.DTO_NhanVien;
 import HELPER.HELPER_ChuyenDoi;
@@ -103,6 +104,18 @@ public class BLL_NhanVien {
             tbl.getColumnModel().getColumn(12).setCellRenderer(new BLL_NhanVien.iconDelete());
             tblModel.addRow(obj);
         }
+    }
+
+    public static String nhanVienOnline() {
+        ResultSet rs = DAL_NhanVien.nhanVienOnline();
+        try {
+            while (rs.next()) {
+                return rs.getString("TenNhanVien");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public class iconAccount extends DefaultTableCellRenderer {

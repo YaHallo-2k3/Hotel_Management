@@ -93,6 +93,18 @@ public class BLL_LoaiPhong {
         }
     }
 
+    public static int findGiaPhong(String maLoaiPhong, String loaiGia) {
+        ResultSet rs = DAL_LoaiPhong.findGiaPhong(maLoaiPhong);
+        try {
+            while (rs.next()) {
+                return rs.getInt(loaiGia);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public class iconEdit extends DefaultTableCellRenderer {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {

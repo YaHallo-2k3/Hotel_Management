@@ -5,11 +5,14 @@
  */
 package GUI;
 
+import BLL.BLL_LoaiPhong;
 import BLL.BLL_MaTenLoai;
+import BLL.BLL_PhuongThucThanhToan;
 import BLL.BLL_SoDoPhong;
 import BLL.BLL_ThuePhong;
 import DAL.DAL_ThuePhong;
 import DTO.DTO_Phong;
+import DTO.DTO_PhuongThucThanhToan;
 import DTO.DTO_ThuePhong;
 import HELPER.HELPER_ChuyenDoi;
 import com.toedter.calendar.JDateChooser;
@@ -44,6 +47,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         loadThongTinPhong();
         trangThaiPhong();
         tongThoiGian();
+        phuongThucThanhToan();
     }
 
     public void trangThaiPhong() {
@@ -113,6 +117,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
         String dateStart = lblGioPhutDen.getText();
         String dateStop = lblGioPhutDi.getText();
+        int giaPhong = 0;
 
         try {
             String ngayDen = HELPER_ChuyenDoi.convertDate("dd-MM-yyyy", "yyyy-MM-dd", HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()));
@@ -131,10 +136,25 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         long diff = (d2.getTime() - d1.getTime()) / 1000 / 60;
         long diffHours = diff / 60;
         long diffMinutes = diff % (diffHours * 60);
-        System.out.println(d2.getTime());
-        System.out.println(d1.getTime());
 
         lblTongThoiGian.setText(String.valueOf(noDay + "d " + diffHours + "h " + diffMinutes + "m"));
+
+        if (noDay >= 1) {
+            giaPhong += BLL_LoaiPhong.findGiaPhong(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), "GiaNgay") * (int) noDay;
+        }
+        if (diffHours < 5) {
+            giaPhong += BLL_LoaiPhong.findGiaPhong(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), "GiaGio");
+        }
+        if (diffHours >= 5) {
+            giaPhong += BLL_LoaiPhong.findGiaPhong(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), "GiaNgay");
+        }
+
+        lblSetGiaPhong.setText(HELPER_ChuyenDoi.getSoString(giaPhong)+"K");
+    }
+
+    public void phuongThucThanhToan() {
+        ArrayList<DTO_PhuongThucThanhToan> arrayPhuongThuc = BLL_PhuongThucThanhToan.select();
+        BLL_PhuongThucThanhToan.load(arrayPhuongThuc, cboThanhToan);
     }
 
 //    public void validate() {
@@ -558,7 +578,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
         cboThanhToan.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         cboThanhToan.setForeground(new java.awt.Color(62, 73, 95));
-        cboThanhToan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         sdoGiaPhong.add(cboThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 80, -1));
 
         lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));

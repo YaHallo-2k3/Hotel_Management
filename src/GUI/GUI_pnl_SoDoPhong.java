@@ -60,6 +60,8 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         pnlFormChinh = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1150, 730));
+        setPreferredSize(new java.awt.Dimension(1150, 730));
 
         sdoChuThich.setBackground(new java.awt.Color(255, 255, 255));
         sdoChuThich.setMinimumSize(new java.awt.Dimension(1150, 110));

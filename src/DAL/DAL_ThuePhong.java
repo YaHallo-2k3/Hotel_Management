@@ -54,4 +54,9 @@ public class DAL_ThuePhong {
         String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuThue) AS RowNumber FROM ThuePhong) AS ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE ThuePhong.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
     }
+    
+    public static void setTrangThaiPhong(String maTrangThaiPhong, String maPhong) {
+        String sqlUpdate = "UPDATE Phong SET MaTrangThaiPhong = ? WHERE MaPhong = ?";
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, maTrangThaiPhong, maPhong);
+    }
 }

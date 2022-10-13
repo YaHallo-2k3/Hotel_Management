@@ -16,8 +16,8 @@ import java.sql.ResultSet;
 public class DAL_TaiKhoan {
 
     public static void add(DTO_TaiKhoan taiKhoan) {
-        String sqlInsert = "INSERT INTO taiKhoan VALUES (?, ?, ?, ?, ?)";
-        HELPER_ConnectSQL.executeUpdate(sqlInsert, taiKhoan.getMaNhanVien(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCauHoi(), taiKhoan.getTraLoi());
+        String sqlInsert = "INSERT INTO taiKhoan VALUES (?, ?, ?, ?, ?, ?)";
+        HELPER_ConnectSQL.executeUpdate(sqlInsert, taiKhoan.getMaTaiKhoan(), taiKhoan.getMaNhanVien(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCauHoi(), taiKhoan.getTraLoi());
     }
 
     public static void delete(String maNhanVien) {
@@ -36,7 +36,7 @@ public class DAL_TaiKhoan {
     }
 
     public static void edit(DTO_TaiKhoan taiKhoan) {
-        String sqlUpdate = "UPDATE TaiKhoan SET TenDangNhap = ?, MatKhau = ?, CauHoi = ?, TraLoi = ? WHERE MaNhanVien = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlUpdate, taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCauHoi(), taiKhoan.getTraLoi(), taiKhoan.getMaNhanVien());
+        String sqlUpdate = "UPDATE TaiKhoan SET MaTaiKhoan = ?, TenDangNhap = ?, MatKhau = ?, CauHoi = ?, TraLoi = ? WHERE MaNhanVien = ?";
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, taiKhoan.getMaTaiKhoan(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCauHoi(), taiKhoan.getTraLoi(), taiKhoan.getMaNhanVien());
     }
 }

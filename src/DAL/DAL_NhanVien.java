@@ -31,6 +31,11 @@ public class DAL_NhanVien {
         String sqlSelect = "SELECT * FROM NhanVien ORDER BY maNhanVien";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
+    
+    public static ResultSet nhanVienOnline() {
+        String sqlSelect = "SELECT * FROM NhanVien WHERE TrangThaiNhanVien = 1 ORDER BY maNhanVien";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    }
 
     public static void edit(DTO_NhanVien nhanVien) {
         String sqlUpdate = "UPDATE NhanVien SET TenNhanVien = ?, GioiTinh = ?, NgaySinh = CONVERT(VARCHAR, ?), SoDienThoai = ?, CMND = ?, MaChucVu = ?, Luong = ?, NgayTao = CONVERT(VARCHAR, ?), TrangThaiNhanVien = ? WHERE MaNhanVien = ?";

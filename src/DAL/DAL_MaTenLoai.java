@@ -67,7 +67,7 @@ public class DAL_MaTenLoai {
         String sqlSelect = "SELECT * FROM Phong WHERE TenPhong = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tenPhong);
     }
-    
+
     public static ResultSet findTenNhanVien(String maNhanVien) {
         String sqlSelect = "SELECT * FROM NhanVien WHERE MaNhanVien = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maNhanVien);
@@ -77,7 +77,7 @@ public class DAL_MaTenLoai {
         String sqlSelect = "SELECT * FROM NhanVien WHERE TenNhanVien = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tenNhanVien);
     }
-    
+
     public static ResultSet findTenChucVu(String maChucVu) {
         String sqlSelect = "SELECT * FROM ChucVu WHERE MaChucVu = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maChucVu);
@@ -86,5 +86,30 @@ public class DAL_MaTenLoai {
     public static ResultSet findMaChucVu(String tenChucVu) {
         String sqlSelect = "SELECT * FROM ChucVu WHERE TenChucVu = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tenChucVu);
+    }
+
+    public static ResultSet selectTenLoaiSanPham() {
+        String sqlSelect = "SELECT * FROM LoaiSanPham ORDER BY MaLoaiSanPham";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    }
+
+    public static ResultSet findTenLoaiSanPham(String maLoaiSanPham) {
+        String sqlSelect = "SELECT * FROM LoaiSanPham WHERE MaLoaiSanPham = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maLoaiSanPham);
+    }
+
+    public static ResultSet findMaLoaiSanPham(String tenLoaiSanPham) {
+        String sqlSelect = "SELECT * FROM LoaiSanPham WHERE TenLoaiSanPham = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tenLoaiSanPham);
+    }
+
+    public static ResultSet findTenSanPham(String maSanPham) {
+        String sqlSelect = "SELECT * FROM SanPham WHERE MaSanPham = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maSanPham);
+    }
+
+    public static ResultSet findMaSanPham(String tenSanPham) {
+        String sqlSelect = "SELECT * FROM SanPham WHERE TenSanPham = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tenSanPham);
     }
 }

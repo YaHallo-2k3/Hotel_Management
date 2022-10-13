@@ -29,12 +29,12 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
     }
 
     public void add() {
-        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText());
+        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(txtTaiKhoan.getText(), maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText());
         BLL_TaiKhoan.add(taiKhoan);
     }
 
     public void edit() {
-        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText());
+        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(txtTaiKhoan.getText(), maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText());
         BLL_TaiKhoan.edit(taiKhoan);
     }
 
