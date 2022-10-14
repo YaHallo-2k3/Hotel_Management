@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  * @author CherryCe
  */
 public class BLL_TaiKhoan {
-
+    
     public static boolean check(DTO_TaiKhoan taiKhoan) {
         if (taiKhoan.getMaTaiKhoan().isEmpty() || taiKhoan.getMaNhanVien().isEmpty() || taiKhoan.getTenDangNhap().isEmpty() || taiKhoan.getMatKhau().isEmpty() || taiKhoan.getCauHoi().isEmpty() || taiKhoan.getTraLoi().isEmpty()) {
             return false;
@@ -34,7 +34,7 @@ public class BLL_TaiKhoan {
             return true;
         }
     }
-
+    
     public static boolean alreayExits(String data, String value) {
         ResultSet rs = DAL_TaiKhoan.select();
         ArrayList<String> array = new ArrayList<>();
@@ -52,7 +52,7 @@ public class BLL_TaiKhoan {
         }
         return true;
     }
-
+    
     public static void add(DTO_TaiKhoan taiKhoan) {
         if (!check(taiKhoan)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -63,7 +63,7 @@ public class BLL_TaiKhoan {
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-
+    
     public static void delete(String maNhanVien) {
         try {
             DAL_TaiKhoan.delete(maNhanVien);
@@ -71,7 +71,7 @@ public class BLL_TaiKhoan {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
         }
     }
-
+    
     public static void edit(DTO_TaiKhoan taiKhoan) {
         if (!check(taiKhoan)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -82,7 +82,7 @@ public class BLL_TaiKhoan {
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-
+    
     public static ArrayList<DTO_TaiKhoan> select(String tenDangNhap, String matKhau) {
         ResultSet rs = DAL_TaiKhoan.select(tenDangNhap, matKhau);
         ArrayList<DTO_TaiKhoan> array = new ArrayList<>();
@@ -95,6 +95,7 @@ public class BLL_TaiKhoan {
                 taiKhoan.setMatKhau(rs.getString("MatKhau"));
                 taiKhoan.setCauHoi(rs.getString("CauHoi"));
                 taiKhoan.setCauHoi(rs.getString("TraLoi"));
+                taiKhoan.setCheckDangNhap(rs.getInt("CheckDangNhap"));
                 array.add(taiKhoan);
             }
         } catch (Exception e) {
@@ -102,7 +103,7 @@ public class BLL_TaiKhoan {
         }
         return array;
     }
-
+    
     public static ArrayList<DTO_TaiKhoan> select(String maNhanvien) {
         ResultSet rs = DAL_TaiKhoan.select(maNhanvien);
         ArrayList<DTO_TaiKhoan> array = new ArrayList<>();
@@ -115,6 +116,7 @@ public class BLL_TaiKhoan {
                 taiKhoan.setMatKhau(rs.getString("MatKhau"));
                 taiKhoan.setCauHoi(rs.getString("CauHoi"));
                 taiKhoan.setTraLoi(rs.getString("TraLoi"));
+                taiKhoan.setCheckDangNhap(rs.getInt("CheckDangNhap"));
                 array.add(taiKhoan);
             }
         } catch (Exception e) {
@@ -122,9 +124,10 @@ public class BLL_TaiKhoan {
         }
         return array;
     }
-
-    public static void load(ArrayList<DTO_TaiKhoan> array, JTextField txtTenDangNhap, JPasswordField psdMatKhau, JComboBox cboCauHoi, JTextField txtTraLoi) {
+    
+    public static void load(ArrayList<DTO_TaiKhoan> array, JLabel lblMaTaiKhoan, JTextField txtTenDangNhap, JPasswordField psdMatKhau, JComboBox cboCauHoi, JTextField txtTraLoi) {
         for (DTO_TaiKhoan taiKhoan : array) {
+            lblMaTaiKhoan.setText(taiKhoan.getMaTaiKhoan());
             txtTenDangNhap.setText(taiKhoan.getTenDangNhap());
             psdMatKhau.setText(taiKhoan.getMatKhau());
             cboCauHoi.setSelectedItem(taiKhoan.getCauHoi());

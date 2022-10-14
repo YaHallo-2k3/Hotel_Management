@@ -25,6 +25,11 @@ public class DAL_ChiTietDichVu {
         HELPER_ConnectSQL.executeUpdate(sqlDelete, maDichVu, maSanPham);
     }
 
+    public static void edit(int soLuong, String maSanPham, String maPhieuDichVu) {
+        String sqlInsert = "UPDATE ChiTietDichVu SET SoLuongBan = ? WHERE MaSanPham = ? AND MaPhieuDichVu = ?";
+        HELPER_ConnectSQL.executeUpdate(sqlInsert, soLuong, maSanPham, maPhieuDichVu);
+    }
+
     public static ResultSet select(String maPhieuDichVu) {
         String sqlSelect = "SELECT * FROM ChiTietDichVu WHERE MaPhieuDichVu = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuDichVu);

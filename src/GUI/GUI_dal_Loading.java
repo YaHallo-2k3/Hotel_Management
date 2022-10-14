@@ -46,25 +46,33 @@ public class GUI_dal_Loading extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlLoading = new javax.swing.JPanel();
         lblLoading = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(150, 150));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(150, 150));
+
+        pnlLoading.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLoading.setMinimumSize(new java.awt.Dimension(150, 150));
+        pnlLoading.setPreferredSize(new java.awt.Dimension(150, 150));
+        pnlLoading.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblLoading.setBackground(new java.awt.Color(255, 255, 255));
         lblLoading.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/ezgif.com-gif-maker.gif"))); // NOI18N
+        pnlLoading.add(lblLoading, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 150));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblLoading)
+            .addComponent(pnlLoading, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblLoading)
+            .addComponent(pnlLoading, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -115,5 +123,6 @@ public class GUI_dal_Loading extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblLoading;
+    private javax.swing.JPanel pnlLoading;
     // End of variables declaration//GEN-END:variables
 }

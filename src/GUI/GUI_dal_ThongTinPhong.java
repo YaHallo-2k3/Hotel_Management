@@ -71,7 +71,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         new BLL_ChiTietDichVu().load(array, tblDichVu);
     }
 
-    public void addChiTietDichVu(int row, int column) {
+    public void addChiTietDichVu() {
         String maChiTietDichVu = "DV";
         try {
             ResultSet rs = DAL_ChiTietDichVu.count();
@@ -89,12 +89,25 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DTO_ChiTietDichVu chiTietDichVu = new DTO_ChiTietDichVu(maChiTietDichVu, lblSetMaPhieuThue.getText(), tblKhoDichVu.getValueAt(row, 0).toString(), HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 2).toString()), HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 3).toString()));
+        DTO_ChiTietDichVu chiTietDichVu = new DTO_ChiTietDichVu(maChiTietDichVu, lblSetMaPhieuThue.getText(), tblKhoDichVu.getValueAt(row, 0).toString(), 1, HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 2).toString()));
         BLL_ChiTietDichVu.add(chiTietDichVu);
     }
 
     public void deleteChiTietDichVu(int row) {
         BLL_ChiTietDichVu.delete(lblSetMaPhieuThue.getText(), BLL_MaTenLoai.findMaSanPham(tblDichVu.getValueAt(row, 0).toString()));
+    }
+
+    public void editChiTietDichVu() {
+        int total = 0;
+        try {
+            ResultSet rs = DAL_ChiTietDichVu.select(lblSetMaPhieuThue.getText());
+            while (rs.next()) {
+                total = rs.getInt("SoLuongBan");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        BLL_ChiTietDichVu.edit(total + 1, tblKhoDichVu.getValueAt(row, 0).toString(), lblSetMaPhieuThue.getText());
     }
 
     public void trangThaiPhong() {
@@ -580,28 +593,28 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         tblKhoDichVu.setForeground(new java.awt.Color(62, 73, 95));
         tblKhoDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã Hàng", "Tên Hàng", "Số Lượng", "Đơn Giá", ""
+                "Mã Hàng", "Tên Hàng", "Đơn Giá", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -617,7 +630,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         });
         scrKhoDichVu.setViewportView(tblKhoDichVu);
         if (tblKhoDichVu.getColumnModel().getColumnCount() > 0) {
-            tblKhoDichVu.getColumnModel().getColumn(4).setMaxWidth(40);
+            tblKhoDichVu.getColumnModel().getColumn(3).setMaxWidth(40);
         }
 
         sdoKhoDichVu.add(scrKhoDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 460));
@@ -805,9 +818,27 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         // TODO add your handling code here:
         row = tblKhoDichVu.getSelectedRow();
         column = tblKhoDichVu.getSelectedColumn();
+        boolean isAddEdit = true;
         if (tblKhoDichVu.getValueAt(row, column) == null) {
-            addChiTietDichVu(row, column);
-            loadChiTietDichVu();
+            if (tblDichVu.getRowCount() == 0) {
+                addChiTietDichVu();
+                loadChiTietDichVu();
+            } else {
+                for (int i = 0; i < tblDichVu.getRowCount(); i++) {
+                    if (!tblKhoDichVu.getValueAt(row, 1).toString().equals(tblDichVu.getValueAt(i, 0).toString())) {
+                        isAddEdit = false;
+                    } else {
+                        isAddEdit = true;
+                    }
+                }
+                if (!isAddEdit) {
+                    addChiTietDichVu();
+                    loadChiTietDichVu();
+                } else {
+                    editChiTietDichVu();
+                    loadChiTietDichVu();
+                }
+            }
         }
     }//GEN-LAST:event_tblKhoDichVuMouseClicked
 

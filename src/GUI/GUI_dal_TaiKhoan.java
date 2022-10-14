@@ -6,7 +6,9 @@
 package GUI;
 
 import BLL.BLL_TaiKhoan;
+import DAL.DAL_TaiKhoan;
 import DTO.DTO_TaiKhoan;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -29,18 +31,35 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
     }
 
     public void add() {
-        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(txtTaiKhoan.getText(), maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText());
+        String maTaiKhoan = "TK";
+        try {
+            ResultSet rs = DAL_TaiKhoan.count();
+            int rowCount = 0;
+            while (rs.next()) {
+                rowCount = rs.getInt(1);
+                if (rowCount > 99) {
+                    maTaiKhoan = maTaiKhoan + (rowCount + 1);
+                } else if (rowCount > 9) {
+                    maTaiKhoan = maTaiKhoan + "0" + (rowCount + 1);
+                } else {
+                    maTaiKhoan = maTaiKhoan + "00" + (rowCount + 1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(maTaiKhoan, maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText(), 0);
         BLL_TaiKhoan.add(taiKhoan);
     }
 
     public void edit() {
-        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(txtTaiKhoan.getText(), maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText());
+        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(lblSetMaTaiKhoan.getText(), maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText(), 0);
         BLL_TaiKhoan.edit(taiKhoan);
     }
 
     public void load() {
         ArrayList<DTO_TaiKhoan> array = BLL_TaiKhoan.select(maNhanVien);
-        BLL_TaiKhoan.load(array, txtTaiKhoan, psdMatKhau, cboBaoMat, txtTraLoi);
+        BLL_TaiKhoan.load(array, lblSetMaTaiKhoan, txtTaiKhoan, psdMatKhau, cboBaoMat, txtTraLoi);
         if (txtTaiKhoan.getText().isEmpty()) {
             isAddEdit = false;
         } else {
@@ -71,10 +90,13 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         lblIconBaoMat = new javax.swing.JLabel();
         lblIconTraLoi = new javax.swing.JLabel();
         psdMatKhau = new javax.swing.JPasswordField();
+        lblIconMaTaiKhoan = new javax.swing.JLabel();
+        lblSetMaTaiKhoan = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(360, 400));
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sdoChucNang.setBackground(new java.awt.Color(255, 255, 255));
         sdoChucNang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(33, 150, 243)));
@@ -108,6 +130,8 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         });
         sdoChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 100, 40));
 
+        getContentPane().add(sdoChucNang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 360, 60));
+
         sdoTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
         sdoTaiKhoan.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(33, 150, 243)));
         sdoTaiKhoan.setMinimumSize(new java.awt.Dimension(560, 280));
@@ -118,13 +142,13 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         lblIconMatKhau.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
         lblIconMatKhau.setForeground(new java.awt.Color(153, 153, 153));
         lblIconMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/padlock.png"))); // NOI18N
-        sdoTaiKhoan.add(lblIconMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 30, 30));
+        sdoTaiKhoan.add(lblIconMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 30, 30));
 
         lblIconTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
         lblIconTaiKhoan.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
         lblIconTaiKhoan.setForeground(new java.awt.Color(153, 153, 153));
         lblIconTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/profile-user.png"))); // NOI18N
-        sdoTaiKhoan.add(lblIconTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 30, 30));
+        sdoTaiKhoan.add(lblIconTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 30, 30));
 
         lblTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
         lblTaiKhoan.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
@@ -140,7 +164,7 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
                 txtTaiKhoanActionPerformed(evt);
             }
         });
-        sdoTaiKhoan.add(txtTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 250, 30));
+        sdoTaiKhoan.add(txtTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 250, 30));
 
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -156,7 +180,7 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         cboBaoMat.setForeground(new java.awt.Color(62, 73, 95));
         cboBaoMat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày Sinh Của Bạn", "Nơi Sinh Của Bạn", "Màu Bạn Yêu Thích", "Con Vật Bạn Thích" }));
         cboBaoMat.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoTaiKhoan.add(cboBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 250, 30));
+        sdoTaiKhoan.add(cboBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 250, 30));
 
         txtTraLoi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTraLoi.setForeground(new java.awt.Color(62, 73, 95));
@@ -167,37 +191,36 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
                 txtTraLoiActionPerformed(evt);
             }
         });
-        sdoTaiKhoan.add(txtTraLoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 250, 30));
+        sdoTaiKhoan.add(txtTraLoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 250, 30));
 
         lblIconBaoMat.setBackground(new java.awt.Color(255, 255, 255));
         lblIconBaoMat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIconBaoMat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/iconfinder-securityprotectlockshield04-4021479_113137.png"))); // NOI18N
-        sdoTaiKhoan.add(lblIconBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+        sdoTaiKhoan.add(lblIconBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
 
         lblIconTraLoi.setBackground(new java.awt.Color(255, 255, 255));
         lblIconTraLoi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIconTraLoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/conversation.png"))); // NOI18N
-        sdoTaiKhoan.add(lblIconTraLoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, 30));
+        sdoTaiKhoan.add(lblIconTraLoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, 30));
 
         psdMatKhau.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         psdMatKhau.setForeground(new java.awt.Color(62, 73, 95));
         psdMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
-        sdoTaiKhoan.add(psdMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 138, 250, 30));
+        sdoTaiKhoan.add(psdMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 250, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sdoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(sdoChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(sdoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(sdoChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        lblIconMaTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
+        lblIconMaTaiKhoan.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblIconMaTaiKhoan.setForeground(new java.awt.Color(62, 73, 95));
+        lblIconMaTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/programming-code-signs.png"))); // NOI18N
+        sdoTaiKhoan.add(lblIconMaTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 30, 30));
+
+        lblSetMaTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetMaTaiKhoan.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetMaTaiKhoan.setForeground(new java.awt.Color(62, 73, 95));
+        lblSetMaTaiKhoan.setText("TK001");
+        sdoTaiKhoan.add(lblSetMaTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 60, 30));
+
+        getContentPane().add(sdoTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -787,9 +810,11 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
     private javax.swing.JLabel lblCapNhat;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblIconBaoMat;
+    private javax.swing.JLabel lblIconMaTaiKhoan;
     private javax.swing.JLabel lblIconMatKhau;
     private javax.swing.JLabel lblIconTaiKhoan;
     private javax.swing.JLabel lblIconTraLoi;
+    private javax.swing.JLabel lblSetMaTaiKhoan;
     private javax.swing.JLabel lblTaiKhoan;
     private javax.swing.JLabel lblThoat;
     private javax.swing.JPasswordField psdMatKhau;

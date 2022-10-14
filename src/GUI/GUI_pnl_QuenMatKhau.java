@@ -28,200 +28,190 @@ public class GUI_pnl_QuenMatKhau extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlQuenMatKhau = new javax.swing.JPanel();
-        lblTenDangNhap = new javax.swing.JLabel();
+        lblShowHiddenMatKhau = new javax.swing.JLabel();
+        lblExit = new javax.swing.JLabel();
+        lblSetWebsite = new javax.swing.JLabel();
         lblWebsite = new javax.swing.JLabel();
         lblSetHoTro = new javax.swing.JLabel();
-        lblSetWebsite = new javax.swing.JLabel();
         lblHoTro = new javax.swing.JLabel();
-        lblDangKi = new javax.swing.JLabel();
+        lblIconTraLoi = new javax.swing.JLabel();
+        psdMatKhau = new javax.swing.JPasswordField();
+        lblIconBaoMat = new javax.swing.JLabel();
+        txtTraLoi = new javax.swing.JTextField();
         cboBaoMat = new javax.swing.JComboBox<>();
-        txtBaoMat = new javax.swing.JTextField();
-        lblBaoMat = new javax.swing.JLabel();
-        pswMatKhau = new javax.swing.JPasswordField();
-        txtTenDangNhap = new javax.swing.JTextField();
-        lblMatKhau = new javax.swing.JLabel();
+        txtTaiKhoan = new javax.swing.JTextField();
+        lblIconTaiKhoan = new javax.swing.JLabel();
+        lblIconMatKhau = new javax.swing.JLabel();
+        lblXacThuc = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(400, 450));
         setPreferredSize(new java.awt.Dimension(400, 450));
 
         pnlQuenMatKhau.setBackground(new java.awt.Color(255, 255, 255));
-        pnlQuenMatKhau.setMinimumSize(new java.awt.Dimension(400, 450));
-        pnlQuenMatKhau.setPreferredSize(new java.awt.Dimension(400, 450));
+        pnlQuenMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 1, new java.awt.Color(33, 150, 243)));
+        pnlQuenMatKhau.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTenDangNhap.setBackground(new java.awt.Color(255, 255, 255));
-        lblTenDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTenDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/profile-user.png"))); // NOI18N
+        lblShowHiddenMatKhau.setBackground(new java.awt.Color(255, 255, 255));
+        lblShowHiddenMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/hidden (1).png"))); // NOI18N
+        lblShowHiddenMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
+        lblShowHiddenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblShowHiddenMatKhauMouseClicked(evt);
+            }
+        });
+        pnlQuenMatKhau.add(lblShowHiddenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 30, 30));
 
-        lblWebsite.setBackground(new java.awt.Color(255, 255, 255));
-        lblWebsite.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblWebsite.setForeground(new java.awt.Color(153, 153, 153));
-        lblWebsite.setText("Website:");
-
-        lblSetHoTro.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetHoTro.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblSetHoTro.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetHoTro.setText("Game2K");
+        lblExit.setBackground(new java.awt.Color(255, 255, 255));
+        lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/close (4).png"))); // NOI18N
+        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExitMouseClicked(evt);
+            }
+        });
+        pnlQuenMatKhau.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 20, 20));
 
         lblSetWebsite.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetWebsite.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblSetWebsite.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
         lblSetWebsite.setForeground(new java.awt.Color(62, 73, 95));
         lblSetWebsite.setText("MrPii.2k3");
+        pnlQuenMatKhau.add(lblSetWebsite, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 420, -1, 20));
+
+        lblWebsite.setBackground(new java.awt.Color(255, 255, 255));
+        lblWebsite.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblWebsite.setForeground(new java.awt.Color(153, 153, 153));
+        lblWebsite.setText("Website:");
+        pnlQuenMatKhau.add(lblWebsite, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 420, -1, 20));
+
+        lblSetHoTro.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetHoTro.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblSetHoTro.setForeground(new java.awt.Color(62, 73, 95));
+        lblSetHoTro.setText("Game2K");
+        pnlQuenMatKhau.add(lblSetHoTro, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 420, -1, 20));
 
         lblHoTro.setBackground(new java.awt.Color(255, 255, 255));
-        lblHoTro.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblHoTro.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
         lblHoTro.setForeground(new java.awt.Color(153, 153, 153));
         lblHoTro.setText("Hỗ Trợ:");
+        pnlQuenMatKhau.add(lblHoTro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, 20));
 
-        lblDangKi.setBackground(new java.awt.Color(62, 73, 95));
-        lblDangKi.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        lblDangKi.setForeground(new java.awt.Color(255, 255, 255));
-        lblDangKi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDangKi.setText("ĐĂNG KÍ");
-        lblDangKi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblDangKi.setOpaque(true);
+        lblIconTraLoi.setBackground(new java.awt.Color(255, 255, 255));
+        lblIconTraLoi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIconTraLoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/conversation.png"))); // NOI18N
+        pnlQuenMatKhau.add(lblIconTraLoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, 30));
+
+        psdMatKhau.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        psdMatKhau.setForeground(new java.awt.Color(62, 73, 95));
+        psdMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
+        pnlQuenMatKhau.add(psdMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 270, 30));
+
+        lblIconBaoMat.setBackground(new java.awt.Color(255, 255, 255));
+        lblIconBaoMat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIconBaoMat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/iconfinder-securityprotectlockshield04-4021479_113137.png"))); // NOI18N
+        pnlQuenMatKhau.add(lblIconBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
+
+        txtTraLoi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        txtTraLoi.setForeground(new java.awt.Color(62, 73, 95));
+        txtTraLoi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtTraLoi.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtTraLoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTraLoiActionPerformed(evt);
+            }
+        });
+        pnlQuenMatKhau.add(txtTraLoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 300, 30));
 
         cboBaoMat.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboBaoMat.setForeground(new java.awt.Color(62, 73, 95));
-        cboBaoMat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboBaoMat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày Sinh Của Bạn", "Nơi Sinh Của Bạn", "Màu Bạn Yêu Thích", "Con Vật Bạn Thích" }));
         cboBaoMat.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        pnlQuenMatKhau.add(cboBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 300, 30));
 
-        txtBaoMat.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        txtBaoMat.setForeground(new java.awt.Color(62, 73, 95));
-        txtBaoMat.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtBaoMat.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtBaoMat.addActionListener(new java.awt.event.ActionListener() {
+        txtTaiKhoan.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtTaiKhoan.setForeground(new java.awt.Color(62, 73, 95));
+        txtTaiKhoan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBaoMatActionPerformed(evt);
+                txtTaiKhoanActionPerformed(evt);
             }
         });
+        pnlQuenMatKhau.add(txtTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 300, 30));
 
-        lblBaoMat.setBackground(new java.awt.Color(255, 255, 255));
-        lblBaoMat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBaoMat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/iconfinder-securityprotectlockshield04-4021479_113137.png"))); // NOI18N
+        lblIconTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
+        lblIconTaiKhoan.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblIconTaiKhoan.setForeground(new java.awt.Color(153, 153, 153));
+        lblIconTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/profile-user.png"))); // NOI18N
+        pnlQuenMatKhau.add(lblIconTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 30, 30));
 
-        pswMatKhau.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        pswMatKhau.setForeground(new java.awt.Color(62, 73, 95));
-        pswMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        pswMatKhau.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pswMatKhau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pswMatKhauActionPerformed(evt);
+        lblIconMatKhau.setBackground(new java.awt.Color(255, 255, 255));
+        lblIconMatKhau.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblIconMatKhau.setForeground(new java.awt.Color(153, 153, 153));
+        lblIconMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/padlock.png"))); // NOI18N
+        pnlQuenMatKhau.add(lblIconMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 30, 30));
+
+        lblXacThuc.setBackground(new java.awt.Color(62, 73, 95));
+        lblXacThuc.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblXacThuc.setForeground(new java.awt.Color(255, 255, 255));
+        lblXacThuc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblXacThuc.setText("XÁC THỰC");
+        lblXacThuc.setOpaque(true);
+        lblXacThuc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblXacThucMouseClicked(evt);
             }
         });
-
-        txtTenDangNhap.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        txtTenDangNhap.setForeground(new java.awt.Color(62, 73, 95));
-        txtTenDangNhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtTenDangNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtTenDangNhap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTenDangNhapActionPerformed(evt);
-            }
-        });
-
-        lblMatKhau.setBackground(new java.awt.Color(255, 255, 255));
-        lblMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/padlock.png"))); // NOI18N
-
-        javax.swing.GroupLayout pnlQuenMatKhauLayout = new javax.swing.GroupLayout(pnlQuenMatKhau);
-        pnlQuenMatKhau.setLayout(pnlQuenMatKhauLayout);
-        pnlQuenMatKhauLayout.setHorizontalGroup(
-            pnlQuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlQuenMatKhauLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(pnlQuenMatKhauLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(pswMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(pnlQuenMatKhauLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblBaoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(cboBaoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(txtBaoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(pnlQuenMatKhauLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(lblDangKi, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(pnlQuenMatKhauLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblHoTro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(lblSetHoTro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120)
-                .addComponent(lblWebsite)
-                .addGap(13, 13, 13)
-                .addComponent(lblSetWebsite))
-        );
-        pnlQuenMatKhauLayout.setVerticalGroup(
-            pnlQuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlQuenMatKhauLayout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addGroup(pnlQuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(pnlQuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pswMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addGroup(pnlQuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBaoMat)
-                    .addComponent(cboBaoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBaoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addComponent(lblDangKi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(pnlQuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHoTro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSetHoTro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSetWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        pnlQuenMatKhau.add(lblXacThuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 300, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlQuenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlQuenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlQuenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlQuenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtBaoMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBaoMatActionPerformed
+    private void txtTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaiKhoanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtBaoMatActionPerformed
+    }//GEN-LAST:event_txtTaiKhoanActionPerformed
 
-    private void pswMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswMatKhauActionPerformed
+    private void txtTraLoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTraLoiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pswMatKhauActionPerformed
+    }//GEN-LAST:event_txtTraLoiActionPerformed
 
-    private void txtTenDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenDangNhapActionPerformed
+    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenDangNhapActionPerformed
+    }//GEN-LAST:event_lblExitMouseClicked
+
+    private void lblShowHiddenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblShowHiddenMatKhauMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_lblShowHiddenMatKhauMouseClicked
+
+    private void lblXacThucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXacThucMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblXacThucMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboBaoMat;
-    private javax.swing.JLabel lblBaoMat;
-    private javax.swing.JLabel lblDangKi;
+    private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblHoTro;
-    private javax.swing.JLabel lblMatKhau;
+    private javax.swing.JLabel lblIconBaoMat;
+    private javax.swing.JLabel lblIconMatKhau;
+    private javax.swing.JLabel lblIconTaiKhoan;
+    private javax.swing.JLabel lblIconTraLoi;
     private javax.swing.JLabel lblSetHoTro;
     private javax.swing.JLabel lblSetWebsite;
-    private javax.swing.JLabel lblTenDangNhap;
+    private javax.swing.JLabel lblShowHiddenMatKhau;
     private javax.swing.JLabel lblWebsite;
+    private javax.swing.JLabel lblXacThuc;
     private javax.swing.JPanel pnlQuenMatKhau;
-    private javax.swing.JPasswordField pswMatKhau;
-    private javax.swing.JTextField txtBaoMat;
-    private javax.swing.JTextField txtTenDangNhap;
+    private javax.swing.JPasswordField psdMatKhau;
+    private javax.swing.JTextField txtTaiKhoan;
+    private javax.swing.JTextField txtTraLoi;
     // End of variables declaration//GEN-END:variables
 }

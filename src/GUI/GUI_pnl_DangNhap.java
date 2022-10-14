@@ -6,6 +6,8 @@
 package GUI;
 
 import BLL.BLL_TaiKhoan;
+import DAL.DAL_TaiKhoan;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
@@ -23,6 +25,23 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
      */
     public GUI_pnl_DangNhap() {
         initComponents();
+        load();
+    }
+
+    public void load() {
+        ResultSet rs = DAL_TaiKhoan.select();
+        try {
+            while (rs.next()) {
+                if (rs.getInt("CheckDangNhap") == 1) {
+                    txtTenDangNhap.setText(rs.getString("TenDangNhap"));
+                    psdMatKhau.setText(rs.getString("MatKhau"));
+                    chkLuuDangNhap.setSelected(true);
+                }
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void login() {
@@ -30,16 +49,21 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         String matKhau = String.valueOf(psdMatKhau.getPassword());
 
         if (tenDangNhap.isEmpty() || matKhau.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Tài Khoản Hoặc Mật Khẩu Không Được Để Trống");
+            JOptionPane.showMessageDialog(this, "Không Được Để Trống !!!");
         } else {
             try {
+                new GUI_dal_Loading(null, true).setVisible(true);
                 if (BLL_TaiKhoan.select(tenDangNhap, matKhau).isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Tài Khoản Hoặc Mật Khẩu Không Đúng");
+                    JOptionPane.showMessageDialog(this, "Đăng Nhập Không Thành Công ???");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Đăng Nhập Thành Công");
                     taiKhoan = txtTenDangNhap.getText();
-                    this.setVisible(false);
                     new GUI_frm_Menu().setVisible(true);
+                    if (chkLuuDangNhap.isSelected()) {
+                        DAL_TaiKhoan.editCheckDangNhap();
+                        DAL_TaiKhoan.editCheckDangNhap(taiKhoan);
+                    } else {
+                        DAL_TaiKhoan.editCheckDangNhap();
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -60,6 +84,14 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         }
     }
 
+    public void exit() {
+        int choice = JOptionPane.showConfirmDialog(null, "Bạn Có Muốn Thoát Chương Trình ???", "Thoát", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+        return;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,37 +101,98 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblShowHiddenMatKhau = new javax.swing.JLabel();
-        lblMatKhau = new javax.swing.JLabel();
-        txtTenDangNhap = new javax.swing.JTextField();
-        cboLuuDangNhap = new javax.swing.JCheckBox();
-        lblWebsite = new javax.swing.JLabel();
-        lblSetHoTro = new javax.swing.JLabel();
-        lblSetWebsite = new javax.swing.JLabel();
-        lblHoTro = new javax.swing.JLabel();
-        lblDangNhap = new javax.swing.JLabel();
-        lblTenDangNhap = new javax.swing.JLabel();
+        pnlDangNhap = new javax.swing.JPanel();
+        lblExit = new javax.swing.JLabel();
         psdMatKhau = new javax.swing.JPasswordField();
+        lblTenDangNhap = new javax.swing.JLabel();
+        lblDangNhap = new javax.swing.JLabel();
+        lblHoTro = new javax.swing.JLabel();
+        lblSetWebsite = new javax.swing.JLabel();
+        lblSetHoTro = new javax.swing.JLabel();
+        lblWebsite = new javax.swing.JLabel();
+        chkLuuDangNhap = new javax.swing.JCheckBox();
+        txtTenDangNhap = new javax.swing.JTextField();
+        lblMatKhau = new javax.swing.JLabel();
+        lblShowHiddenMatKhau = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(400, 450));
         setPreferredSize(new java.awt.Dimension(400, 450));
 
-        lblShowHiddenMatKhau.setBackground(new java.awt.Color(255, 255, 255));
-        lblShowHiddenMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/hidden (1).png"))); // NOI18N
-        lblShowHiddenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlDangNhap.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDangNhap.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 1, new java.awt.Color(33, 150, 243)));
+        pnlDangNhap.setMinimumSize(new java.awt.Dimension(400, 450));
+        pnlDangNhap.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblExit.setBackground(new java.awt.Color(255, 255, 255));
+        lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/close (4).png"))); // NOI18N
+        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblShowHiddenMatKhauMouseClicked(evt);
+                lblExitMouseClicked(evt);
             }
         });
+        pnlDangNhap.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 20, 20));
 
-        lblMatKhau.setBackground(new java.awt.Color(255, 255, 255));
-        lblMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/padlock.png"))); // NOI18N
+        psdMatKhau.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        psdMatKhau.setForeground(new java.awt.Color(62, 73, 95));
+        psdMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
+        pnlDangNhap.add(psdMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 270, 30));
 
-        txtTenDangNhap.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblTenDangNhap.setBackground(new java.awt.Color(255, 255, 255));
+        lblTenDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTenDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/profile-user.png"))); // NOI18N
+        pnlDangNhap.add(lblTenDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 30, 30));
+
+        lblDangNhap.setBackground(new java.awt.Color(62, 73, 95));
+        lblDangNhap.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblDangNhap.setForeground(new java.awt.Color(255, 255, 255));
+        lblDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDangNhap.setText("ĐĂNG NHẬP");
+        lblDangNhap.setOpaque(true);
+        lblDangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDangNhapMouseClicked(evt);
+            }
+        });
+        pnlDangNhap.add(lblDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, 300, 40));
+
+        lblHoTro.setBackground(new java.awt.Color(255, 255, 255));
+        lblHoTro.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblHoTro.setForeground(new java.awt.Color(153, 153, 153));
+        lblHoTro.setText("Hỗ Trợ:");
+        pnlDangNhap.add(lblHoTro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, 20));
+
+        lblSetWebsite.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetWebsite.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblSetWebsite.setForeground(new java.awt.Color(62, 73, 95));
+        lblSetWebsite.setText("MrPii.2k3");
+        pnlDangNhap.add(lblSetWebsite, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 420, -1, 20));
+
+        lblSetHoTro.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetHoTro.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblSetHoTro.setForeground(new java.awt.Color(62, 73, 95));
+        lblSetHoTro.setText("Game2K");
+        pnlDangNhap.add(lblSetHoTro, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 420, -1, 20));
+
+        lblWebsite.setBackground(new java.awt.Color(255, 255, 255));
+        lblWebsite.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblWebsite.setForeground(new java.awt.Color(153, 153, 153));
+        lblWebsite.setText("Website:");
+        pnlDangNhap.add(lblWebsite, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 420, -1, 20));
+
+        chkLuuDangNhap.setBackground(new java.awt.Color(255, 255, 255));
+        chkLuuDangNhap.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        chkLuuDangNhap.setForeground(new java.awt.Color(62, 73, 95));
+        chkLuuDangNhap.setText("Lưu Đăng Nhập");
+        chkLuuDangNhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLuuDangNhapActionPerformed(evt);
+            }
+        });
+        pnlDangNhap.add(chkLuuDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 360, 110, 30));
+
+        txtTenDangNhap.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         txtTenDangNhap.setForeground(new java.awt.Color(62, 73, 95));
-        txtTenDangNhap.setText("admin");
         txtTenDangNhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
         txtTenDangNhap.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -119,108 +212,32 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
                 txtTenDangNhapActionPerformed(evt);
             }
         });
+        pnlDangNhap.add(txtTenDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 300, 30));
 
-        cboLuuDangNhap.setBackground(new java.awt.Color(255, 255, 255));
-        cboLuuDangNhap.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        cboLuuDangNhap.setForeground(new java.awt.Color(62, 73, 95));
-        cboLuuDangNhap.setText("Lưu Đăng Nhập");
+        lblMatKhau.setBackground(new java.awt.Color(255, 255, 255));
+        lblMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/padlock.png"))); // NOI18N
+        pnlDangNhap.add(lblMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 30, 30));
 
-        lblWebsite.setBackground(new java.awt.Color(255, 255, 255));
-        lblWebsite.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblWebsite.setForeground(new java.awt.Color(153, 153, 153));
-        lblWebsite.setText("Website:");
-
-        lblSetHoTro.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetHoTro.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblSetHoTro.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetHoTro.setText("Game2K");
-
-        lblSetWebsite.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetWebsite.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblSetWebsite.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetWebsite.setText("MrPii.2k3");
-
-        lblHoTro.setBackground(new java.awt.Color(255, 255, 255));
-        lblHoTro.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblHoTro.setForeground(new java.awt.Color(153, 153, 153));
-        lblHoTro.setText("Hỗ Trợ:");
-
-        lblDangNhap.setBackground(new java.awt.Color(62, 73, 95));
-        lblDangNhap.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        lblDangNhap.setForeground(new java.awt.Color(255, 255, 255));
-        lblDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDangNhap.setText("ĐĂNG NHẬP");
-        lblDangNhap.setOpaque(true);
-        lblDangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblShowHiddenMatKhau.setBackground(new java.awt.Color(255, 255, 255));
+        lblShowHiddenMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/hidden (1).png"))); // NOI18N
+        lblShowHiddenMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
+        lblShowHiddenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblDangNhapMouseClicked(evt);
+                lblShowHiddenMatKhauMouseClicked(evt);
             }
         });
-
-        lblTenDangNhap.setBackground(new java.awt.Color(255, 255, 255));
-        lblTenDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTenDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/profile-user.png"))); // NOI18N
-
-        psdMatKhau.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        psdMatKhau.setForeground(new java.awt.Color(62, 73, 95));
-        psdMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
+        pnlDangNhap.add(lblShowHiddenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 30, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
-                        .addComponent(lblShowHiddenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(psdMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(lblDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(260, 260, 260)
-                .addComponent(cboLuuDangNhap))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblHoTro)
-                .addGap(11, 11, 11)
-                .addComponent(lblSetHoTro)
-                .addGap(128, 128, 128)
-                .addComponent(lblWebsite)
-                .addGap(13, 13, 13)
-                .addComponent(lblSetWebsite))
+            .addComponent(pnlDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblShowHiddenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(psdMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(lblDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(cboLuuDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHoTro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSetHoTro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSetWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(pnlDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -234,9 +251,6 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
 
     private void txtTenDangNhapFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenDangNhapFocusGained
         // TODO add your handling code here:
-        if (txtTenDangNhap.getText().equals("admin")) {
-            txtTenDangNhap.setText("");
-        }
     }//GEN-LAST:event_txtTenDangNhapFocusGained
 
     private void lblDangNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangNhapMouseClicked
@@ -246,9 +260,6 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
 
     private void txtTenDangNhapFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenDangNhapFocusLost
         // TODO add your handling code here:
-        if (txtTenDangNhap.getText().isEmpty()) {
-            txtTenDangNhap.setText("admin");
-        }
     }//GEN-LAST:event_txtTenDangNhapFocusLost
 
     private void lblShowHiddenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblShowHiddenMatKhauMouseClicked
@@ -256,10 +267,20 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         isPassword();
     }//GEN-LAST:event_lblShowHiddenMatKhauMouseClicked
 
+    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
+        // TODO add your handling code here:
+        exit();
+    }//GEN-LAST:event_lblExitMouseClicked
+
+    private void chkLuuDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLuuDangNhapActionPerformed
+        // TODO add your handling code here:     
+    }//GEN-LAST:event_chkLuuDangNhapActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox cboLuuDangNhap;
+    private javax.swing.JCheckBox chkLuuDangNhap;
     private javax.swing.JLabel lblDangNhap;
+    private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblHoTro;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblSetHoTro;
@@ -267,6 +288,7 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
     private javax.swing.JLabel lblShowHiddenMatKhau;
     private javax.swing.JLabel lblTenDangNhap;
     private javax.swing.JLabel lblWebsite;
+    private javax.swing.JPanel pnlDangNhap;
     private javax.swing.JPasswordField psdMatKhau;
     private javax.swing.JTextField txtTenDangNhap;
     // End of variables declaration//GEN-END:variables

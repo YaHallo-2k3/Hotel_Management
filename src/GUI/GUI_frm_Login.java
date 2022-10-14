@@ -6,6 +6,7 @@
 package GUI;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -26,17 +27,25 @@ public class GUI_frm_Login extends javax.swing.JFrame {
     public void pnlDangNhap() {
         pnlLogin.removeAll();
         pnlLogin.add(new GUI_pnl_DangNhap());
-
-        lblDangNhap.setForeground(new Color(255, 255, 255));
         pnlLogin.validate();
+        lblDangNhap.setForeground(new Color(255, 255, 255));
+        lblDangNhap.setBackground(new Color(62, 73, 95));
+        lblDangNhap.setIcon(new ImageIcon(getClass().getResource("/IMG/enter (1).png")));
+        lblQuenMatKhau.setForeground(new Color(62, 73, 95));
+        lblQuenMatKhau.setBackground(new Color(255, 255, 255));
+        lblQuenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (2).png")));
     }
 
     public void pnlQuenMatKhau() {
         pnlLogin.removeAll();
-        lblDangNhap.setForeground(new Color(0, 0, 0));
         pnlLogin.add(new GUI_pnl_QuenMatKhau());
-        lblQuenMatKhau.setForeground(new Color(255, 255, 255));
         pnlLogin.validate();
+        lblDangNhap.setForeground(new Color(62, 73, 95));
+        lblDangNhap.setBackground(new Color(255, 255, 255));
+        lblDangNhap.setIcon(new ImageIcon(getClass().getResource("/IMG/enter.png")));
+        lblQuenMatKhau.setForeground(new Color(255, 255, 255));
+        lblQuenMatKhau.setBackground(new Color(62, 73, 95));
+        lblQuenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (4).png")));
     }
 
     /**
@@ -48,20 +57,17 @@ public class GUI_frm_Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlLogin = new javax.swing.JPanel();
         pnlChucNang = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         lblQuenMatKhau = new javax.swing.JLabel();
         lblDangNhap = new javax.swing.JLabel();
+        pnlLogin = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(550, 450));
-
-        pnlLogin.setBackground(new java.awt.Color(255, 255, 255));
-        pnlLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 0, new java.awt.Color(0, 0, 0)));
-        pnlLogin.setMinimumSize(new java.awt.Dimension(400, 450));
-        pnlLogin.setLayout(new java.awt.CardLayout());
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlChucNang.setBackground(new java.awt.Color(255, 255, 255));
         pnlChucNang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -69,16 +75,19 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         lblLogo.setBackground(new java.awt.Color(255, 255, 255));
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/hotel (2).png"))); // NOI18N
+        lblLogo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 0, new java.awt.Color(33, 150, 243)));
         lblLogo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlChucNang.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 150));
 
         lblQuenMatKhau.setBackground(new java.awt.Color(255, 255, 255));
-        lblQuenMatKhau.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblQuenMatKhau.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         lblQuenMatKhau.setForeground(new java.awt.Color(62, 73, 95));
         lblQuenMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQuenMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/reset-password (2).png"))); // NOI18N
         lblQuenMatKhau.setText("Quên Mật Khẩu");
+        lblQuenMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(33, 150, 243)));
         lblQuenMatKhau.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblQuenMatKhau.setOpaque(true);
         lblQuenMatKhau.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -88,12 +97,14 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         pnlChucNang.add(lblQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 150, 150));
 
         lblDangNhap.setBackground(new java.awt.Color(255, 255, 255));
-        lblDangNhap.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblDangNhap.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         lblDangNhap.setForeground(new java.awt.Color(62, 73, 95));
         lblDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/enter.png"))); // NOI18N
         lblDangNhap.setText("Đăng Nhập");
+        lblDangNhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 0, new java.awt.Color(33, 150, 243)));
         lblDangNhap.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblDangNhap.setOpaque(true);
         lblDangNhap.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         lblDangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -102,20 +113,13 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         });
         pnlChucNang.add(lblDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 150, 150));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(pnlChucNang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, -1));
+
+        pnlLogin.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 1, new java.awt.Color(62, 73, 95)));
+        pnlLogin.setMinimumSize(new java.awt.Dimension(400, 450));
+        pnlLogin.setLayout(new java.awt.CardLayout());
+        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 400, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

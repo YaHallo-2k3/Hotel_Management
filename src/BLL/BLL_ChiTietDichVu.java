@@ -48,6 +48,14 @@ public class BLL_ChiTietDichVu {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
         }
     }
+    
+    public static void edit(int soLuong, String maSanPham, String maPhieuDichVu) {
+        try {
+            DAL_ChiTietDichVu.edit(soLuong, maSanPham, maPhieuDichVu);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        }
+    }
 
     public static ArrayList<DTO_ChiTietDichVu> select(String maDichVu) {
         ResultSet rs = DAL_ChiTietDichVu.select(maDichVu);

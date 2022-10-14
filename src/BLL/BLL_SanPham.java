@@ -54,7 +54,7 @@ public class BLL_SanPham {
     }
 
     public static void edit(DTO_SanPham sanPham) {
-        if (check(sanPham) == false) {
+        if (!check(sanPham)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_SanPham.edit(sanPham);
@@ -116,12 +116,11 @@ public class BLL_SanPham {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
         for (DTO_SanPham sanPham : array) {
-            Object obj[] = new Object[4];
+            Object obj[] = new Object[3];
             obj[0] = sanPham.getMaSanPham();
             obj[1] = sanPham.getTenSanPham();
-            obj[2] = 0;
-            obj[3] = sanPham.getGiaBan();
-            tbl.getColumnModel().getColumn(4).setCellRenderer(new iconAdd());
+            obj[2] = sanPham.getGiaBan();
+            tbl.getColumnModel().getColumn(3).setCellRenderer(new iconAdd());
             tblModel.addRow(obj);
         }
     }

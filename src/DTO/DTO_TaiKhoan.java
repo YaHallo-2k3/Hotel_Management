@@ -17,17 +17,19 @@ public class DTO_TaiKhoan {
     public String matKhau;
     public String cauHoi;
     public String traLoi;
+    public int checkDangNhap;
 
     public DTO_TaiKhoan() {
     }
 
-    public DTO_TaiKhoan(String maTaiKhoan, String maNhanVien, String tenDangNhap, String matKhau, String cauHoi, String traLoi) {
+    public DTO_TaiKhoan(String maTaiKhoan, String maNhanVien, String tenDangNhap, String matKhau, String cauHoi, String traLoi, int checkDangNhap) {
         this.maTaiKhoan = maTaiKhoan;
         this.maNhanVien = maNhanVien;
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
         this.cauHoi = cauHoi;
         this.traLoi = traLoi;
+        this.checkDangNhap = checkDangNhap;
     }
 
     public String getMaTaiKhoan() {
@@ -76,5 +78,13 @@ public class DTO_TaiKhoan {
 
     public void setTraLoi(String traLoi) {
         this.traLoi = traLoi;
+    }
+
+    public int getCheckDangNhap() {
+        return checkDangNhap;
+    }
+
+    public void setCheckDangNhap(int checkDangNhap) {
+        this.checkDangNhap = checkDangNhap;
     }
 }

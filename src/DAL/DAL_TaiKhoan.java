@@ -16,13 +16,28 @@ import java.sql.ResultSet;
 public class DAL_TaiKhoan {
 
     public static void add(DTO_TaiKhoan taiKhoan) {
-        String sqlInsert = "INSERT INTO taiKhoan VALUES (?, ?, ?, ?, ?, ?)";
-        HELPER_ConnectSQL.executeUpdate(sqlInsert, taiKhoan.getMaTaiKhoan(), taiKhoan.getMaNhanVien(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCauHoi(), taiKhoan.getTraLoi());
+        String sqlInsert = "INSERT INTO taiKhoan VALUES (?, ?, ?, ?, ?, ?, ?)";
+        HELPER_ConnectSQL.executeUpdate(sqlInsert, taiKhoan.getMaTaiKhoan(), taiKhoan.getMaNhanVien(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCauHoi(), taiKhoan.getTraLoi(), taiKhoan.getCheckDangNhap());
     }
 
     public static void delete(String maNhanVien) {
         String sqlDelete = "DELETE FROM TaiKhoan WHERE MaNhanVien = ?";
         HELPER_ConnectSQL.executeUpdate(sqlDelete, maNhanVien);
+    }
+
+    public static void edit(DTO_TaiKhoan taiKhoan) {
+        String sqlUpdate = "UPDATE TaiKhoan SET MaTaiKhoan = ?, TenDangNhap = ?, MatKhau = ?, CauHoi = ?, TraLoi = ?, CheckDangNhap = ? WHERE MaNhanVien = ?";
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, taiKhoan.getMaTaiKhoan(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCauHoi(), taiKhoan.getTraLoi(), taiKhoan.getCheckDangNhap(), taiKhoan.getMaNhanVien());
+    }
+
+    public static void editCheckDangNhap() {
+        String sqlUpdate = "UPDATE TaiKhoan SET CheckDangNhap = 0";
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate);
+    }
+
+    public static void editCheckDangNhap(String tenDangNhap) {
+        String sqlUpdate = "UPDATE TaiKhoan SET CheckDangNhap = 1 WHERE TenDangNhap = ?";
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, tenDangNhap);
     }
 
     public static ResultSet select(String tenDangNhap, String matKhau) {
@@ -34,14 +49,14 @@ public class DAL_TaiKhoan {
         String sqlSelect = "SELECT * FROM NhanVien LEFT JOIN TaiKhoan ON TaiKhoan.MaNhanVien = NhanVien.MaNhanVien WHERE NhanVien.MaNhanVien = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maNhanVien);
     }
-    
+
     public static ResultSet select() {
         String sqlSelect = "SELECT * FROM TaiKhoan ORDER BY MaTaiKhoan";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
 
-    public static void edit(DTO_TaiKhoan taiKhoan) {
-        String sqlUpdate = "UPDATE TaiKhoan SET MaTaiKhoan = ?, TenDangNhap = ?, MatKhau = ?, CauHoi = ?, TraLoi = ? WHERE MaNhanVien = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlUpdate, taiKhoan.getMaTaiKhoan(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCauHoi(), taiKhoan.getTraLoi(), taiKhoan.getMaNhanVien());
+    public static ResultSet count() {
+        String sqlSelect = "SELECT COUNT(*) FROM TaiKhoan";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
 }
