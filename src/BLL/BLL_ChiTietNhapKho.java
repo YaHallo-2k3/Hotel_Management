@@ -89,7 +89,6 @@ public class BLL_ChiTietNhapKho {
 
     public void load(ArrayList<DTO_ChiTietNhapKho> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"Mã Hàng", "Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền", "Xóa"});
         tblModel.setRowCount(0);
         for (DTO_ChiTietNhapKho chiTietNhapKho : array) {
             Object obj[] = new Object[5];
@@ -105,7 +104,6 @@ public class BLL_ChiTietNhapKho {
     
     public static void loadChiTietNhapKho(ArrayList<DTO_ChiTietNhapKho> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền"});
         tblModel.setRowCount(0);
         for (DTO_ChiTietNhapKho chiTietNhapKho : array) {
             Object obj[] = new Object[4];

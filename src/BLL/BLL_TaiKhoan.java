@@ -5,6 +5,7 @@
  */
 package BLL;
 
+import static BLL.BLL_NhanVien.alreayExits;
 import DAL.DAL_TaiKhoan;
 import DTO.DTO_LoaiPhong;
 import DTO.DTO_TaiKhoan;
@@ -34,11 +35,32 @@ public class BLL_TaiKhoan {
         }
     }
 
+    public static boolean alreayExits(String data, String value) {
+        ResultSet rs = DAL_TaiKhoan.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString(data));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.size(); i++) {
+            if (value.equals(array.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void add(DTO_TaiKhoan taiKhoan) {
         if (!check(taiKhoan)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else if (!alreayExits("MaTaiKhoan", taiKhoan.getMaTaiKhoan())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_TaiKhoan.add(taiKhoan);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -53,8 +75,11 @@ public class BLL_TaiKhoan {
     public static void edit(DTO_TaiKhoan taiKhoan) {
         if (!check(taiKhoan)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else if (!alreayExits("MaTaiKhoan", taiKhoan.getMaTaiKhoan())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_TaiKhoan.edit(taiKhoan);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -89,7 +114,7 @@ public class BLL_TaiKhoan {
                 taiKhoan.setTenDangNhap(rs.getString("TenDangNhap"));
                 taiKhoan.setMatKhau(rs.getString("MatKhau"));
                 taiKhoan.setCauHoi(rs.getString("CauHoi"));
-                taiKhoan.setCauHoi(rs.getString("TraLoi"));
+                taiKhoan.setTraLoi(rs.getString("TraLoi"));
                 array.add(taiKhoan);
             }
         } catch (Exception e) {

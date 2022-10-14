@@ -281,7 +281,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Mã Tầng", "Tên Tầng", "Sửa", "Xóa"
+                "Mã Tầng", "Tên Tầng", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -300,6 +300,10 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
             }
         });
         scrTang.setViewportView(tblTang);
+        if (tblTang.getColumnModel().getColumnCount() > 0) {
+            tblTang.getColumnModel().getColumn(2).setMaxWidth(40);
+            tblTang.getColumnModel().getColumn(3).setMaxWidth(40);
+        }
 
         sdoTang.add(scrTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 370, 120));
 
@@ -381,7 +385,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã Phòng", "Tên Phòng", "Tầng", "Loại Phòng", "Trạng Thái", "Sửa", "Xóa"
+                "STT", "Mã Phòng", "Tên Phòng", "Tầng", "Loại Phòng", "Trạng Thái", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -400,6 +404,10 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
             }
         });
         scrPhong.setViewportView(tblPhong);
+        if (tblPhong.getColumnModel().getColumnCount() > 0) {
+            tblPhong.getColumnModel().getColumn(6).setMaxWidth(40);
+            tblPhong.getColumnModel().getColumn(7).setMaxWidth(40);
+        }
 
         sdoPhong.add(scrPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1120, 410));
 
@@ -528,7 +536,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Loai", "Tên Loại", "Giá Giờ", "Giá Ngày", "Số Giường", "Số Người", "Sửa", "Xóa"
+                "Mã Loai", "Tên Loại", "Giá Giờ", "Giá Ngày", "Số Giường", "Số Người", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -547,6 +555,10 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
             }
         });
         scrLoaiPhong.setViewportView(tblLoaiPhong);
+        if (tblLoaiPhong.getColumnModel().getColumnCount() > 0) {
+            tblLoaiPhong.getColumnModel().getColumn(6).setMaxWidth(40);
+            tblLoaiPhong.getColumnModel().getColumn(7).setMaxWidth(40);
+        }
 
         sdoLoaiPhong.add(scrLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 720, 120));
 

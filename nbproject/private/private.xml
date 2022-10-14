@@ -3,14 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_ThongTinPhong.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_HangMucChi.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_NhanVien.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_SanPham.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_ThietDatPhong.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_PhieuChi.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_HangTonKho.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_ThongTinDichVu.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/BLL/BLL_NhanVien.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_frm_Menu.java</file>
         </group>
     </open-files>
 </project-private>

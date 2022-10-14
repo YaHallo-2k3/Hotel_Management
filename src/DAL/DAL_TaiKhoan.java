@@ -34,6 +34,11 @@ public class DAL_TaiKhoan {
         String sqlSelect = "SELECT * FROM NhanVien LEFT JOIN TaiKhoan ON TaiKhoan.MaNhanVien = NhanVien.MaNhanVien WHERE NhanVien.MaNhanVien = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maNhanVien);
     }
+    
+    public static ResultSet select() {
+        String sqlSelect = "SELECT * FROM TaiKhoan ORDER BY MaTaiKhoan";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    }
 
     public static void edit(DTO_TaiKhoan taiKhoan) {
         String sqlUpdate = "UPDATE TaiKhoan SET MaTaiKhoan = ?, TenDangNhap = ?, MatKhau = ?, CauHoi = ?, TraLoi = ? WHERE MaNhanVien = ?";

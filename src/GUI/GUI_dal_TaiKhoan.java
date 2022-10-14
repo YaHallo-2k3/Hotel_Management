@@ -41,7 +41,6 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
     public void load() {
         ArrayList<DTO_TaiKhoan> array = BLL_TaiKhoan.select(maNhanVien);
         BLL_TaiKhoan.load(array, txtTaiKhoan, psdMatKhau, cboBaoMat, txtTraLoi);
-
         if (txtTaiKhoan.getText().isEmpty()) {
             isAddEdit = false;
         } else {
@@ -146,11 +145,16 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/close (1).png"))); // NOI18N
+        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExitMouseClicked(evt);
+            }
+        });
         sdoTaiKhoan.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 30, 30));
 
         cboBaoMat.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboBaoMat.setForeground(new java.awt.Color(62, 73, 95));
-        cboBaoMat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboBaoMat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày Sinh Của Bạn", "Nơi Sinh Của Bạn", "Màu Bạn Yêu Thích", "Con Vật Bạn Thích" }));
         cboBaoMat.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         sdoTaiKhoan.add(cboBaoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 250, 30));
 
@@ -219,6 +223,11 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
             edit();
         }
     }//GEN-LAST:event_lblCapNhatMouseClicked
+
+    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_lblExitMouseClicked
 
     /**
      * @param args the command line arguments

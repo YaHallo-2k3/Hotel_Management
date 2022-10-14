@@ -30,10 +30,30 @@ public class BLL_Phong {
             return true;
         }
     }
+    
+    public static boolean alreayExits(String data, String value) {
+        ResultSet rs = DAL_Phong.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString(data));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.size(); i++) {
+            if (value.equals(array.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static void add(DTO_Phong phong) {
         if (!check(phong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        }else if (!alreayExits("MaPhong", phong.getMaPhong())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_Phong.add(phong);
         }
@@ -48,9 +68,11 @@ public class BLL_Phong {
     }
 
     public static void edit(DTO_Phong phong) {
-        if (check(phong) == false) {
+        if (!check(phong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else {
+        } else if (!alreayExits("MaPhong", phong.getMaPhong())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
+        }else {
             DAL_Phong.edit(phong);
         }
     }
@@ -76,7 +98,6 @@ public class BLL_Phong {
 
     public void load(ArrayList<DTO_Phong> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"STT", "Mã Phòng", "Tên Phòng", "Tầng", "Loại Phòng", "Trạng Thái", "Sửa", "Xóa"});
         tblModel.setRowCount(0);
         for (DTO_Phong phong : array) {
             Object obj[] = new Object[6];

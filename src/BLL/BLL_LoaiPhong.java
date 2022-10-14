@@ -30,11 +30,31 @@ public class BLL_LoaiPhong {
             return true;
         }
     }
+    
+    public static boolean alreayExits(String data, String value) {
+        ResultSet rs = DAL_LoaiPhong.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString(data));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.size(); i++) {
+            if (value.equals(array.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static void add(DTO_LoaiPhong loaiPhong) {
         if (!check(loaiPhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else {
+        } else if (!alreayExits("MaLoaiPhong", loaiPhong.getMaPhong())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
+        }else {
             DAL_LoaiPhong.add(loaiPhong);
         }
     }
@@ -50,6 +70,8 @@ public class BLL_LoaiPhong {
     public static void edit(DTO_LoaiPhong loaiPhong) {
         if (!check(loaiPhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        }else if (!alreayExits("MaLoaiPhong", loaiPhong.getMaPhong())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_LoaiPhong.edit(loaiPhong);
         }
@@ -77,7 +99,6 @@ public class BLL_LoaiPhong {
 
     public void load(ArrayList<DTO_LoaiPhong> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"Mã Loại", "Tên Loại", "Giá Giờ", "Giá Ngày", "Số Giường", "Số Người", "Sửa", "Xóa"});
         tblModel.setRowCount(0);
         for (DTO_LoaiPhong loaiPhong : array) {
             Object obj[] = new Object[6];

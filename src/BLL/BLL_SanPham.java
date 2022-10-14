@@ -100,7 +100,6 @@ public class BLL_SanPham {
 
     public void loadSanPham(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"Mã Hàng", "Tên Hàng", "Số Lượng", "Giá Nhập", "Thêm"});
         tblModel.setRowCount(0);
         for (DTO_SanPham sanPham : array) {
             Object obj[] = new Object[4];
@@ -108,6 +107,20 @@ public class BLL_SanPham {
             obj[1] = sanPham.getTenSanPham();
             obj[2] = 0;
             obj[3] = 0;
+            tbl.getColumnModel().getColumn(4).setCellRenderer(new iconAdd());
+            tblModel.addRow(obj);
+        }
+    }
+
+    public void loadKhoDichVu(ArrayList<DTO_SanPham> array, JTable tbl) {
+        DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
+        tblModel.setRowCount(0);
+        for (DTO_SanPham sanPham : array) {
+            Object obj[] = new Object[4];
+            obj[0] = sanPham.getMaSanPham();
+            obj[1] = sanPham.getTenSanPham();
+            obj[2] = 0;
+            obj[3] = sanPham.getGiaBan();
             tbl.getColumnModel().getColumn(4).setCellRenderer(new iconAdd());
             tblModel.addRow(obj);
         }

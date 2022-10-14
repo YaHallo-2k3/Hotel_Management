@@ -190,7 +190,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
 
         cboDonVi.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         cboDonVi.setForeground(new java.awt.Color(62, 73, 95));
-        cboDonVi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboDonVi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chai", "Lon", "Ly", "Phần", "Chiếc" }));
         cboDonVi.setToolTipText("");
         cboDonVi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         sdoSanPham.add(cboDonVi, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 70, 20));
@@ -288,7 +288,6 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
 
         cboLoaiHang.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         cboLoaiHang.setForeground(new java.awt.Color(62, 73, 95));
-        cboLoaiHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboLoaiHang.setToolTipText("");
         cboLoaiHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         sdoSanPham.add(cboLoaiHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 100, 20));
@@ -382,7 +381,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         lblLoaiSanPham.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lblLoaiSanPham.setForeground(new java.awt.Color(62, 73, 95));
         lblLoaiSanPham.setText("LOẠI SẢN PHẨM");
-        sdoLoaiSanPham.add(lblLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 150, 30));
+        sdoLoaiSanPham.add(lblLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 150, -1));
 
         txtMaLoai.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         txtMaLoai.setForeground(new java.awt.Color(62, 73, 95));

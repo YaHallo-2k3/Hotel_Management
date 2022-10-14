@@ -28,84 +28,72 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
      */
     public GUI_pnl_NhanVien() {
         initComponents();
-//        load();
-        System.out.println(test());
-    }
-    
-    public String test(){
-        ResultSet rs = DAL_NhanVien.select();
-        try {
-            while (rs.next()) {                
-                return rs.getString("NgaySinh");
-            }
-        } catch (Exception e) {
-        }
-        return null;
+        load();
     }
 
-//    public void add() {
-//        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), String.valueOf(cboTrangThai.getSelectedItem()).equals("Online") ? 1 : 0);
-//        BLL_NhanVien.add(nhanVien);
-//    }
-//
-//    public void delete(int index) {
-//        if (index < 0) {
-//            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
-//        } else {
-//            int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
-//            if (choice == JOptionPane.YES_OPTION) {
-//                int indexs[] = tblNhanVien.getSelectedRows();
-//                for (int i = 0; i < indexs.length; i++) {
-//                    String maNhanVien = tblNhanVien.getValueAt(indexs[i], 0).toString();
-//                    BLL_NhanVien.delete(maNhanVien);
-//                }
-//            }
-//            return;
-//        }
-//    }
-//
-//    public void edit(int index) {
-//        if (index < 0) {
-//            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
-//        }
-//        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), String.valueOf(cboTrangThai.getSelectedItem()).equals("Online") ? 1 : 0);
-//        BLL_NhanVien.edit(nhanVien);
-//    }
-//
-//    public void reset() {
-//        txtMaNhanVien.setText(null);
-//        txtTenNhanVien.setText(null);
-//        cboGioiTinh.setSelectedItem("Nam");
-//        dateNgaySinh.setDate(null);
-//        txtSoDienThoai.setText(null);
-//        txtCMND.setText(null);
-//        cboChucVu.setSelectedItem("Nhân Viên");
-//        txtLuong.setText(null);
-//        lblSetNgayTao.setText(null);
-//        cboTrangThai.setSelectedItem("Offline");
-//    }
-//
-//    public void fill(int index) {
-//        txtMaNhanVien.setText(tblNhanVien.getValueAt(index, 0).toString());
-//        txtTenNhanVien.setText(tblNhanVien.getValueAt(index, 1).toString());
-//        cboGioiTinh.setSelectedItem(tblNhanVien.getValueAt(index, 2).toString());
-//        dateNgaySinh.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblNhanVien.getValueAt(index, 3).toString()));
-//        txtSoDienThoai.setText(tblNhanVien.getValueAt(index, 4).toString());
-//        txtCMND.setText(tblNhanVien.getValueAt(index, 5).toString());
-//        cboChucVu.setSelectedItem(tblNhanVien.getValueAt(index, 6).toString());
-//        txtLuong.setText(tblNhanVien.getValueAt(index, 7).toString());
-//        lblSetNgayTao.setText(tblNhanVien.getValueAt(index, 8).toString());
-//        cboTrangThai.setSelectedItem(tblNhanVien.getValueAt(index, 9).toString());
-//    }
-//
-//    public void load() {
-//        ArrayList<DTO_NhanVien> array = BLL_NhanVien.select();
-//        new BLL_NhanVien().load(array, tblNhanVien);
-//    }
-//
-//    public void loadTaiKhoan() {
-//        new GUI_dal_TaiKhoan(null, true).setVisible(true);
-//    }
+    public void add() {
+        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), String.valueOf(cboTrangThai.getSelectedItem()).equals("Online") ? 1 : 0);
+        BLL_NhanVien.add(nhanVien);
+    }
+
+    public void delete(int index) {
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
+        } else {
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                int indexs[] = tblNhanVien.getSelectedRows();
+                for (int i = 0; i < indexs.length; i++) {
+                    String maNhanVien = tblNhanVien.getValueAt(indexs[i], 0).toString();
+                    BLL_NhanVien.delete(maNhanVien);
+                }
+            }
+            return;
+        }
+    }
+
+    public void edit(int index) {
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
+        }
+        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), String.valueOf(cboTrangThai.getSelectedItem()).equals("Online") ? 1 : 0);
+        BLL_NhanVien.edit(nhanVien);
+    }
+
+    public void reset() {
+        txtMaNhanVien.setText(null);
+        txtTenNhanVien.setText(null);
+        cboGioiTinh.setSelectedItem("Nam");
+        dateNgaySinh.setDate(null);
+        txtSoDienThoai.setText(null);
+        txtCMND.setText(null);
+        cboChucVu.setSelectedItem("Nhân Viên");
+        txtLuong.setText(null);
+        lblSetNgayTao.setText(null);
+        cboTrangThai.setSelectedItem("Offline");
+    }
+
+    public void fill(int index) {
+        txtMaNhanVien.setText(tblNhanVien.getValueAt(index, 0).toString());
+        txtTenNhanVien.setText(tblNhanVien.getValueAt(index, 1).toString());
+        cboGioiTinh.setSelectedItem(tblNhanVien.getValueAt(index, 2).toString());
+        dateNgaySinh.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblNhanVien.getValueAt(index, 3).toString()));
+        txtSoDienThoai.setText(tblNhanVien.getValueAt(index, 4).toString());
+        txtCMND.setText(tblNhanVien.getValueAt(index, 5).toString());
+        cboChucVu.setSelectedItem(tblNhanVien.getValueAt(index, 6).toString());
+        txtLuong.setText(tblNhanVien.getValueAt(index, 7).toString());
+        lblSetNgayTao.setText(tblNhanVien.getValueAt(index, 8).toString());
+        cboTrangThai.setSelectedItem(tblNhanVien.getValueAt(index, 9).toString());
+    }
+
+    public void load() {
+        ArrayList<DTO_NhanVien> array = BLL_NhanVien.select();
+        new BLL_NhanVien().load(array, tblNhanVien);
+    }
+
+    public void loadTaiKhoan() {
+        new GUI_dal_TaiKhoan(null, true).setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -425,31 +413,31 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
 
     private void lblLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLamMoiMouseClicked
         // TODO add your handling code here:
-//        reset();
+        reset();
     }//GEN-LAST:event_lblLamMoiMouseClicked
 
     private void lblThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemMouseClicked
         // TODO add your handling code here:
-//        add();
-//        load();
+        add();
+        load();
     }//GEN-LAST:event_lblThemMouseClicked
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
         // TODO add your handling code here:
-//        int row = tblNhanVien.getSelectedRow();
-//        int column = tblNhanVien.getSelectedColumn();
-//        maNhanVien = tblNhanVien.getValueAt(row, 0).toString();
-//        if (tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column + 1) != null || tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column - 1) != null) {
-//            fill(row);
-//        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column - 2) == null) {
-//            delete(row);
-//            load();
-//        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column + 1) == null) {
-//            edit(row);
-//            load();
-//        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) != null && tblNhanVien.getValueAt(row, column + 1) == null) {
-//            loadTaiKhoan();
-//        }
+        int row = tblNhanVien.getSelectedRow();
+        int column = tblNhanVien.getSelectedColumn();
+        maNhanVien = tblNhanVien.getValueAt(row, 0).toString();
+        if (tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column + 1) != null || tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column - 1) != null) {
+            fill(row);
+        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column - 2) == null) {
+            delete(row);
+            load();
+        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column + 1) == null) {
+            edit(row);
+            load();
+        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) != null && tblNhanVien.getValueAt(row, column + 1) == null) {
+            loadTaiKhoan();
+        }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void dateNgaySinhPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgaySinhPropertyChange

@@ -159,15 +159,29 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         tblHangTon.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
         tblHangTon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã Hàng", "Tên Hàng", "Đơn Vị", "Lượng Nhập", "Giá Nhập", "Lượng Bán", "Giá Bán", "Tồn Kho"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblHangTon.setRowHeight(30);
         tblHangTon.setShowHorizontalLines(false);
         scrHangTon.setViewportView(tblHangTon);

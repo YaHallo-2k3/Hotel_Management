@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 public class DAL_ChiTietNhapKho {
     
     public static void add(DTO_ChiTietNhapKho chiTietNhapKho) {
-        String sqlInsert = "INSERT INTO chiTietNhapKho VALUES (?, ?, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO ChiTietNhapKho VALUES (?, ?, ?, ?, ?)";
         HELPER_ConnectSQL.executeUpdate(sqlInsert, chiTietNhapKho.getMaChiTietNhapKho(), chiTietNhapKho.getMaNhapKho(), chiTietNhapKho.getMaSanPham(), chiTietNhapKho.getSoLuong(), chiTietNhapKho.getGiaNhap());
     }
 
@@ -26,7 +26,7 @@ public class DAL_ChiTietNhapKho {
     }
 
     public static ResultSet select(String maNhapKho) {
-        String sqlSelect = "SELECT * FROM ChiTietNhapKho WHERE MaNhapKho = ? ORDER BY MaChiTietNhapKho";
+        String sqlSelect = "SELECT * FROM ChiTietNhapKho WHERE MaNhapKho = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maNhapKho);
     }
     

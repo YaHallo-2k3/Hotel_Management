@@ -42,6 +42,7 @@ public class BLL_LoaiSanPham {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_LoaiSanPham.add(loaiSanPham);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -58,6 +59,7 @@ public class BLL_LoaiSanPham {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_LoaiSanPham.edit(loaiSanPham);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -79,7 +81,6 @@ public class BLL_LoaiSanPham {
 
     public void load(ArrayList<DTO_LoaiSanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
-        tblModel.setColumnIdentifiers(new Object[]{"Mã Loại", "Tên Loại", "Sửa", "Xóa"});
         tblModel.setRowCount(0);
         for (DTO_LoaiSanPham loaiSanPham : array) {
             Object obj[] = new Object[2];

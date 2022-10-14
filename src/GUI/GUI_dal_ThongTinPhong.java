@@ -5,14 +5,20 @@
  */
 package GUI;
 
+import BLL.BLL_ChiTietDichVu;
 import BLL.BLL_LoaiPhong;
 import BLL.BLL_MaTenLoai;
 import BLL.BLL_PhuongThucThanhToan;
+import BLL.BLL_SanPham;
 import BLL.BLL_SoDoPhong;
 import BLL.BLL_ThuePhong;
+import DAL.DAL_ChiTietDichVu;
 import DAL.DAL_ThuePhong;
+import DTO.DTO_ChiTietDichVu;
+import DTO.DTO_DichVu;
 import DTO.DTO_Phong;
 import DTO.DTO_PhuongThucThanhToan;
+import DTO.DTO_SanPham;
 import DTO.DTO_ThuePhong;
 import HELPER.HELPER_ChuyenDoi;
 import com.toedter.calendar.JDateChooser;
@@ -37,6 +43,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
+    public int row;
+    public int column;
+
     /**
      * Creates new form GUI_dalThongTinPhong
      */
@@ -44,10 +53,48 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        loadThongTinPhong();
-        trangThaiPhong();
-        tongThoiGian();
-        phuongThucThanhToan();
+//        loadThongTinPhong();
+//        trangThaiPhong();
+//        tongThoiGian();
+//        phuongThucThanhToan();
+        loadSanPham();
+        loadChiTietDichVu();
+    }
+
+    public void loadSanPham() {
+        ArrayList<DTO_SanPham> array = BLL_SanPham.select();
+        new BLL_SanPham().loadKhoDichVu(array, tblKhoDichVu);
+    }
+
+    public void loadChiTietDichVu() {
+        ArrayList<DTO_ChiTietDichVu> array = BLL_ChiTietDichVu.select(lblSetMaPhieuThue.getText());
+        new BLL_ChiTietDichVu().load(array, tblDichVu);
+    }
+
+    public void addChiTietDichVu(int row, int column) {
+        String maChiTietDichVu = "DV";
+        try {
+            ResultSet rs = DAL_ChiTietDichVu.count();
+            int rowCount = 0;
+            while (rs.next()) {
+                rowCount = rs.getInt(1);
+                if (rowCount > 99) {
+                    maChiTietDichVu = maChiTietDichVu + (rowCount + 1);
+                } else if (rowCount > 9) {
+                    maChiTietDichVu = maChiTietDichVu + "0" + (rowCount + 1);
+                } else {
+                    maChiTietDichVu = maChiTietDichVu + "00" + (rowCount + 1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DTO_ChiTietDichVu chiTietDichVu = new DTO_ChiTietDichVu(maChiTietDichVu, lblSetMaPhieuThue.getText(), tblKhoDichVu.getValueAt(row, 0).toString(), HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 2).toString()), HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 3).toString()));
+        BLL_ChiTietDichVu.add(chiTietDichVu);
+    }
+
+    public void deleteChiTietDichVu(int row) {
+        BLL_ChiTietDichVu.delete(lblSetMaPhieuThue.getText(), BLL_MaTenLoai.findMaSanPham(tblDichVu.getValueAt(row, 0).toString()));
     }
 
     public void trangThaiPhong() {
@@ -491,18 +538,37 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         sdoDichVu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblDichVu.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        tblDichVu.setForeground(new java.awt.Color(62, 73, 95));
         tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDichVu.setRowHeight(30);
+        tblDichVu.setShowHorizontalLines(false);
+        tblDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDichVuMouseClicked(evt);
+            }
+        });
         scrDichVu.setViewportView(tblDichVu);
+        if (tblDichVu.getColumnModel().getColumnCount() > 0) {
+            tblDichVu.getColumnModel().getColumn(4).setMaxWidth(40);
+        }
 
         sdoDichVu.add(scrDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 570, 130));
 
@@ -511,18 +577,48 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         sdoKhoDichVu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblKhoDichVu.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        tblKhoDichVu.setForeground(new java.awt.Color(62, 73, 95));
         tblKhoDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã Hàng", "Tên Hàng", "Số Lượng", "Đơn Giá", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblKhoDichVu.setRowHeight(30);
+        tblKhoDichVu.setShowHorizontalLines(false);
+        tblKhoDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKhoDichVuMouseClicked(evt);
+            }
+        });
         scrKhoDichVu.setViewportView(tblKhoDichVu);
+        if (tblKhoDichVu.getColumnModel().getColumnCount() > 0) {
+            tblKhoDichVu.getColumnModel().getColumn(4).setMaxWidth(40);
+        }
 
         sdoKhoDichVu.add(scrKhoDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 460));
 
@@ -704,6 +800,26 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         // TODO add your handling code here:
         addThuePhong();
     }//GEN-LAST:event_lblCapNhatMouseClicked
+
+    private void tblKhoDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhoDichVuMouseClicked
+        // TODO add your handling code here:
+        row = tblKhoDichVu.getSelectedRow();
+        column = tblKhoDichVu.getSelectedColumn();
+        if (tblKhoDichVu.getValueAt(row, column) == null) {
+            addChiTietDichVu(row, column);
+            loadChiTietDichVu();
+        }
+    }//GEN-LAST:event_tblKhoDichVuMouseClicked
+
+    private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked
+        // TODO add your handling code here:
+        row = tblDichVu.getSelectedRow();
+        column = tblDichVu.getSelectedColumn();
+        if (tblDichVu.getValueAt(row, column) == null) {
+            deleteChiTietDichVu(row);
+            loadChiTietDichVu();
+        }
+    }//GEN-LAST:event_tblDichVuMouseClicked
 
     /**
      * @param args the command line arguments

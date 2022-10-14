@@ -293,9 +293,17 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Mã Hàng", "Tên Hàng", "Số Lượng", "Giá Nhập", "Thêm"
+                "Mã Hàng", "Tên Hàng", "Số Lượng", "Giá Nhập", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblDichVu.setRowHeight(30);
         tblDichVu.setShowHorizontalLines(false);
         tblDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -304,8 +312,11 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
             }
         });
         scrDichVu.setViewportView(tblDichVu);
+        if (tblDichVu.getColumnModel().getColumnCount() > 0) {
+            tblDichVu.getColumnModel().getColumn(4).setMaxWidth(40);
+        }
 
-        sdoDichVu.add(scrDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 360, 390));
+        sdoDichVu.add(scrDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 350, 390));
 
         getContentPane().add(sdoDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 390, 430));
 
@@ -331,7 +342,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hàng", "Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền", "Xóa"
+                "Mã Hàng", "Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -350,6 +361,9 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
             }
         });
         scrKhoDichVu.setViewportView(tblKhoDichVu);
+        if (tblKhoDichVu.getColumnModel().getColumnCount() > 0) {
+            tblKhoDichVu.getColumnModel().getColumn(5).setMaxWidth(40);
+        }
 
         sdoKhoDichVu.add(scrKhoDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 430, 390));
 
