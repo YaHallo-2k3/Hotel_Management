@@ -130,7 +130,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
     }
 
     public void addPhong() {
-        DTO_Phong phong = new DTO_Phong(txtMaPhong.getText(), txtTenPhong.getText(), String.valueOf(cboTang.getSelectedItem()), String.valueOf(cboLoaiPhong.getSelectedItem()), "Có Khách");
+        DTO_Phong phong = new DTO_Phong(txtMaPhong.getText(), txtTenPhong.getText(), String.valueOf(cboTang.getSelectedItem()), String.valueOf(cboLoaiPhong.getSelectedItem()), "Phòng Trống");
         BLL_Phong.add(phong);
     }
 

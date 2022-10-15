@@ -10,6 +10,7 @@ import DAL.DAL_TaiKhoan;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -57,6 +58,7 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Đăng Nhập Không Thành Công ???");
                 } else {
                     taiKhoan = txtTenDangNhap.getText();
+                    GUI_frm_Login.frm.dispose();
                     new GUI_frm_Menu().setVisible(true);
                     if (chkLuuDangNhap.isSelected()) {
                         DAL_TaiKhoan.editCheckDangNhap();

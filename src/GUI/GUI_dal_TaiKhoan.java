@@ -29,8 +29,8 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         load();
     }
-
-    public void add() {
+    
+    public String setMaTaiKhoan(){
         String maTaiKhoan = "TK";
         try {
             ResultSet rs = DAL_TaiKhoan.count();
@@ -48,7 +48,12 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(maTaiKhoan, maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText(), 0);
+        return maTaiKhoan;
+    }
+
+    public void add() {
+        
+        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(setMaTaiKhoan(), maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText(), 0);
         BLL_TaiKhoan.add(taiKhoan);
     }
 
@@ -96,7 +101,6 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(360, 400));
         setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sdoChucNang.setBackground(new java.awt.Color(255, 255, 255));
         sdoChucNang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(33, 150, 243)));
@@ -129,8 +133,6 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
             }
         });
         sdoChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 100, 40));
-
-        getContentPane().add(sdoChucNang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 360, 60));
 
         sdoTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
         sdoTaiKhoan.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(33, 150, 243)));
@@ -220,7 +222,20 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         lblSetMaTaiKhoan.setText("TK001");
         sdoTaiKhoan.add(lblSetMaTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 60, 30));
 
-        getContentPane().add(sdoTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 380));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sdoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(sdoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(sdoChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

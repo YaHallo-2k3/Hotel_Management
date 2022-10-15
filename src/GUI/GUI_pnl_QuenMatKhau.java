@@ -5,6 +5,10 @@
  */
 package GUI;
 
+import BLL.BLL_TaiKhoan;
+import DTO.DTO_TaiKhoan;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author CherryCe
@@ -16,6 +20,18 @@ public class GUI_pnl_QuenMatKhau extends javax.swing.JPanel {
      */
     public GUI_pnl_QuenMatKhau() {
         initComponents();
+    }
+
+    public void edit() {
+        BLL_TaiKhoan.editMatKhau(String.valueOf(psdMatKhau.getPassword()), txtTaiKhoan.getText(), String.valueOf(cboBaoMat.getSelectedItem()), txtTraLoi.getText());
+    }
+
+    public void exit() {
+        int choice = JOptionPane.showConfirmDialog(null, "Bạn Có Muốn Thoát Chương Trình ???", "Thoát", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+        return;
     }
 
     /**
@@ -184,6 +200,7 @@ public class GUI_pnl_QuenMatKhau extends javax.swing.JPanel {
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
         // TODO add your handling code here:
+        exit();
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void lblShowHiddenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblShowHiddenMatKhauMouseClicked
@@ -193,6 +210,7 @@ public class GUI_pnl_QuenMatKhau extends javax.swing.JPanel {
 
     private void lblXacThucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXacThucMouseClicked
         // TODO add your handling code here:
+        edit();
     }//GEN-LAST:event_lblXacThucMouseClicked
 
 

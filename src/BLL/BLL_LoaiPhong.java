@@ -30,7 +30,7 @@ public class BLL_LoaiPhong {
             return true;
         }
     }
-    
+
     public static boolean alreayExits(String data, String value) {
         ResultSet rs = DAL_LoaiPhong.select();
         ArrayList<String> array = new ArrayList<>();
@@ -54,8 +54,9 @@ public class BLL_LoaiPhong {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else if (!alreayExits("MaLoaiPhong", loaiPhong.getMaPhong())) {
             JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
-        }else {
+        } else {
             DAL_LoaiPhong.add(loaiPhong);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -70,10 +71,9 @@ public class BLL_LoaiPhong {
     public static void edit(DTO_LoaiPhong loaiPhong) {
         if (!check(loaiPhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        }else if (!alreayExits("MaLoaiPhong", loaiPhong.getMaPhong())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_LoaiPhong.edit(loaiPhong);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 

@@ -75,8 +75,6 @@ public class BLL_NhanVien {
     public static void edit(DTO_NhanVien nhanVien) {
         if (!check(nhanVien)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaNhanVien", nhanVien.getMaNhanVien())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_NhanVien.edit(nhanVien);
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");

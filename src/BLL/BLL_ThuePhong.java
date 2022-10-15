@@ -38,11 +38,45 @@ public class BLL_ThuePhong {
         }
     }
 
-    public static void add(DTO_ThuePhong thuePhong) {
+    public static boolean alreayExits(String data, String value) {
+        ResultSet rs = DAL_ThuePhong.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString(data));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.size(); i++) {
+            if (value.equals(array.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void addThuePhong(DTO_ThuePhong thuePhong) {
         if (!check(thuePhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else if (!alreayExits("MaPhieuThue", thuePhong.getMaPhieuThue())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
-            DAL_ThuePhong.add(thuePhong);
+            DAL_ThuePhong.addThuePhong(thuePhong);
+            DAL_ThuePhong.setTrangThaiPhong("CoKhach", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
+        }
+    }
+    
+    public static void addDatPhong(DTO_ThuePhong thuePhong) {
+        if (!check(thuePhong)) {
+            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else if (!alreayExits("MaPhieuThue", thuePhong.getMaPhieuThue())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
+        } else {
+            DAL_ThuePhong.addDatPhong(thuePhong);
+            DAL_ThuePhong.setTrangThaiPhong("DatTruoc", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -54,11 +88,21 @@ public class BLL_ThuePhong {
         }
     }
 
-    public static void edit(DTO_ThuePhong thuePhong) {
+    public static void editThuePhong(DTO_ThuePhong thuePhong) {
         if (!check(thuePhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
-            DAL_ThuePhong.edit(thuePhong);
+            DAL_ThuePhong.editThuePhong(thuePhong);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
+        }
+    }
+    
+    public static void editDatPhong(DTO_ThuePhong thuePhong) {
+        if (!check(thuePhong)) {
+            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else {
+            DAL_ThuePhong.editDatPhong(thuePhong);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 

@@ -94,7 +94,6 @@ public class BLL_SoDoPhong {
             lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd", thuePhong.getNgayDen()));
             lblThangDen.setText(HELPER_ChuyenDoi.getNgayString("MM", thuePhong.getNgayDen()));
             lblGioPhutDen.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDen()));
-            
             if (thuePhong.getNgayDi() == null) {
                 lblNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd"));
                 lblThangDi.setText(HELPER_ChuyenDoi.getTimeNow("MM"));
@@ -104,7 +103,6 @@ public class BLL_SoDoPhong {
                 lblThangDi.setText(HELPER_ChuyenDoi.getNgayString("MM", thuePhong.getNgayDi()));
                 lblGioPhutDi.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDi()));
             }
-
             lblDatCoc.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getTienCoc()));
         }
     }

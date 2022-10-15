@@ -37,11 +37,32 @@ public class BLL_SanPham {
         }
     }
 
+    public static boolean alreayExits(String data, String value) {
+        ResultSet rs = DAL_LoaiSanPham.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString(data));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.size(); i++) {
+            if (value.equals(array.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void add(DTO_SanPham sanPham) {
         if (!check(sanPham)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else if (!alreayExits("MaSanPham", sanPham.getMaSanPham())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_SanPham.add(sanPham);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -58,6 +79,7 @@ public class BLL_SanPham {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_SanPham.edit(sanPham);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 

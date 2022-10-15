@@ -25,6 +25,39 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 //        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
     }
+    
+    public void click(){
+        pnlFormChinh.removeAll();
+        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
+        lblSetTenMenu.setText("Game2K - " + lblSoDoPhong.getText());
+        lblSoDoPhong.setForeground(new Color(33, 150, 243));
+        lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/app.png")));
+
+        lblThuNgan.setForeground(new Color(255, 255, 255));
+        lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
+        lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
+        lblLichSuThuePhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel.png")));
+        lblDichVu.setForeground(new Color(255, 255, 255));
+        lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
+        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
+        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
+        lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
+        lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart.png")));
+        lblQuanLiKho.setForeground(new Color(255, 255, 255));
+        lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
+        lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
+        lblQuanLiChiPhi.setIcon(new ImageIcon(getClass().getResource("/IMG/assets (1).png")));
+        lblThietDatPhong.setForeground(new Color(255, 255, 255));
+        lblThietDatPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/bed (1).png")));
+        lblThietDatGiaPhong.setForeground(new Color(255, 255, 255));
+        lblThietDatGiaPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/card.png")));
+        lblQuanLiNguoiDung.setForeground(new Color(255, 255, 255));
+        lblQuanLiNguoiDung.setIcon(new ImageIcon(getClass().getResource("/IMG/profile-user (2).png")));
+        lblThayDoiMatKhau.setForeground(new Color(255, 255, 255));
+        lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (1).png")));
+        lblDangXuat.setForeground(new Color(255, 255, 255));
+        lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout.png")));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

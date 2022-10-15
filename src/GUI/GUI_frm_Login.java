@@ -7,12 +7,15 @@ package GUI;
 
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
  * @author CherryCe
  */
 public class GUI_frm_Login extends javax.swing.JFrame {
+
+    public static JFrame frm = null;
 
     /**
      * Creates new form GUI_frmLogin
@@ -21,7 +24,7 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         pnlDangNhap();
-
+        frm = this;
     }
 
     public void pnlDangNhap() {
@@ -67,7 +70,6 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(550, 450));
         setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlChucNang.setBackground(new java.awt.Color(255, 255, 255));
         pnlChucNang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -113,13 +115,25 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         });
         pnlChucNang.add(lblDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 150, 150));
 
-        getContentPane().add(pnlChucNang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, -1));
-
         pnlLogin.setBackground(new java.awt.Color(255, 255, 255));
         pnlLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 1, new java.awt.Color(62, 73, 95)));
         pnlLogin.setMinimumSize(new java.awt.Dimension(400, 450));
         pnlLogin.setLayout(new java.awt.CardLayout());
-        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 400, 450));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

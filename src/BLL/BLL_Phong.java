@@ -30,7 +30,7 @@ public class BLL_Phong {
             return true;
         }
     }
-    
+
     public static boolean alreayExits(String data, String value) {
         ResultSet rs = DAL_Phong.select();
         ArrayList<String> array = new ArrayList<>();
@@ -52,10 +52,11 @@ public class BLL_Phong {
     public static void add(DTO_Phong phong) {
         if (!check(phong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        }else if (!alreayExits("MaPhong", phong.getMaPhong())) {
+        } else if (!alreayExits("MaPhong", phong.getMaPhong())) {
             JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_Phong.add(phong);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -70,10 +71,9 @@ public class BLL_Phong {
     public static void edit(DTO_Phong phong) {
         if (!check(phong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaPhong", phong.getMaPhong())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
-        }else {
+        } else {
             DAL_Phong.edit(phong);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 

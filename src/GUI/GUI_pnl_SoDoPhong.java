@@ -25,6 +25,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
      */
     public GUI_pnl_SoDoPhong() {
         initComponents();
+        
         for (int i = 1; i <= BLL_SoDoPhong.countPhong(); i++) {
             index = i;
             pnlFormChinh.add(new GUI_pnl_ChiTietPhong().sdoChiTietPhong);
@@ -108,7 +109,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblSetPhongTrong.setOpaque(true);
         sdoChuThich.add(lblSetPhongTrong, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 50, 110, 20));
 
-        lblSetTraPhong.setBackground(new java.awt.Color(255, 153, 0));
+        lblSetTraPhong.setBackground(new java.awt.Color(240, 165, 0));
         lblSetTraPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetTraPhong.setForeground(new java.awt.Color(255, 255, 255));
         lblSetTraPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -187,7 +188,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         scrFormChinh.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlFormChinh.setBackground(new java.awt.Color(255, 255, 255));
-        pnlFormChinh.setLayout(new java.awt.GridLayout(8, 5, 7, 10));
+        pnlFormChinh.setLayout(new java.awt.GridLayout(2, 5, 7, 10));
         scrFormChinh.setViewportView(pnlFormChinh);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

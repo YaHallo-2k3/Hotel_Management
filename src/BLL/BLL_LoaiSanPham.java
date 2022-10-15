@@ -36,10 +36,30 @@ public class BLL_LoaiSanPham {
             return true;
         }
     }
+    
+    public static boolean alreayExits(String data, String value) {
+        ResultSet rs = DAL_LoaiSanPham.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString(data));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.size(); i++) {
+            if (value.equals(array.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static void add(DTO_LoaiSanPham loaiSanPham) {
         if (!check(loaiSanPham)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else if (!alreayExits("MaLoaiSanPham", loaiSanPham.getMaLoaiSanPham())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_LoaiSanPham.add(loaiSanPham);
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");

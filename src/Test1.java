@@ -11,6 +11,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Locale;
 import javax.swing.ImageIcon;
@@ -22,10 +24,21 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
+import java.time.Duration;
 
 public class Test1 {
 
     public static void main(String[] args) throws ParseException {
-        System.out.println(Integer.valueOf("1"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        LocalDateTime dateTime1 = LocalDateTime.parse("25-11-2013 16:00", formatter);
+        LocalDateTime dateTime2 = LocalDateTime.parse("26-11-2013 16:00", formatter);
+
+        long diffInDay = Duration.between(dateTime1, dateTime2).toDays();
+        long diffInMilli = Duration.between(dateTime1, dateTime2).toHours() - diffInDay * 24;
+        long diffInMinutes = (Duration.between(dateTime1, dateTime2).toMinutes()-diffInDay*60*24)%60;
+        System.out.println(diffInMilli);
+        System.out.println(diffInMinutes);
+        System.out.println(diffInDay);
     }
 }

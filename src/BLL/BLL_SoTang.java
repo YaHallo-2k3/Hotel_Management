@@ -56,6 +56,7 @@ public class BLL_SoTang {
             JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_SoTang.add(soTang);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -70,10 +71,9 @@ public class BLL_SoTang {
     public static void edit(DTO_SoTang soTang) {
         if (!check(soTang)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaTang", soTang.getMaTang())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_SoTang.edit(soTang);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 

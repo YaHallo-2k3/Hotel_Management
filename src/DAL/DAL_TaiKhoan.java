@@ -30,6 +30,11 @@ public class DAL_TaiKhoan {
         HELPER_ConnectSQL.executeUpdate(sqlUpdate, taiKhoan.getMaTaiKhoan(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCauHoi(), taiKhoan.getTraLoi(), taiKhoan.getCheckDangNhap(), taiKhoan.getMaNhanVien());
     }
 
+    public static void editMatKhau(String matKhau, String tenDangNhap, String cauHoi, String traLoi) {
+        String sqlUpdate = "UPDATE TaiKhoan SET MatKhau = ? WHERE TenDangNhap = ? AND CauHoi = ? AND TraLoi = ?";
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, matKhau, tenDangNhap, cauHoi, traLoi);
+    }
+
     public static void editCheckDangNhap() {
         String sqlUpdate = "UPDATE TaiKhoan SET CheckDangNhap = 0";
         HELPER_ConnectSQL.executeUpdate(sqlUpdate);
@@ -40,12 +45,17 @@ public class DAL_TaiKhoan {
         HELPER_ConnectSQL.executeUpdate(sqlUpdate, tenDangNhap);
     }
 
-    public static ResultSet select(String tenDangNhap, String matKhau) {
+    public static ResultSet selectTaiKhoan(String tenDangNhap, String matKhau) {
         String sqlSelect = "SELECT * FROM TaiKhoan WHERE TenDangNhap = ? AND MatKhau = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tenDangNhap, matKhau);
     }
+    
+    public static ResultSet selectTenDangNhap(String tenDangNhap) {
+        String sqlSelect = "SELECT * FROM TaiKhoan WHERE TenDangNhap = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tenDangNhap);
+    }
 
-    public static ResultSet select(String maNhanVien) {
+    public static ResultSet selectMaNhanVien(String maNhanVien) {
         String sqlSelect = "SELECT * FROM NhanVien LEFT JOIN TaiKhoan ON TaiKhoan.MaNhanVien = NhanVien.MaNhanVien WHERE NhanVien.MaNhanVien = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maNhanVien);
     }

@@ -25,7 +25,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
      */
     public GUI_pnl_SanPham() {
         initComponents();
-        loadloaiSanPham();
+        loadLoaiSanPham();
         loadTenLoaiSanPham();
         loadSanPham();
     }
@@ -64,7 +64,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         txtTenLoai.setText(tblLoaiSanPham.getValueAt(index, 1).toString());
     }
 
-    public void loadloaiSanPham() {
+    public void loadLoaiSanPham() {
         ArrayList<DTO_LoaiSanPham> array = BLL_LoaiSanPham.select();
         new BLL_LoaiSanPham().load(array, tblLoaiSanPham);
     }
@@ -190,7 +190,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
 
         cboDonVi.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         cboDonVi.setForeground(new java.awt.Color(62, 73, 95));
-        cboDonVi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chai", "Lon", "Ly", "Phần", "Chiếc" }));
+        cboDonVi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chai", "Lon", "Ly", "Phần", "Chiếc", "Gói" }));
         cboDonVi.setToolTipText("");
         cboDonVi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         sdoSanPham.add(cboDonVi, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 70, 20));
@@ -446,12 +446,12 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
             fillLoaiSanPham(row);
         } else if (tblLoaiSanPham.getValueAt(row, column) == null && tblLoaiSanPham.getValueAt(row, column - 1) != null) {
             editLoaiSanPham(row);
-            loadloaiSanPham();
+            loadLoaiSanPham();
             loadTenLoaiSanPham();
             loadTenLoaiSanPham();
         } else if (tblLoaiSanPham.getValueAt(row, column) == null && tblLoaiSanPham.getValueAt(row, column - 1) == null) {
             deleteLoaiSanPham(row);
-            loadloaiSanPham();
+            loadLoaiSanPham();
             loadTenLoaiSanPham();
             loadTenLoaiSanPham();
         }
@@ -460,7 +460,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     private void lblThemLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemLoaiMouseClicked
         // TODO add your handling code here:
         addLoaiSanPham();
-        loadloaiSanPham();
+        loadLoaiSanPham();
         loadTenLoaiSanPham();
     }//GEN-LAST:event_lblThemLoaiMouseClicked
 

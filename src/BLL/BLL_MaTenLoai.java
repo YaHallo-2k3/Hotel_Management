@@ -182,7 +182,7 @@ public class BLL_MaTenLoai {
     }
 
     public static String findMaNhanVien(String tenNhanVien) {
-        ResultSet rs = DAL_MaTenLoai.findMaPhong(tenNhanVien);
+        ResultSet rs = DAL_MaTenLoai.findMaNhanVien(tenNhanVien);
         try {
             while (rs.next()) {
                 return rs.getString("MaNhanVien");
