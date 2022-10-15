@@ -34,7 +34,7 @@
               <Color blue="5f" green="49" red="3e" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/IMG/personal-profile.png"/>
+              <Image iconType="3" name="/IMG/information-button.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Th&#xf4;ng Tin Ph&#xf2;ng"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -294,6 +294,7 @@
         <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="sdoChiTietPhongMouseMoved"/>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sdoChiTietPhongMouseClicked"/>
         <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sdoChiTietPhongMouseExited"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sdoChiTietPhongMousePressed"/>
         <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sdoChiTietPhongMouseReleased"/>
       </Events>
 

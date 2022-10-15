@@ -26,39 +26,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 //        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
     }
     
-    public void click(){
-        pnlFormChinh.removeAll();
-        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
-        lblSetTenMenu.setText("Game2K - " + lblSoDoPhong.getText());
-        lblSoDoPhong.setForeground(new Color(33, 150, 243));
-        lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/app.png")));
-
-        lblThuNgan.setForeground(new Color(255, 255, 255));
-        lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
-        lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
-        lblLichSuThuePhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel.png")));
-        lblDichVu.setForeground(new Color(255, 255, 255));
-        lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (2).png")));
-        lblQuanLiSanPham.setForeground(new Color(255, 255, 255));
-        lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box.png")));
-        lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
-        lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart.png")));
-        lblQuanLiKho.setForeground(new Color(255, 255, 255));
-        lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management.png")));
-        lblQuanLiChiPhi.setForeground(new Color(255, 255, 255));
-        lblQuanLiChiPhi.setIcon(new ImageIcon(getClass().getResource("/IMG/assets (1).png")));
-        lblThietDatPhong.setForeground(new Color(255, 255, 255));
-        lblThietDatPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/bed (1).png")));
-        lblThietDatGiaPhong.setForeground(new Color(255, 255, 255));
-        lblThietDatGiaPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/card.png")));
-        lblQuanLiNguoiDung.setForeground(new Color(255, 255, 255));
-        lblQuanLiNguoiDung.setIcon(new ImageIcon(getClass().getResource("/IMG/profile-user (2).png")));
-        lblThayDoiMatKhau.setForeground(new Color(255, 255, 255));
-        lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (1).png")));
-        lblDangXuat.setForeground(new Color(255, 255, 255));
-        lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout.png")));
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -482,7 +449,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblSoDoPhong.getText());
         lblSoDoPhong.setForeground(new Color(33, 150, 243));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/app.png")));
-
         lblThuNgan.setForeground(new Color(255, 255, 255));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -521,7 +487,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblThuNgan.getText());
         lblThuNgan.setForeground(new Color(33, 150, 243));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money (1).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -555,7 +520,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblDichVu.getText());
         lblDichVu.setForeground(new Color(33, 150, 243));
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (3).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -623,7 +587,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblThietDatGiaPhong.getText());
         lblThietDatGiaPhong.setForeground(new Color(33, 150, 243));
         lblThietDatGiaPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/card (1).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -657,7 +620,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblQuanLiNguoiDung.getText());
         lblQuanLiNguoiDung.setForeground(new Color(33, 150, 243));
         lblQuanLiNguoiDung.setIcon(new ImageIcon(getClass().getResource("/IMG/profile-user (3).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -711,7 +673,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblLichSuThuePhong.getText());
         lblLichSuThuePhong.setForeground(new Color(33, 150, 243));
         lblLichSuThuePhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (3).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
@@ -875,7 +836,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblThongKeTrongNgay.getText());
         lblThongKeTrongNgay.setForeground(new Color(33, 150, 243));
         lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart (1).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -909,7 +869,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblQuanLiKho.getText());
         lblQuanLiKho.setForeground(new Color(33, 150, 243));
         lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management (1).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -943,7 +902,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblQuanLiChiPhi.getText());
         lblQuanLiChiPhi.setForeground(new Color(33, 150, 243));
         lblQuanLiChiPhi.setIcon(new ImageIcon(getClass().getResource("/IMG/assets (2).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -977,7 +935,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblThayDoiMatKhau.getText());
         lblThayDoiMatKhau.setForeground(new Color(33, 150, 243));
         lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (3).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -1010,7 +967,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 //        pnlFormChinh.add(new GUI_pnl_GiaoCa());
         lblDangXuat.setForeground(new Color(33, 150, 243));
         lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout (7).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -1053,10 +1009,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
             lblQuanLiNguoiDung.setText(null);
             lblThayDoiMatKhau.setText(null);
             lblDangXuat.setText(null);
-
             pnlMenuBar.setPreferredSize(new Dimension(40, 730));
             pnlFormChinh.setPreferredSize(new Dimension(1300, 730));
-
             isShowHidden = true;
         } else {
             lblSoDoPhong.setText("Sơ Đồ Phòng");
@@ -1072,10 +1026,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
             lblQuanLiNguoiDung.setText("Quản Lí Người Dùng");
             lblThayDoiMatKhau.setText("Thay Đổi Mật Khẩu");
             lblDangXuat.setText("Đăng Xuất");
-
             pnlMenuBar.setPreferredSize(new Dimension(200, 730));
             pnlFormChinh.setPreferredSize(new Dimension(1150, 730));
-
             isShowHidden = false;
         }
     }//GEN-LAST:event_lblShowHiddenMenuMouseClicked
@@ -1092,7 +1044,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblSetTenMenu.setText("Game2K - " + lblQuanLiSanPham.getText());
         lblQuanLiSanPham.setForeground(new Color(33, 150, 243));
         lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box (1).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));

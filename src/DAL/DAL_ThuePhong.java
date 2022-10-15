@@ -73,8 +73,13 @@ public class DAL_ThuePhong {
         HELPER_ConnectSQL.executeUpdate(sqlUpdate, maTrangThaiPhong, maPhong);
     }
 
-    public static void setTrangThaiThanhToan(int trangThaiThanhToan, String maPhieuThue) {
-        String sqlUpdate = "UPDATE ThuePhong SET TrangThaiThanhToan = ? WHERE MaPhieuThue = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlUpdate, trangThaiThanhToan, maPhieuThue);
+    public static void setTrangThaiPhong(String maTrangThaiPhong, int index) {
+        String sqlUpdate = "UPDATE Phong SET Phong.MaTrangThaiPhong = ? FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY TenPhong) AS RowNumber FROM Phong) AS Phong WHERE Phong.RowNumber = ?";
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, maTrangThaiPhong, index);
+    }
+
+    public static void setTrangThaiThanhToan(int index) {
+        String sqlUpdate = "UPDATE ThuePhong SET TrangThaiThanhToan = 1 FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY TenPhong) AS RowNumber FROM Phong) AS Phong JOIN ThuePhong ON ThuePhong.MaPhong = Phong.MaPhong WHERE Phong.RowNumber = ?";
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, index);
     }
 }

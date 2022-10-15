@@ -10,6 +10,7 @@ import BLL.BLL_MaTenLoai;
 import BLL.BLL_Phong;
 import BLL.BLL_SoDoPhong;
 import BLL.BLL_SoTang;
+import DAL.DAL_SoDoPhong;
 import DAL.DAL_ThuePhong;
 import DTO.DTO_Phong;
 import DTO.DTO_SoTang;
@@ -17,6 +18,7 @@ import DTO.DTO_ThuePhong;
 import HELPER.HELPER_ChuyenDoi;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -32,7 +34,7 @@ import javax.swing.ImageIcon;
  * @author CherryCe
  */
 public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
-
+    
     public boolean isShowHidden = false;
     public boolean isDonPhong = false;
     public boolean isKhachRaNgoai = false;
@@ -52,7 +54,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         isHiddenTime();
         load();
     }
-
+    
     public void load() {
         ArrayList<DTO_Phong> arrayPhong = BLL_SoDoPhong.selectPhong(GUI_pnl_SoDoPhong.index);
         BLL_SoDoPhong.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong, lblSetTrangThai);
@@ -62,19 +64,21 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             sdoChiTietPhong.setBackground(new Color(97, 177, 90));
             isHiddenMoney();
         } else {
+            lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (2).png")));
+            isShowMoney();
+            tongThoiGian();
             if (lblSetTrangThai.getText().equals("Có Khách")) {
                 sdoChiTietPhong.setBackground(new Color(255, 142, 113));
             } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
                 sdoChiTietPhong.setBackground(new Color(102, 153, 255));
+                mniThuePhong.setVisible(true);
+                mniKhachRaNgoai.setVisible(false);
             } else if (lblSetTrangThai.getText().equals("Trả Phòng")) {
                 sdoChiTietPhong.setBackground(new Color(240, 165, 0));
             }
-            lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (2).png")));
-            isShowMoney();
-            tongThoiGian();
         }
     }
-
+    
     public void tongThoiGian() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime dateTimeDen = LocalDateTime.parse(lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDen.getText(), formatter);
@@ -84,7 +88,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInHours * 60 * 24) % 60;
         lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
     }
-
+    
     public void isHiddenTime() {
         lblNgayDen.setVisible(false);
         lblNgayDi.setVisible(false);
@@ -96,7 +100,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         spt_1.setVisible(false);
         spt_2.setVisible(false);
     }
-
+    
     public void isShowTime() {
         lblNgayDen.setVisible(true);
         lblNgayDi.setVisible(true);
@@ -108,7 +112,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         spt_1.setVisible(true);
         spt_2.setVisible(true);
     }
-
+    
     public void isHiddenMoney() {
         lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/bed (3).png")));
         lblTongThoiGian.setVisible(false);
@@ -126,7 +130,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniHuyPhong.setVisible(false);
         mniThanhToanNhom.setVisible(false);
     }
-
+    
     public void isShowMoney() {
         lblTongThoiGian.setVisible(true);
         lblNgayDefault.setVisible(false);
@@ -143,7 +147,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniHuyPhong.setVisible(true);
         mniThanhToanNhom.setVisible(true);
     }
-
+    
     public void showPopUp(MouseEvent evt) {
         popMenu.show(this, evt.getX(), evt.getY());
     }
@@ -198,7 +202,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniThongTinPhong.setBackground(new java.awt.Color(255, 255, 255));
         mniThongTinPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         mniThongTinPhong.setForeground(new java.awt.Color(62, 73, 95));
-        mniThongTinPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/personal-profile.png"))); // NOI18N
+        mniThongTinPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/information-button.png"))); // NOI18N
         mniThongTinPhong.setText("Thông Tin Phòng");
         mniThongTinPhong.setMinimumSize(new java.awt.Dimension(150, 30));
         mniThongTinPhong.setOpaque(true);
@@ -332,6 +336,9 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 sdoChiTietPhongMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                sdoChiTietPhongMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 sdoChiTietPhongMouseReleased(evt);
@@ -558,16 +565,15 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
 
     private void mniThuePhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThuePhongActionPerformed
         // TODO add your handling code here:  
-        indexPosition = GUI_pnl_SoDoPhong.pnlFormChinh.getComponentZOrder(sdoChiTietPhong);
         isDatThue = 1;
         new GUI_dal_ThongTinPhong(null, true).setVisible(true);
     }//GEN-LAST:event_mniThuePhongActionPerformed
 
     private void mniDonPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDonPhongActionPerformed
         // TODO add your handling code here:
-        if (lblSetTrangThai.equals("Trả Phòng")) {
-            DAL_ThuePhong.setTrangThaiPhong("PhongTrong", BLL_MaTenLoai.findMaPhong(lblSoPhong.getText().substring(0, 3)));
-            load();
+        if (lblSetTrangThai.getText().equals("Trả Phòng")) {
+            DAL_ThuePhong.setTrangThaiPhong("PhongTrong", indexPosition + 1);
+            DAL_ThuePhong.setTrangThaiThanhToan(indexPosition + 1);
         } else {
             if (!isDonPhong) {
                 lblDonPhong.setVisible(true);
@@ -596,7 +602,6 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
 
     private void mniThongTinPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThongTinPhongActionPerformed
         // TODO add your handling code here:
-        indexPosition = GUI_pnl_SoDoPhong.pnlFormChinh.getComponentZOrder(sdoChiTietPhong);
         if (lblSetTrangThai.getText().equals("Đặt Trước")) {
             isDatThue = 0;
         } else {
@@ -607,10 +612,14 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
 
     private void mniDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDatPhongActionPerformed
         // TODO add your handling code here:
-        indexPosition = GUI_pnl_SoDoPhong.pnlFormChinh.getComponentZOrder(sdoChiTietPhong);
         isDatThue = 0;
         new GUI_dal_ThongTinPhong(null, true).setVisible(true);
     }//GEN-LAST:event_mniDatPhongActionPerformed
+
+    private void sdoChiTietPhongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietPhongMousePressed
+        // TODO add your handling code here:
+        indexPosition = GUI_pnl_SoDoPhong.pnlFormChinh.getComponentZOrder(sdoChiTietPhong);
+    }//GEN-LAST:event_sdoChiTietPhongMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -55,7 +55,7 @@ public class BLL_SoDoPhong {
     }
 
     public static ArrayList<DTO_ThuePhong> selectThuePhong(String tenPhong) {
-        ResultSet rs = DAL_SoDoPhong.selectThoiGian(tenPhong);
+        ResultSet rs = DAL_SoDoPhong.select(tenPhong);
         ArrayList<DTO_ThuePhong> array = new ArrayList<>();
         try {
             while (rs.next()) {

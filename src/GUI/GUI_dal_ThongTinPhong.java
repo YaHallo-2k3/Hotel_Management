@@ -287,7 +287,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 lblThoatMouseClicked(evt);
             }
         });
-        pnlChucNang.add(lblThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 90, 50));
+        pnlChucNang.add(lblThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 90, 50));
 
         lblCapNhat.setBackground(new java.awt.Color(255, 255, 255));
         lblCapNhat.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -300,7 +300,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 lblCapNhatMouseClicked(evt);
             }
         });
-        pnlChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 110, 50));
+        pnlChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 110, 50));
 
         lblThanhToanPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblThanhToanPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -313,7 +313,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 lblThanhToanPhongMouseClicked(evt);
             }
         });
-        pnlChucNang.add(lblThanhToanPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 130, 50));
+        pnlChucNang.add(lblThanhToanPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 130, 50));
 
         sdoThongTinPhong.setBackground(new java.awt.Color(255, 255, 255));
         sdoThongTinPhong.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 0, new java.awt.Color(33, 150, 243)));
@@ -735,7 +735,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         // TODO add your handling code here:
-//        new GUI_frm_Menu().click();
         dispose();
     }//GEN-LAST:event_lblThoatMouseClicked
 
@@ -836,7 +835,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private void lblThanhToanPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThanhToanPhongMouseClicked
         // TODO add your handling code here:
         DAL_ThuePhong.setTrangThaiPhong("TraPhong", BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)));
-        DAL_ThuePhong.setTrangThaiThanhToan(1, lblSetMaPhieuThue.getText());
     }//GEN-LAST:event_lblThanhToanPhongMouseClicked
 
     /**

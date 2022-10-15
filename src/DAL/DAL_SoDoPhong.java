@@ -30,8 +30,8 @@ public class DAL_SoDoPhong {
         return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
     }
     
-    public static ResultSet selectThoiGian(String tenPhong) {
-        String sqlSelect = "SELECT * FROM ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE ThuePhong.MaPhong = ? AND MaTrangThaiPhong NOT LIKE 'PhongTrong'";
+    public static ResultSet select(String tenPhong) {
+        String sqlSelect = "SELECT * FROM ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE ThuePhong.MaPhong = ? AND TrangThaiThanhToan = 0";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, BLL_MaTenLoai.findMaPhong(tenPhong));
     }
 }

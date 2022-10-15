@@ -67,7 +67,7 @@ public class BLL_ThuePhong {
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-    
+
     public static void addDatPhong(DTO_ThuePhong thuePhong) {
         if (!check(thuePhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -93,15 +93,17 @@ public class BLL_ThuePhong {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_ThuePhong.editThuePhong(thuePhong);
+            DAL_ThuePhong.setTrangThaiPhong("CoKhach", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-    
+
     public static void editDatPhong(DTO_ThuePhong thuePhong) {
         if (!check(thuePhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_ThuePhong.editDatPhong(thuePhong);
+            DAL_ThuePhong.setTrangThaiPhong("DatTruoc", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
