@@ -4,9 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_ThongTinPhong.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DTO/DTO_SanPham.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/BLL/BLL_SanPham.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DAL/DAL_LoaiSanPham.java</file>
             <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_NhanVien.java</file>
             <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_SoDoPhong.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_SanPham.java</file>
             <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_ChiTietPhong.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DAL/DAL_SanPham.java</file>
         </group>
     </open-files>
 </project-private>

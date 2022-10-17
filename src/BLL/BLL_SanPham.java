@@ -38,7 +38,7 @@ public class BLL_SanPham {
     }
 
     public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_LoaiSanPham.select();
+        ResultSet rs = DAL_SanPham.select();
         ArrayList<String> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -90,7 +90,7 @@ public class BLL_SanPham {
             while (rs.next()) {
                 DTO_SanPham sanPham = new DTO_SanPham();
                 sanPham.setMaSanPham(rs.getString("MaSanPham"));
-                sanPham.setTenSanPham(rs.getString("TensanPham"));
+                sanPham.setTenSanPham(rs.getString("TenSanPham"));
                 sanPham.setMaLoaiSanPham(rs.getString("MaLoaiSanPham"));
                 sanPham.setDonViTinh(rs.getString("DonViTinh"));
                 sanPham.setGiaBan(rs.getInt("GiaBan"));
