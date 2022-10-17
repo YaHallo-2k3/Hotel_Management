@@ -31,8 +31,8 @@ public class Test1 {
     public static void main(String[] args) throws ParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-        LocalDateTime dateTime1 = LocalDateTime.parse("25-11-2013 16:00", formatter);
-        LocalDateTime dateTime2 = LocalDateTime.parse("26-11-2013 16:00", formatter);
+        LocalDateTime dateTime1 = LocalDateTime.parse("25-11-2013 21:34", formatter);
+        LocalDateTime dateTime2 = LocalDateTime.parse("25-11-2013 22:47", formatter);
 
         long diffInDay = Duration.between(dateTime1, dateTime2).toDays();
         long diffInMilli = Duration.between(dateTime1, dateTime2).toHours() - diffInDay * 24;

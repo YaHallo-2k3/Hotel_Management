@@ -8,6 +8,8 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -25,7 +27,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 //        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1130,7 +1132,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     private javax.swing.JLabel lblThongKeTrongNgay;
     private javax.swing.JLabel lblThuNgan;
     private javax.swing.JLabel lblWiFi;
-    private javax.swing.JPanel pnlFormChinh;
+    public javax.swing.JPanel pnlFormChinh;
     private javax.swing.JPanel pnlKhoangTrang;
     private javax.swing.JPanel pnlMenuBar;
     private javax.swing.JPanel pnlToolBar;

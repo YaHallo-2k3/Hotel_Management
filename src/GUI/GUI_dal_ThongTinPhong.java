@@ -20,6 +20,8 @@ import DTO.DTO_Phong;
 import DTO.DTO_PhuongThucThanhToan;
 import DTO.DTO_SanPham;
 import DTO.DTO_ThuePhong;
+import static GUI.GUI_pnl_SoDoPhong.index;
+import static GUI.GUI_pnl_SoDoPhong.pnlFormChinh;
 import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_SetMa;
 import com.toedter.calendar.JDateChooser;
@@ -40,6 +42,7 @@ import javax.swing.table.DefaultTableModel;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -66,8 +69,8 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         tongThoiGian();
         loadGiaPhong();
         phuongThucThanhToan();
-//        loadSanPham();
-//        loadChiTietDichVu();
+        loadSanPham();
+        loadChiTietDichVu();
     }
 
     public void loadThongTinPhong() {
@@ -121,7 +124,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         LocalDateTime dateTimeDi = LocalDateTime.parse(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioPhutDi.getText(), formatter);
         diffInDay = Duration.between(dateTimeDen, dateTimeDi).toDays();
         diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
-        diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInHours * 60 * 24) % 60;
+        diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
         lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
     }
 
@@ -158,6 +161,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     }
 
     public void editThuePhong() {
+
         String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioPhutDen.getText();
         DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), null, txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), 0);
         BLL_ThuePhong.editThuePhong(thuePhong);
@@ -176,31 +180,50 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     }
 
     public void loadChiTietDichVu() {
-        ArrayList<DTO_ChiTietDichVu> array = BLL_ChiTietDichVu.select(lblSetMaPhieuThue.getText());
+        ArrayList<DTO_ChiTietDichVu> array = BLL_ChiTietDichVu.select("DV" + lblSetMaPhieuThue.getText().substring(2, lblSetMaPhieuThue.getText().length()));
         new BLL_ChiTietDichVu().load(array, tblDichVu);
     }
 
     public void addChiTietDichVu() {
-        String maChiTietDichVu = HELPER_SetMa.setMaCount("DV", DAL_ChiTietDichVu.count());
-        DTO_ChiTietDichVu chiTietDichVu = new DTO_ChiTietDichVu(maChiTietDichVu, lblSetMaPhieuThue.getText(), tblKhoDichVu.getValueAt(row, 0).toString(), 1, HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 2).toString()));
+        String maChiTiet = HELPER_SetMa.setMaCount("CT", DAL_ChiTietDichVu.count());
+        String maPhieuDichVu = "DV" + lblSetMaPhieuThue.getText().substring(2, lblSetMaPhieuThue.getText().length());
+        DTO_ChiTietDichVu chiTietDichVu = new DTO_ChiTietDichVu(maChiTiet, maPhieuDichVu, tblKhoDichVu.getValueAt(row, 0).toString(), 1, HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 2).toString()));
         BLL_ChiTietDichVu.add(chiTietDichVu);
     }
 
     public void deleteChiTietDichVu() {
-        BLL_ChiTietDichVu.delete(lblSetMaPhieuThue.getText(), BLL_MaTenLoai.findMaSanPham(tblDichVu.getValueAt(row, 0).toString()));
+        BLL_ChiTietDichVu.delete("DV" + lblSetMaPhieuThue.getText().substring(2, lblSetMaPhieuThue.getText().length()), tblDichVu.getValueAt(row, 0).toString());
     }
 
-    public void editChiTietDichVu(int i) {
+    public void editChiTietDichVu(int i, String value) {
         int total = 0;
         try {
-            ResultSet rs = DAL_ChiTietDichVu.select(BLL_MaTenLoai.findMaSanPham(tblKhoDichVu.getValueAt(row, 0).toString()));
+            ResultSet rs = DAL_ChiTietDichVu.selectMaSanPham(value);
             while (rs.next()) {
                 total = rs.getInt("SoLuongBan");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        BLL_ChiTietDichVu.edit(total + i, tblKhoDichVu.getValueAt(row, 0).toString(), lblSetMaPhieuThue.getText());
+        BLL_ChiTietDichVu.edit(total + i, value, "DV" + lblSetMaPhieuThue.getText().substring(2, lblSetMaPhieuThue.getText().length()));
+    }
+
+    public String tienDichVu() {
+        int tienDichVu = 0;
+        for (int i = 0; i < tblDichVu.getRowCount(); i++) {
+            tienDichVu += HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString());
+        }
+        return HELPER_ChuyenDoi.getSoString(tienDichVu);
+    }
+
+    public void exit() {
+        pnlFormChinh.removeAll();
+        for (int i = 1; i <= BLL_SoDoPhong.countPhong(); i++) {
+            index = i;
+            pnlFormChinh.add(new GUI_pnl_ChiTietPhong().sdoChiTietPhong);
+        }
+        pnlFormChinh.validate();
+        dispose();
     }
 
     /**
@@ -514,17 +537,17 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         tblDichVu.setForeground(new java.awt.Color(62, 73, 95));
         tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền", ""
+                "Mã Hàng", "Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -538,9 +561,14 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 tblDichVuMouseClicked(evt);
             }
         });
+        tblDichVu.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tblDichVuPropertyChange(evt);
+            }
+        });
         scrDichVu.setViewportView(tblDichVu);
         if (tblDichVu.getColumnModel().getColumnCount() > 0) {
-            tblDichVu.getColumnModel().getColumn(4).setMaxWidth(40);
+            tblDichVu.getColumnModel().getColumn(5).setMaxWidth(40);
         }
 
         sdoDichVu.add(scrDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 570, 130));
@@ -586,6 +614,9 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         tblKhoDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblKhoDichVuMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblKhoDichVuMousePressed(evt);
             }
         });
         scrKhoDichVu.setViewportView(tblKhoDichVu);
@@ -734,13 +765,13 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     }//GEN-LAST:event_txtGiamGiaActionPerformed
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
-        // TODO add your handling code here:
-        dispose();
+        // TODO add your handling code here:  
+        exit();
     }//GEN-LAST:event_lblThoatMouseClicked
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
         // TODO add your handling code here:
-        dispose();
+        exit();
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void lblTongThoiGianMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTongThoiGianMouseMoved
@@ -760,6 +791,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         if (dateNgayDen.getDate() != null && dateNgayDi.getDate() != null) {
             tongThoiGian();
             loadGiaPhong();
+            dateNgayDen.setMaxSelectableDate(dateNgayDi.getDate());
         }
     }//GEN-LAST:event_dateNgayDiPropertyChange
 
@@ -768,6 +800,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         if (dateNgayDen.getDate() != null && dateNgayDi.getDate() != null) {
             tongThoiGian();
             loadGiaPhong();
+            dateNgayDi.setMinSelectableDate(dateNgayDen.getDate());
         }
     }//GEN-LAST:event_dateNgayDenPropertyChange
 
@@ -799,17 +832,18 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 loadChiTietDichVu();
             } else {
                 for (int i = 0; i < tblDichVu.getRowCount(); i++) {
-                    if (!tblKhoDichVu.getValueAt(row, 1).toString().equals(tblDichVu.getValueAt(i, 0).toString())) {
+                    if (!tblKhoDichVu.getValueAt(row, 0).toString().equals(tblDichVu.getValueAt(i, 0).toString())) {
                         isAddEdit = false;
                     } else {
                         isAddEdit = true;
+                        break;
                     }
                 }
                 if (!isAddEdit) {
                     addChiTietDichVu();
                     loadChiTietDichVu();
                 } else {
-                    editChiTietDichVu(1);
+                    editChiTietDichVu(1, tblKhoDichVu.getValueAt(row, 0).toString());
                     loadChiTietDichVu();
                 }
             }
@@ -822,8 +856,8 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         column = tblDichVu.getSelectedColumn();
         boolean isDeleteEdit = true;
         if (tblDichVu.getValueAt(row, column) == null) {
-            if (HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 1).toString()) != 1) {
-                editChiTietDichVu(-1);
+            if (HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()) != 1) {
+                editChiTietDichVu(-1, tblDichVu.getValueAt(row, 0).toString());
                 loadChiTietDichVu();
             } else {
                 deleteChiTietDichVu();
@@ -836,6 +870,14 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         // TODO add your handling code here:
         DAL_ThuePhong.setTrangThaiPhong("TraPhong", BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)));
     }//GEN-LAST:event_lblThanhToanPhongMouseClicked
+
+    private void tblDichVuPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblDichVuPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblDichVuPropertyChange
+
+    private void tblKhoDichVuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhoDichVuMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblKhoDichVuMousePressed
 
     /**
      * @param args the command line arguments

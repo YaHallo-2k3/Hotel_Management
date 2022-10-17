@@ -17,6 +17,7 @@ import DTO.DTO_SoTang;
 import DTO.DTO_ThuePhong;
 import HELPER.HELPER_ChuyenDoi;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -85,7 +86,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         LocalDateTime dateTimeDi = LocalDateTime.parse(lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDi.getText(), formatter);
         diffInDay = Duration.between(dateTimeDen, dateTimeDi).toDays();
         diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
-        diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInHours * 60 * 24) % 60;
+        diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
         lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
     }
     

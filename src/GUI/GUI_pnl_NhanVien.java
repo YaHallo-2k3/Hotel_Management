@@ -13,6 +13,7 @@ import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_ShowHinhAnh;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +30,12 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     public GUI_pnl_NhanVien() {
         initComponents();
         load();
+    }
+    
+    public void validate(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -18);
+        dateNgaySinh.setMaxSelectableDate(calendar.getTime());
     }
 
     public void add() {

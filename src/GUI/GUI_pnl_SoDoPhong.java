@@ -10,7 +10,9 @@ import DAL.DAL_SoDoPhong;
 import GUI.GUI_pnl_ChiTietPhong;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.Calendar;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -25,11 +27,15 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
      */
     public GUI_pnl_SoDoPhong() {
         initComponents();
-        
+        if (BLL_SoDoPhong.countPhong() % 5 == 0) {
+            pnlFormChinh.setLayout(new GridLayout(BLL_SoDoPhong.countPhong() / 5, 5, 10, 7));
+        } else {
+            pnlFormChinh.setLayout(new GridLayout(BLL_SoDoPhong.countPhong() / 5 + 1, 5, 10, 7));
+        }
         for (int i = 1; i <= BLL_SoDoPhong.countPhong(); i++) {
             index = i;
             pnlFormChinh.add(new GUI_pnl_ChiTietPhong().sdoChiTietPhong);
-        }
+        }     
     }
 
     /**
@@ -125,6 +131,11 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblSetCoKhach.setText("Có Khách");
         lblSetCoKhach.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblSetCoKhach.setOpaque(true);
+        lblSetCoKhach.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSetCoKhachMouseClicked(evt);
+            }
+        });
         sdoChuThich.add(lblSetCoKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, 110, 20));
 
         lblDatPhong.setBackground(new java.awt.Color(255, 255, 255));
@@ -207,6 +218,11 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblSetCoKhachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSetCoKhachMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_lblSetCoKhachMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -33,9 +33,29 @@ public class BLL_ChiTietDichVu {
         }
     }
 
+    public static boolean alreayExits(String data, String value) {
+        ResultSet rs = DAL_ChiTietDichVu.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString(data));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.size(); i++) {
+            if (value.equals(array.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void add(DTO_ChiTietDichVu chiTietDichVu) {
         if (!check(chiTietDichVu)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else if (!alreayExits("MaChiTiet", chiTietDichVu.getMaChiTiet())) {
+            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_ChiTietDichVu.add(chiTietDichVu);
         }
@@ -48,7 +68,7 @@ public class BLL_ChiTietDichVu {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
         }
     }
-    
+
     public static void edit(int soLuong, String maSanPham, String maPhieuDichVu) {
         try {
             DAL_ChiTietDichVu.edit(soLuong, maSanPham, maPhieuDichVu);
@@ -58,7 +78,7 @@ public class BLL_ChiTietDichVu {
     }
 
     public static ArrayList<DTO_ChiTietDichVu> select(String maDichVu) {
-        ResultSet rs = DAL_ChiTietDichVu.select(maDichVu);
+        ResultSet rs = DAL_ChiTietDichVu.selectMaDichVu(maDichVu);
         ArrayList<DTO_ChiTietDichVu> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -99,12 +119,13 @@ public class BLL_ChiTietDichVu {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
         for (DTO_ChiTietDichVu chiTietDichVu : array) {
-            Object obj[] = new Object[4];
-            obj[0] = BLL_MaTenLoai.findTenSanPham(chiTietDichVu.getMaSanPham());
-            obj[1] = chiTietDichVu.getSoLuong();
-            obj[2] = chiTietDichVu.getGiaTien();
-            obj[3] = chiTietDichVu.getSoLuong() * chiTietDichVu.getGiaTien();
-            tbl.getColumnModel().getColumn(4).setCellRenderer(new iconDelete());
+            Object obj[] = new Object[5];
+            obj[0] = chiTietDichVu.getMaSanPham();
+            obj[1] = BLL_MaTenLoai.findTenSanPham(chiTietDichVu.getMaSanPham());
+            obj[2] = chiTietDichVu.getSoLuong();
+            obj[3] = chiTietDichVu.getGiaTien();
+            obj[4] = chiTietDichVu.getSoLuong() * chiTietDichVu.getGiaTien();
+            tbl.getColumnModel().getColumn(5).setCellRenderer(new iconDelete());
             tblModel.addRow(obj);
         }
     }

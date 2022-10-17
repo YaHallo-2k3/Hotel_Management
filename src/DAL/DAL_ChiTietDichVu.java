@@ -29,10 +29,20 @@ public class DAL_ChiTietDichVu {
         String sqlInsert = "UPDATE ChiTietDichVu SET SoLuongBan = ? WHERE MaSanPham = ? AND MaPhieuDichVu = ?";
         HELPER_ConnectSQL.executeUpdate(sqlInsert, soLuong, maSanPham, maPhieuDichVu);
     }
+    
+    public static ResultSet select() {
+        String sqlSelect = "SELECT * FROM ChiTietDichVu ORDER BY MaChiTiet";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    }
 
-    public static ResultSet select(String maPhieuDichVu) {
+    public static ResultSet selectMaDichVu(String maDichVu) {
         String sqlSelect = "SELECT * FROM ChiTietDichVu WHERE MaPhieuDichVu = ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuDichVu);
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maDichVu);
+    }
+    
+    public static ResultSet selectMaSanPham(String maSanPham) {
+        String sqlSelect = "SELECT * FROM ChiTietDichVu WHERE MaSanPham = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maSanPham);
     }
 
     public static ResultSet count() {
