@@ -64,6 +64,16 @@ public class DAL_TaiKhoan {
         String sqlSelect = "SELECT * FROM TaiKhoan ORDER BY MaTaiKhoan";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
+    
+    public static ResultSet checkDangNhap() {
+        String sqlSelect = "SELECT * FROM TaiKhoan WHERE CheckDangNhap = 1";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    }
+    
+    public static ResultSet auThenTiCaTion(String auThen) {
+        String sqlSelect = "SELECT * FROM TaiKhoan JOIN NhanVien ON NhanVien.MaNhanVien = TaiKhoan.MaNhanVien WHERE TenDangNhap = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, auThen);
+    }
 
     public static ResultSet count() {
         String sqlSelect = "SELECT COUNT(*) FROM TaiKhoan";

@@ -10,17 +10,26 @@ import BLL.BLL_ThuePhong;
 import DTO.DTO_Phong;
 import DTO.DTO_ThuePhong;
 import HELPER.HELPER_ChuyenDoi;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.BorderFactory;
 
 /**
  *
  * @author CherryCe
  */
 public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
+    
+    long diffInDay;
+    long diffInHours;
+    long diffInMinutes;
 
     /**
      * Creates new form GUI_pnlChiTietPhong
@@ -29,45 +38,23 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         initComponents();
         load();
     }
-    
-    public void load() {  
+
+    public void load() {
         ArrayList<DTO_Phong> arrayPhong = BLL_ThuNgan.selectPhong(GUI_pnl_ThuNgan.index);
         BLL_ThuNgan.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong);
         ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuNgan.selectThuePhong(GUI_pnl_ThuNgan.index);
         BLL_ThuNgan.loadThuePhong(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblTongTien, lblSetSoPhieu, lblSetNgay, lblSetGio, lblLoaiThanhToan, lblNhanVien);
-        
         tongThoiGian();
     }
 
     public void tongThoiGian() {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        Calendar c1 = Calendar.getInstance();
-        Calendar c2 = Calendar.getInstance();
-        Date d1 = null;
-        Date d2 = null;
-
-        String dateStart = lblGioPhutDen.getText();
-        String dateStop = lblGioPhutDi.getText();
-
-        try {
-            String ngayDen = HELPER_ChuyenDoi.convertDate("dd-MM", "yyyy-MM-dd", lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yy"));
-            String ngayDi = HELPER_ChuyenDoi.convertDate("dd-MM", "yyyy-MM-dd", lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yy"));
-            java.sql.Date date1 = java.sql.Date.valueOf(ngayDen);
-            java.sql.Date date2 = java.sql.Date.valueOf(ngayDi);
-            c1.setTime(date1);
-            c2.setTime(date2);
-            d1 = (Date) format.parse(dateStart);
-            d2 = (Date) format.parse(dateStop);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        long noDay = (c2.getTime().getTime() - c1.getTime().getTime()) / (24 * 3600 * 1000);
-        long diff = (d2.getTime() - d1.getTime()) / 1000;
-        long diffHours = diff / (60 * 60);
-        long diffMinutes = (diff % (60 * 60)) / 60;
-
-        lblTongThoiGian.setText(String.valueOf(noDay + "d " + diffHours + "h " + diffMinutes + "m"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime dateTimeDen = LocalDateTime.parse(lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDen.getText(), formatter);
+        LocalDateTime dateTimeDi = LocalDateTime.parse(lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDi.getText(), formatter);
+        diffInDay = Duration.between(dateTimeDen, dateTimeDi).toDays();
+        diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
+        diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
+        lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
     }
 
     /**
@@ -79,9 +66,6 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         sdoChiTietThuNgan = new HELPER.PanelShadow();
         lblGioPhutDi = new javax.swing.JLabel();
         lblLoaiTien = new javax.swing.JLabel();
@@ -107,14 +91,6 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblSetSoPhieu = new javax.swing.JLabel();
         lblSetNgay = new javax.swing.JLabel();
 
-        jPopupMenu1.setComponentPopupMenu(jPopupMenu1);
-
-        jMenuItem1.setText("jMenuItem1");
-        jPopupMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("jMenuItem1");
-        jPopupMenu1.add(jMenuItem2);
-
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(250, 220));
         setPreferredSize(new java.awt.Dimension(250, 220));
@@ -125,6 +101,19 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         sdoChiTietThuNgan.setShadowOpacity(0.3F);
         sdoChiTietThuNgan.setShadowSize(4);
         sdoChiTietThuNgan.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietThuNgan.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                sdoChiTietThuNganMouseMoved(evt);
+            }
+        });
+        sdoChiTietThuNgan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sdoChiTietThuNganMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sdoChiTietThuNganMouseExited(evt);
+            }
+        });
         sdoChiTietThuNgan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblGioPhutDi.setBackground(new java.awt.Color(255, 255, 255));
@@ -148,9 +137,9 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
 
         lblLoaiPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        lblLoaiPhong.setForeground(new java.awt.Color(62, 73, 95));
+        lblLoaiPhong.setForeground(new java.awt.Color(153, 153, 153));
         lblLoaiPhong.setText("Phòng Đơn");
-        sdoChiTietThuNgan.add(lblLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 100, 30));
+        sdoChiTietThuNgan.add(lblLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 100, 20));
 
         spt_3.setForeground(new java.awt.Color(62, 73, 95));
         sdoChiTietThuNgan.add(spt_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 220, 10));
@@ -226,7 +215,9 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(255, 102, 102));
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongTien.setText("525,000");
+        lblTongTien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sdoChiTietThuNgan.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 80, -1));
 
         lblNgayDi.setBackground(new java.awt.Color(255, 255, 255));
@@ -259,7 +250,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblSetSoPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetSoPhieu.setForeground(new java.awt.Color(62, 73, 95));
         lblSetSoPhieu.setText("220922001");
-        sdoChiTietThuNgan.add(lblSetSoPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 80, 30));
+        sdoChiTietThuNgan.add(lblSetSoPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 90, 30));
 
         lblSetNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -279,11 +270,22 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void sdoChiTietThuNganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietThuNganMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sdoChiTietThuNganMouseClicked
+
+    private void sdoChiTietThuNganMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietThuNganMouseMoved
+        // TODO add your handling code here:
+        sdoChiTietThuNgan.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(33, 150, 243)));
+    }//GEN-LAST:event_sdoChiTietThuNganMouseMoved
+
+    private void sdoChiTietThuNganMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietThuNganMouseExited
+        // TODO add your handling code here:
+        sdoChiTietThuNgan.setBorder(null);
+    }//GEN-LAST:event_sdoChiTietThuNganMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPopupMenu jPopupMenu1;
     public javax.swing.JLabel lblGio;
     private javax.swing.JLabel lblGioPhutDen;
     private javax.swing.JLabel lblGioPhutDi;

@@ -18,10 +18,19 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
     public static int index;
 
     /**
-     * Creates new form GUI_pnlSoDoPhong
+     * Creates new form GUI_pnlThuNgan
      */
     public GUI_pnl_ThuNgan() {
         initComponents();
+        load();
+    }
+
+    public void load() {
+        if (BLL_ThuNgan.countThuePhong() % 4 == 0) {
+            pnlFormChinh.setLayout(new GridLayout(BLL_ThuNgan.countThuePhong() / 4, 4, 20, 20));
+        } else {
+            pnlFormChinh.setLayout(new GridLayout(BLL_ThuNgan.countThuePhong() / 4 + 1, 4, 20, 20));
+        }
         for (int i = 1; i <= BLL_ThuNgan.countThuePhong(); i++) {
             index = i;
             pnlFormChinh.add(new GUI_pnl_ChiTietThuNgan().sdoChiTietThuNgan);
@@ -70,7 +79,7 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1150, 730));
 
         pnlFormChinh.setForeground(new java.awt.Color(255, 255, 255));
-        pnlFormChinh.setLayout(new java.awt.GridLayout(3, 4, 20, 20));
+        pnlFormChinh.setLayout(new java.awt.GridLayout(9, 4, 20, 20));
         scrFormChinh.setViewportView(pnlFormChinh);
 
         sdoChucNang.setBackground(new java.awt.Color(255, 255, 255));

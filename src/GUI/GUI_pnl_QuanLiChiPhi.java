@@ -21,10 +21,7 @@ public class GUI_pnl_QuanLiChiPhi extends javax.swing.JPanel {
      */
     public GUI_pnl_QuanLiChiPhi() {
         initComponents();
-        for (int i = 1; i <= 10; i++) {
-            pnlFormChinh.add(new GUI_pnl_ChiTietThuNgan().sdoChiTietThuNgan);
-            index = i;
-        }
+
     }
 
     /**

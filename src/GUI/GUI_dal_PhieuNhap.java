@@ -15,6 +15,7 @@ import DTO.DTO_ChiTietNhapKho;
 import DTO.DTO_NhapKho;
 import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_SetMa;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -64,24 +65,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     }
 
     public void addChiTietNhapKho(int row, int column) {
-        String maChiTietNhapKho = "CT";
-        try {
-            ResultSet rs = DAL_ChiTietNhapKho.count();
-            int rowCount = 0;
-            while (rs.next()) {
-                rowCount = rs.getInt(1);
-                if (rowCount > 99) {
-                    maChiTietNhapKho = maChiTietNhapKho + (rowCount + 1);
-                } else if (rowCount > 9) {
-                    maChiTietNhapKho = maChiTietNhapKho + "0" + (rowCount + 1);
-                } else {
-                    maChiTietNhapKho = maChiTietNhapKho + "00" + (rowCount + 1);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        DTO_ChiTietNhapKho chiTietNhapKho = new DTO_ChiTietNhapKho(maChiTietNhapKho, lblSetSoPhieu.getText(), tblDichVu.getValueAt(row, 0).toString(), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()));
+        DTO_ChiTietNhapKho chiTietNhapKho = new DTO_ChiTietNhapKho(HELPER_SetMa.setMaCount("NK", DAL_ChiTietNhapKho.count()), lblSetSoPhieu.getText(), tblDichVu.getValueAt(row, 0).toString(), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()));
         BLL_ChiTietNhapKho.add(chiTietNhapKho);
     }
 
@@ -110,7 +94,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     }
 
     public void load() {
-        lblSetSoPhieu.setText(setMaPhieuNhap());
+        lblSetSoPhieu.setText(HELPER_SetMa.setMaDateTime("PN", DAL_ChiTietNhapKho.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))));
         lblSetNhanVien.setText(BLL_NhanVien.nhanVienOnline());
         lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
     }

@@ -9,6 +9,7 @@ import BLL.BLL_ChiTietNhapKho;
 import BLL.BLL_NhapKho;
 import DTO.DTO_ChiTietNhapKho;
 import DTO.DTO_NhapKho;
+import HELPER.HELPER_ChuyenDoi;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -31,6 +32,11 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
         BLL_NhapKho.loadNhapKho(arrayNhapKho, lblSetMaPhieu, lblSetNhanVien, lblSetNgayTao);
         ArrayList<DTO_ChiTietNhapKho> arrayChiTietNhapKho = BLL_ChiTietNhapKho.selectChiTietNhapKho(GUI_pnl_QuanLiKho.index);
         BLL_ChiTietNhapKho.loadChiTietNhapKho(arrayChiTietNhapKho, tblChiTietNhapKho);
+        int total = 0;
+        for (int i = 0; i < tblChiTietNhapKho.getRowCount(); i++) {
+            total+=HELPER_ChuyenDoi.getSoInt(tblChiTietNhapKho.getValueAt(i, 3).toString());           
+        }
+        lblTongTien.setText(HELPER_ChuyenDoi.getSoString(total));
     }
 
     /**
@@ -110,9 +116,17 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tên Hàng", "Số Lượng", "Giá Nhập", "Tổng Tiền"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblChiTietNhapKho.setRowHeight(20);
         tblChiTietNhapKho.setShowHorizontalLines(false);
         scrChiTietNhapKho.setViewportView(tblChiTietNhapKho);
@@ -123,7 +137,7 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
         lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
         lblSetMaPhieu.setText("220923001");
-        sdoChiTietNhapKho.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 80, 20));
+        sdoChiTietNhapKho.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 110, 20));
 
         lblNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblNgayTao.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N

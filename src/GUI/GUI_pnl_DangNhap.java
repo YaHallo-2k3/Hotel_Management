@@ -30,7 +30,7 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
     }
 
     public void load() {
-        ResultSet rs = DAL_TaiKhoan.select();
+        ResultSet rs = DAL_TaiKhoan.checkDangNhap();
         try {
             while (rs.next()) {
                 if (rs.getInt("CheckDangNhap") == 1) {

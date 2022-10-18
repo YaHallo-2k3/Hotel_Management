@@ -22,6 +22,15 @@ public class GUI_pnl_QuanLiKho extends javax.swing.JPanel {
      */
     public GUI_pnl_QuanLiKho() {
         initComponents();
+        load();
+    }
+
+    public void load() {
+        if (BLL_NhapKho.countNhapKho() % 3 == 0) {
+            pnlFormChinh.setLayout(new GridLayout(BLL_NhapKho.countNhapKho() / 3, 3, 20, 20));
+        } else {
+            pnlFormChinh.setLayout(new GridLayout(BLL_NhapKho.countNhapKho() / 3 + 1, 3, 20, 20));
+        }
         for (int i = 1; i <= BLL_NhapKho.countNhapKho(); i++) {
             index = i;
             pnlFormChinh.add(new GUI_pnl_ChiTietNhapKho().sdoChiTietNhapKho);
@@ -55,7 +64,7 @@ public class GUI_pnl_QuanLiKho extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1150, 730));
 
         pnlFormChinh.setForeground(new java.awt.Color(255, 255, 255));
-        pnlFormChinh.setLayout(new java.awt.GridLayout(3, 4, 20, 20));
+        pnlFormChinh.setLayout(new java.awt.GridLayout(2, 3, 20, 20));
         scrFormChinh.setViewportView(pnlFormChinh);
 
         sdoChucNang.setBackground(new java.awt.Color(255, 255, 255));

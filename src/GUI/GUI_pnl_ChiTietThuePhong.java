@@ -15,9 +15,13 @@ import HELPER.HELPER_ChuyenDoi;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 /**
@@ -25,6 +29,10 @@ import javax.swing.ImageIcon;
  * @author CherryCe
  */
 public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
+    
+    long diffInDay;
+    long diffInHours;
+    long diffInMinutes;
 
     /**
      * Creates new form GUI_pnlChiTietPhong
@@ -41,51 +49,31 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         BLL_ThuePhong.loadThuePhong(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblTenKhach);
 
         if (lblTrangThaiPhong.getText().equals("Phòng Trống")) {
-            lblIconPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel (3).png")));
+            lblIconPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/beds (2).png")));
 
         } else {
             if (lblTrangThaiPhong.getText().equals("Có Khách")) {
                 lblTrangThaiPhong.setForeground(new Color(255, 142, 113));
+                lblIconPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (5).png")));
             } else if (lblTrangThaiPhong.getText().equals("Đặt Trước")) {
                 lblTrangThaiPhong.setForeground(new Color(102, 153, 255));
+                lblIconPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (6).png")));
             } else if (lblTrangThaiPhong.getText().equals("Trả Phòng")) {
                 lblTrangThaiPhong.setForeground(new Color(255, 153, 0));
+                lblIconPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (7).png")));
             }
-            lblIconPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel (3).png")));
         }
-
         tongThoiGian();
     }
 
     public void tongThoiGian() {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        Calendar c1 = Calendar.getInstance();
-        Calendar c2 = Calendar.getInstance();
-        Date d1 = null;
-        Date d2 = null;
-
-        String dateStart = lblGioPhutDen.getText();
-        String dateStop = lblGioPhutDi.getText();
-
-        try {
-            String ngayDen = HELPER_ChuyenDoi.convertDate("dd-MM", "yyyy-MM-dd", lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yy"));
-            String ngayDi = HELPER_ChuyenDoi.convertDate("dd-MM", "yyyy-MM-dd", lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yy"));
-            java.sql.Date date1 = java.sql.Date.valueOf(ngayDen);
-            java.sql.Date date2 = java.sql.Date.valueOf(ngayDi);
-            c1.setTime(date1);
-            c2.setTime(date2);
-            d1 = (Date) format.parse(dateStart);
-            d2 = (Date) format.parse(dateStop);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        long noDay = (c2.getTime().getTime() - c1.getTime().getTime()) / (24 * 3600 * 1000);
-        long diff = (d2.getTime() - d1.getTime()) / 1000;
-        long diffHours = diff / (60 * 60);
-        long diffMinutes = (diff % (60 * 60)) / 60;
-
-        lblTongThoiGian.setText(String.valueOf(noDay + "d " + diffHours + "h " + diffMinutes + "m"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime dateTimeDen = LocalDateTime.parse(lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDen.getText(), formatter);
+        LocalDateTime dateTimeDi = LocalDateTime.parse(lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDi.getText(), formatter);
+        diffInDay = Duration.between(dateTimeDen, dateTimeDi).toDays();
+        diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
+        diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
+        lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
     }
 
     /**
@@ -131,6 +119,16 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         sdoChiTietThuePhong.setShadowOpacity(0.3F);
         sdoChiTietThuePhong.setShadowSize(4);
         sdoChiTietThuePhong.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietThuePhong.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                sdoChiTietThuePhongMouseMoved(evt);
+            }
+        });
+        sdoChiTietThuePhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sdoChiTietThuePhongMouseExited(evt);
+            }
+        });
         sdoChiTietThuePhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblGioPhutDi.setBackground(new java.awt.Color(255, 255, 255));
@@ -213,7 +211,8 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         lblTrangThaiPhong.setForeground(new java.awt.Color(97, 177, 90));
         lblTrangThaiPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTrangThaiPhong.setText("Phòng Trống");
-        sdoChiTietThuePhong.add(lblTrangThaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, 20));
+        lblTrangThaiPhong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sdoChiTietThuePhong.add(lblTrangThaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 70, 30));
 
         lblNgayDi.setBackground(new java.awt.Color(255, 255, 255));
         lblNgayDi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -232,7 +231,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         lblTongThoiGian.setForeground(new java.awt.Color(255, 102, 102));
         lblTongThoiGian.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongThoiGian.setText("30'");
-        sdoChiTietThuePhong.add(lblTongThoiGian, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 70, 30));
+        sdoChiTietThuePhong.add(lblTongThoiGian, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 80, 30));
 
         lblGioPhutDen.setBackground(new java.awt.Color(255, 255, 255));
         lblGioPhutDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -254,8 +253,10 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         sdoChiTietThuePhong.add(lblSetDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 60, 30));
 
         lblIconPhong.setBackground(new java.awt.Color(255, 255, 255));
-        lblIconPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/hotel (3).png"))); // NOI18N
-        sdoChiTietThuePhong.add(lblIconPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 20, 20));
+        lblIconPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIconPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/beds (3).png"))); // NOI18N
+        lblIconPhong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sdoChiTietThuePhong.add(lblIconPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 30, -1));
 
         lblTenKhach.setBackground(new java.awt.Color(255, 255, 255));
         lblTenKhach.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -271,13 +272,23 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sdoChiTietThuePhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoChiTietThuePhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(sdoChiTietThuePhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void sdoChiTietThuePhongMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietThuePhongMouseMoved
+        // TODO add your handling code here:
+                sdoChiTietThuePhong.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(33, 150, 243)));
+    }//GEN-LAST:event_sdoChiTietThuePhongMouseMoved
+
+    private void sdoChiTietThuePhongMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietThuePhongMouseExited
+        // TODO add your handling code here:
+        sdoChiTietThuePhong.setBorder(null);
+    }//GEN-LAST:event_sdoChiTietThuePhongMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

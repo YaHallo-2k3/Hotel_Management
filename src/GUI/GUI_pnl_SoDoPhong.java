@@ -27,6 +27,10 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
      */
     public GUI_pnl_SoDoPhong() {
         initComponents();
+        load();
+    }
+
+    public void load() {
         if (BLL_SoDoPhong.countPhong() % 5 == 0) {
             pnlFormChinh.setLayout(new GridLayout(BLL_SoDoPhong.countPhong() / 5, 5, 10, 7));
         } else {
@@ -35,7 +39,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         for (int i = 1; i <= BLL_SoDoPhong.countPhong(); i++) {
             index = i;
             pnlFormChinh.add(new GUI_pnl_ChiTietPhong().sdoChiTietPhong);
-        }     
+        }
     }
 
     /**
@@ -199,7 +203,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         scrFormChinh.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlFormChinh.setBackground(new java.awt.Color(255, 255, 255));
-        pnlFormChinh.setLayout(new java.awt.GridLayout(2, 5, 7, 10));
+        pnlFormChinh.setLayout(new java.awt.GridLayout(9, 5, 7, 10));
         scrFormChinh.setViewportView(pnlFormChinh);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

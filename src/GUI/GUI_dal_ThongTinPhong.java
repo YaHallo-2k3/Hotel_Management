@@ -42,6 +42,7 @@ import javax.swing.table.DefaultTableModel;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 /**
@@ -161,7 +162,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     }
 
     public void editThuePhong() {
-
         String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioPhutDen.getText();
         DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), null, txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), 0);
         BLL_ThuePhong.editThuePhong(thuePhong);
@@ -800,7 +800,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         if (dateNgayDen.getDate() != null && dateNgayDi.getDate() != null) {
             tongThoiGian();
             loadGiaPhong();
-            dateNgayDi.setMinSelectableDate(dateNgayDen.getDate());
+            dateNgayDi.setMinSelectableDate(dateNgayDen.getDate());;
         }
     }//GEN-LAST:event_dateNgayDenPropertyChange
 
@@ -869,6 +869,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private void lblThanhToanPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThanhToanPhongMouseClicked
         // TODO add your handling code here:
         DAL_ThuePhong.setTrangThaiPhong("TraPhong", BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)));
+        JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công !!!");
     }//GEN-LAST:event_lblThanhToanPhongMouseClicked
 
     private void tblDichVuPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblDichVuPropertyChange

@@ -28,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
 public class BLL_NhapKho {
 
     public static boolean check(DTO_NhapKho nhapKho) {
-        if (nhapKho.getMaNhapKho().isEmpty() || nhapKho.getMaNhanVien().isEmpty() || nhapKho.getNgayTao() == null || nhapKho.getGhiChu().isEmpty()) {
+        if (nhapKho.getMaNhapKho().isEmpty() || nhapKho.getMaNhanVien().isEmpty() || nhapKho.getNgayTao() == null) {
             return false;
         } else {
             return true;
@@ -40,6 +40,7 @@ public class BLL_NhapKho {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_NhapKho.add(nhapKho);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -50,7 +51,7 @@ public class BLL_NhapKho {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
         }
     }
-    
+
     public static void edit(DTO_NhapKho nhapKho) {
         if (check(nhapKho) == false) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -76,7 +77,7 @@ public class BLL_NhapKho {
         }
         return array;
     }
-    
+
     public static ArrayList<DTO_NhapKho> selectNhapKho(int index) {
         ResultSet rs = DAL_NhapKho.rowNumber(index);
         ArrayList<DTO_NhapKho> array = new ArrayList<>();
@@ -98,7 +99,7 @@ public class BLL_NhapKho {
     public static void loadNhapKho(ArrayList<DTO_NhapKho> array, JLabel lblMaPhieu, JLabel lblMaNhanVien, JLabel lblNgayTao) {
         for (DTO_NhapKho nhapKho : array) {
             lblMaPhieu.setText(nhapKho.getMaNhapKho());
-            lblMaNhanVien.setText(nhapKho.getMaNhanVien());
+            lblMaNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(nhapKho.getMaNhanVien()));
             lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", nhapKho.getNgayTao()));
         }
     }
@@ -111,7 +112,7 @@ public class BLL_NhapKho {
             return this;
         }
     }
-    
+
     public static int countNhapKho() {
         ResultSet rs = DAL_NhapKho.count();
         try {

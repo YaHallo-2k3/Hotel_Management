@@ -35,7 +35,7 @@ import javax.swing.ImageIcon;
  * @author CherryCe
  */
 public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
-    
+
     public boolean isShowHidden = false;
     public boolean isDonPhong = false;
     public boolean isKhachRaNgoai = false;
@@ -55,13 +55,14 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         isHiddenTime();
         load();
     }
-    
+
     public void load() {
         ArrayList<DTO_Phong> arrayPhong = BLL_SoDoPhong.selectPhong(GUI_pnl_SoDoPhong.index);
         BLL_SoDoPhong.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong, lblSetTrangThai);
         ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_SoDoPhong.selectThuePhong(lblSoPhong.getText());
         BLL_SoDoPhong.loadThuePhong(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblSetDatCoc);
         if (lblSetTrangThai.getText().equals("Phòng Trống")) {
+            lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/beds (1).png")));
             sdoChiTietPhong.setBackground(new Color(97, 177, 90));
             isHiddenMoney();
         } else {
@@ -79,7 +80,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             }
         }
     }
-    
+
     public void tongThoiGian() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime dateTimeDen = LocalDateTime.parse(lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDen.getText(), formatter);
@@ -89,7 +90,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
         lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
     }
-    
+
     public void isHiddenTime() {
         lblNgayDen.setVisible(false);
         lblNgayDi.setVisible(false);
@@ -101,7 +102,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         spt_1.setVisible(false);
         spt_2.setVisible(false);
     }
-    
+
     public void isShowTime() {
         lblNgayDen.setVisible(true);
         lblNgayDi.setVisible(true);
@@ -113,7 +114,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         spt_1.setVisible(true);
         spt_2.setVisible(true);
     }
-    
+
     public void isHiddenMoney() {
         lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/bed (3).png")));
         lblTongThoiGian.setVisible(false);
@@ -131,7 +132,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniHuyPhong.setVisible(false);
         mniThanhToanNhom.setVisible(false);
     }
-    
+
     public void isShowMoney() {
         lblTongThoiGian.setVisible(true);
         lblNgayDefault.setVisible(false);
@@ -148,7 +149,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniHuyPhong.setVisible(true);
         mniThanhToanNhom.setVisible(true);
     }
-    
+
     public void showPopUp(MouseEvent evt) {
         popMenu.show(this, evt.getX(), evt.getY());
     }

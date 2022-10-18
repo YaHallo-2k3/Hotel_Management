@@ -5,10 +5,14 @@
  */
 package GUI;
 
+import BLL.BLL_MaTenLoai;
+import DAL.DAL_TaiKhoan;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -18,6 +22,8 @@ import javax.swing.JPanel;
 public class GUI_frm_Menu extends javax.swing.JFrame {
 
     static boolean isShowHidden = false;
+    public String tenNhanVien;
+    public String chucVu;
 
     /**
      * Creates new form GUI_frmMenu
@@ -25,7 +31,31 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     public GUI_frm_Menu() {
         initComponents();
         setLocationRelativeTo(null);
-//        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
+        auThenTiCaTion();
+        load();
+        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
+    }
+
+    public void auThenTiCaTion() {
+        ResultSet rs = DAL_TaiKhoan.auThenTiCaTion(GUI_pnl_DangNhap.taiKhoan);
+        try {
+            while (rs.next()) {
+                tenNhanVien = rs.getString("TenNhanVien");
+                chucVu = BLL_MaTenLoai.findTenChucVu(rs.getString("MaChucVu"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void load() {
+        if (chucVu.equals("Nhân Viên")) {
+            lblQuanLiSanPham.setEnabled(false);
+            lblThietDatPhong.setEnabled(false);
+            lblThietDatGiaPhong.setEnabled(false);
+            lblQuanLiNguoiDung.setEnabled(false);
+        }
+        lblSetTenMenu.setText(tenNhanVien);
     }
 
     /**
@@ -448,7 +478,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:      
         pnlFormChinh.removeAll();
         pnlFormChinh.add(new GUI_pnl_SoDoPhong());
-        lblSetTenMenu.setText("Game2K - " + lblSoDoPhong.getText());
+        lblSetTenMenu.setText(tenNhanVien + " - " + lblSoDoPhong.getText());
         lblSoDoPhong.setForeground(new Color(33, 150, 243));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/app.png")));
         lblThuNgan.setForeground(new Color(255, 255, 255));
@@ -486,7 +516,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         pnlFormChinh.removeAll();
         pnlFormChinh.add(new GUI_pnl_ThuNgan());
-        lblSetTenMenu.setText("Game2K - " + lblThuNgan.getText());
+        lblSetTenMenu.setText(tenNhanVien + " - " + lblThuNgan.getText());
         lblThuNgan.setForeground(new Color(33, 150, 243));
         lblThuNgan.setIcon(new ImageIcon(getClass().getResource("/IMG/money (1).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -519,7 +549,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         pnlFormChinh.removeAll();
         pnlFormChinh.add(new GUI_pnl_DichVu());
-        lblSetTenMenu.setText("Game2K - " + lblDichVu.getText());
+        lblSetTenMenu.setText(tenNhanVien + " - " + lblDichVu.getText());
         lblDichVu.setForeground(new Color(33, 150, 243));
         lblDichVu.setIcon(new ImageIcon(getClass().getResource("/IMG/minibar (3).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -549,13 +579,9 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_lblDichVuMouseClicked
 
     private void lblThietDatPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThietDatPhongMouseClicked
-        // TODO add your handling code here:
-        pnlFormChinh.removeAll();
-        pnlFormChinh.add(new GUI_pnl_ThietDatPhong());
-        lblSetTenMenu.setText("Game2K - " + lblThietDatPhong.getText());
+        // TODO add your handling code here:       
         lblThietDatPhong.setForeground(new Color(33, 150, 243));
         lblThietDatPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/bed (2).png")));
-
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/show-apps-button.png")));
         lblLichSuThuePhong.setForeground(new Color(255, 255, 255));
@@ -580,13 +606,17 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (1).png")));
         lblDangXuat.setForeground(new Color(255, 255, 255));
         lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout.png")));
+        if (chucVu.equals("Nhân Viên")) {
+            return;
+        } else {
+            pnlFormChinh.removeAll();
+            pnlFormChinh.add(new GUI_pnl_ThietDatPhong());
+            lblSetTenMenu.setText(tenNhanVien + " - " + lblThietDatPhong.getText());
+        }
     }//GEN-LAST:event_lblThietDatPhongMouseClicked
 
     private void lblThietDatGiaPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThietDatGiaPhongMouseClicked
         // TODO add your handling code here:
-        pnlFormChinh.removeAll();
-        pnlFormChinh.add(new GUI_pnl_GiaPhong());
-        lblSetTenMenu.setText("Game2K - " + lblThietDatGiaPhong.getText());
         lblThietDatGiaPhong.setForeground(new Color(33, 150, 243));
         lblThietDatGiaPhong.setIcon(new ImageIcon(getClass().getResource("/IMG/card (1).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -613,13 +643,17 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (1).png")));
         lblDangXuat.setForeground(new Color(255, 255, 255));
         lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout.png")));
+        if (chucVu.equals("Nhân Viên")) {
+            return;
+        } else {
+            pnlFormChinh.removeAll();
+            pnlFormChinh.add(new GUI_pnl_GiaPhong());
+            lblSetTenMenu.setText(tenNhanVien + " - " + lblThietDatGiaPhong.getText());
+        }
     }//GEN-LAST:event_lblThietDatGiaPhongMouseClicked
 
     private void lblQuanLiNguoiDungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiNguoiDungMouseClicked
         // TODO add your handling code here:
-        pnlFormChinh.removeAll();
-        pnlFormChinh.add(new GUI_pnl_NhanVien());
-        lblSetTenMenu.setText("Game2K - " + lblQuanLiNguoiDung.getText());
         lblQuanLiNguoiDung.setForeground(new Color(33, 150, 243));
         lblQuanLiNguoiDung.setIcon(new ImageIcon(getClass().getResource("/IMG/profile-user (3).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -646,6 +680,13 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (1).png")));
         lblDangXuat.setForeground(new Color(255, 255, 255));
         lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout.png")));
+        if (chucVu.equals("Nhân Viên")) {
+            return;
+        } else {
+            pnlFormChinh.removeAll();
+            pnlFormChinh.add(new GUI_pnl_NhanVien());
+            lblSetTenMenu.setText(tenNhanVien + " - " + lblQuanLiNguoiDung.getText());
+        }
     }//GEN-LAST:event_lblQuanLiNguoiDungMouseClicked
 
     private void lblSoDoPhongMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSoDoPhongMouseMoved
@@ -672,7 +713,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         pnlFormChinh.removeAll();
         pnlFormChinh.add(new GUI_pnl_ThuePhong());
-        lblSetTenMenu.setText("Game2K - " + lblLichSuThuePhong.getText());
+        lblSetTenMenu.setText(tenNhanVien + " - " + lblLichSuThuePhong.getText());
         lblLichSuThuePhong.setForeground(new Color(33, 150, 243));
         lblLichSuThuePhong.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (3).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -835,7 +876,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         pnlFormChinh.removeAll();
 //        pnlFormChinh.add(new GUI_pnl_GiaoCa());
-        lblSetTenMenu.setText("Game2K - " + lblThongKeTrongNgay.getText());
+        lblSetTenMenu.setText(tenNhanVien + " - " + lblThongKeTrongNgay.getText());
         lblThongKeTrongNgay.setForeground(new Color(33, 150, 243));
         lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart (1).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -868,7 +909,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         pnlFormChinh.removeAll();
         pnlFormChinh.add(new GUI_pnl_QuanLiKho());
-        lblSetTenMenu.setText("Game2K - " + lblQuanLiKho.getText());
+        lblSetTenMenu.setText(tenNhanVien + " - " + lblQuanLiKho.getText());
         lblQuanLiKho.setForeground(new Color(33, 150, 243));
         lblQuanLiKho.setIcon(new ImageIcon(getClass().getResource("/IMG/project-management (1).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -901,7 +942,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         pnlFormChinh.removeAll();
         pnlFormChinh.add(new GUI_pnl_QuanLiChiPhi());
-        lblSetTenMenu.setText("Game2K - " + lblQuanLiChiPhi.getText());
+        lblSetTenMenu.setText(tenNhanVien + " - " + lblQuanLiChiPhi.getText());
         lblQuanLiChiPhi.setForeground(new Color(33, 150, 243));
         lblQuanLiChiPhi.setIcon(new ImageIcon(getClass().getResource("/IMG/assets (2).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -934,7 +975,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         pnlFormChinh.removeAll();
 //        pnlFormChinh.add(new GUI_pnl_GiaoCa());
-        lblSetTenMenu.setText("Game2K - " + lblThayDoiMatKhau.getText());
+        lblSetTenMenu.setText(tenNhanVien + " - " + lblThayDoiMatKhau.getText());
         lblThayDoiMatKhau.setForeground(new Color(33, 150, 243));
         lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (3).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -965,8 +1006,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangXuatMouseClicked
         // TODO add your handling code here:
-        pnlFormChinh.removeAll();
-//        pnlFormChinh.add(new GUI_pnl_GiaoCa());
         lblDangXuat.setForeground(new Color(33, 150, 243));
         lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout (7).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -993,6 +1032,12 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (1).png")));
         lblThongKeTrongNgay.setForeground(new Color(255, 255, 255));
         lblThongKeTrongNgay.setIcon(new ImageIcon(getClass().getResource("/IMG/line-chart.png")));
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Đăng Xuất ???", "Đăng Xuất", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            dispose();
+            new GUI_dal_Loading(this, true).setVisible(true);
+            new GUI_frm_Login().setVisible(true);
+        }
     }//GEN-LAST:event_lblDangXuatMouseClicked
 
     private void lblShowHiddenMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblShowHiddenMenuMouseClicked
@@ -1041,9 +1086,6 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblQuanLiSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiSanPhamMouseClicked
         // TODO add your handling code here:
-        pnlFormChinh.removeAll();
-        pnlFormChinh.add(new GUI_pnl_SanPham());
-        lblSetTenMenu.setText("Game2K - " + lblQuanLiSanPham.getText());
         lblQuanLiSanPham.setForeground(new Color(33, 150, 243));
         lblQuanLiSanPham.setIcon(new ImageIcon(getClass().getResource("/IMG/box (1).png")));
         lblSoDoPhong.setForeground(new Color(255, 255, 255));
@@ -1070,6 +1112,13 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         lblThayDoiMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (1).png")));
         lblDangXuat.setForeground(new Color(255, 255, 255));
         lblDangXuat.setIcon(new ImageIcon(getClass().getResource("/IMG/logout.png")));
+        if (chucVu.equals("Nhân Viên")) {
+            return;
+        } else {
+            pnlFormChinh.removeAll();
+            pnlFormChinh.add(new GUI_pnl_SanPham());
+            lblSetTenMenu.setText(tenNhanVien + " - " + lblQuanLiSanPham.getText());
+        }
     }//GEN-LAST:event_lblQuanLiSanPhamMouseClicked
 
     private void lblQuanLiSanPhamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiSanPhamMouseExited

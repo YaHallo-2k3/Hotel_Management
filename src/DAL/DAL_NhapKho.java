@@ -19,7 +19,7 @@ public class DAL_NhapKho {
 
     public static void add(DTO_NhapKho nhapKho) {
         String sqlInsert = "INSERT INTO NhapKho VALUES (?, ?, CONVERT(VARCHAR, ?), ?)";
-        HELPER_ConnectSQL.executeUpdate(sqlInsert, nhapKho.getMaNhapKho(), BLL_MaTenLoai.findMaNhanVien(nhapKho.getMaNhanVien()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", nhapKho.getNgayTao()), nhapKho.getGhiChu());
+        HELPER_ConnectSQL.executeUpdate(sqlInsert, nhapKho.getMaNhapKho(), BLL_MaTenLoai.findMaNhanVien(nhapKho.getMaNhanVien()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", nhapKho.getNgayTao()), nhapKho.getGhiChu());
     }
 
     public static void delete(String maNhapKho) {

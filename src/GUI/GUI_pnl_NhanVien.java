@@ -31,8 +31,8 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         initComponents();
         load();
     }
-    
-    public void validate(){
+
+    public void validate() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, -18);
         dateNgaySinh.setMaxSelectableDate(calendar.getTime());
@@ -198,6 +198,11 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         txtLuong.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
         txtLuong.setForeground(new java.awt.Color(62, 73, 95));
         txtLuong.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtLuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtLuongMousePressed(evt);
+            }
+        });
         txtLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLuongActionPerformed(evt);
@@ -213,6 +218,11 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 txtCMNDActionPerformed(evt);
             }
         });
+        txtCMND.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCMNDKeyReleased(evt);
+            }
+        });
         sdoFormChinh.add(txtCMND, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 100, 20));
 
         txtSoDienThoai.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
@@ -223,6 +233,11 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
                 txtSoDienThoaiActionPerformed(evt);
             }
         });
+        txtSoDienThoai.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSoDienThoaiKeyReleased(evt);
+            }
+        });
         sdoFormChinh.add(txtSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 90, 20));
 
         txtTenNhanVien.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
@@ -231,6 +246,11 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         txtTenNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenNhanVienActionPerformed(evt);
+            }
+        });
+        txtTenNhanVien.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTenNhanVienKeyReleased(evt);
             }
         });
         sdoFormChinh.add(txtTenNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 90, 20));
@@ -449,7 +469,32 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
 
     private void dateNgaySinhPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgaySinhPropertyChange
         // TODO add your handling code here:
+        if (dateNgaySinh.getDate() != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.YEAR, -18);
+            dateNgaySinh.setMaxSelectableDate(calendar.getTime());
+        }
     }//GEN-LAST:event_dateNgaySinhPropertyChange
+
+    private void txtTenNhanVienKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenNhanVienKeyReleased
+        // TODO add your handling code here:
+        txtTenNhanVien.setText(txtTenNhanVien.getText().replaceAll("[1234567890[*/+-]]", ""));
+    }//GEN-LAST:event_txtTenNhanVienKeyReleased
+
+    private void txtSoDienThoaiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoDienThoaiKeyReleased
+        // TODO add your handling code here:
+        txtSoDienThoai.setText(txtSoDienThoai.getText().replaceAll("[abcdefghijklmnopqrstuvwxyz[*/-]]", ""));
+    }//GEN-LAST:event_txtSoDienThoaiKeyReleased
+
+    private void txtCMNDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCMNDKeyReleased
+        // TODO add your handling code here:
+        txtCMND.setText(txtCMND.getText().replaceAll("[abcdefghijklmnopqrstuvwxyz[*/+-]]", ""));
+    }//GEN-LAST:event_txtCMNDKeyReleased
+
+    private void txtLuongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLuongMousePressed
+        // TODO add your handling code here:
+        txtSoDienThoai.setText(txtSoDienThoai.getText().replaceAll("[abcdefghijklmnopqrstuvwxyz[*/+-]]", ""));
+    }//GEN-LAST:event_txtLuongMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
