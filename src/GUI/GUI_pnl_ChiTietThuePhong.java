@@ -148,13 +148,13 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         lblDichVu.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblDichVu.setForeground(new java.awt.Color(153, 153, 153));
         lblDichVu.setText("Dịch Vụ");
-        sdoChiTietThuePhong.add(lblDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 50, 30));
+        sdoChiTietThuePhong.add(lblDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 50, 20));
 
         lblTienPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblTienPhong.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblTienPhong.setForeground(new java.awt.Color(153, 153, 153));
         lblTienPhong.setText("Tiền Phòng");
-        sdoChiTietThuePhong.add(lblTienPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, 30));
+        sdoChiTietThuePhong.add(lblTienPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 20));
 
         lblThangDen.setBackground(new java.awt.Color(255, 255, 255));
         lblThangDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -180,13 +180,13 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         lblSetDaTra.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetDaTra.setForeground(new java.awt.Color(62, 73, 95));
         lblSetDaTra.setText("500,000");
-        sdoChiTietThuePhong.add(lblSetDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 60, 30));
+        sdoChiTietThuePhong.add(lblSetDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 60, 20));
 
         lblDaTra.setBackground(new java.awt.Color(255, 255, 255));
         lblDaTra.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblDaTra.setForeground(new java.awt.Color(153, 153, 153));
         lblDaTra.setText("Đã Trả");
-        sdoChiTietThuePhong.add(lblDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 40, 30));
+        sdoChiTietThuePhong.add(lblDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 40, 20));
 
         lblSoPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblSoPhong.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
@@ -231,7 +231,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         lblTongThoiGian.setForeground(new java.awt.Color(255, 102, 102));
         lblTongThoiGian.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongThoiGian.setText("30'");
-        sdoChiTietThuePhong.add(lblTongThoiGian, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 80, 30));
+        sdoChiTietThuePhong.add(lblTongThoiGian, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 90, 30));
 
         lblGioPhutDen.setBackground(new java.awt.Color(255, 255, 255));
         lblGioPhutDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -244,13 +244,13 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         lblSetTienPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetTienPhong.setForeground(new java.awt.Color(62, 73, 95));
         lblSetTienPhong.setText("470,000");
-        sdoChiTietThuePhong.add(lblSetTienPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 70, 30));
+        sdoChiTietThuePhong.add(lblSetTienPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 70, 20));
 
         lblSetDichVu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetDichVu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetDichVu.setForeground(new java.awt.Color(62, 73, 95));
         lblSetDichVu.setText("140,000");
-        sdoChiTietThuePhong.add(lblSetDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 60, 30));
+        sdoChiTietThuePhong.add(lblSetDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 60, 20));
 
         lblIconPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblIconPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -263,7 +263,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         lblTenKhach.setForeground(new java.awt.Color(255, 102, 102));
         lblTenKhach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/personal-profile (1).png"))); // NOI18N
         lblTenKhach.setText("G2K Mr.Pii");
-        sdoChiTietThuePhong.add(lblTenKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 130, 40));
+        sdoChiTietThuePhong.add(lblTenKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 130, 30));
 
         spt_3.setForeground(new java.awt.Color(62, 73, 95));
         sdoChiTietThuePhong.add(spt_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 220, 10));

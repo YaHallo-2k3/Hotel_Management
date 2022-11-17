@@ -69,96 +69,96 @@ public class GUI_dal_ThongTinGiaoCa extends javax.swing.JDialog {
 
         sdoGiaoCa.setBackground(new java.awt.Color(255, 255, 255));
         sdoGiaoCa.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(33, 150, 243)));
-        sdoGiaoCa.setMinimumSize(new java.awt.Dimension(680, 490));
-        sdoGiaoCa.setPreferredSize(new java.awt.Dimension(680, 490));
+        sdoGiaoCa.setMinimumSize(new java.awt.Dimension(680, 410));
+        sdoGiaoCa.setPreferredSize(new java.awt.Dimension(680, 410));
         sdoGiaoCa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtBanGiao.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtBanGiao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtBanGiao.setForeground(new java.awt.Color(97, 177, 90));
-        txtBanGiao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(97, 177, 90)));
+        txtBanGiao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtBanGiao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBanGiaoActionPerformed(evt);
             }
         });
-        sdoGiaoCa.add(txtBanGiao, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, 80, 30));
+        sdoGiaoCa.add(txtBanGiao, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 350, 80, 20));
 
         lblSetCongSuatPhong.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetCongSuatPhong.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetCongSuatPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetCongSuatPhong.setForeground(new java.awt.Color(62, 73, 95));
         lblSetCongSuatPhong.setText("12.5%");
-        sdoGiaoCa.add(lblSetCongSuatPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 40, 20));
+        sdoGiaoCa.add(lblSetCongSuatPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 50, 20));
 
         lblDatCoc.setBackground(new java.awt.Color(255, 255, 255));
-        lblDatCoc.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblDatCoc.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblDatCoc.setForeground(new java.awt.Color(153, 153, 153));
         lblDatCoc.setText("Đặt Cọc");
-        sdoGiaoCa.add(lblDatCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, -1, -1));
+        sdoGiaoCa.add(lblDatCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, -1, -1));
 
         lblTongChi.setBackground(new java.awt.Color(255, 255, 255));
-        lblTongChi.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblTongChi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTongChi.setForeground(new java.awt.Color(153, 153, 153));
         lblTongChi.setText("Tổng Chi");
-        sdoGiaoCa.add(lblTongChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, -1, -1));
+        sdoGiaoCa.add(lblTongChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, -1));
 
         lblHoaDon.setBackground(new java.awt.Color(255, 255, 255));
-        lblHoaDon.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblHoaDon.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblHoaDon.setForeground(new java.awt.Color(153, 153, 153));
         lblHoaDon.setText("Hóa Đơn");
-        sdoGiaoCa.add(lblHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, -1, -1));
+        sdoGiaoCa.add(lblHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
 
         lblCaTruoc.setBackground(new java.awt.Color(255, 255, 255));
-        lblCaTruoc.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblCaTruoc.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblCaTruoc.setForeground(new java.awt.Color(153, 153, 153));
         lblCaTruoc.setText("Ca Trước");
-        sdoGiaoCa.add(lblCaTruoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
+        sdoGiaoCa.add(lblCaTruoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
         lblNgay.setBackground(new java.awt.Color(255, 255, 255));
-        lblNgay.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNgay.setForeground(new java.awt.Color(153, 153, 153));
         lblNgay.setText("Ngày");
-        sdoGiaoCa.add(lblNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 40, 20));
-        sdoGiaoCa.add(spt_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 620, 10));
-        sdoGiaoCa.add(spt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 620, 10));
+        sdoGiaoCa.add(lblNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 40, 20));
+        sdoGiaoCa.add(spt_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 640, 10));
+        sdoGiaoCa.add(spt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 640, 10));
 
         lblTienPhatSinh.setBackground(new java.awt.Color(255, 255, 255));
         lblTienPhatSinh.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTienPhatSinh.setForeground(new java.awt.Color(62, 73, 95));
         lblTienPhatSinh.setText("Tiền Phát Sinh");
-        sdoGiaoCa.add(lblTienPhatSinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
+        sdoGiaoCa.add(lblTienPhatSinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 90, 20));
 
         lblDaThu.setBackground(new java.awt.Color(255, 255, 255));
         lblDaThu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblDaThu.setForeground(new java.awt.Color(62, 73, 95));
         lblDaThu.setText("Đã Thu");
-        sdoGiaoCa.add(lblDaThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 60, 30));
+        sdoGiaoCa.add(lblDaThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 60, 20));
 
         lblTongCong.setBackground(new java.awt.Color(255, 255, 255));
-        lblTongCong.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblTongCong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTongCong.setForeground(new java.awt.Color(153, 153, 153));
         lblTongCong.setText("Tổng Cộng");
-        sdoGiaoCa.add(lblTongCong, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, -1, -1));
+        sdoGiaoCa.add(lblTongCong, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, -1, -1));
 
         lblCongSuatPhong.setBackground(new java.awt.Color(255, 255, 255));
-        lblCongSuatPhong.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblCongSuatPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblCongSuatPhong.setForeground(new java.awt.Color(153, 153, 153));
         lblCongSuatPhong.setText("Công Suất Phòng");
-        sdoGiaoCa.add(lblCongSuatPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 130, -1));
+        sdoGiaoCa.add(lblCongSuatPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 130, -1));
 
         lblCaTruc.setBackground(new java.awt.Color(255, 255, 255));
-        lblCaTruc.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblCaTruc.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblCaTruc.setForeground(new java.awt.Color(153, 153, 153));
         lblCaTruc.setText("Ca Trực");
-        sdoGiaoCa.add(lblCaTruc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 60, -1));
+        sdoGiaoCa.add(lblCaTruc, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 60, -1));
 
         lblCoKhach.setBackground(new java.awt.Color(255, 255, 255));
-        lblCoKhach.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblCoKhach.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblCoKhach.setForeground(new java.awt.Color(255, 102, 102));
         lblCoKhach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/sleep (4).png"))); // NOI18N
         lblCoKhach.setText("1 Có Khách");
         lblCoKhach.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblCoKhach.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoGiaoCa.add(lblCoKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 90, 60));
+        sdoGiaoCa.add(lblCoKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 90, 60));
 
         lblThongTinGiaoCa.setBackground(new java.awt.Color(255, 255, 255));
         lblThongTinGiaoCa.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
@@ -167,82 +167,82 @@ public class GUI_dal_ThongTinGiaoCa extends javax.swing.JDialog {
         sdoGiaoCa.add(lblThongTinGiaoCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 80, 30));
 
         lblSetNgay.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetNgay.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetNgay.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgay.setForeground(new java.awt.Color(62, 73, 95));
         lblSetNgay.setText("16/09/22 22:08");
-        sdoGiaoCa.add(lblSetNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, 20));
+        sdoGiaoCa.add(lblSetNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 20));
 
         lblSetCaTruc.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetCaTruc.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetCaTruc.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetCaTruc.setForeground(new java.awt.Color(62, 73, 95));
         lblSetCaTruc.setText("Ca Đêm");
-        sdoGiaoCa.add(lblSetCaTruc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 60, 20));
+        sdoGiaoCa.add(lblSetCaTruc, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 60, 20));
 
         lblThongKePhong.setBackground(new java.awt.Color(255, 255, 255));
         lblThongKePhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblThongKePhong.setForeground(new java.awt.Color(62, 73, 95));
         lblThongKePhong.setText("Thống Kê Phòng");
-        sdoGiaoCa.add(lblThongKePhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 120, 30));
+        sdoGiaoCa.add(lblThongKePhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 20));
 
         lblBanGiao.setBackground(new java.awt.Color(255, 255, 255));
-        lblBanGiao.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblBanGiao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblBanGiao.setForeground(new java.awt.Color(153, 153, 153));
         lblBanGiao.setText("Bàn Giao");
-        sdoGiaoCa.add(lblBanGiao, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 300, -1, -1));
+        sdoGiaoCa.add(lblBanGiao, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, -1, -1));
 
         lblDatTruoc.setBackground(new java.awt.Color(255, 255, 255));
-        lblDatTruoc.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblDatTruoc.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblDatTruoc.setForeground(new java.awt.Color(102, 153, 255));
         lblDatTruoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/sleep (5).png"))); // NOI18N
         lblDatTruoc.setText("0 Đặt Trước");
         lblDatTruoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblDatTruoc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoGiaoCa.add(lblDatTruoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 100, 60));
+        sdoGiaoCa.add(lblDatTruoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 100, 60));
 
         lblTraPhong.setBackground(new java.awt.Color(255, 255, 255));
-        lblTraPhong.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblTraPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblTraPhong.setForeground(new java.awt.Color(255, 153, 0));
         lblTraPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/sleep (3).png"))); // NOI18N
         lblTraPhong.setText("4 Trả Phòng");
         lblTraPhong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblTraPhong.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoGiaoCa.add(lblTraPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 100, 60));
+        sdoGiaoCa.add(lblTraPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 100, 60));
 
         lblSetDaThu.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetDaThu.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        lblSetDaThu.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblSetDaThu.setForeground(new java.awt.Color(97, 177, 90));
         lblSetDaThu.setText("1,400,000");
-        sdoGiaoCa.add(lblSetDaThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 120, 40));
+        sdoGiaoCa.add(lblSetDaThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 120, 40));
 
         lblSetTongCong.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetTongCong.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        lblSetTongCong.setForeground(new java.awt.Color(97, 177, 90));
+        lblSetTongCong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetTongCong.setForeground(new java.awt.Color(255, 102, 102));
         lblSetTongCong.setText("1,400,000");
-        sdoGiaoCa.add(lblSetTongCong, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 80, 30));
+        sdoGiaoCa.add(lblSetTongCong, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 80, 20));
 
         lblSetHoaDon.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetHoaDon.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        lblSetHoaDon.setForeground(new java.awt.Color(255, 102, 102));
+        lblSetHoaDon.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetHoaDon.setForeground(new java.awt.Color(97, 177, 90));
         lblSetHoaDon.setText("1,400,000");
-        sdoGiaoCa.add(lblSetHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 80, 30));
+        sdoGiaoCa.add(lblSetHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 80, 20));
 
         lblSetCaTruoc.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetCaTruoc.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        lblSetCaTruoc.setForeground(new java.awt.Color(255, 102, 102));
+        lblSetCaTruoc.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetCaTruoc.setForeground(new java.awt.Color(97, 177, 90));
         lblSetCaTruoc.setText("1,400,000");
-        sdoGiaoCa.add(lblSetCaTruoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 80, 30));
+        sdoGiaoCa.add(lblSetCaTruoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 80, 20));
 
         lblSetTongChi.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetTongChi.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        lblSetTongChi.setForeground(new java.awt.Color(255, 102, 102));
+        lblSetTongChi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetTongChi.setForeground(new java.awt.Color(97, 177, 90));
         lblSetTongChi.setText("1,400,000");
-        sdoGiaoCa.add(lblSetTongChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 80, 30));
+        sdoGiaoCa.add(lblSetTongChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, 80, 20));
 
         lblSetDatCoc.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetDatCoc.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        lblSetDatCoc.setForeground(new java.awt.Color(255, 102, 102));
+        lblSetDatCoc.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetDatCoc.setForeground(new java.awt.Color(97, 177, 90));
         lblSetDatCoc.setText("1,400,000");
-        sdoGiaoCa.add(lblSetDatCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 80, 30));
+        sdoGiaoCa.add(lblSetDatCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 80, 20));
 
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -251,12 +251,12 @@ public class GUI_dal_ThongTinGiaoCa extends javax.swing.JDialog {
 
         sdoChucNang.setBackground(new java.awt.Color(255, 255, 255));
         sdoChucNang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(33, 150, 243)));
-        sdoChucNang.setMinimumSize(new java.awt.Dimension(680, 90));
-        sdoChucNang.setPreferredSize(new java.awt.Dimension(680, 90));
+        sdoChucNang.setMinimumSize(new java.awt.Dimension(680, 60));
+        sdoChucNang.setPreferredSize(new java.awt.Dimension(680, 60));
         sdoChucNang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblThoat.setBackground(new java.awt.Color(255, 255, 255));
-        lblThoat.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblThoat.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblThoat.setForeground(new java.awt.Color(33, 150, 243));
         lblThoat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logout (6).png"))); // NOI18N
@@ -269,12 +269,12 @@ public class GUI_dal_ThongTinGiaoCa extends javax.swing.JDialog {
         sdoChucNang.add(lblThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 80, 40));
 
         lblGiaoCa.setBackground(new java.awt.Color(255, 255, 255));
-        lblGiaoCa.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblGiaoCa.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblGiaoCa.setForeground(new java.awt.Color(33, 150, 243));
         lblGiaoCa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/exchange (3).png"))); // NOI18N
         lblGiaoCa.setText("Giao Ca");
         lblGiaoCa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoChucNang.add(lblGiaoCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 90, 40));
+        sdoChucNang.add(lblGiaoCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 90, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

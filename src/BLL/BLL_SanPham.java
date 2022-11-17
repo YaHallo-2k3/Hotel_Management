@@ -10,6 +10,7 @@ import DAL.DAL_SanPham;
 import DTO.DTO_LoaiSanPham;
 import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -103,7 +104,7 @@ public class BLL_SanPham {
         return array;
     }
 
-    public void load(ArrayList<DTO_SanPham> array, JTable tbl) {
+    public static void load(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
         for (DTO_SanPham sanPham : array) {
@@ -114,13 +115,13 @@ public class BLL_SanPham {
             obj[3] = sanPham.getDonViTinh();
             obj[4] = sanPham.getGiaBan();
             obj[5] = HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", sanPham.getNgayTao());
-            tbl.getColumnModel().getColumn(6).setCellRenderer(new iconEdit());
-            tbl.getColumnModel().getColumn(7).setCellRenderer(new iconDelete());
+            tbl.getColumnModel().getColumn(6).setCellRenderer(new HELPER_SetIcon.iconEdit());
+            tbl.getColumnModel().getColumn(7).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
         }
     }
 
-    public void loadSanPham(ArrayList<DTO_SanPham> array, JTable tbl) {
+    public static void loadSanPham(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
         for (DTO_SanPham sanPham : array) {
@@ -129,12 +130,12 @@ public class BLL_SanPham {
             obj[1] = sanPham.getTenSanPham();
             obj[2] = 0;
             obj[3] = 0;
-            tbl.getColumnModel().getColumn(4).setCellRenderer(new iconAdd());
+            tbl.getColumnModel().getColumn(4).setCellRenderer(new HELPER_SetIcon.iconAdd());
             tblModel.addRow(obj);
         }
     }
 
-    public void loadKhoDichVu(ArrayList<DTO_SanPham> array, JTable tbl) {
+    public static void loadKhoDichVu(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
         for (DTO_SanPham sanPham : array) {
@@ -142,35 +143,8 @@ public class BLL_SanPham {
             obj[0] = sanPham.getMaSanPham();
             obj[1] = sanPham.getTenSanPham();
             obj[2] = sanPham.getGiaBan();
-            tbl.getColumnModel().getColumn(3).setCellRenderer(new iconAdd());
+            tbl.getColumnModel().getColumn(3).setCellRenderer(new HELPER_SetIcon.iconAdd());
             tblModel.addRow(obj);
-        }
-    }
-
-    public class iconAdd extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\queue.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
-    }
-
-    public class iconEdit extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\edit.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
-    }
-
-    public class iconDelete extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\trash.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
         }
     }
 }

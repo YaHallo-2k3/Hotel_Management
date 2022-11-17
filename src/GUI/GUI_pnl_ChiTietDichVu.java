@@ -21,13 +21,6 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblPhongSo.setText("" + GUI_pnl_ThuNgan.index);
     }
 
-    public void text(int i) {
-
-    }
-
-    public void showPopUp(MouseEvent evt) {
-        jPopupMenu1.show(this, evt.getX(), evt.getY());
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,9 +31,6 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         sdoChiTietDichVu = new HELPER.PanelShadow();
         lblSetPhongSo = new javax.swing.JLabel();
         lblSetNgay = new javax.swing.JLabel();
@@ -51,14 +41,6 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblSetMaHoaDon = new javax.swing.JLabel();
         lblNgay = new javax.swing.JLabel();
         lblPhongSo = new javax.swing.JLabel();
-
-        jPopupMenu1.setComponentPopupMenu(jPopupMenu1);
-
-        jMenuItem1.setText("jMenuItem1");
-        jPopupMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("jMenuItem1");
-        jPopupMenu1.add(jMenuItem2);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(350, 210));
@@ -89,14 +71,16 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblSetNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNgay.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgay.setText("22/09/22");
-        sdoChiTietDichVu.add(lblSetNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 70, 20));
+        lblSetNgay.setText("22-09-22 12:02");
+        sdoChiTietDichVu.add(lblSetNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 90, 20));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
-        lblTongTien.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
-        lblTongTien.setForeground(new java.awt.Color(97, 177, 90));
+        lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblTongTien.setForeground(new java.awt.Color(255, 102, 102));
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongTien.setText("2250,000");
-        sdoChiTietDichVu.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 90, 40));
+        lblTongTien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sdoChiTietDichVu.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 90, 20));
 
         lblMaHoaDon.setBackground(new java.awt.Color(255, 255, 255));
         lblMaHoaDon.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -105,6 +89,7 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         sdoChiTietDichVu.add(lblMaHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 20));
 
         scrDichVu.setBackground(new java.awt.Color(255, 255, 255));
+        scrDichVu.setBorder(null);
 
         tblDichVu.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
@@ -118,6 +103,8 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDichVu.setRowHeight(24);
+        tblDichVu.setShowHorizontalLines(false);
         scrDichVu.setViewportView(tblDichVu);
 
         sdoChiTietDichVu.add(scrDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 320, 110));
@@ -132,7 +119,7 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblNgay.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblNgay.setForeground(new java.awt.Color(153, 153, 153));
         lblNgay.setText("Ngày");
-        sdoChiTietDichVu.add(lblNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 30, 20));
+        sdoChiTietDichVu.add(lblNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 30, 20));
 
         lblPhongSo.setBackground(new java.awt.Color(255, 255, 255));
         lblPhongSo.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -165,9 +152,6 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPopupMenu jPopupMenu1;
     public javax.swing.JLabel lblMaHoaDon;
     public javax.swing.JLabel lblNgay;
     private javax.swing.JLabel lblPhongSo;

@@ -11,6 +11,7 @@ import DTO.DTO_LoaiPhong;
 import DTO.DTO_TaiKhoan;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javafx.scene.control.ComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -28,10 +29,20 @@ import javax.swing.table.DefaultTableModel;
 public class BLL_TaiKhoan {
 
     public static boolean check(DTO_TaiKhoan taiKhoan) {
-        if (taiKhoan.getMaTaiKhoan().isEmpty() || taiKhoan.getMaNhanVien().isEmpty() || taiKhoan.getTenDangNhap().isEmpty() || taiKhoan.getMatKhau().isEmpty() || taiKhoan.getCauHoi().isEmpty() || taiKhoan.getTraLoi().isEmpty()) {
+        if (taiKhoan.getMaTaiKhoan().isEmpty() || taiKhoan.getMaNhanVien().isEmpty() || taiKhoan.getTenDangNhap().isEmpty() || taiKhoan.getMatKhau().isEmpty()) {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public static boolean validateMail(String mail) {
+        String mailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(mailRegex);
+        if (pattern.matcher(mail).matches()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -58,6 +69,8 @@ public class BLL_TaiKhoan {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else if (!alreayExits("TenDangNhap", taiKhoan.getTenDangNhap())) {
             JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
+        } else if (!validateMail(taiKhoan.getTenDangNhap())) {
+            JOptionPane.showMessageDialog(null, "Lỗi Định Dạng ???");
         } else {
             DAL_TaiKhoan.add(taiKhoan);
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
@@ -72,32 +85,23 @@ public class BLL_TaiKhoan {
         }
     }
 
-    public static void edit(DTO_TaiKhoan taiKhoan) {
-        if (!check(taiKhoan)) {
+    public static void edit(String tenDangNhap, String matKhau, String maTaiKhoan) {
+        if (tenDangNhap.isEmpty() || matKhau.isEmpty() || maTaiKhoan.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else if (!validateMail(tenDangNhap)) {
+            JOptionPane.showMessageDialog(null, "Lỗi Định Dạng ???");
         } else {
-            DAL_TaiKhoan.edit(taiKhoan);
+            DAL_TaiKhoan.edit(tenDangNhap, matKhau, maTaiKhoan);
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
-    public static void editMatKhau(String matKhau, String tenDangNhap, String cauHoi, String traLoi) {
-        if (matKhau.isEmpty() || tenDangNhap.isEmpty() || cauHoi.isEmpty() || traLoi.isEmpty()) {
+    public static void editMatKhau(String tenDangNhap, String matKhau) {
+        if (tenDangNhap.isEmpty() || matKhau.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
-            DAL_TaiKhoan.editMatKhau(matKhau, tenDangNhap, cauHoi, traLoi);
-            try {
-                ResultSet rs = DAL_TaiKhoan.selectTaiKhoan(tenDangNhap, matKhau);
-                while (rs.next()) {
-                    if (tenDangNhap.equals(rs.getString("TenDangNhap")) && cauHoi.equals(rs.getString("CauHoi")) && traLoi.equals(rs.getString("TraLoi"))) {
-                        JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Cập Nhật Thất Bại ???");
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            DAL_TaiKhoan.editMatKhau(matKhau, tenDangNhap);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -111,8 +115,6 @@ public class BLL_TaiKhoan {
                 taiKhoan.setMaNhanVien(rs.getString("MaNhanVien"));
                 taiKhoan.setTenDangNhap(rs.getString("TenDangNhap"));
                 taiKhoan.setMatKhau(rs.getString("MatKhau"));
-                taiKhoan.setCauHoi(rs.getString("CauHoi"));
-                taiKhoan.setCauHoi(rs.getString("TraLoi"));
                 taiKhoan.setCheckDangNhap(rs.getInt("CheckDangNhap"));
                 array.add(taiKhoan);
             }
@@ -123,7 +125,7 @@ public class BLL_TaiKhoan {
     }
 
     public static ArrayList<DTO_TaiKhoan> select(String maNhanvien) {
-        ResultSet rs = DAL_TaiKhoan.selectMaNhanVien(maNhanvien);
+        ResultSet rs = DAL_TaiKhoan.select(maNhanvien);
         ArrayList<DTO_TaiKhoan> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -132,8 +134,6 @@ public class BLL_TaiKhoan {
                 taiKhoan.setMaNhanVien(rs.getString("MaNhanVien"));
                 taiKhoan.setTenDangNhap(rs.getString("TenDangNhap"));
                 taiKhoan.setMatKhau(rs.getString("MatKhau"));
-                taiKhoan.setCauHoi(rs.getString("CauHoi"));
-                taiKhoan.setTraLoi(rs.getString("TraLoi"));
                 taiKhoan.setCheckDangNhap(rs.getInt("CheckDangNhap"));
                 array.add(taiKhoan);
             }
@@ -142,14 +142,24 @@ public class BLL_TaiKhoan {
         }
         return array;
     }
+    
+    public static String selectMaNhanVien(String tenDangNhap) {
+        ResultSet rs = DAL_TaiKhoan.selectMaNhanVien(tenDangNhap);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaNhanVien");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-    public static void load(ArrayList<DTO_TaiKhoan> array, JLabel lblMaTaiKhoan, JTextField txtTenDangNhap, JPasswordField psdMatKhau, JComboBox cboCauHoi, JTextField txtTraLoi) {
+    public static void load(ArrayList<DTO_TaiKhoan> array, JLabel lblMaTaiKhoan, JTextField txtTenDangNhap, JPasswordField psdMatKhau) {
         for (DTO_TaiKhoan taiKhoan : array) {
             lblMaTaiKhoan.setText(taiKhoan.getMaTaiKhoan());
             txtTenDangNhap.setText(taiKhoan.getTenDangNhap());
             psdMatKhau.setText(taiKhoan.getMatKhau());
-            cboCauHoi.setSelectedItem(taiKhoan.getCauHoi());
-            txtTraLoi.setText(taiKhoan.getTraLoi());
         }
     }
 }

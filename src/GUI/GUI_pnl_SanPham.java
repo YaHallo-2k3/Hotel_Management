@@ -158,48 +158,48 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1150, 730));
 
         sdoSanPham.setBackground(new java.awt.Color(255, 255, 255));
-        sdoSanPham.setMinimumSize(new java.awt.Dimension(560, 280));
-        sdoSanPham.setPreferredSize(new java.awt.Dimension(560, 280));
+        sdoSanPham.setMinimumSize(new java.awt.Dimension(830, 730));
+        sdoSanPham.setPreferredSize(new java.awt.Dimension(830, 730));
         sdoSanPham.setShadowOpacity(0.3F);
         sdoSanPham.setShadowType(HELPER.ShadowType.BOT_RIGHT);
         sdoSanPham.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMaHang.setBackground(new java.awt.Color(255, 255, 255));
-        lblMaHang.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblMaHang.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblMaHang.setForeground(new java.awt.Color(153, 153, 153));
         lblMaHang.setText("Mã Hàng");
-        sdoSanPham.add(lblMaHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 30));
+        sdoSanPham.add(lblMaHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 20));
 
         lblTenHang.setBackground(new java.awt.Color(255, 255, 255));
-        lblTenHang.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblTenHang.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTenHang.setForeground(new java.awt.Color(153, 153, 153));
         lblTenHang.setText("Tên Hàng");
-        sdoSanPham.add(lblTenHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, 30));
+        sdoSanPham.add(lblTenHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, 20));
 
-        txtTenHang.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtTenHang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTenHang.setForeground(new java.awt.Color(62, 73, 95));
         txtTenHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtTenHang.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         sdoSanPham.add(txtTenHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 100, 20));
 
         lblLoaiHang.setBackground(new java.awt.Color(255, 255, 255));
-        lblLoaiHang.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblLoaiHang.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblLoaiHang.setForeground(new java.awt.Color(153, 153, 153));
         lblLoaiHang.setText("Loại Hàng");
-        sdoSanPham.add(lblLoaiHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 60, 30));
+        sdoSanPham.add(lblLoaiHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 60, 20));
 
-        cboDonVi.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        cboDonVi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboDonVi.setForeground(new java.awt.Color(62, 73, 95));
         cboDonVi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chai", "Lon", "Ly", "Phần", "Chiếc", "Gói" }));
         cboDonVi.setToolTipText("");
-        cboDonVi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        cboDonVi.setBorder(null);
         sdoSanPham.add(cboDonVi, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 70, 20));
 
         lblDonVi.setBackground(new java.awt.Color(255, 255, 255));
-        lblDonVi.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblDonVi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblDonVi.setForeground(new java.awt.Color(153, 153, 153));
         lblDonVi.setText("Đơn Vị");
-        sdoSanPham.add(lblDonVi, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 50, 30));
+        sdoSanPham.add(lblDonVi, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 50, 20));
 
         lblSanPham.setBackground(new java.awt.Color(255, 255, 255));
         lblSanPham.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
@@ -208,19 +208,19 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         sdoSanPham.add(lblSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 100, -1));
 
         lblNgayTao.setBackground(new java.awt.Color(255, 255, 255));
-        lblNgayTao.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblNgayTao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNgayTao.setForeground(new java.awt.Color(153, 153, 153));
         lblNgayTao.setText("Ngày Tạo");
-        sdoSanPham.add(lblNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 60, 30));
+        sdoSanPham.add(lblNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 60, 20));
 
-        txtGiaBan.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtGiaBan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtGiaBan.setForeground(new java.awt.Color(62, 73, 95));
         txtGiaBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtGiaBan.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         sdoSanPham.add(txtGiaBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 70, 20));
 
         lblThemHang.setBackground(new java.awt.Color(255, 255, 255));
-        lblThemHang.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblThemHang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblThemHang.setForeground(new java.awt.Color(33, 150, 243));
         lblThemHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/add (1).png"))); // NOI18N
         lblThemHang.setText("Thêm");
@@ -231,7 +231,10 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         });
         sdoSanPham.add(lblThemHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, 70, 30));
 
-        tblSanPham.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        scrSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        scrSanPham.setBorder(null);
+
+        tblSanPham.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         tblSanPham.setForeground(new java.awt.Color(62, 73, 95));
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -280,37 +283,40 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
 
         sdoSanPham.add(scrSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 790, 530));
 
-        txtMaHang.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtMaHang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtMaHang.setForeground(new java.awt.Color(62, 73, 95));
         txtMaHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtMaHang.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         sdoSanPham.add(txtMaHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 60, 20));
 
-        cboLoaiHang.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        cboLoaiHang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboLoaiHang.setForeground(new java.awt.Color(62, 73, 95));
         cboLoaiHang.setToolTipText("");
         cboLoaiHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         sdoSanPham.add(cboLoaiHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 100, 20));
 
         lblGiaBan.setBackground(new java.awt.Color(255, 255, 255));
-        lblGiaBan.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblGiaBan.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblGiaBan.setForeground(new java.awt.Color(153, 153, 153));
         lblGiaBan.setText("Giá Bán");
-        sdoSanPham.add(lblGiaBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, -1, 30));
+        sdoSanPham.add(lblGiaBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, -1, 20));
 
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
         sdoSanPham.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 100, 20));
 
         sdoLoaiSanPham.setBackground(new java.awt.Color(255, 255, 255));
-        sdoLoaiSanPham.setMinimumSize(new java.awt.Dimension(560, 280));
-        sdoLoaiSanPham.setPreferredSize(new java.awt.Dimension(560, 280));
+        sdoLoaiSanPham.setMinimumSize(new java.awt.Dimension(320, 730));
+        sdoLoaiSanPham.setPreferredSize(new java.awt.Dimension(320, 730));
         sdoLoaiSanPham.setShadowOpacity(0.3F);
         sdoLoaiSanPham.setShadowType(HELPER.ShadowType.BOT_RIGHT);
         sdoLoaiSanPham.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblLoaiSanPham.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        scrLoaiSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        scrLoaiSanPham.setBorder(null);
+
+        tblLoaiSanPham.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         tblLoaiSanPham.setForeground(new java.awt.Color(62, 73, 95));
         tblLoaiSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -360,18 +366,18 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         sdoLoaiSanPham.add(scrLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 180, 300, 530));
 
         lblMaLoai.setBackground(new java.awt.Color(255, 255, 255));
-        lblMaLoai.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblMaLoai.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblMaLoai.setForeground(new java.awt.Color(153, 153, 153));
         lblMaLoai.setText("Mã Loại");
-        sdoLoaiSanPham.add(lblMaLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 60, 30));
+        sdoLoaiSanPham.add(lblMaLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 60, 20));
 
         lblTenLoai.setBackground(new java.awt.Color(255, 255, 255));
-        lblTenLoai.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblTenLoai.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTenLoai.setForeground(new java.awt.Color(153, 153, 153));
         lblTenLoai.setText("Tên Loại");
-        sdoLoaiSanPham.add(lblTenLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 60, 30));
+        sdoLoaiSanPham.add(lblTenLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 60, 20));
 
-        txtTenLoai.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtTenLoai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTenLoai.setForeground(new java.awt.Color(62, 73, 95));
         txtTenLoai.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtTenLoai.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -383,14 +389,14 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         lblLoaiSanPham.setText("LOẠI SẢN PHẨM");
         sdoLoaiSanPham.add(lblLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 150, -1));
 
-        txtMaLoai.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtMaLoai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtMaLoai.setForeground(new java.awt.Color(62, 73, 95));
         txtMaLoai.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtMaLoai.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         sdoLoaiSanPham.add(txtMaLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 60, 20));
 
         lblThemLoai.setBackground(new java.awt.Color(255, 255, 255));
-        lblThemLoai.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblThemLoai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblThemLoai.setForeground(new java.awt.Color(33, 150, 243));
         lblThemLoai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/add (1).png"))); // NOI18N
         lblThemLoai.setText("Thêm");

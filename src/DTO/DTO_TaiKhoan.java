@@ -5,6 +5,8 @@
  */
 package DTO;
 
+import java.util.Date;
+
 /**
  *
  * @author CherryCe
@@ -15,21 +17,21 @@ public class DTO_TaiKhoan {
     public String maNhanVien;
     public String tenDangNhap;
     public String matKhau;
-    public String cauHoi;
-    public String traLoi;
     public int checkDangNhap;
+    public Date timeLogIn;
+    public Date timeLogOut;
 
     public DTO_TaiKhoan() {
     }
 
-    public DTO_TaiKhoan(String maTaiKhoan, String maNhanVien, String tenDangNhap, String matKhau, String cauHoi, String traLoi, int checkDangNhap) {
+    public DTO_TaiKhoan(String maTaiKhoan, String maNhanVien, String tenDangNhap, String matKhau, int checkDangNhap, Date timeLogIn, Date timeLogOut) {
         this.maTaiKhoan = maTaiKhoan;
         this.maNhanVien = maNhanVien;
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
-        this.cauHoi = cauHoi;
-        this.traLoi = traLoi;
         this.checkDangNhap = checkDangNhap;
+        this.timeLogIn = timeLogIn;
+        this.timeLogOut = timeLogOut;
     }
 
     public String getMaTaiKhoan() {
@@ -64,27 +66,27 @@ public class DTO_TaiKhoan {
         this.matKhau = matKhau;
     }
 
-    public String getCauHoi() {
-        return cauHoi;
-    }
-
-    public void setCauHoi(String cauHoi) {
-        this.cauHoi = cauHoi;
-    }
-
-    public String getTraLoi() {
-        return traLoi;
-    }
-
-    public void setTraLoi(String traLoi) {
-        this.traLoi = traLoi;
-    }
-
     public int getCheckDangNhap() {
         return checkDangNhap;
     }
 
     public void setCheckDangNhap(int checkDangNhap) {
         this.checkDangNhap = checkDangNhap;
+    }
+
+    public Date getTimeLogIn() {
+        return timeLogIn;
+    }
+
+    public void setTimeLogIn(Date timeLogIn) {
+        this.timeLogIn = timeLogIn;
+    }
+
+    public Date getTimeLogOut() {
+        return timeLogOut;
+    }
+
+    public void setTimeLogOut(Date timeLogOut) {
+        this.timeLogOut = timeLogOut;
     }
 }

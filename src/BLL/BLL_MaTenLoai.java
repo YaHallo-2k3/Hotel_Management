@@ -6,9 +6,11 @@ package BLL;
 
 import DAL.DAL_MaTenLoai;
 import DAL.DAL_SoTang;
+import DTO.DTO_HangMucChi;
 import DTO.DTO_LoaiPhong;
 import DTO.DTO_LoaiSanPham;
 import DTO.DTO_MaTenLoai;
+import DTO.DTO_PhuongThucThanhToan;
 import DTO.DTO_SoTang;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -264,7 +266,7 @@ public class BLL_MaTenLoai {
         }
         return null;
     }
-    
+
     public static String findTenSanPham(String maSanPham) {
         ResultSet rs = DAL_MaTenLoai.findTenSanPham(maSanPham);
         try {
@@ -287,5 +289,101 @@ public class BLL_MaTenLoai {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String findTenLoaiTienChi(String maLoaiTienChi) {
+        ResultSet rs = DAL_MaTenLoai.findTenLoaiTienChi(maLoaiTienChi);
+        try {
+            while (rs.next()) {
+                return rs.getString("TenLoaiTienChi");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String findMaLoaiTienChi(String tenLoaiTienChi) {
+        ResultSet rs = DAL_MaTenLoai.findMaLoaiTienChi(tenLoaiTienChi);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaLoaiTienChi");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String findTenPhuongThuc(String maPhuongThuc) {
+        ResultSet rs = DAL_MaTenLoai.findTenPhuongThuc(maPhuongThuc);
+        try {
+            while (rs.next()) {
+                return rs.getString("TenPhuongThuc");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String findMaPhuongThuc(String tenPhuongThuc) {
+        ResultSet rs = DAL_MaTenLoai.findMaPhuongThuc(tenPhuongThuc);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaPhuongThuc");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<DTO_HangMucChi> selectTenMucChi() {
+        ResultSet rs = DAL_MaTenLoai.selectTenMucChi();
+        ArrayList<DTO_HangMucChi> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_HangMucChi hangMucChi = new DTO_HangMucChi();
+                hangMucChi.setMucChi(rs.getString("TenLoaiTienChi"));
+                array.add(hangMucChi);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public static void loadTenMucChi(ArrayList<DTO_HangMucChi> array, JComboBox cbo) {
+        DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cbo.getModel();
+        cboModel.removeAllElements();
+        for (DTO_HangMucChi hangMucChi : array) {
+            Object obj = hangMucChi.getMucChi();
+            cboModel.addElement(obj);
+        }
+    }
+
+    public static ArrayList<DTO_PhuongThucThanhToan> selectTenPhuongThuc() {
+        ResultSet rs = DAL_MaTenLoai.selectTenPhuongThuc();
+        ArrayList<DTO_PhuongThucThanhToan> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_PhuongThucThanhToan phuongThuc = new DTO_PhuongThucThanhToan();
+                phuongThuc.setTenPhuongThuc(rs.getString("TenPhuongThuc"));
+                array.add(phuongThuc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public static void loadTenPhuongThuc(ArrayList<DTO_PhuongThucThanhToan> array, JComboBox cbo) {
+        DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cbo.getModel();
+        cboModel.removeAllElements();
+        for (DTO_PhuongThucThanhToan phuongThuc : array) {
+            Object obj = phuongThuc.getTenPhuongThuc();
+            cboModel.addElement(obj);
+        }
     }
 }

@@ -46,14 +46,13 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
         scrFormChinh = new javax.swing.JScrollPane();
         pnlFormChinh = new javax.swing.JPanel();
         sdoChucNang = new HELPER.PanelShadow();
         lblsetDaTra = new javax.swing.JLabel();
         lblTimKiem = new javax.swing.JLabel();
-        lblGioPhutVao = new javax.swing.JLabel();
-        lblGioPhutRa = new javax.swing.JLabel();
+        lblGioPhutTuNgay = new javax.swing.JLabel();
+        lblGioPhutDenNgay = new javax.swing.JLabel();
         dateTuNgay = new com.toedter.calendar.JDateChooser();
         dateDenNgay = new com.toedter.calendar.JDateChooser();
         lblTongTien = new javax.swing.JLabel();
@@ -68,26 +67,19 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         lblSetDichVu = new javax.swing.JLabel();
         lblSetTongCong = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1150, 730));
         setPreferredSize(new java.awt.Dimension(1150, 730));
 
-        pnlFormChinh.setLayout(new java.awt.GridLayout(9, 4, 20, 20));
+        scrFormChinh.setBackground(new java.awt.Color(255, 255, 255));
+        scrFormChinh.setBorder(null);
+
+        pnlFormChinh.setMinimumSize(new java.awt.Dimension(1150, 620));
+        pnlFormChinh.setPreferredSize(new java.awt.Dimension(1150, 620));
+        pnlFormChinh.setLayout(new java.awt.GridLayout(1, 0));
         scrFormChinh.setViewportView(pnlFormChinh);
 
         sdoChucNang.setBackground(new java.awt.Color(255, 255, 255));
-        sdoChucNang.setForeground(new java.awt.Color(97, 177, 90));
         sdoChucNang.setMinimumSize(new java.awt.Dimension(1150, 110));
         sdoChucNang.setPreferredSize(new java.awt.Dimension(1150, 110));
         sdoChucNang.setShadowOpacity(0.4F);
@@ -97,27 +89,27 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
 
         lblsetDaTra.setBackground(new java.awt.Color(255, 255, 255));
         lblsetDaTra.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        lblsetDaTra.setForeground(new java.awt.Color(255, 102, 102));
+        lblsetDaTra.setForeground(new java.awt.Color(97, 177, 90));
         lblsetDaTra.setText("1,200K");
-        sdoChucNang.add(lblsetDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 50, 70, 20));
+        sdoChucNang.add(lblsetDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 50, 90, 20));
 
         lblTimKiem.setBackground(new java.awt.Color(255, 255, 255));
         lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/magnifier (1).png"))); // NOI18N
-        sdoChucNang.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 30, 30));
+        sdoChucNang.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 30, 30));
 
-        lblGioPhutVao.setBackground(new java.awt.Color(255, 255, 255));
-        lblGioPhutVao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblGioPhutVao.setForeground(new java.awt.Color(62, 73, 95));
-        lblGioPhutVao.setText("00:00");
-        lblGioPhutVao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoChucNang.add(lblGioPhutVao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 40, 20));
+        lblGioPhutTuNgay.setBackground(new java.awt.Color(255, 255, 255));
+        lblGioPhutTuNgay.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblGioPhutTuNgay.setForeground(new java.awt.Color(62, 73, 95));
+        lblGioPhutTuNgay.setText("00:00");
+        lblGioPhutTuNgay.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        sdoChucNang.add(lblGioPhutTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 40, 20));
 
-        lblGioPhutRa.setBackground(new java.awt.Color(255, 255, 255));
-        lblGioPhutRa.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblGioPhutRa.setForeground(new java.awt.Color(62, 73, 95));
-        lblGioPhutRa.setText("00:00");
-        lblGioPhutRa.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoChucNang.add(lblGioPhutRa, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 40, 20));
+        lblGioPhutDenNgay.setBackground(new java.awt.Color(255, 255, 255));
+        lblGioPhutDenNgay.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblGioPhutDenNgay.setForeground(new java.awt.Color(62, 73, 95));
+        lblGioPhutDenNgay.setText("00:00");
+        lblGioPhutDenNgay.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        sdoChucNang.add(lblGioPhutDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 40, 20));
 
         dateTuNgay.setBackground(new java.awt.Color(255, 255, 255));
         dateTuNgay.setForeground(new java.awt.Color(62, 73, 95));
@@ -127,19 +119,19 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         dateDenNgay.setBackground(new java.awt.Color(255, 255, 255));
         dateDenNgay.setForeground(new java.awt.Color(62, 73, 95));
         dateDenNgay.setDateFormatString("dd-MM-yyyy");
-        sdoChucNang.add(dateDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 100, 20));
+        sdoChucNang.add(dateDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 100, 20));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(153, 153, 153));
         lblTongTien.setText("Còn Lại");
-        sdoChucNang.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, -1, 20));
+        sdoChucNang.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 20, -1, 20));
 
         lblDenNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblDenNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblDenNgay.setForeground(new java.awt.Color(153, 153, 153));
         lblDenNgay.setText("Đến Ngày");
-        sdoChucNang.add(lblDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, -1, 20));
+        sdoChucNang.add(lblDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, 20));
 
         lblTuNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblTuNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -151,49 +143,49 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         lblTongCOng.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTongCOng.setForeground(new java.awt.Color(153, 153, 153));
         lblTongCOng.setText("Tổng Cộng");
-        sdoChucNang.add(lblTongCOng, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, -1, 20));
+        sdoChucNang.add(lblTongCOng, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, -1, 20));
 
         lblTienPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblTienPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTienPhong.setForeground(new java.awt.Color(153, 153, 153));
         lblTienPhong.setText("Tiền Phòng");
-        sdoChucNang.add(lblTienPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, 20));
+        sdoChucNang.add(lblTienPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, -1, 20));
 
         lblDichVu.setBackground(new java.awt.Color(255, 255, 255));
         lblDichVu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblDichVu.setForeground(new java.awt.Color(153, 153, 153));
         lblDichVu.setText("Dịch Vụ");
-        sdoChucNang.add(lblDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, 20));
+        sdoChucNang.add(lblDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, -1, 20));
 
         lblDaTra.setBackground(new java.awt.Color(255, 255, 255));
         lblDaTra.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblDaTra.setForeground(new java.awt.Color(153, 153, 153));
         lblDaTra.setText("Đã Trả");
-        sdoChucNang.add(lblDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, -1, 20));
+        sdoChucNang.add(lblDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, -1, 20));
 
         lblSetTongTien1.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTongTien1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblSetTongTien1.setForeground(new java.awt.Color(97, 177, 90));
         lblSetTongTien1.setText("1,200K");
-        sdoChucNang.add(lblSetTongTien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 50, 70, 20));
+        sdoChucNang.add(lblSetTongTien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 50, 90, 20));
 
         lblSetTienPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTienPhong.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblSetTienPhong.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetTienPhong.setText("1,200K");
-        sdoChucNang.add(lblSetTienPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 70, 20));
+        lblSetTienPhong.setText("1,200,000");
+        sdoChucNang.add(lblSetTienPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, 90, 20));
 
         lblSetDichVu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetDichVu.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblSetDichVu.setForeground(new java.awt.Color(97, 177, 90));
         lblSetDichVu.setText("1,200K");
-        sdoChucNang.add(lblSetDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 70, 20));
+        sdoChucNang.add(lblSetDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 50, 90, 20));
 
         lblSetTongCong.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTongCong.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        lblSetTongCong.setForeground(new java.awt.Color(97, 177, 90));
+        lblSetTongCong.setForeground(new java.awt.Color(255, 102, 102));
         lblSetTongCong.setText("1,200K");
-        sdoChucNang.add(lblSetTongCong, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, 70, 20));
+        sdoChucNang.add(lblSetTongCong, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 50, 90, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -215,12 +207,11 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dateDenNgay;
     private com.toedter.calendar.JDateChooser dateTuNgay;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblDaTra;
     private javax.swing.JLabel lblDenNgay;
     private javax.swing.JLabel lblDichVu;
-    private javax.swing.JLabel lblGioPhutRa;
-    private javax.swing.JLabel lblGioPhutVao;
+    private javax.swing.JLabel lblGioPhutDenNgay;
+    private javax.swing.JLabel lblGioPhutTuNgay;
     private javax.swing.JLabel lblSetDichVu;
     private javax.swing.JLabel lblSetTienPhong;
     private javax.swing.JLabel lblSetTongCong;

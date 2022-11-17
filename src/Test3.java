@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author CherryCe
- */
+import java.util.Random;
+
 public class Test3 {
+
     public static void main(String[] args) {
-        System.out.println("CC");
+        Random rd = new Random();
+        int n = rd.nextInt(99999 - 10000) + 10000;
+        System.out.println(n);
     }
 }

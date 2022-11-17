@@ -43,7 +43,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         ArrayList<DTO_Phong> arrayPhong = BLL_ThuNgan.selectPhong(GUI_pnl_ThuNgan.index);
         BLL_ThuNgan.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong);
         ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuNgan.selectThuePhong(GUI_pnl_ThuNgan.index);
-        BLL_ThuNgan.loadThuePhong(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblTongTien, lblSetSoPhieu, lblSetNgay, lblSetGio, lblLoaiThanhToan, lblNhanVien);
+        BLL_ThuNgan.loadThuePhong(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblTongTien, lblSetMaPhieu, lblSetNgay, lblSetGio, lblLoaiThanhToan, lblNhanVien);
         tongThoiGian();
     }
 
@@ -73,7 +73,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblLoaiPhong = new javax.swing.JLabel();
         spt_3 = new javax.swing.JSeparator();
         lblNgay = new javax.swing.JLabel();
-        lblSoPhieu = new javax.swing.JLabel();
+        lblMaPhieu = new javax.swing.JLabel();
         lblNhanVien = new javax.swing.JLabel();
         lblThangDen = new javax.swing.JLabel();
         spt_1 = new javax.swing.JSeparator();
@@ -88,7 +88,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblIconDongHo = new javax.swing.JLabel();
         lblTongThoiGian = new javax.swing.JLabel();
         lblGioPhutDen = new javax.swing.JLabel();
-        lblSetSoPhieu = new javax.swing.JLabel();
+        lblSetMaPhieu = new javax.swing.JLabel();
         lblSetNgay = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -142,7 +142,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         sdoChiTietThuNgan.add(lblLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 100, 20));
 
         spt_3.setForeground(new java.awt.Color(62, 73, 95));
-        sdoChiTietThuNgan.add(spt_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 220, 10));
+        sdoChiTietThuNgan.add(spt_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 220, 10));
 
         lblNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblNgay.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -150,17 +150,17 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblNgay.setText("Ngày");
         sdoChiTietThuNgan.add(lblNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 40, 20));
 
-        lblSoPhieu.setBackground(new java.awt.Color(255, 255, 255));
-        lblSoPhieu.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        lblSoPhieu.setForeground(new java.awt.Color(153, 153, 153));
-        lblSoPhieu.setText("Mã Phiếu");
-        sdoChiTietThuNgan.add(lblSoPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 50, 20));
+        lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        lblMaPhieu.setForeground(new java.awt.Color(153, 153, 153));
+        lblMaPhieu.setText("Mã Phiếu");
+        sdoChiTietThuNgan.add(lblMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 50, 20));
 
         lblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblNhanVien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(62, 73, 95));
         lblNhanVien.setText("CherryCe");
-        sdoChiTietThuNgan.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, 30));
+        sdoChiTietThuNgan.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 60, 30));
 
         lblThangDen.setBackground(new java.awt.Color(255, 255, 255));
         lblThangDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -186,7 +186,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblSetGio.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetGio.setForeground(new java.awt.Color(62, 73, 95));
         lblSetGio.setText("19:09");
-        sdoChiTietThuNgan.add(lblSetGio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 40, 30));
+        sdoChiTietThuNgan.add(lblSetGio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 40, 20));
 
         lblGio.setBackground(new java.awt.Color(255, 255, 255));
         lblGio.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -213,7 +213,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         sdoChiTietThuNgan.add(spt_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 20, 10));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
-        lblTongTien.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(255, 102, 102));
         lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongTien.setText("525,000");
@@ -237,7 +237,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblTongThoiGian.setForeground(new java.awt.Color(255, 102, 102));
         lblTongThoiGian.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongThoiGian.setText("30'");
-        sdoChiTietThuNgan.add(lblTongThoiGian, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 80, 30));
+        sdoChiTietThuNgan.add(lblTongThoiGian, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 90, 30));
 
         lblGioPhutDen.setBackground(new java.awt.Color(255, 255, 255));
         lblGioPhutDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -246,17 +246,17 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblGioPhutDen.setText("19:09");
         sdoChiTietThuNgan.add(lblGioPhutDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 40, 20));
 
-        lblSetSoPhieu.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetSoPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblSetSoPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetSoPhieu.setText("220922001");
-        sdoChiTietThuNgan.add(lblSetSoPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 90, 30));
+        lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
+        lblSetMaPhieu.setText("220922001");
+        sdoChiTietThuNgan.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 80, 20));
 
         lblSetNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNgay.setForeground(new java.awt.Color(62, 73, 95));
         lblSetNgay.setText("22/09/22");
-        sdoChiTietThuNgan.add(lblSetNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 70, 30));
+        sdoChiTietThuNgan.add(lblSetNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 70, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -293,14 +293,14 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
     public javax.swing.JLabel lblLoaiPhong;
     public javax.swing.JLabel lblLoaiThanhToan;
     public javax.swing.JLabel lblLoaiTien;
+    public javax.swing.JLabel lblMaPhieu;
     public javax.swing.JLabel lblNgay;
     private javax.swing.JLabel lblNgayDen;
     private javax.swing.JLabel lblNgayDi;
     public javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lblSetGio;
+    private javax.swing.JLabel lblSetMaPhieu;
     private javax.swing.JLabel lblSetNgay;
-    private javax.swing.JLabel lblSetSoPhieu;
-    public javax.swing.JLabel lblSoPhieu;
     private javax.swing.JLabel lblSoPhong;
     private javax.swing.JLabel lblThangDen;
     private javax.swing.JLabel lblThangDi;

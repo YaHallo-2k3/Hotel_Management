@@ -46,14 +46,11 @@ public class BLL_PhuongThucThanhToan {
     }
 
     public static void load(ArrayList<DTO_PhuongThucThanhToan> array, JComboBox cbo) {
-
-        for (DTO_PhuongThucThanhToan PhuongThucThanhToan : array) {
-            DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cbo.getModel();
-            cboModel.removeAllElements();
-            for (DTO_PhuongThucThanhToan phuongThuc : array) {
-                Object obj = phuongThuc.getTenPhuongThuc();
-                cboModel.addElement(obj);
-            }
+        DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cbo.getModel();
+        cboModel.removeAllElements();
+        for (DTO_PhuongThucThanhToan phuongThuc : array) {
+            Object obj = phuongThuc.getTenPhuongThuc();
+            cboModel.addElement(obj);
         }
     }
 }

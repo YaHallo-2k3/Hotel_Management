@@ -17,8 +17,8 @@ import java.sql.ResultSet;
 public class DAL_LoaiPhong {
 
     public static void add(DTO_LoaiPhong loaiPhong) {
-        String sqlSelect = "INSERT INTO LoaiPhong VALUES (?, ?, ?, ?, ?, ?)";
-        HELPER_ConnectSQL.executeUpdate(sqlSelect, loaiPhong.getMaPhong(), loaiPhong.getTenPhong(), loaiPhong.getGiaGio(), loaiPhong.getGiaNgay(), loaiPhong.getSoGiuong(), loaiPhong.getSoNguoi());
+        String sqlSelect = "INSERT INTO LoaiPhong VALUES (?, ?, ?, ?)";
+        HELPER_ConnectSQL.executeUpdate(sqlSelect, loaiPhong.getMaPhong(), loaiPhong.getTenPhong(), loaiPhong.getSoGiuong(), loaiPhong.getSoNguoi());
     }
 
     public static void delete(String maPhong) {
@@ -27,8 +27,8 @@ public class DAL_LoaiPhong {
     }
 
     public static void edit(DTO_LoaiPhong loaiPhong) {
-        String sqlUpdate = "UPDATE LoaiPhong SET TenLoaiPhong = ?, GiaGio = ?, GiaNgay = ?, SoGiuong = ?, SoNguoi = ? WHERE MaLoaiPhong = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlUpdate, loaiPhong.getTenPhong(), loaiPhong.getGiaGio(), loaiPhong.getGiaNgay(), loaiPhong.getSoGiuong(), loaiPhong.getSoNguoi(), loaiPhong.getMaPhong());
+        String sqlUpdate = "UPDATE LoaiPhong SET TenLoaiPhong = ?, SoGiuong = ?, SoNguoi = ? WHERE MaLoaiPhong = ?";
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, loaiPhong.getTenPhong(), loaiPhong.getSoGiuong(), loaiPhong.getSoNguoi(), loaiPhong.getMaPhong());
     }
 
     public static ResultSet select() {

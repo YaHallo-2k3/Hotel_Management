@@ -64,8 +64,8 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(350, 250));
 
         sdoChiTietNhapKho.setBackground(new java.awt.Color(255, 255, 255));
-        sdoChiTietNhapKho.setMinimumSize(new java.awt.Dimension(350, 210));
-        sdoChiTietNhapKho.setPreferredSize(new java.awt.Dimension(350, 210));
+        sdoChiTietNhapKho.setMinimumSize(new java.awt.Dimension(350, 250));
+        sdoChiTietNhapKho.setPreferredSize(new java.awt.Dimension(350, 250));
         sdoChiTietNhapKho.setShadowOpacity(0.3F);
         sdoChiTietNhapKho.setShadowSize(4);
         sdoChiTietNhapKho.setShadowType(HELPER.ShadowType.BOT_RIGHT);
@@ -80,32 +80,35 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
         sdoChiTietNhapKho.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblSetNhanVien.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetNhanVien.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetNhanVien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNhanVien.setForeground(new java.awt.Color(62, 73, 95));
         lblSetNhanVien.setText("CherryCe");
         sdoChiTietNhapKho.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 80, 20));
 
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
         lblSetNgayTao.setText("22-09-22 12:02");
         sdoChiTietNhapKho.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 90, 20));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
-        lblTongTien.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(97, 177, 90));
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongTien.setText("2250,000");
-        sdoChiTietNhapKho.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 90, 40));
+        lblTongTien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sdoChiTietNhapKho.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 100, 20));
 
         lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
-        lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblMaPhieu.setForeground(new java.awt.Color(153, 153, 153));
         lblMaPhieu.setText("Mã Phiếu");
         sdoChiTietNhapKho.add(lblMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 20));
 
         scrChiTietNhapKho.setBackground(new java.awt.Color(255, 255, 255));
+        scrChiTietNhapKho.setBorder(null);
 
-        tblChiTietNhapKho.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        tblChiTietNhapKho.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         tblChiTietNhapKho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -127,26 +130,26 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblChiTietNhapKho.setRowHeight(20);
+        tblChiTietNhapKho.setRowHeight(24);
         tblChiTietNhapKho.setShowHorizontalLines(false);
         scrChiTietNhapKho.setViewportView(tblChiTietNhapKho);
 
         sdoChiTietNhapKho.add(scrChiTietNhapKho, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 320, 150));
 
         lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
         lblSetMaPhieu.setText("220923001");
         sdoChiTietNhapKho.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 110, 20));
 
         lblNgayTao.setBackground(new java.awt.Color(255, 255, 255));
-        lblNgayTao.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblNgayTao.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblNgayTao.setForeground(new java.awt.Color(153, 153, 153));
         lblNgayTao.setText("Ngày");
-        sdoChiTietNhapKho.add(lblNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 30, 20));
+        sdoChiTietNhapKho.add(lblNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 30, 20));
 
         lblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
-        lblNhanVien.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblNhanVien.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(153, 153, 153));
         lblNhanVien.setText("Nhân Viên");
         sdoChiTietNhapKho.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 60, 20));

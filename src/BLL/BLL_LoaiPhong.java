@@ -7,6 +7,7 @@ package BLL;
 
 import DAL.DAL_LoaiPhong;
 import DTO.DTO_LoaiPhong;
+import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class BLL_LoaiPhong {
 
     public static boolean check(DTO_LoaiPhong loaiPhong) {
-        if (loaiPhong.getMaPhong().isEmpty() || loaiPhong.getTenPhong().isEmpty()) {
+        if (loaiPhong.getMaPhong().isEmpty() || loaiPhong.getTenPhong().isEmpty() || loaiPhong.getSoGiuong()==0 || loaiPhong.getSoNguoi()==0) {
             return false;
         } else {
             return true;
@@ -85,8 +86,6 @@ public class BLL_LoaiPhong {
                 DTO_LoaiPhong loaiPhong = new DTO_LoaiPhong();
                 loaiPhong.setMaPhong(rs.getString("MaLoaiPhong"));
                 loaiPhong.setTenPhong(rs.getString("TenLoaiPhong"));
-                loaiPhong.setGiaGio(rs.getInt("GiaGio"));
-                loaiPhong.setGiaNgay(rs.getInt("GiaNgay"));
                 loaiPhong.setSoGiuong(rs.getInt("SoGiuong"));
                 loaiPhong.setSoNguoi(rs.getInt("SoNguoi"));
                 array.add(loaiPhong);
@@ -97,19 +96,17 @@ public class BLL_LoaiPhong {
         return array;
     }
 
-    public void load(ArrayList<DTO_LoaiPhong> array, JTable tbl) {
+    public static void load(ArrayList<DTO_LoaiPhong> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
         for (DTO_LoaiPhong loaiPhong : array) {
-            Object obj[] = new Object[6];
+            Object obj[] = new Object[4];
             obj[0] = loaiPhong.getMaPhong();
             obj[1] = loaiPhong.getTenPhong();
-            obj[2] = loaiPhong.getGiaGio();
-            obj[3] = loaiPhong.getGiaNgay();
-            obj[4] = loaiPhong.getSoGiuong();
-            obj[5] = loaiPhong.getSoNguoi();
-            tbl.getColumnModel().getColumn(6).setCellRenderer(new iconEdit());
-            tbl.getColumnModel().getColumn(7).setCellRenderer(new iconDelete());
+            obj[2] = loaiPhong.getSoGiuong();
+            obj[3] = loaiPhong.getSoNguoi();
+            tbl.getColumnModel().getColumn(4).setCellRenderer(new HELPER_SetIcon.iconEdit());
+            tbl.getColumnModel().getColumn(5).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
         }
     }
@@ -124,23 +121,5 @@ public class BLL_LoaiPhong {
             e.printStackTrace();
         }
         return 0;
-    }
-
-    public class iconEdit extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\edit.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
-    }
-
-    public class iconDelete extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\trash.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
     }
 }

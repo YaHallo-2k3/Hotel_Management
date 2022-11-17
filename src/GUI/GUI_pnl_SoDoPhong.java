@@ -83,23 +83,22 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         sdoChuThich.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         spt_1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        sdoChuThich.add(spt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 10, 60));
+        sdoChuThich.add(spt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 10, 60));
 
         spt_2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         sdoChuThich.add(spt_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 10, 60));
 
         cboTang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboTang.setForeground(new java.awt.Color(62, 73, 95));
-        cboTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboTang.setToolTipText("");
-        cboTang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoChuThich.add(cboTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 80, 20));
+        cboTang.setBorder(null);
+        sdoChuThich.add(cboTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 80, 20));
 
         dateNgay.setBackground(new java.awt.Color(255, 255, 255));
         dateNgay.setForeground(new java.awt.Color(62, 73, 95));
         dateNgay.setToolTipText("");
         dateNgay.setDateFormatString("dd-MM-yyyy");
-        sdoChuThich.add(dateNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 100, 20));
+        sdoChuThich.add(dateNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 100, 20));
 
         lblSetDatTruoc.setBackground(new java.awt.Color(102, 153, 255));
         lblSetDatTruoc.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -108,7 +107,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblSetDatTruoc.setText("Đặt Trước");
         lblSetDatTruoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblSetDatTruoc.setOpaque(true);
-        sdoChuThich.add(lblSetDatTruoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 50, 110, 20));
+        sdoChuThich.add(lblSetDatTruoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 50, 110, 20));
 
         lblSetPhongTrong.setBackground(new java.awt.Color(97, 177, 90));
         lblSetPhongTrong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -140,7 +139,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
                 lblSetCoKhachMouseClicked(evt);
             }
         });
-        sdoChuThich.add(lblSetCoKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, 110, 20));
+        sdoChuThich.add(lblSetCoKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 110, 20));
 
         lblDatPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblDatPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -155,7 +154,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblTang.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTang.setForeground(new java.awt.Color(153, 153, 153));
         lblTang.setText("Tầng");
-        sdoChuThich.add(lblTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 40, -1));
+        sdoChuThich.add(lblTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 40, -1));
 
         lblDonPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblDonPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -174,7 +173,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblRaNgoai.setFocusable(false);
         lblRaNgoai.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblRaNgoai.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoChuThich.add(lblRaNgoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, -1, -1));
+        sdoChuThich.add(lblRaNgoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, -1));
 
         lblPhongTrong.setBackground(new java.awt.Color(255, 255, 255));
         lblPhongTrong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -183,13 +182,13 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblPhongTrong.setText("Phòng Trống");
         lblPhongTrong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblPhongTrong.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoChuThich.add(lblPhongTrong, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, -1, -1));
+        sdoChuThich.add(lblPhongTrong, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
 
         lblNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNgay.setForeground(new java.awt.Color(153, 153, 153));
         lblNgay.setText("Ngày");
-        sdoChuThich.add(lblNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 40, 20));
+        sdoChuThich.add(lblNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 40, 20));
 
         lblCoKhach.setBackground(new java.awt.Color(255, 255, 255));
         lblCoKhach.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -198,12 +197,14 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblCoKhach.setText("Có Khách");
         lblCoKhach.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblCoKhach.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoChuThich.add(lblCoKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
+        sdoChuThich.add(lblCoKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, -1));
 
         scrFormChinh.setBackground(new java.awt.Color(255, 255, 255));
+        scrFormChinh.setBorder(null);
 
-        pnlFormChinh.setBackground(new java.awt.Color(255, 255, 255));
-        pnlFormChinh.setLayout(new java.awt.GridLayout(9, 5, 7, 10));
+        pnlFormChinh.setMinimumSize(new java.awt.Dimension(1150, 620));
+        pnlFormChinh.setPreferredSize(new java.awt.Dimension(1150, 620));
+        pnlFormChinh.setLayout(new java.awt.GridLayout());
         scrFormChinh.setViewportView(pnlFormChinh);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -217,9 +218,8 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(sdoChuThich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrFormChinh, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(scrFormChinh, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

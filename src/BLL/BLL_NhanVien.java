@@ -9,12 +9,16 @@ import DAL.DAL_MaTenLoai;
 import DAL.DAL_NhanVien;
 import DTO.DTO_NhanVien;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_SetIcon;
 import java.awt.Component;
+import java.awt.Image;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
@@ -28,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
 public class BLL_NhanVien {
 
     public static boolean check(DTO_NhanVien nhanVien) {
-        if (nhanVien.getMaNhanVien().isEmpty() || nhanVien.getTenNhanVien().isEmpty() || nhanVien.getNgaySinh() == null || nhanVien.getSoDienThoai().isEmpty() || nhanVien.getCMND().isEmpty() || nhanVien.getMaChucVu().isEmpty() || nhanVien.getLuong() == 0 || nhanVien.getNgayTao() == null) {
+        if (nhanVien.getMaNhanVien().isEmpty() || nhanVien.getTenNhanVien().isEmpty() || nhanVien.getNgaySinh() == null || nhanVien.getSoDienThoai().isEmpty() || nhanVien.getCMND().isEmpty() || nhanVien.getMaChucVu().isEmpty() || nhanVien.getLuong() == 0 || nhanVien.getNgayTao() == null || nhanVien.getURL() == null) {
             return false;
         }
         return true;
@@ -97,6 +101,7 @@ public class BLL_NhanVien {
                 nhanVien.setLuong(rs.getInt("Luong"));
                 nhanVien.setNgayTao(rs.getTimestamp("NgayTao"));
                 nhanVien.setTrangThaiNhanVien(rs.getInt("TrangThaiNhanVien"));
+                nhanVien.setURL(rs.getString("HinhAnh"));
                 array.add(nhanVien);
             }
         } catch (Exception e) {
@@ -105,11 +110,11 @@ public class BLL_NhanVien {
         return array;
     }
 
-    public void load(ArrayList<DTO_NhanVien> array, JTable tbl) {
+    public static void load(ArrayList<DTO_NhanVien> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
         for (DTO_NhanVien nhanVien : array) {
-            Object obj[] = new Object[10];
+            Object obj[] = new Object[11];
             obj[0] = nhanVien.getMaNhanVien();
             obj[1] = nhanVien.getTenNhanVien();
             obj[2] = nhanVien.getGioiTinh() == 1 ? "Nam" : "Nữ";
@@ -120,9 +125,11 @@ public class BLL_NhanVien {
             obj[7] = nhanVien.getLuong();
             obj[8] = HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", nhanVien.getNgayTao());
             obj[9] = nhanVien.getTrangThaiNhanVien() == 1 ? "Online" : "Offline";
-            tbl.getColumnModel().getColumn(10).setCellRenderer(new iconAccount());
-            tbl.getColumnModel().getColumn(11).setCellRenderer(new iconEdit());
-            tbl.getColumnModel().getColumn(12).setCellRenderer(new iconDelete());
+            obj[10] = nhanVien.getURL();
+            tbl.getColumnModel().getColumn(10).setCellRenderer(new showImage(nhanVien.getURL()));
+            tbl.getColumnModel().getColumn(11).setCellRenderer(new HELPER_SetIcon.iconAccount());
+            tbl.getColumnModel().getColumn(12).setCellRenderer(new HELPER_SetIcon.iconEdit());
+            tbl.getColumnModel().getColumn(13).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
         }
     }
@@ -139,30 +146,17 @@ public class BLL_NhanVien {
         return null;
     }
 
-    public class iconAccount extends DefaultTableCellRenderer {
+    public static class showImage extends DefaultTableCellRenderer {
 
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\profile-user (5).png"));
-            setHorizontalAlignment(CENTER);
-            return this;
+        String URL;
+
+        public showImage(String URL) {
+            this.URL = URL;
         }
-    }
-
-    public class iconEdit extends DefaultTableCellRenderer {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\edit.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
-    }
-
-    public class iconDelete extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\trash.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
+            ImageIcon imgIcon = new ImageIcon(new ImageIcon(URL).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH));
+            return new JLabel(imgIcon);
         }
     }
 }

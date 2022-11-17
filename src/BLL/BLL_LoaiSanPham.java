@@ -7,6 +7,7 @@ package BLL;
 
 import DAL.DAL_LoaiSanPham;
 import DTO.DTO_LoaiSanPham;
+import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -99,34 +100,16 @@ public class BLL_LoaiSanPham {
         return array;
     }
 
-    public void load(ArrayList<DTO_LoaiSanPham> array, JTable tbl) {
+    public static void load(ArrayList<DTO_LoaiSanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
         for (DTO_LoaiSanPham loaiSanPham : array) {
             Object obj[] = new Object[2];
             obj[0] = loaiSanPham.getMaLoaiSanPham();
             obj[1] = loaiSanPham.getTenLoaiSanPham();
-            tbl.getColumnModel().getColumn(2).setCellRenderer(new iconEdit());
-            tbl.getColumnModel().getColumn(3).setCellRenderer(new iconDelete());
+            tbl.getColumnModel().getColumn(2).setCellRenderer(new HELPER_SetIcon.iconEdit());
+            tbl.getColumnModel().getColumn(3).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
-        }
-    }
-
-    public class iconEdit extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\edit.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
-    }
-
-    public class iconDelete extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\trash.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
         }
     }
 }

@@ -104,15 +104,6 @@ public class BLL_NhapKho {
         }
     }
 
-    public class iconAdd extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\queue.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
-    }
-
     public static int countNhapKho() {
         ResultSet rs = DAL_NhapKho.count();
         try {
@@ -123,23 +114,5 @@ public class BLL_NhapKho {
             e.printStackTrace();
         }
         return 0;
-    }
-
-    public class iconEdit extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\edit.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
-    }
-
-    public class iconDelete extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\trash.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
     }
 }

@@ -7,6 +7,7 @@ package BLL;
 
 import DAL.DAL_Phong;
 import DTO.DTO_Phong;
+import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -96,7 +97,7 @@ public class BLL_Phong {
         return array;
     }
 
-    public void load(ArrayList<DTO_Phong> array, JTable tbl) {
+    public static void load(ArrayList<DTO_Phong> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
         for (DTO_Phong phong : array) {
@@ -107,27 +108,9 @@ public class BLL_Phong {
             obj[3] = BLL_MaTenLoai.findTenTang(phong.getMaTang());
             obj[4] = BLL_MaTenLoai.findTenLoaiPhong(phong.getMaLoaiPhong());
             obj[5] = BLL_MaTenLoai.findTenTrangThaiPhong(phong.getMaTrangThaiPhong());
-            tbl.getColumnModel().getColumn(6).setCellRenderer(new iconEdit());
-            tbl.getColumnModel().getColumn(7).setCellRenderer(new iconDelete());
+            tbl.getColumnModel().getColumn(6).setCellRenderer(new HELPER_SetIcon.iconEdit());
+            tbl.getColumnModel().getColumn(7).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
-        }
-    }
-
-    public class iconEdit extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\edit.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
-        }
-    }
-
-    public class iconDelete extends DefaultTableCellRenderer {
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\IMG\\trash.png"));
-            setHorizontalAlignment(CENTER);
-            return this;
         }
     }
 }

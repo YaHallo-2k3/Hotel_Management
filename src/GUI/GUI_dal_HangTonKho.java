@@ -37,8 +37,8 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         lblHangTonKho = new javax.swing.JLabel();
         lblSetTienBan = new javax.swing.JLabel();
         txtTenHang = new javax.swing.JTextField();
+        dateDenNgay = new com.toedter.calendar.JDateChooser();
         dateTuNgay = new com.toedter.calendar.JDateChooser();
-        dateTuNgay1 = new com.toedter.calendar.JDateChooser();
         lblMaHang = new javax.swing.JLabel();
         txtMaHang = new javax.swing.JTextField();
         lblTienNhap = new javax.swing.JLabel();
@@ -50,38 +50,38 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         tblHangTon = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(770, 490));
+        setMinimumSize(new java.awt.Dimension(820, 490));
         setUndecorated(true);
 
         sdoThongTinPhong.setBackground(new java.awt.Color(255, 255, 255));
         sdoThongTinPhong.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(33, 150, 243)));
-        sdoThongTinPhong.setMinimumSize(new java.awt.Dimension(560, 280));
-        sdoThongTinPhong.setPreferredSize(new java.awt.Dimension(560, 280));
+        sdoThongTinPhong.setMinimumSize(new java.awt.Dimension(820, 130));
+        sdoThongTinPhong.setPreferredSize(new java.awt.Dimension(820, 130));
         sdoThongTinPhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblDenNgay.setBackground(new java.awt.Color(255, 255, 255));
-        lblDenNgay.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblDenNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblDenNgay.setForeground(new java.awt.Color(153, 153, 153));
         lblDenNgay.setText("Đến Ngày");
-        sdoThongTinPhong.add(lblDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
+        sdoThongTinPhong.add(lblDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
         lblTuNgay.setBackground(new java.awt.Color(255, 255, 255));
-        lblTuNgay.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblTuNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTuNgay.setForeground(new java.awt.Color(153, 153, 153));
         lblTuNgay.setText("Từ Ngày");
-        sdoThongTinPhong.add(lblTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        sdoThongTinPhong.add(lblTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
 
         lblTienBan.setBackground(new java.awt.Color(255, 255, 255));
-        lblTienBan.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblTienBan.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTienBan.setForeground(new java.awt.Color(153, 153, 153));
         lblTienBan.setText("Tiền Bán");
-        sdoThongTinPhong.add(lblTienBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, -1, 20));
+        sdoThongTinPhong.add(lblTienBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, -1, 20));
 
         lblTenHang.setBackground(new java.awt.Color(255, 255, 255));
-        lblTenHang.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblTenHang.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTenHang.setForeground(new java.awt.Color(153, 153, 153));
         lblTenHang.setText("Tên Hàng");
-        sdoThongTinPhong.add(lblTenHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, -1, 20));
+        sdoThongTinPhong.add(lblTenHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, 20));
 
         lblHangTonKho.setBackground(new java.awt.Color(255, 255, 255));
         lblHangTonKho.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
@@ -90,12 +90,12 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         sdoThongTinPhong.add(lblHangTonKho, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 30));
 
         lblSetTienBan.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetTienBan.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetTienBan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTienBan.setForeground(new java.awt.Color(62, 73, 95));
         lblSetTienBan.setText("00");
-        sdoThongTinPhong.add(lblSetTienBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 80, 70, 20));
+        sdoThongTinPhong.add(lblSetTienBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 80, 90, 20));
 
-        txtTenHang.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtTenHang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTenHang.setForeground(new java.awt.Color(62, 73, 95));
         txtTenHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtTenHang.addActionListener(new java.awt.event.ActionListener() {
@@ -103,25 +103,25 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
                 txtTenHangActionPerformed(evt);
             }
         });
-        sdoThongTinPhong.add(txtTenHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 70, 20));
+        sdoThongTinPhong.add(txtTenHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 70, 20));
+
+        dateDenNgay.setBackground(new java.awt.Color(255, 255, 255));
+        dateDenNgay.setForeground(new java.awt.Color(62, 73, 95));
+        dateDenNgay.setDateFormatString("dd-MM-yyyy");
+        sdoThongTinPhong.add(dateDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 100, 20));
 
         dateTuNgay.setBackground(new java.awt.Color(255, 255, 255));
         dateTuNgay.setForeground(new java.awt.Color(62, 73, 95));
         dateTuNgay.setDateFormatString("dd-MM-yyyy");
-        sdoThongTinPhong.add(dateTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 100, 20));
-
-        dateTuNgay1.setBackground(new java.awt.Color(255, 255, 255));
-        dateTuNgay1.setForeground(new java.awt.Color(62, 73, 95));
-        dateTuNgay1.setDateFormatString("dd-MM-yyyy");
-        sdoThongTinPhong.add(dateTuNgay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 100, 20));
+        sdoThongTinPhong.add(dateTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 100, 20));
 
         lblMaHang.setBackground(new java.awt.Color(255, 255, 255));
-        lblMaHang.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblMaHang.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblMaHang.setForeground(new java.awt.Color(153, 153, 153));
         lblMaHang.setText("Mã Hàng");
-        sdoThongTinPhong.add(lblMaHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, -1, 20));
+        sdoThongTinPhong.add(lblMaHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, -1, 20));
 
-        txtMaHang.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txtMaHang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtMaHang.setForeground(new java.awt.Color(62, 73, 95));
         txtMaHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtMaHang.addActionListener(new java.awt.event.ActionListener() {
@@ -129,34 +129,39 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
                 txtMaHangActionPerformed(evt);
             }
         });
-        sdoThongTinPhong.add(txtMaHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 70, 20));
+        sdoThongTinPhong.add(txtMaHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 70, 20));
 
         lblTienNhap.setBackground(new java.awt.Color(255, 255, 255));
-        lblTienNhap.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        lblTienNhap.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTienNhap.setForeground(new java.awt.Color(153, 153, 153));
         lblTienNhap.setText("Tiền Nhập");
-        sdoThongTinPhong.add(lblTienNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, -1, 20));
+        sdoThongTinPhong.add(lblTienNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, -1, 20));
 
         lblSetTienNhap.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetTienNhap.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lblSetTienNhap.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTienNhap.setForeground(new java.awt.Color(62, 73, 95));
         lblSetTienNhap.setText("0");
-        sdoThongTinPhong.add(lblSetTienNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, 70, 20));
+        sdoThongTinPhong.add(lblSetTienNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, 20));
 
         lblTimKiem.setBackground(new java.awt.Color(255, 255, 255));
         lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/magnifier (1).png"))); // NOI18N
-        sdoThongTinPhong.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 30, 30));
+        sdoThongTinPhong.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 30, 30));
 
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/close (1).png"))); // NOI18N
-        sdoThongTinPhong.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, 30, 30));
+        sdoThongTinPhong.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 30, 30));
 
         sdoHangTon.setBackground(new java.awt.Color(255, 255, 255));
         sdoHangTon.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(33, 150, 243)));
+        sdoHangTon.setMinimumSize(new java.awt.Dimension(820, 360));
+        sdoHangTon.setPreferredSize(new java.awt.Dimension(820, 360));
         sdoHangTon.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblHangTon.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        scrHangTon.setBackground(new java.awt.Color(255, 255, 255));
+        scrHangTon.setBorder(null);
+
+        tblHangTon.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         tblHangTon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -182,23 +187,24 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblHangTon.setName(""); // NOI18N
         tblHangTon.setRowHeight(30);
         tblHangTon.setShowHorizontalLines(false);
         scrHangTon.setViewportView(tblHangTon);
 
-        sdoHangTon.add(scrHangTon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 730, 330));
+        sdoHangTon.add(scrHangTon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 780, 320));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sdoThongTinPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(sdoHangTon, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoThongTinPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoHangTon, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(sdoThongTinPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sdoThongTinPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(sdoHangTon, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -272,8 +278,8 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser dateDenNgay;
     private com.toedter.calendar.JDateChooser dateTuNgay;
-    private com.toedter.calendar.JDateChooser dateTuNgay1;
     private javax.swing.JLabel lblDenNgay;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblHangTonKho;

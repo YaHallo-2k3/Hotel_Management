@@ -112,4 +112,34 @@ public class DAL_MaTenLoai {
         String sqlSelect = "SELECT * FROM SanPham WHERE TenSanPham = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tenSanPham);
     }
+    
+    public static ResultSet findTenLoaiTienChi(String maLoaiTienChi) {
+        String sqlSelect = "SELECT * FROM LoaiTienChi WHERE MaLoaiTienChi = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maLoaiTienChi);
+    }
+
+    public static ResultSet findMaLoaiTienChi(String tenLoaiTienChi) {
+        String sqlSelect = "SELECT * FROM LoaiTienChi WHERE TenLoaiTienChi = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tenLoaiTienChi);
+    }
+    
+    public static ResultSet findTenPhuongThuc(String maPhuongThuc) {
+        String sqlSelect = "SELECT * FROM PhuongThucThanhToan WHERE MaPhuongThuc = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhuongThuc);
+    }
+
+    public static ResultSet findMaPhuongThuc(String tenPhuongThuc) {
+        String sqlSelect = "SELECT * FROM PhuongThucThanhToan WHERE TenPhuongThuc = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tenPhuongThuc);
+    }
+    
+    public static ResultSet selectTenMucChi() {
+        String sqlSelect = "SELECT * FROM LoaiTienChi ORDER BY MaLoaiTienChi";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    }
+    
+    public static ResultSet selectTenPhuongThuc() {
+        String sqlSelect = "SELECT * FROM PhuongThucThanhToan ORDER BY MaPhuongThuc";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    }
 }
