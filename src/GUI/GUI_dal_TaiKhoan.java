@@ -57,9 +57,9 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
     }
 
     public void load() {
-        if(GUI_pnl_NhanVien.maNhanVien==null){
+        if (GUI_pnl_NhanVien.maNhanVien == null) {
             maNhanVien = BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan);
-        }else{
+        } else {
             maNhanVien = GUI_pnl_NhanVien.maNhanVien;
         }
         ArrayList<DTO_TaiKhoan> array = BLL_TaiKhoan.select(maNhanVien);
@@ -128,7 +128,7 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         lblCapNhat.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblCapNhat.setForeground(new java.awt.Color(33, 150, 243));
         lblCapNhat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/cart (3).png"))); // NOI18N
+        lblCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/upgrade (3).png"))); // NOI18N
         lblCapNhat.setText("Cập Nhật");
         lblCapNhat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -278,7 +278,7 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
 
     private void psdMatKhauFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_psdMatKhauFocusLost
         // TODO add your handling code here:
-        focusMatKhau(psdMatKhau, "", "Nhập Mật Khẩu", 153, 153, 153, '*');
+        focusMatKhau(psdMatKhau, "", "Nhập Mật Khẩu", 153, 153, 153, (char) 0);
     }//GEN-LAST:event_psdMatKhauFocusLost
 
     /**

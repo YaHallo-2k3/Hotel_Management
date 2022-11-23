@@ -6,18 +6,24 @@
 package GUI;
 
 import BLL.BLL_ChiTietNhapKho;
+import BLL.BLL_MaTenLoai;
 import BLL.BLL_NhapKho;
 import BLL.BLL_NhanVien;
 import BLL.BLL_SanPham;
+import BLL.BLL_TaiKhoan;
 import DAL.DAL_ChiTietNhapKho;
 import DAL.DAL_ThuePhong;
 import DTO.DTO_ChiTietNhapKho;
 import DTO.DTO_NhapKho;
 import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_SetIcon;
 import HELPER.HELPER_SetMa;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,8 +33,9 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
 
     public int row;
     public int column;
-    public boolean isAddEdit;
-    
+    public String tenLoaiSanPham;
+    public boolean isUpgrade = false;
+    public boolean isAdd = false;
 
     /**
      * Creates new form GUI_dalThongTinPhong
@@ -37,66 +44,98 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        load();
+        check();
         loadSanPham();
-        loadChiTietNhapKho();
+        setTongTien();
     }
 
-    public String setMaPhieuNhap() {
-        String maPhieuNhap = "PN";
-        try {
-            maPhieuNhap = maPhieuNhap + HELPER_ChuyenDoi.getTimeNow("yyMMdd");
-            ResultSet rs = DAL_ChiTietNhapKho.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"));
-            int rowCount = 0;
-            while (rs.next()) {
-                rowCount = rs.getInt(1);
-                if (rowCount > 99) {
-                    maPhieuNhap = maPhieuNhap + (rowCount + 1);
-                } else if (rowCount > 9) {
-                    maPhieuNhap = maPhieuNhap + "0" + (rowCount + 1);
-                } else {
-                    maPhieuNhap = maPhieuNhap + "00" + (rowCount + 1);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void check() {
+        if (GUI_pnl_ChiTietNhapKho.isNhapKho) {
+            isUpgrade = true;
+            GUI_pnl_ChiTietNhapKho.isNhapKho = false;
+            lblCapNhat.setText("Xóa");
+            loadPhieuNhap();
+            loadChiTietNhapKho();
+        } else {
+            isUpgrade = false;
+            GUI_pnl_ChiTietNhapKho.isNhapKho = false;
+            load();
+            loadChiTietNhapKho();
         }
-        return maPhieuNhap;
     }
 
-    public void addChiTietNhapKho(int row, int column) {
-        DTO_ChiTietNhapKho chiTietNhapKho = new DTO_ChiTietNhapKho(HELPER_SetMa.setMaCount("NK", DAL_ChiTietNhapKho.count()), lblSetSoPhieu.getText(), tblDichVu.getValueAt(row, 0).toString(), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()));
+    public void addChiTietNhapKho(int row) {
+        DTO_ChiTietNhapKho chiTietNhapKho = new DTO_ChiTietNhapKho(HELPER_SetMa.setMaDateTime("NK", DAL_ChiTietNhapKho.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))), lblSetMaPhieu.getText(), tblKhoDichVu.getValueAt(row, 0).toString(), HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 2).toString()), HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 3).toString()));
         BLL_ChiTietNhapKho.add(chiTietNhapKho);
     }
 
     public void deleteChiTietNhapKho(int row) {
-        BLL_ChiTietNhapKho.delete(lblSetSoPhieu.getText(), tblKhoDichVu.getValueAt(row, 0).toString());
+        BLL_ChiTietNhapKho.delete(lblSetMaPhieu.getText(), tblKhoDichVu.getValueAt(row, 0).toString());
     }
 
     public void loadSanPham() {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select();
-        new BLL_SanPham().loadSanPham(array, tblDichVu);
+        BLL_SanPham.loadSanPham(array, tblDichVu);
+    }
+
+    public void loadSanPham(String tenLoaiSanPham) {
+        ArrayList<DTO_SanPham> array = BLL_SanPham.select(tenLoaiSanPham);
+        BLL_SanPham.loadSanPham(array, tblDichVu);
     }
 
     public void loadChiTietNhapKho() {
-        ArrayList<DTO_ChiTietNhapKho> array = BLL_ChiTietNhapKho.select(lblSetSoPhieu.getText());
-        new BLL_ChiTietNhapKho().load(array, tblKhoDichVu);
+        ArrayList<DTO_ChiTietNhapKho> arrayChiTiet = BLL_ChiTietNhapKho.select(lblSetMaPhieu.getText());
+        BLL_ChiTietNhapKho.load(arrayChiTiet, tblKhoDichVu);
+    }
+
+    public void loadPhieuNhap() {
+        ArrayList<DTO_NhapKho> arrayNhapKho = BLL_NhapKho.search(GUI_pnl_QuanLiKho.tuNgay, GUI_pnl_QuanLiKho.denNgay, GUI_pnl_ChiTietNhapKho.indexPosition + 1);
+        BLL_NhapKho.loadChiTietNhapKho(arrayNhapKho, lblSetMaPhieu, lblSetNhanVien, lblSetNgayTao, txtGhiChu);
     }
 
     public void addNhapKho() {
-        DTO_NhapKho nhapKho = new DTO_NhapKho(lblSetSoPhieu.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText());
+        DTO_NhapKho nhapKho = new DTO_NhapKho(lblSetMaPhieu.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText());
         BLL_NhapKho.add(nhapKho);
     }
 
-    public void editNhapKho() {
-        DTO_NhapKho nhapKho = new DTO_NhapKho(lblSetSoPhieu.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText());
-        BLL_NhapKho.edit(nhapKho);
+    public void deleteNhapKho() {
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            String maPhieuNhap = lblSetMaPhieu.getText();
+            BLL_NhapKho.delete(maPhieuNhap);
+        }
+        return;
     }
 
     public void load() {
-        lblSetSoPhieu.setText(HELPER_SetMa.setMaDateTime("PN", DAL_ChiTietNhapKho.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))));
-        lblSetNhanVien.setText(BLL_NhanVien.nhanVienOnline());
+        lblSetMaPhieu.setText(HELPER_SetMa.setMaDateTime("PN", DAL_ChiTietNhapKho.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))));
+        lblSetNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)));
         lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
+    }
+
+    public void addRow(int row) {
+        DefaultTableModel tblModel = (DefaultTableModel) tblKhoDichVu.getModel();
+        Object obj[] = new Object[5];
+        obj[0] = tblDichVu.getValueAt(row, 0).toString();
+        obj[1] = tblDichVu.getValueAt(row, 1).toString();
+        obj[2] = HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString());
+        obj[3] = HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()) + "K";
+        obj[4] = HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()) * HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()) + "K";
+        tblKhoDichVu.getColumnModel().getColumn(5).setCellRenderer(new HELPER_SetIcon.iconDelete());
+        tblModel.addRow(obj);
+    }
+
+    public void deleteRow(int row) {
+        DefaultTableModel tblModel = (DefaultTableModel) tblKhoDichVu.getModel();
+        tblModel.removeRow(row);
+    }
+
+    public void setTongTien() {
+        int total = 0;
+        for (int i = 0; i < tblKhoDichVu.getRowCount(); i++) {
+            total += HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(i, 4).toString());
+        }
+        lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(total) + "K");
     }
 
     /**
@@ -109,7 +148,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     private void initComponents() {
 
         sdoThongTinPhong = new HELPER.PanelShadow();
-        lblSetSoPhieu = new javax.swing.JLabel();
+        lblSetMaPhieu = new javax.swing.JLabel();
         lblMaPhieu = new javax.swing.JLabel();
         lblSetNhanVien = new javax.swing.JLabel();
         lblNhanVien = new javax.swing.JLabel();
@@ -130,9 +169,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         scrKhoDichVu = new javax.swing.JScrollPane();
         tblKhoDichVu = new javax.swing.JTable();
         sdoChucNang = new HELPER.PanelShadow();
-        lblSetDaThanhToan = new javax.swing.JLabel();
         lblSetTongTien = new javax.swing.JLabel();
-        lblDaThanhToan = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
         lblThoat = new javax.swing.JLabel();
         lblCapNhat = new javax.swing.JLabel();
@@ -148,11 +185,11 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         sdoThongTinPhong.setPreferredSize(new java.awt.Dimension(860, 130));
         sdoThongTinPhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblSetSoPhieu.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetSoPhieu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblSetSoPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetSoPhieu.setText("220912001");
-        sdoThongTinPhong.add(lblSetSoPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, 20));
+        lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
+        lblSetMaPhieu.setText("220912001");
+        sdoThongTinPhong.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 110, 20));
 
         lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -203,6 +240,11 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblDoUong.setText("Đồ Uống");
         lblDoUong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblDoUong.setOpaque(true);
+        lblDoUong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDoUongMouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lblDoUong, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 60, 30));
 
         lblDiChuyen.setBackground(new java.awt.Color(255, 102, 102));
@@ -212,6 +254,11 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblDiChuyen.setText("Di Chuyển");
         lblDiChuyen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblDiChuyen.setOpaque(true);
+        lblDiChuyen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDiChuyenMouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lblDiChuyen, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 80, 80, 30));
 
         lblAll.setBackground(new java.awt.Color(255, 102, 102));
@@ -221,6 +268,11 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblAll.setText("ALL");
         lblAll.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblAll.setOpaque(true);
+        lblAll.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAllMouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lblAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 40, 30));
 
         lblThucAn.setBackground(new java.awt.Color(255, 102, 102));
@@ -230,6 +282,11 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblThucAn.setText("Thức Ăn");
         lblThucAn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblThucAn.setOpaque(true);
+        lblThucAn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblThucAnMouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lblThucAn, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 60, 30));
 
         txtGhiChu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -283,7 +340,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, false
+                false, false, true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -316,7 +373,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         tblKhoDichVu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         tblKhoDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -362,23 +418,11 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         sdoChucNang.setPreferredSize(new java.awt.Dimension(860, 50));
         sdoChucNang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblSetDaThanhToan.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetDaThanhToan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblSetDaThanhToan.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetDaThanhToan.setText("220912001");
-        sdoChucNang.add(lblSetDaThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 90, 30));
-
         lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTongTien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTongTien.setForeground(new java.awt.Color(97, 177, 90));
         lblSetTongTien.setText("220912001");
-        sdoChucNang.add(lblSetTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 90, 30));
-
-        lblDaThanhToan.setBackground(new java.awt.Color(255, 255, 255));
-        lblDaThanhToan.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblDaThanhToan.setForeground(new java.awt.Color(153, 153, 153));
-        lblDaThanhToan.setText("Đã Thanh Toán");
-        sdoChucNang.add(lblDaThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, 30));
+        sdoChucNang.add(lblSetTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, 30));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -410,7 +454,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
                 lblCapNhatMouseClicked(evt);
             }
         });
-        sdoChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 110, 30));
+        sdoChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 110, 30));
 
         lblInPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblInPhieu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -418,7 +462,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblInPhieu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInPhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/bill (3).png"))); // NOI18N
         lblInPhieu.setText("In Phiếu");
-        sdoChucNang.add(lblInPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 100, 30));
+        sdoChucNang.add(lblInPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 100, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -462,26 +506,79 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         // TODO add your handling code here:
         row = tblDichVu.getSelectedRow();
         column = tblDichVu.getSelectedColumn();
-        if (tblDichVu.getValueAt(row, column) == null) {
-            addChiTietNhapKho(row, column);
-            loadChiTietNhapKho();
+        if (!isUpgrade) {
+            if (tblDichVu.getValueAt(row, column) == null && HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()) != 0 && HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()) != 0) {
+                if (tblKhoDichVu.getRowCount() == 0) {
+                    addRow(row);
+                } else {
+                    for (int i = 0; i < tblKhoDichVu.getRowCount(); i++) {
+                        if (!tblDichVu.getValueAt(row, 0).toString().equals(tblKhoDichVu.getValueAt(i, 0).toString())) {
+                            isAdd = false;
+                        } else {
+                            isAdd = true;
+                            break;
+                        }
+                    }
+                    if (isAdd) {
+                        JOptionPane.showMessageDialog(this, "Giá Trị Đã Tồn Tại ???");
+                    } else {
+                        addRow(row);
+                    }
+                }
+            }
+            setTongTien();
+        } else {
+            return;
         }
+
     }//GEN-LAST:event_tblDichVuMouseClicked
 
     private void tblKhoDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhoDichVuMouseClicked
         // TODO add your handling code here:
         row = tblKhoDichVu.getSelectedRow();
         column = tblKhoDichVu.getSelectedColumn();
-        if (tblKhoDichVu.getValueAt(row, column) == null) {
-            deleteChiTietNhapKho(row);
-            loadChiTietNhapKho();
+        if (!isUpgrade) {
+            if (tblKhoDichVu.getValueAt(row, column) == null) {
+                deleteRow(row);
+            }
+            setTongTien();
+        } else {
+            return;
         }
     }//GEN-LAST:event_tblKhoDichVuMouseClicked
 
     private void lblCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseClicked
         // TODO add your handling code here:
-        addNhapKho();
+        if (!isUpgrade) {
+            for (int i = 0; i < tblKhoDichVu.getRowCount(); i++) {
+                addChiTietNhapKho(i);
+            }
+            addNhapKho();
+        } else {
+            deleteNhapKho();
+            this.dispose();
+        }
     }//GEN-LAST:event_lblCapNhatMouseClicked
+
+    private void lblDoUongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoUongMouseClicked
+        // TODO add your handling code here:
+        loadSanPham(lblDoUong.getText());
+    }//GEN-LAST:event_lblDoUongMouseClicked
+
+    private void lblAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAllMouseClicked
+        // TODO add your handling code here:
+        loadSanPham();
+    }//GEN-LAST:event_lblAllMouseClicked
+
+    private void lblThucAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThucAnMouseClicked
+        // TODO add your handling code here:
+        loadSanPham(lblThucAn.getText());
+    }//GEN-LAST:event_lblThucAnMouseClicked
+
+    private void lblDiChuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiChuyenMouseClicked
+        // TODO add your handling code here:
+        loadSanPham(lblDiChuyen.getText());
+    }//GEN-LAST:event_lblDiChuyenMouseClicked
 
     /**
      * @param args the command line arguments
@@ -543,7 +640,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblAll;
     private javax.swing.JLabel lblCapNhat;
-    private javax.swing.JLabel lblDaThanhToan;
     private javax.swing.JLabel lblDiChuyen;
     private javax.swing.JLabel lblDoUong;
     private javax.swing.JLabel lblExit;
@@ -553,10 +649,9 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     private javax.swing.JLabel lblNgayTao;
     private javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lblPhieuNhap;
-    private javax.swing.JLabel lblSetDaThanhToan;
+    private javax.swing.JLabel lblSetMaPhieu;
     private javax.swing.JLabel lblSetNgayTao;
     private javax.swing.JLabel lblSetNhanVien;
-    private javax.swing.JLabel lblSetSoPhieu;
     private javax.swing.JLabel lblSetTongTien;
     private javax.swing.JLabel lblThoat;
     private javax.swing.JLabel lblThucAn;

@@ -47,8 +47,8 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
     public void delete() {
         int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
-            String maLoaiTienChi = lblMaPhieu.getText();
-            BLL_PhieuChi.delete(maLoaiTienChi);
+            String maPhieuChi = lblSetMaPhieu.getText();
+            BLL_PhieuChi.delete(maPhieuChi);
         }
         return;
     }
@@ -59,7 +59,7 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
     }
 
     public void loadChiTiet() {
-        ArrayList<DTO_PhieuChi> array = BLL_PhieuChi.select(GUI_pnl_ChiTietPhieuChi.indexPosition + 1);
+        ArrayList<DTO_PhieuChi> array = BLL_PhieuChi.search(GUI_pnl_QuanLiChiPhi.tuNgay, GUI_pnl_QuanLiChiPhi.denNgay, GUI_pnl_ChiTietPhieuChi.indexPosition + 1);
         BLL_PhieuChi.loadChiTiet(array, lblSetMaPhieu, cboMucChi, txtTongTien, cboPhuongThuc, txtGhiChu, lblSetNgayTao, lblSetNhanVien);
     }
 
@@ -153,6 +153,11 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
         lblXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblXoaMouseClicked(evt);
+            }
+        });
+        lblXoa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lblXoaKeyPressed(evt);
             }
         });
         sdoChucNang.add(lblXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 70, 40));
@@ -320,6 +325,10 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
         delete();
         this.dispose();
     }//GEN-LAST:event_lblXoaMouseClicked
+
+    private void lblXoaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblXoaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblXoaKeyPressed
 
     /**
      * @param args the command line arguments

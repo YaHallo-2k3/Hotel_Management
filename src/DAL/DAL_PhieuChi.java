@@ -38,12 +38,22 @@ public class DAL_PhieuChi {
         String sqlDelete = "DELETE FROM PhieuChi WHERE MaPhieuChi = ?";
         HELPER_ConnectSQL.executeUpdate(sqlDelete, maPhieuChi);
     }
-    
-    public static ResultSet rowNumber(int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuChi) AS RowNumber FROM PhieuChi) AS PhieuChi WHERE PhieuChi.RowNumber = ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
+
+    public static ResultSet search(String tuNgay, String denNgay, int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuChi) AS RowNumber FROM PhieuChi) AS PhieuChi WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND PhieuChi.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);
     }
     
+    public static ResultSet money(String tuNgay, String denNgay) {
+        String sqlSelect = "SELECT SUM(TienChi) FROM PhieuChi WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
+    }
+
+    public static ResultSet countSearch(String tuNgay, String denNgay) {
+        String sqlSelect = "SELECT COUNT(*) FROM PhieuChi WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
+    }
+
     public static ResultSet count() {
         String sqlSelect = "SELECT COUNT(*) FROM PhieuChi";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);

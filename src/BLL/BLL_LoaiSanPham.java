@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
@@ -37,7 +38,7 @@ public class BLL_LoaiSanPham {
             return true;
         }
     }
-    
+
     public static boolean alreayExits(String data, String value) {
         ResultSet rs = DAL_LoaiSanPham.select();
         ArrayList<String> array = new ArrayList<>();

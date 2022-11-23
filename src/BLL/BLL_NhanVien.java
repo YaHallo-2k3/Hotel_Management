@@ -134,18 +134,6 @@ public class BLL_NhanVien {
         }
     }
 
-    public static String nhanVienOnline() {
-        ResultSet rs = DAL_NhanVien.nhanVienOnline();
-        try {
-            while (rs.next()) {
-                return rs.getString("TenNhanVien");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public static class showImage extends DefaultTableCellRenderer {
 
         String URL;

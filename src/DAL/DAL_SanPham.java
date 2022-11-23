@@ -22,6 +22,11 @@ public class DAL_SanPham {
         String sqlSelect = "SELECT * FROM SanPham ORDER BY MaSanPham";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
+    
+    public static ResultSet select(String tenLoaiSanPham) {
+        String sqlSelect = "SELECT * FROM SanPham JOIN LoaiSanPham ON LoaiSanPham.MaLoaiSanPham = SanPham.MaLoaiSanPham WHERE TenLoaiSanPham = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tenLoaiSanPham);
+    }
 
     public static void add(DTO_SanPham sanPham) {
         String sqlInsert = "INSERT INTO SanPham VALUES(?, ?, ?, ?, ?, CONVERT(VARCHAR, ?))";

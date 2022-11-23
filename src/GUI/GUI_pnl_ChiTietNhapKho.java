@@ -10,14 +10,19 @@ import BLL.BLL_NhapKho;
 import DTO.DTO_ChiTietNhapKho;
 import DTO.DTO_NhapKho;
 import HELPER.HELPER_ChuyenDoi;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 
 /**
  *
  * @author CherryCe
  */
 public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
+
+    public static int indexPosition;
+    public static boolean isNhapKho = false;
 
     /**
      * Creates new form GUI_pnlChiTietNhapKho
@@ -28,15 +33,15 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
     }
 
     public void load() {
-        ArrayList<DTO_NhapKho> arrayNhapKho = BLL_NhapKho.selectNhapKho(GUI_pnl_QuanLiKho.index);
+        ArrayList<DTO_NhapKho> arrayNhapKho = BLL_NhapKho.search(GUI_pnl_QuanLiKho.tuNgay, GUI_pnl_QuanLiKho.denNgay, GUI_pnl_QuanLiKho.index);
         BLL_NhapKho.loadNhapKho(arrayNhapKho, lblSetMaPhieu, lblSetNhanVien, lblSetNgayTao);
-        ArrayList<DTO_ChiTietNhapKho> arrayChiTietNhapKho = BLL_ChiTietNhapKho.selectChiTietNhapKho(GUI_pnl_QuanLiKho.index);
+        ArrayList<DTO_ChiTietNhapKho> arrayChiTietNhapKho = BLL_ChiTietNhapKho.select(lblSetMaPhieu.getText());
         BLL_ChiTietNhapKho.loadChiTietNhapKho(arrayChiTietNhapKho, tblChiTietNhapKho);
         int total = 0;
         for (int i = 0; i < tblChiTietNhapKho.getRowCount(); i++) {
-            total+=HELPER_ChuyenDoi.getSoInt(tblChiTietNhapKho.getValueAt(i, 3).toString());           
+            total += HELPER_ChuyenDoi.getSoInt(tblChiTietNhapKho.getValueAt(i, 3).toString());
         }
-        lblTongTien.setText(HELPER_ChuyenDoi.getSoString(total));
+        lblTongTien.setText(HELPER_ChuyenDoi.getSoString(total) + "K");
     }
 
     /**
@@ -69,9 +74,17 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
         sdoChiTietNhapKho.setShadowOpacity(0.3F);
         sdoChiTietNhapKho.setShadowSize(4);
         sdoChiTietNhapKho.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietNhapKho.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                sdoChiTietNhapKhoMouseMoved(evt);
+            }
+        });
         sdoChiTietNhapKho.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 sdoChiTietNhapKhoMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sdoChiTietNhapKhoMouseExited(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 sdoChiTietNhapKhoMouseReleased(evt);
@@ -94,7 +107,7 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(97, 177, 90));
-        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTongTien.setText("2250,000");
         lblTongTien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sdoChiTietNhapKho.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 100, 20));
@@ -168,12 +181,26 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
 
     private void sdoChiTietNhapKhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietNhapKhoMouseClicked
         // TODO add your handling code here:
+        indexPosition = GUI_pnl_QuanLiKho.pnlFormChinh.getComponentZOrder(sdoChiTietNhapKho);
+        if (evt.getClickCount() == 2) {
+            isNhapKho = true;
+            new GUI_dal_PhieuNhap(null, true).setVisible(true);
+        }
     }//GEN-LAST:event_sdoChiTietNhapKhoMouseClicked
 
     private void sdoChiTietNhapKhoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietNhapKhoMouseReleased
         // TODO add your handling code here:
-
     }//GEN-LAST:event_sdoChiTietNhapKhoMouseReleased
+
+    private void sdoChiTietNhapKhoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietNhapKhoMouseMoved
+        // TODO add your handling code here:
+        sdoChiTietNhapKho.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(33, 150, 243)));
+    }//GEN-LAST:event_sdoChiTietNhapKhoMouseMoved
+
+    private void sdoChiTietNhapKhoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietNhapKhoMouseExited
+        // TODO add your handling code here:
+        sdoChiTietNhapKho.setBorder(null);
+    }//GEN-LAST:event_sdoChiTietNhapKhoMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

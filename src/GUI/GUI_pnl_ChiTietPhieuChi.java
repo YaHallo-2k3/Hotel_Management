@@ -41,7 +41,7 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
     }
 
     public void load() {
-        ArrayList<DTO_PhieuChi> array = BLL_PhieuChi.select(GUI_pnl_QuanLiChiPhi.index);
+        ArrayList<DTO_PhieuChi> array = BLL_PhieuChi.search(GUI_pnl_QuanLiChiPhi.tuNgay, GUI_pnl_QuanLiChiPhi.denNgay, GUI_pnl_QuanLiChiPhi.index);
         BLL_PhieuChi.load(array, lblMaPhieu, lblSetMucChi, lblTongTien, lblLoaiTien, txtGhiChu, lblSetNgayTao, lblNhanVien);
     }
 
@@ -66,12 +66,12 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
         lblSetMucChi = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(250, 200));
-        setPreferredSize(new java.awt.Dimension(250, 200));
+        setMinimumSize(new java.awt.Dimension(260, 170));
+        setPreferredSize(new java.awt.Dimension(260, 170));
 
         sdoChiTietPhieuChi.setBackground(new java.awt.Color(255, 255, 255));
-        sdoChiTietPhieuChi.setMinimumSize(new java.awt.Dimension(250, 200));
-        sdoChiTietPhieuChi.setPreferredSize(new java.awt.Dimension(250, 200));
+        sdoChiTietPhieuChi.setMinimumSize(new java.awt.Dimension(260, 170));
+        sdoChiTietPhieuChi.setPreferredSize(new java.awt.Dimension(260, 170));
         sdoChiTietPhieuChi.setShadowOpacity(0.3F);
         sdoChiTietPhieuChi.setShadowSize(4);
         sdoChiTietPhieuChi.setShadowType(HELPER.ShadowType.BOT_RIGHT);
@@ -94,46 +94,47 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
         lblLoaiTien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblLoaiTien.setForeground(new java.awt.Color(62, 73, 95));
         lblLoaiTien.setText("Tiền Mặt");
-        sdoChiTietPhieuChi.add(lblLoaiTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, 20));
+        sdoChiTietPhieuChi.add(lblLoaiTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 70, 20));
 
         lblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblNhanVien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(62, 73, 95));
+        lblNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNhanVien.setText("CherryCe");
-        sdoChiTietPhieuChi.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 60, 20));
+        lblNhanVien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sdoChiTietPhieuChi.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 80, 20));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(255, 102, 102));
-        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTongTien.setText("525,000");
-        lblTongTien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sdoChiTietPhieuChi.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 80, -1));
 
         lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        lblMaPhieu.setText("220922001");
-        sdoChiTietPhieuChi.add(lblMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 80, 20));
+        lblMaPhieu.setText("MC220922001");
+        sdoChiTietPhieuChi.add(lblMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 90, 20));
 
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayTao.setText("22/09/22");
-        sdoChiTietPhieuChi.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 80, 20));
+        lblSetNgayTao.setText("22-09-22 22:22");
+        sdoChiTietPhieuChi.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 90, 20));
 
         lblMucChi.setBackground(new java.awt.Color(255, 255, 255));
         lblMucChi.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblMucChi.setForeground(new java.awt.Color(153, 153, 153));
         lblMucChi.setText("Mục Chi");
-        sdoChiTietPhieuChi.add(lblMucChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 50, 20));
+        sdoChiTietPhieuChi.add(lblMucChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 20));
 
         txtGhiChu.setEditable(false);
         txtGhiChu.setBackground(new java.awt.Color(255, 255, 255));
         txtGhiChu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtGhiChu.setForeground(new java.awt.Color(62, 73, 95));
         txtGhiChu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoChiTietPhieuChi.add(txtGhiChu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 220, 20));
+        sdoChiTietPhieuChi.add(txtGhiChu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 230, 20));
 
         lblNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblNgayTao.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -145,17 +146,17 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
         lblSetMucChi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetMucChi.setForeground(new java.awt.Color(62, 73, 95));
         lblSetMucChi.setText("22/09/22");
-        sdoChiTietPhieuChi.add(lblSetMucChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 100, 20));
+        sdoChiTietPhieuChi.add(lblSetMucChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 170, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sdoChiTietPhieuChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoChiTietPhieuChi, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sdoChiTietPhieuChi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoChiTietPhieuChi, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

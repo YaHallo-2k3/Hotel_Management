@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Trung Thanh
  */
 public class BLL_SanPham {
-
+    
     public static boolean check(DTO_SanPham sanPham) {
         if (sanPham.getMaSanPham().isEmpty() || sanPham.getTenSanPham().isEmpty() || sanPham.getMaLoaiSanPham().isEmpty() || sanPham.getDonViTinh().isEmpty() || sanPham.getGiaBan() == 0 || sanPham.getNgayTao() == null) {
             return false;
@@ -37,7 +37,7 @@ public class BLL_SanPham {
             return true;
         }
     }
-
+    
     public static boolean alreayExits(String data, String value) {
         ResultSet rs = DAL_SanPham.select();
         ArrayList<String> array = new ArrayList<>();
@@ -55,7 +55,7 @@ public class BLL_SanPham {
         }
         return true;
     }
-
+    
     public static void add(DTO_SanPham sanPham) {
         if (!check(sanPham)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -66,7 +66,7 @@ public class BLL_SanPham {
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-
+    
     public static void delete(String maSanPham) {
         try {
             DAL_SanPham.delete(maSanPham);
@@ -74,7 +74,7 @@ public class BLL_SanPham {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
         }
     }
-
+    
     public static void edit(DTO_SanPham sanPham) {
         if (!check(sanPham)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -83,7 +83,7 @@ public class BLL_SanPham {
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-
+    
     public static ArrayList<DTO_SanPham> select() {
         ResultSet rs = DAL_SanPham.select();
         ArrayList<DTO_SanPham> array = new ArrayList<>();
@@ -103,7 +103,27 @@ public class BLL_SanPham {
         }
         return array;
     }
-
+    
+    public static ArrayList<DTO_SanPham> select(String tenLoaiSanPham) {
+        ResultSet rs = DAL_SanPham.select(tenLoaiSanPham);
+        ArrayList<DTO_SanPham> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_SanPham sanPham = new DTO_SanPham();
+                sanPham.setMaSanPham(rs.getString("MaSanPham"));
+                sanPham.setTenSanPham(rs.getString("TenSanPham"));
+                sanPham.setMaLoaiSanPham(rs.getString("MaLoaiSanPham"));
+                sanPham.setDonViTinh(rs.getString("DonViTinh"));
+                sanPham.setGiaBan(rs.getInt("GiaBan"));
+                sanPham.setNgayTao(rs.getTimestamp("NgayTao"));
+                array.add(sanPham);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+    
     public static void load(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
@@ -120,7 +140,7 @@ public class BLL_SanPham {
             tblModel.addRow(obj);
         }
     }
-
+    
     public static void loadSanPham(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
@@ -129,12 +149,12 @@ public class BLL_SanPham {
             obj[0] = sanPham.getMaSanPham();
             obj[1] = sanPham.getTenSanPham();
             obj[2] = 0;
-            obj[3] = 0;
+            obj[3] = 0 + "K";
             tbl.getColumnModel().getColumn(4).setCellRenderer(new HELPER_SetIcon.iconAdd());
             tblModel.addRow(obj);
         }
     }
-
+    
     public static void loadKhoDichVu(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);

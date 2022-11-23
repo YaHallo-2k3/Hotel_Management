@@ -150,6 +150,11 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/close (1).png"))); // NOI18N
+        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExitMouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 30, 30));
 
         sdoHangTon.setBackground(new java.awt.Color(255, 255, 255));
@@ -219,6 +224,11 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
     private void txtMaHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaHangActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaHangActionPerformed
+
+    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_lblExitMouseClicked
 
     /**
      * @param args the command line arguments

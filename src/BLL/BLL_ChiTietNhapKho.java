@@ -6,6 +6,8 @@
 package BLL;
 
 import DAL.DAL_ChiTietNhapKho;
+import DAL.DAL_NhapKho;
+import DAL.DAL_PhieuChi;
 import DTO.DTO_ChiTietNhapKho;
 import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
@@ -32,6 +34,24 @@ public class BLL_ChiTietNhapKho {
         } else {
             return true;
         }
+    }
+
+    public static boolean alreayExits(String data, String value) {
+        ResultSet rs = DAL_ChiTietNhapKho.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString(data));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.size(); i++) {
+            if (value.equals(array.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void add(DTO_ChiTietNhapKho chiTietNhapKho) {
@@ -68,25 +88,6 @@ public class BLL_ChiTietNhapKho {
         }
         return array;
     }
-    
-    public static ArrayList<DTO_ChiTietNhapKho> selectChiTietNhapKho(int index) {
-        ResultSet rs = DAL_ChiTietNhapKho.rowNumber(index);
-        ArrayList<DTO_ChiTietNhapKho> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                DTO_ChiTietNhapKho chiTietNhapKho = new DTO_ChiTietNhapKho();
-                chiTietNhapKho.setMaChiTietNhapKho(rs.getString("MaChiTietNhapKho"));
-                chiTietNhapKho.setMaNhapKho(rs.getString("MaNhapKho"));
-                chiTietNhapKho.setMaSanPham(rs.getString("MaSanPham"));
-                chiTietNhapKho.setSoLuong(rs.getInt("SoLuong"));
-                chiTietNhapKho.setGiaNhap(rs.getInt("GiaNhap"));
-                array.add(chiTietNhapKho);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return array;
-    }
 
     public static void load(ArrayList<DTO_ChiTietNhapKho> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
@@ -96,13 +97,13 @@ public class BLL_ChiTietNhapKho {
             obj[0] = chiTietNhapKho.getMaSanPham();
             obj[1] = BLL_MaTenLoai.findTenSanPham(chiTietNhapKho.getMaSanPham());
             obj[2] = chiTietNhapKho.getSoLuong();
-            obj[3] = chiTietNhapKho.getGiaNhap();
-            obj[4] = chiTietNhapKho.getSoLuong() * chiTietNhapKho.getGiaNhap();
+            obj[3] = chiTietNhapKho.getGiaNhap() + "K";
+            obj[4] = chiTietNhapKho.getSoLuong() * chiTietNhapKho.getGiaNhap() + "K";
             tbl.getColumnModel().getColumn(5).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
         }
     }
-    
+
     public static void loadChiTietNhapKho(ArrayList<DTO_ChiTietNhapKho> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
@@ -110,8 +111,8 @@ public class BLL_ChiTietNhapKho {
             Object obj[] = new Object[4];
             obj[0] = BLL_MaTenLoai.findTenSanPham(chiTietNhapKho.getMaSanPham());
             obj[1] = chiTietNhapKho.getSoLuong();
-            obj[2] = chiTietNhapKho.getGiaNhap();
-            obj[3] = chiTietNhapKho.getSoLuong() * chiTietNhapKho.getGiaNhap();
+            obj[2] = chiTietNhapKho.getGiaNhap() + "K";
+            obj[3] = chiTietNhapKho.getSoLuong() * chiTietNhapKho.getGiaNhap() + "K";
             tblModel.addRow(obj);
         }
     }

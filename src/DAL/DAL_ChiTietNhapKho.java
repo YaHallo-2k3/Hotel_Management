@@ -30,18 +30,13 @@ public class DAL_ChiTietNhapKho {
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maNhapKho);
     }
     
-    public static ResultSet count() {
-        String sqlSelect = "SELECT COUNT(*) FROM ChiTietNhapkho";
+    public static ResultSet select() {
+        String sqlSelect = "SELECT * FROM ChiTietNhapKho ORDER BY MaChiTietNhapKho";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
     
     public static ResultSet count(String thoiGian) {
         String sqlSelect = "SELECT COUNT(*) FROM ChiTietNhapkho WHERE MaNhapKho LIKE ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + thoiGian + "%");
-    }
-    
-    public static ResultSet rowNumber(int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaNhapKho) AS RowNumber FROM ChiTietNhapKho) AS ChiTietNhapKho  WHERE ChiTietNhapKho.RowNumber = ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
     }
 }

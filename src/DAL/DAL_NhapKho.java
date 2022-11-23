@@ -24,31 +24,26 @@ public class DAL_NhapKho {
 
     public static void delete(String maNhapKho) {
         String sqlDelete = "DELETE FROM NhapKho WHERE MaNhapKho = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlDelete, maNhapKho, maNhapKho);
+        HELPER_ConnectSQL.executeUpdate(sqlDelete, maNhapKho);
     }
 
-    public static void edit(DTO_NhapKho nhapKho) {
-        String sqlUpdate = "UPDATE NhapKho SET MaNhanVien = ?, NgayTao = CONVERT(VARCHAR, ?), GhiChu = ? WHERE MaNhapKho = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlUpdate, BLL_MaTenLoai.findMaNhanVien(nhapKho.getMaNhanVien()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", nhapKho.getNgayTao()), nhapKho.getGhiChu(), nhapKho.getMaNhapKho());
-    }
-
-    public static ResultSet select(String maNhapKho) {
-        String sqlSelect = "SELECT * FROM NhapKho WHERE MaNhapKho = ? ORDER BY MaNhapKho";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, maNhapKho);
-    }
-
-    public static ResultSet count() {
-        String sqlSelect = "SELECT COUNT(*) FROM Nhapkho";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    public static ResultSet countSearch(String tuNgay, String denNgay) {
+        String sqlSelect = "SELECT COUNT(*) FROM NhapKho WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
     }
 
     public static ResultSet count(String thoiGian) {
         String sqlSelect = "SELECT COUNT(*) FROM Nhapkho WHERE MaNhapKho LIKE ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + thoiGian + "%");
     }
+
+    public static ResultSet search(String tuNgay, String denNgay, int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaNhapKho) AS RowNumber FROM NhapKho) AS NhapKho WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND NhapKho.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);
+    }
     
-    public static ResultSet rowNumber(int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaNhapKho) AS RowNumber FROM NhapKho) AS NhapKho WHERE NhapKho.RowNumber = ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
+    public static ResultSet money(String tuNgay, String denNgay) {
+        String sqlSelect = "SELECT SUM(SoLuong * GiaNhap) FROM ChiTietNhapkho JOIN NhapKho ON NhapKho.MaNhapKho = ChiTietNhapkho.MaNhapKho WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
     }
 }

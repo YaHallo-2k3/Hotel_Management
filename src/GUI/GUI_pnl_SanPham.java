@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
  *
  * @author CherryCe
  */
+
+
 public class GUI_pnl_SanPham extends javax.swing.JPanel {
 
     /**
@@ -36,25 +38,15 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     }
 
     public void deleteLoaiSanPham(int index) {
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Xóa");
-        } else {
-            int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
-                int indexs[] = tblLoaiSanPham.getSelectedRows();
-                for (int i = 0; i < indexs.length; i++) {
-                    String maLoai = tblLoaiSanPham.getValueAt(indexs[i], 0).toString();
-                    BLL_LoaiSanPham.delete(maLoai);
-                }
-            }
-            return;
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            String maLoai = tblLoaiSanPham.getValueAt(index, 0).toString();
+            BLL_LoaiSanPham.delete(maLoai);
         }
+        return;
     }
 
-    public void editLoaiSanPham(int index) {
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
-        }
+    public void editLoaiSanPham() {
         DTO_LoaiSanPham loaiSanPham = new DTO_LoaiSanPham(txtMaLoai.getText(), txtTenLoai.getText());
         BLL_LoaiSanPham.edit(loaiSanPham);
     }
@@ -66,7 +58,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
 
     public void loadLoaiSanPham() {
         ArrayList<DTO_LoaiSanPham> array = BLL_LoaiSanPham.select();
-        new BLL_LoaiSanPham().load(array, tblLoaiSanPham);
+        BLL_LoaiSanPham.load(array, tblLoaiSanPham);
     }
 
     public void loadTenLoaiSanPham() {
@@ -80,26 +72,15 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     }
 
     public void deleteSanPham(int index) {
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Xóa");
-        } else {
-            int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
-                int indexs[] = tblSanPham.getSelectedRows();
-                for (int i = 0; i < indexs.length; i++) {
-                    String maSanPham = tblSanPham.getValueAt(indexs[i], 0).toString();
-                    BLL_SanPham.delete(maSanPham);
-                }
-            }
-            return;
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            String maSanPham = tblSanPham.getValueAt(index, 0).toString();
+            BLL_SanPham.delete(maSanPham);
         }
+        return;
     }
 
-    public void editSanPham(int index) {
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
-        }
-
+    public void editSanPham() {
         DTO_SanPham sanPham = new DTO_SanPham(txtMaHang.getText(), txtTenHang.getText(), String.valueOf(cboLoaiHang.getSelectedItem()), String.valueOf(cboDonVi.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtGiaBan.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()));
         BLL_SanPham.edit(sanPham);
     }
@@ -115,7 +96,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
 
     public void loadSanPham() {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select();
-        new BLL_SanPham().load(array, tblSanPham);
+        BLL_SanPham.load(array, tblSanPham);
     }
 
     /**
@@ -292,7 +273,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         cboLoaiHang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboLoaiHang.setForeground(new java.awt.Color(62, 73, 95));
         cboLoaiHang.setToolTipText("");
-        cboLoaiHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        cboLoaiHang.setBorder(null);
         sdoSanPham.add(cboLoaiHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 100, 20));
 
         lblGiaBan.setBackground(new java.awt.Color(255, 255, 255));
@@ -436,7 +417,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         if (tblSanPham.getValueAt(row, column) != null && tblSanPham.getValueAt(row, column + 1) != null || tblSanPham.getValueAt(row, column) != null && tblSanPham.getValueAt(row, column - 1) != null) {
             fillSanPham(row);
         } else if (tblSanPham.getValueAt(row, column) == null && tblSanPham.getValueAt(row, column - 1) != null) {
-            editSanPham(row);
+            editSanPham();
             loadSanPham();
         } else if (tblSanPham.getValueAt(row, column) == null && tblSanPham.getValueAt(row, column - 1) == null) {
             deleteSanPham(row);
@@ -451,14 +432,12 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         if (tblLoaiSanPham.getValueAt(row, column) != null && tblLoaiSanPham.getValueAt(row, column + 1) != null || tblLoaiSanPham.getValueAt(row, column) != null && tblLoaiSanPham.getValueAt(row, column - 1) != null) {
             fillLoaiSanPham(row);
         } else if (tblLoaiSanPham.getValueAt(row, column) == null && tblLoaiSanPham.getValueAt(row, column - 1) != null) {
-            editLoaiSanPham(row);
+            editLoaiSanPham();
             loadLoaiSanPham();
-            loadTenLoaiSanPham();
             loadTenLoaiSanPham();
         } else if (tblLoaiSanPham.getValueAt(row, column) == null && tblLoaiSanPham.getValueAt(row, column - 1) == null) {
             deleteLoaiSanPham(row);
             loadLoaiSanPham();
-            loadTenLoaiSanPham();
             loadTenLoaiSanPham();
         }
     }//GEN-LAST:event_tblLoaiSanPhamMouseClicked

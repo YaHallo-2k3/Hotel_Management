@@ -18,4 +18,10 @@ public class HELPER_Validate {
     public static void validateNumber(javax.swing.JTextField txt) {
         txt.setText(txt.getText().replaceAll("[abcdefghijklmnopqrstuvwxyz[*/-]]", ""));
     }
+
+    public static void setTextLimited(javax.swing.JTextField txt, int limited) {
+        if (txt.getText().length() > limited) {
+            txt.setText(txt.getText().substring(0, limited));
+        }
+    }
 }

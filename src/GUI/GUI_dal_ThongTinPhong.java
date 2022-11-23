@@ -179,12 +179,12 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     public void loadSanPham() {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select();
-        new BLL_SanPham().loadKhoDichVu(array, tblKhoDichVu);
+        BLL_SanPham.loadKhoDichVu(array, tblKhoDichVu);
     }
 
     public void loadChiTietDichVu() {
         ArrayList<DTO_ChiTietDichVu> array = BLL_ChiTietDichVu.select("DV" + lblSetMaPhieuThue.getText().substring(2, lblSetMaPhieuThue.getText().length()));
-        new BLL_ChiTietDichVu().load(array, tblDichVu);
+        BLL_ChiTietDichVu.load(array, tblDichVu);
     }
 
     public void addChiTietDichVu() {
@@ -300,7 +300,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1020, 580));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1020, 580));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlChucNang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(33, 150, 243)));

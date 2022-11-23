@@ -12,6 +12,7 @@ import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -24,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author CherryCe
  */
 public class BLL_PhieuChi {
-    
+
     public static boolean check(DTO_PhieuChi phieuChi) {
         if (phieuChi.getMaPhieuChi().isEmpty() || phieuChi.getMaLoaiTienChi().isEmpty() || phieuChi.getTienChi() == 0 || phieuChi.getMaPhuongThuc().isEmpty() || phieuChi.getNgayTao() == null || phieuChi.getMaNhanVien().isEmpty()) {
             return false;
@@ -32,7 +33,7 @@ public class BLL_PhieuChi {
             return true;
         }
     }
-    
+
     public static boolean alreayExits(String data, String value) {
         ResultSet rs = DAL_PhieuChi.select();
         ArrayList<String> array = new ArrayList<>();
@@ -50,7 +51,7 @@ public class BLL_PhieuChi {
         }
         return true;
     }
-    
+
     public static void add(DTO_PhieuChi phieuChi) {
         if (!check(phieuChi)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -61,7 +62,7 @@ public class BLL_PhieuChi {
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-    
+
     public static void delete(String maPhieuChi) {
         try {
             DAL_PhieuChi.delete(maPhieuChi);
@@ -69,7 +70,7 @@ public class BLL_PhieuChi {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
         }
     }
-    
+
     public static void edit(DTO_PhieuChi phieuChi) {
         if (!check(phieuChi)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -78,9 +79,9 @@ public class BLL_PhieuChi {
             JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-    
-    public static ArrayList<DTO_PhieuChi> select(int index) {
-        ResultSet rs = DAL_PhieuChi.rowNumber(index);
+
+    public static ArrayList<DTO_PhieuChi> search(String dateTuNgay, String dateDenNgay, int index) {
+        ResultSet rs = DAL_PhieuChi.search(dateTuNgay, dateDenNgay, index);
         ArrayList<DTO_PhieuChi> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -99,7 +100,7 @@ public class BLL_PhieuChi {
         }
         return array;
     }
-    
+
     public static void load(ArrayList<DTO_PhieuChi> array, javax.swing.JLabel lblMaPhieu, javax.swing.JLabel lblMucChi, javax.swing.JLabel lblTongTien, javax.swing.JLabel lblPhuongThuc, javax.swing.JTextField txtGhiChu, javax.swing.JLabel lblNgayTao, javax.swing.JLabel lblNhanVien) {
         for (DTO_PhieuChi phieuChi : array) {
             lblMaPhieu.setText(phieuChi.getMaPhieuChi());
@@ -111,7 +112,7 @@ public class BLL_PhieuChi {
             lblNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(phieuChi.getMaNhanVien()));
         }
     }
-    
+
     public static void loadChiTiet(ArrayList<DTO_PhieuChi> array, javax.swing.JLabel lblMaPhieu, javax.swing.JComboBox cboMucChi, javax.swing.JTextField txtTongTien, javax.swing.JComboBox cboPhuongThuc, javax.swing.JTextField txtGhiChu, javax.swing.JLabel lblNgayTao, javax.swing.JLabel lblNhanVien) {
         for (DTO_PhieuChi phieuChi : array) {
             lblMaPhieu.setText(phieuChi.getMaPhieuChi());
@@ -124,8 +125,20 @@ public class BLL_PhieuChi {
         }
     }
     
-    public static int count() {
-        ResultSet rs = DAL_PhieuChi.count();
+    public static int money(String tuNgay, String denNgay) {
+        ResultSet rs = DAL_PhieuChi.money(tuNgay, denNgay);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static int countSearch(String tuNgay, String denNgay) {
+        ResultSet rs = DAL_PhieuChi.countSearch(tuNgay, denNgay);
         try {
             while (rs.next()) {
                 return rs.getInt(1);

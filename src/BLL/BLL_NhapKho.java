@@ -52,34 +52,8 @@ public class BLL_NhapKho {
         }
     }
 
-    public static void edit(DTO_NhapKho nhapKho) {
-        if (check(nhapKho) == false) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else {
-            DAL_NhapKho.edit(nhapKho);
-        }
-    }
-
-    public static ArrayList<DTO_NhapKho> select(String maNhapKho) {
-        ResultSet rs = DAL_NhapKho.select(maNhapKho);
-        ArrayList<DTO_NhapKho> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                DTO_NhapKho nhapKho = new DTO_NhapKho();
-                nhapKho.setMaNhapKho(rs.getString("MaNhapKho"));
-                nhapKho.setMaNhanVien(rs.getString("MaNhanVien"));
-                nhapKho.setNgayTao(rs.getTimestamp("NgayTao"));
-                nhapKho.setGhiChu(rs.getString("GhiChu"));
-                array.add(nhapKho);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return array;
-    }
-
-    public static ArrayList<DTO_NhapKho> selectNhapKho(int index) {
-        ResultSet rs = DAL_NhapKho.rowNumber(index);
+    public static ArrayList<DTO_NhapKho> search(String dateTuNgay, String dateDenNgay, int index) {
+        ResultSet rs = DAL_NhapKho.search(dateTuNgay, dateDenNgay, index);
         ArrayList<DTO_NhapKho> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -104,8 +78,29 @@ public class BLL_NhapKho {
         }
     }
 
-    public static int countNhapKho() {
-        ResultSet rs = DAL_NhapKho.count();
+    public static void loadChiTietNhapKho(ArrayList<DTO_NhapKho> array, JLabel lblMaPhieu, JLabel lblMaNhanVien, JLabel lblNgayTao, JTextField txtGhiChu) {
+        for (DTO_NhapKho nhapKho : array) {
+            lblMaPhieu.setText(nhapKho.getMaNhapKho());
+            lblMaNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(nhapKho.getMaNhanVien()));
+            lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy HH:mm", nhapKho.getNgayTao()));
+            txtGhiChu.setText(nhapKho.getGhiChu());
+        }
+    }
+
+    public static int countSearch(String tuNgay, String denNgay) {
+        ResultSet rs = DAL_NhapKho.countSearch(tuNgay, denNgay);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static int money(String tuNgay, String denNgay) {
+        ResultSet rs = DAL_NhapKho.money(tuNgay, denNgay);
         try {
             while (rs.next()) {
                 return rs.getInt(1);

@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -29,6 +30,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -43,22 +45,31 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class TestDemo extends javax.swing.JFrame {
 
-    public static int rowIndex = 0;
-    public static int columnIndex = 0;
-
+    public int rowIndex;
+    public int columnIndex;
+    public String setPrice = "";
+    public String url = String.valueOf(new ImageIcon(getClass().getResource("/DOCUMENT/SingleRoom_Day_Rate.xlsx"))).replaceAll("file:/", "");
+    public XSSFWorkbook workbook;
+    public XSSFSheet sheet;
+    public String xlFiflePath;
+    
     /**
      * Creates new form TestDemo
      */
     public TestDemo() {
         initComponents();
         setLocationRelativeTo(null);
-        jTable1.getTableHeader().setUI(null);
+
         readExcel();
+
+        System.out.println(url);
     }
 
-    public static void readExcel() {
+    public void readExcel() {
+        rowIndex = -1;
+        columnIndex = -1;
         try {
-            FileInputStream file = new FileInputStream(new File("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\DOCUMENT\\SingleRoom Rate.xlsx"));
+            FileInputStream file = new FileInputStream(new File("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\src\\DOCUMENT\\SingleRoom_Day_Rate.xlsx"));
             Workbook workbook = new XSSFWorkbook(file);
             DataFormatter dataFormatter = new DataFormatter();
             Iterator<Sheet> sheets = workbook.sheetIterator();
@@ -71,17 +82,50 @@ public class TestDemo extends javax.swing.JFrame {
                     while (cellIterator.hasNext()) {
                         Cell cell = cellIterator.next();
                         String cellValue = dataFormatter.formatCellValue(cell);
-                        if (columnIndex < 24) {
-                            columnIndex++;
-                        } else if (columnIndex == 24) {
+                        columnIndex++;
+                        if (columnIndex > 24) {
                             columnIndex = 0;
                             rowIndex++;
                         }
-                        jTable1.setValueAt(cellValue, rowIndex, columnIndex);
+                        if (rowIndex == -1) {
+                            tblGiaPhong.getColumnModel().getColumn(columnIndex).setHeaderValue(cellValue);
+                        }
+                        if (rowIndex != -1) {
+                            tblGiaPhong.setValueAt(cellValue, rowIndex, columnIndex);
+                        }
                     }
                 }
             }
             workbook.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeExcel() {
+        try {
+            Workbook wb = new XSSFWorkbook();
+            Sheet sheet = wb.createSheet("Sheet");
+            Row rowCol = sheet.createRow(0);
+
+            for (int i = 0; i < tblGiaPhong.getColumnCount(); i++) {
+                Cell cell = rowCol.createCell(i);
+                cell.setCellValue(tblGiaPhong.getColumnName(i));
+            }
+
+            for (int j = 0; j < tblGiaPhong.getRowCount(); j++) {
+                Row row = sheet.createRow(j + 1);
+                for (int k = 0; k < tblGiaPhong.getColumnCount(); k++) {
+                    Cell cell = row.createCell(k);
+                    if (tblGiaPhong.getValueAt(j, k) != null) {
+                        cell.setCellValue(tblGiaPhong.getValueAt(j, k).toString());
+                    }
+                }
+            }
+            FileOutputStream out = new FileOutputStream(new File("C:\\Users\\CherryCe\\Downloads\\DoubleRoom_Hour_Rate.xlsx"));
+            wb.write(out);
+            wb.close();
+            out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,45 +140,48 @@ public class TestDemo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable()
+        scrGiaPhong = new javax.swing.JScrollPane();
+        tblGiaPhong = new javax.swing.JTable()
         {
             @Override
-
-            public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int columnIndex) {
-
-                Component componenet = super.prepareRenderer(renderer, rowIndex, columnIndex);
+            public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int columnIndex
+            ) {
+                Component component = super.prepareRenderer(renderer, rowIndex, columnIndex);
                 Object value = getModel().getValueAt(rowIndex, columnIndex);
-
-                if (rowIndex == 0) {
-                    componenet.setBackground(new Color(61, 132, 184));
-                    componenet.setForeground(new Color(255, 255, 255));
-                } else if (columnIndex == 0) {
-                    componenet.setBackground(new Color(74, 169, 108));
-                    componenet.setForeground(new Color(255, 255, 255));
-                } else if (rowIndex <= 12 && columnIndex <= 13) {
-                    componenet.setBackground(new Color(255, 199, 206));
-                    componenet.setForeground(new Color(0, 0, 0));
-                } else if (rowIndex >= 13 && columnIndex <= 24 - rowIndex) {
-                    componenet.setBackground(new Color(252, 84, 4));
-                    componenet.setForeground(new Color(0, 0, 0));
-                } else if (rowIndex <= 12 && rowIndex >=6 && columnIndex >= 25 - rowIndex && columnIndex <= 19) {
-                    componenet.setBackground(new Color(255, 255, 0));
-                    componenet.setForeground(new Color(0, 0, 0));
-                } else {
-                    componenet.setBackground(new Color(246, 246, 246));
-                    componenet.setForeground(new Color(0, 0, 0));
+                tblGiaPhong.getTableHeader().setBackground(new Color(61, 132, 184));
+                tblGiaPhong.getTableHeader().setForeground(new Color(255, 255, 255));
+                tblGiaPhong.getTableHeader().setOpaque(false);
+                if (setPrice == ""){
+                    if (columnIndex == 0) {
+                        component.setBackground(new Color(77, 169, 108));
+                        component.setForeground(new Color(255, 255, 255));
+                    }else if (rowIndex >= 0 && rowIndex <=4 && columnIndex >= 0 && columnIndex <= 5 - rowIndex){
+                        component.setBackground(new Color(255, 199, 206));
+                        component.setForeground(new Color(0, 0, 0));
+                    }else if (rowIndex >= 14 && rowIndex <= 17 && columnIndex >= 1 && columnIndex <= 13){
+                        component.setBackground(new Color(255, 153, 102));
+                        component.setForeground(new Color(0, 0, 0));
+                    }else if (rowIndex >= 0 && rowIndex <= 23 && columnIndex >= 14 && columnIndex <= 18){
+                        component.setBackground(new Color(240, 240, 240));
+                        component.setForeground(new Color(0, 0, 0));
+                    }else{
+                        component.setForeground(new Color(0, 0, 0));
+                        component.setBackground(new Color(255, 255, 102));
+                    }
                 }
-                return componenet;
+                return component;
             }
         }
         ;
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
-        setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        scrGiaPhong.setBackground(new java.awt.Color(255, 255, 255));
+        scrGiaPhong.setBorder(null);
 
-        jTable1.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblGiaPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        tblGiaPhong.setForeground(new java.awt.Color(62, 73, 95));
+        tblGiaPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -148,8 +195,7 @@ public class TestDemo extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -165,17 +211,84 @@ public class TestDemo extends javax.swing.JFrame {
             new String [] {
                 "", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"
             }
-        ));
-        jTable1.setRowHeight(30);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-        }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true
+            };
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblGiaPhong.setRowHeight(30);
+        tblGiaPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblGiaPhongMouseClicked(evt);
+            }
+        });
+        scrGiaPhong.setViewportView(tblGiaPhong);
+
+        jButton1.setText("Read");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Write");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(scrGiaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 1130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(242, 242, 242)
+                        .addComponent(jButton1)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton2)))
+                .addContainerGap(119, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(scrGiaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        readExcel();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        writeExcel();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tblGiaPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGiaPhongMouseClicked
+        // TODO add your handling code here:
+        int row = tblGiaPhong.getSelectedRow();
+        int volumn = tblGiaPhong.getSelectedColumn();
+        System.out.println(tblGiaPhong.getValueAt(row, volumn).toString());
+    }//GEN-LAST:event_tblGiaPhongMouseClicked
 
     /**
      * @param args the command line arguments
@@ -221,7 +334,9 @@ public class TestDemo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private static javax.swing.JTable jTable1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane scrGiaPhong;
+    private javax.swing.JTable tblGiaPhong;
     // End of variables declaration//GEN-END:variables
 }

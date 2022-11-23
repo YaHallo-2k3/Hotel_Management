@@ -109,7 +109,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         pnlFormChinh.add(component);
         pnlFormChinh.validate();
     }
-    
+
     public void logOut() {
         int choice = JOptionPane.showConfirmDialog(null, "Bạn Có Muốn Đăng Xuất ???", "LogOut", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
@@ -630,7 +630,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblSoDoPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSoDoPhongMouseClicked
         // TODO add your handling code here:
-//        menuItemClicked(lblSoDoPhong, lblSoDoPhongIconClicked, lblSoDoPhongIconExited);
+        menuItemClicked(lblSoDoPhong, lblSoDoPhongIconClicked, lblSoDoPhongIconExited, new GUI_pnl_SoDoPhong());
     }//GEN-LAST:event_lblSoDoPhongMouseClicked
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
@@ -655,7 +655,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblThietDatGiaPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThietDatGiaPhongMouseClicked
         // TODO add your handling code here:
-//        menuItemClicked(lblThietDatGiaPhong, lblThietDatGiaPhongIconClicked, lblThietDatGiaPhongIconExited);
+        menuItemClicked(lblThietDatGiaPhong, lblThietDatGiaPhongIconClicked, lblThietDatGiaPhongIconExited, new GUI_pnl_GiaPhong());
     }//GEN-LAST:event_lblThietDatGiaPhongMouseClicked
 
     private void lblQuanLiNguoiDungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiNguoiDungMouseClicked
@@ -825,7 +825,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblQuanLiKhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiKhoMouseClicked
         // TODO add your handling code here:
-//        menuItemClicked(lblQuanLiKho, lblQuanLiKhoIconClicked, lblQuanLiKhoIconExited);
+        menuItemClicked(lblQuanLiKho, lblQuanLiKhoIconClicked, lblQuanLiKhoIconExited, new GUI_pnl_QuanLiKho());
     }//GEN-LAST:event_lblQuanLiKhoMouseClicked
 
     private void lblQuanLiChiPhiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiChiPhiMouseClicked
@@ -887,7 +887,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblQuanLiSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiSanPhamMouseClicked
         // TODO add your handling code here:
-//        menuItemClicked(lblQuanLiSanPham, lblQuanLiSanPhamIconClicked, lblQuanLiSanPhamIconExited);
+        menuItemClicked(lblQuanLiSanPham, lblQuanLiSanPhamIconClicked, lblQuanLiSanPhamIconExited, new GUI_pnl_SanPham());
     }//GEN-LAST:event_lblQuanLiSanPhamMouseClicked
 
     private void lblQuanLiSanPhamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiSanPhamMouseExited

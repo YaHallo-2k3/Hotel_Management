@@ -20,12 +20,12 @@ public class HELPER_SetMa {
             int rowCount = 0;
             while (rs.next()) {
                 rowCount = rs.getInt(1);
-                if (rowCount > 99) {
-                    primaryKey = primaryKey + (rowCount + 1);
-                } else if (rowCount > 9) {
-                    primaryKey = primaryKey + "0" + (rowCount + 1);
-                } else {
+                if (rowCount < 9) {
                     primaryKey = primaryKey + "00" + (rowCount + 1);
+                } else if (rowCount >= 9) {
+                    primaryKey = primaryKey + "0" + (rowCount + 1);
+                } else if (rowCount >= 99) {
+                    primaryKey = primaryKey + (rowCount + 1);
                 }
             }
         } catch (Exception e) {
@@ -42,12 +42,12 @@ public class HELPER_SetMa {
             int rowCount = 0;
             while (rs.next()) {
                 rowCount = rs.getInt(1);
-                if (rowCount > 99) {
-                    primaryKey = primaryKey + (rowCount + 1);
-                } else if (rowCount > 9) {
-                    primaryKey = primaryKey + "0" + (rowCount + 1);
-                } else {
+                if (rowCount < 9) {
                     primaryKey = primaryKey + "00" + (rowCount + 1);
+                } else if (rowCount >= 9) {
+                    primaryKey = primaryKey + "0" + (rowCount + 1);
+                } else if (rowCount >= 99) {
+                    primaryKey = primaryKey + (rowCount + 1);
                 }
             }
         } catch (Exception e) {

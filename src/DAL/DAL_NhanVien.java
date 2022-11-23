@@ -36,9 +36,4 @@ public class DAL_NhanVien {
         String sqlSelect = "SELECT * FROM NhanVien ORDER BY MaNhanVien";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
-
-    public static ResultSet nhanVienOnline() {
-        String sqlSelect = "SELECT * FROM NhanVien WHERE TrangThaiNhanVien = 1 ORDER BY maNhanVien";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect);
-    }
 }
