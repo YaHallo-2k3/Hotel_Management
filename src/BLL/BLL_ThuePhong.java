@@ -38,29 +38,9 @@ public class BLL_ThuePhong {
         }
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_ThuePhong.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void addThuePhong(DTO_ThuePhong thuePhong) {
         if (!check(thuePhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaPhieuThue", thuePhong.getMaPhieuThue())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_ThuePhong.addThuePhong(thuePhong);
             DAL_ThuePhong.setTrangThaiPhong("CoKhach", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
@@ -71,8 +51,6 @@ public class BLL_ThuePhong {
     public static void addDatPhong(DTO_ThuePhong thuePhong) {
         if (!check(thuePhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaPhieuThue", thuePhong.getMaPhieuThue())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_ThuePhong.addDatPhong(thuePhong);
             DAL_ThuePhong.setTrangThaiPhong("DatTruoc", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));

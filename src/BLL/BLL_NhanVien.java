@@ -13,6 +13,8 @@ import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.awt.Image;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
@@ -38,42 +40,16 @@ public class BLL_NhanVien {
         return true;
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_NhanVien.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void add(DTO_NhanVien nhanVien) {
         if (!check(nhanVien)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-            return;
-        } else if (!alreayExits("MaNhanVien", nhanVien.getMaNhanVien())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_NhanVien.add(nhanVien);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
     public static void delete(String maNhanVien) {
-        try {
-            DAL_NhanVien.delete(maNhanVien);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_NhanVien.delete(maNhanVien);
     }
 
     public static void edit(DTO_NhanVien nhanVien) {
@@ -81,7 +57,6 @@ public class BLL_NhanVien {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_NhanVien.edit(nhanVien);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 

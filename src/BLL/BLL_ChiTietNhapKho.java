@@ -36,24 +36,6 @@ public class BLL_ChiTietNhapKho {
         }
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_ChiTietNhapKho.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void add(DTO_ChiTietNhapKho chiTietNhapKho) {
         if (!check(chiTietNhapKho)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -63,11 +45,7 @@ public class BLL_ChiTietNhapKho {
     }
 
     public static void delete(String maNhapKho, String maSanPham) {
-        try {
-            DAL_ChiTietNhapKho.delete(maNhapKho, maSanPham);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_ChiTietNhapKho.delete(maNhapKho, maSanPham);
     }
 
     public static ArrayList<DTO_ChiTietNhapKho> select(String maNhapKho) {

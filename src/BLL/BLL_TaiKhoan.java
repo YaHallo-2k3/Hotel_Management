@@ -5,7 +5,6 @@
  */
 package BLL;
 
-import static BLL.BLL_NhanVien.alreayExits;
 import DAL.DAL_TaiKhoan;
 import DTO.DTO_LoaiPhong;
 import DTO.DTO_TaiKhoan;
@@ -67,22 +66,15 @@ public class BLL_TaiKhoan {
     public static void add(DTO_TaiKhoan taiKhoan) {
         if (!check(taiKhoan)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("TenDangNhap", taiKhoan.getTenDangNhap())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else if (!validateMail(taiKhoan.getTenDangNhap())) {
             JOptionPane.showMessageDialog(null, "Lỗi Định Dạng ???");
         } else {
             DAL_TaiKhoan.add(taiKhoan);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
     public static void delete(String maNhanVien) {
-        try {
-            DAL_TaiKhoan.delete(maNhanVien);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_TaiKhoan.delete(maNhanVien);
     }
 
     public static void edit(String tenDangNhap, String matKhau, String maTaiKhoan) {
@@ -92,7 +84,6 @@ public class BLL_TaiKhoan {
             JOptionPane.showMessageDialog(null, "Lỗi Định Dạng ???");
         } else {
             DAL_TaiKhoan.edit(tenDangNhap, matKhau, maTaiKhoan);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -101,7 +92,6 @@ public class BLL_TaiKhoan {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_TaiKhoan.editMatKhau(matKhau, tenDangNhap);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -142,7 +132,7 @@ public class BLL_TaiKhoan {
         }
         return array;
     }
-    
+
     public static String selectMaNhanVien(String tenDangNhap) {
         ResultSet rs = DAL_TaiKhoan.selectMaNhanVien(tenDangNhap);
         try {

@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Trung Thanh
  */
 public class BLL_SanPham {
-    
+
     public static boolean check(DTO_SanPham sanPham) {
         if (sanPham.getMaSanPham().isEmpty() || sanPham.getTenSanPham().isEmpty() || sanPham.getMaLoaiSanPham().isEmpty() || sanPham.getDonViTinh().isEmpty() || sanPham.getGiaBan() == 0 || sanPham.getNgayTao() == null) {
             return false;
@@ -37,53 +37,27 @@ public class BLL_SanPham {
             return true;
         }
     }
-    
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_SanPham.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
+
     public static void add(DTO_SanPham sanPham) {
         if (!check(sanPham)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaSanPham", sanPham.getMaSanPham())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_SanPham.add(sanPham);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-    
+
     public static void delete(String maSanPham) {
-        try {
-            DAL_SanPham.delete(maSanPham);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_SanPham.delete(maSanPham);
     }
-    
+
     public static void edit(DTO_SanPham sanPham) {
         if (!check(sanPham)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_SanPham.edit(sanPham);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
-    
+
     public static ArrayList<DTO_SanPham> select() {
         ResultSet rs = DAL_SanPham.select();
         ArrayList<DTO_SanPham> array = new ArrayList<>();
@@ -103,9 +77,9 @@ public class BLL_SanPham {
         }
         return array;
     }
-    
-    public static ArrayList<DTO_SanPham> select(String tenLoaiSanPham) {
-        ResultSet rs = DAL_SanPham.select(tenLoaiSanPham);
+
+    public static ArrayList<DTO_SanPham> select(String maLoaiSanPham) {
+        ResultSet rs = DAL_SanPham.select(maLoaiSanPham);
         ArrayList<DTO_SanPham> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -123,7 +97,7 @@ public class BLL_SanPham {
         }
         return array;
     }
-    
+
     public static void load(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
@@ -140,7 +114,7 @@ public class BLL_SanPham {
             tblModel.addRow(obj);
         }
     }
-    
+
     public static void loadSanPham(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
@@ -154,7 +128,7 @@ public class BLL_SanPham {
             tblModel.addRow(obj);
         }
     }
-    
+
     public static void loadKhoDichVu(ArrayList<DTO_SanPham> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);

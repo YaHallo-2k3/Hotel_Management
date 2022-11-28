@@ -35,4 +35,14 @@ public class DAL_Phong {
         String sqlSelect = "SELECT * FROM Phong ORDER BY MaPhong";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
+
+    public static ResultSet searchChonPhong(String maTang, int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhong) AS RowNumber FROM Phong) AS Phong WHERE Phong.MaTrangThaiPhong NOT LIKE 'PhongTrong' AND Phong.MaTrangThaiPhong NOT LIKE 'TraPhong' AND Phong.MaTang = ? AND Phong.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maTang, index);
+    }
+
+    public static ResultSet countSearchChonPhong(String maTang) {
+        String sqlSelect = "SELECT COUNT(*) FROM Phong WHERE MaTrangThaiPhong NOT LIKE 'PhongTrong' AND MaTrangThaiPhong NOT LIKE 'TraPhong' AND MaTang = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maTang);
+    }
 }

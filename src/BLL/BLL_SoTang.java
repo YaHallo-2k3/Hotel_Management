@@ -32,41 +32,16 @@ public class BLL_SoTang {
         }
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_SoTang.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void add(DTO_SoTang soTang) {
         if (!check(soTang)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaTang", soTang.getMaTang())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_SoTang.add(soTang);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
     public static void delete(String maTang) {
-        try {
-            DAL_SoTang.delete(maTang);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_SoTang.delete(maTang);
     }
 
     public static void edit(DTO_SoTang soTang) {
@@ -74,7 +49,6 @@ public class BLL_SoTang {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_SoTang.edit(soTang);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 

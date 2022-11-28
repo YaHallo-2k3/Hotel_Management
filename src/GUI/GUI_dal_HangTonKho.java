@@ -91,7 +91,7 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
 
         lblSetTienBan.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTienBan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblSetTienBan.setForeground(new java.awt.Color(62, 73, 95));
+        lblSetTienBan.setForeground(new java.awt.Color(255, 102, 102));
         lblSetTienBan.setText("00");
         sdoThongTinPhong.add(lblSetTienBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 80, 90, 20));
 
@@ -139,7 +139,7 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
 
         lblSetTienNhap.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTienNhap.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblSetTienNhap.setForeground(new java.awt.Color(62, 73, 95));
+        lblSetTienNhap.setForeground(new java.awt.Color(97, 177, 90));
         lblSetTienNhap.setText("0");
         sdoThongTinPhong.add(lblSetTienNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, 20));
 

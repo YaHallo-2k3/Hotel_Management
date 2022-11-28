@@ -6,14 +6,18 @@
 package GUI;
 
 import BLL.BLL_ChiTietNhapKho;
+import BLL.BLL_LoaiSanPham;
 import BLL.BLL_MaTenLoai;
 import BLL.BLL_NhapKho;
 import BLL.BLL_NhanVien;
 import BLL.BLL_SanPham;
 import BLL.BLL_TaiKhoan;
 import DAL.DAL_ChiTietNhapKho;
+import DAL.DAL_LoaiSanPham;
 import DAL.DAL_ThuePhong;
 import DTO.DTO_ChiTietNhapKho;
+import DTO.DTO_LoaiPhong;
+import DTO.DTO_LoaiSanPham;
 import DTO.DTO_NhapKho;
 import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
@@ -33,7 +37,9 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
 
     public int row;
     public int column;
-    public String tenLoaiSanPham;
+    public static String str_1;
+    public static String str_2;
+    public static String str_3;
     public boolean isUpgrade = false;
     public boolean isAdd = false;
 
@@ -46,6 +52,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         check();
         loadSanPham();
+        loadTenLoaiSanPham();
         setTongTien();
     }
 
@@ -78,8 +85,15 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         BLL_SanPham.loadSanPham(array, tblDichVu);
     }
 
-    public void loadSanPham(String tenLoaiSanPham) {
-        ArrayList<DTO_SanPham> array = BLL_SanPham.select(tenLoaiSanPham);
+    public void loadTenLoaiSanPham() {
+        BLL_LoaiSanPham.load();
+        lbl_1.setText(str_1);
+        lbl_2.setText(str_2);
+        lbl_3.setText(str_3);
+    }
+
+    public void loadSanPham(String maLoaiSanPham) {
+        ArrayList<DTO_SanPham> array = BLL_SanPham.select(maLoaiSanPham);
         BLL_SanPham.loadSanPham(array, tblDichVu);
     }
 
@@ -156,10 +170,10 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblNgayTao = new javax.swing.JLabel();
         lblPhieuNhap = new javax.swing.JLabel();
         lblSetNgayTao = new javax.swing.JLabel();
-        lblDoUong = new javax.swing.JLabel();
-        lblDiChuyen = new javax.swing.JLabel();
+        lbl_1 = new javax.swing.JLabel();
+        lbl_3 = new javax.swing.JLabel();
         lblAll = new javax.swing.JLabel();
-        lblThucAn = new javax.swing.JLabel();
+        lbl_2 = new javax.swing.JLabel();
         txtGhiChu = new javax.swing.JTextField();
         lblExit = new javax.swing.JLabel();
         sdoDichVu = new HELPER.PanelShadow();
@@ -233,33 +247,33 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblSetNgayTao.setText("16/09/22 22:08");
         sdoThongTinPhong.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, -1, 20));
 
-        lblDoUong.setBackground(new java.awt.Color(255, 102, 102));
-        lblDoUong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblDoUong.setForeground(new java.awt.Color(255, 255, 255));
-        lblDoUong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDoUong.setText("Đồ Uống");
-        lblDoUong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblDoUong.setOpaque(true);
-        lblDoUong.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbl_1.setBackground(new java.awt.Color(255, 102, 102));
+        lbl_1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lbl_1.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_1.setText("Đồ Uống");
+        lbl_1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lbl_1.setOpaque(true);
+        lbl_1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblDoUongMouseClicked(evt);
+                lbl_1MouseClicked(evt);
             }
         });
-        sdoThongTinPhong.add(lblDoUong, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 60, 30));
+        sdoThongTinPhong.add(lbl_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 70, 30));
 
-        lblDiChuyen.setBackground(new java.awt.Color(255, 102, 102));
-        lblDiChuyen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblDiChuyen.setForeground(new java.awt.Color(255, 255, 255));
-        lblDiChuyen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDiChuyen.setText("Di Chuyển");
-        lblDiChuyen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblDiChuyen.setOpaque(true);
-        lblDiChuyen.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbl_3.setBackground(new java.awt.Color(255, 102, 102));
+        lbl_3.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lbl_3.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_3.setText("Di Chuyển");
+        lbl_3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lbl_3.setOpaque(true);
+        lbl_3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblDiChuyenMouseClicked(evt);
+                lbl_3MouseClicked(evt);
             }
         });
-        sdoThongTinPhong.add(lblDiChuyen, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 80, 80, 30));
+        sdoThongTinPhong.add(lbl_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 80, 70, 30));
 
         lblAll.setBackground(new java.awt.Color(255, 102, 102));
         lblAll.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -273,21 +287,21 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
                 lblAllMouseClicked(evt);
             }
         });
-        sdoThongTinPhong.add(lblAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 40, 30));
+        sdoThongTinPhong.add(lblAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 40, 30));
 
-        lblThucAn.setBackground(new java.awt.Color(255, 102, 102));
-        lblThucAn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblThucAn.setForeground(new java.awt.Color(255, 255, 255));
-        lblThucAn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThucAn.setText("Thức Ăn");
-        lblThucAn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblThucAn.setOpaque(true);
-        lblThucAn.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbl_2.setBackground(new java.awt.Color(255, 102, 102));
+        lbl_2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lbl_2.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_2.setText("Thức Ăn");
+        lbl_2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lbl_2.setOpaque(true);
+        lbl_2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblThucAnMouseClicked(evt);
+                lbl_2MouseClicked(evt);
             }
         });
-        sdoThongTinPhong.add(lblThucAn, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 60, 30));
+        sdoThongTinPhong.add(lbl_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 70, 30));
 
         txtGhiChu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtGhiChu.setForeground(new java.awt.Color(62, 73, 95));
@@ -321,7 +335,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         tblDichVu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -454,7 +467,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
                 lblCapNhatMouseClicked(evt);
             }
         });
-        sdoChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 110, 30));
+        sdoChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, 100, 30));
 
         lblInPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblInPhieu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -462,7 +475,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblInPhieu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInPhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/bill (3).png"))); // NOI18N
         lblInPhieu.setText("In Phiếu");
-        sdoChucNang.add(lblInPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 100, 30));
+        sdoChucNang.add(lblInPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 90, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -560,25 +573,25 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_lblCapNhatMouseClicked
 
-    private void lblDoUongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoUongMouseClicked
+    private void lbl_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_1MouseClicked
         // TODO add your handling code here:
-        loadSanPham(lblDoUong.getText());
-    }//GEN-LAST:event_lblDoUongMouseClicked
+        loadSanPham(BLL_MaTenLoai.findMaSanPham(str_1));
+    }//GEN-LAST:event_lbl_1MouseClicked
 
     private void lblAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAllMouseClicked
         // TODO add your handling code here:
         loadSanPham();
     }//GEN-LAST:event_lblAllMouseClicked
 
-    private void lblThucAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThucAnMouseClicked
+    private void lbl_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_2MouseClicked
         // TODO add your handling code here:
-        loadSanPham(lblThucAn.getText());
-    }//GEN-LAST:event_lblThucAnMouseClicked
+        loadSanPham(BLL_MaTenLoai.findMaSanPham(str_2));
+    }//GEN-LAST:event_lbl_2MouseClicked
 
-    private void lblDiChuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiChuyenMouseClicked
+    private void lbl_3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_3MouseClicked
         // TODO add your handling code here:
-        loadSanPham(lblDiChuyen.getText());
-    }//GEN-LAST:event_lblDiChuyenMouseClicked
+        loadSanPham(BLL_MaTenLoai.findMaSanPham(str_3));
+    }//GEN-LAST:event_lbl_3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -640,8 +653,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblAll;
     private javax.swing.JLabel lblCapNhat;
-    private javax.swing.JLabel lblDiChuyen;
-    private javax.swing.JLabel lblDoUong;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblGhiChu;
     private javax.swing.JLabel lblInPhieu;
@@ -654,8 +665,10 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     private javax.swing.JLabel lblSetNhanVien;
     private javax.swing.JLabel lblSetTongTien;
     private javax.swing.JLabel lblThoat;
-    private javax.swing.JLabel lblThucAn;
     private javax.swing.JLabel lblTongTien;
+    private javax.swing.JLabel lbl_1;
+    private javax.swing.JLabel lbl_2;
+    private javax.swing.JLabel lbl_3;
     private javax.swing.JScrollPane scrDichVu;
     private javax.swing.JScrollPane scrKhoDichVu;
     private HELPER.PanelShadow sdoChucNang;

@@ -645,7 +645,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDichVuMouseClicked
         // TODO add your handling code here:
-//        menuItemClicked(lblDichVu, lblDichVuIconClicked, lblDichVuIconExited);
+        menuItemClicked(lblDichVu, lblDichVuIconClicked, lblDichVuIconExited, new GUI_pnl_DichVu());
     }//GEN-LAST:event_lblDichVuMouseClicked
 
     private void lblThietDatPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThietDatPhongMouseClicked

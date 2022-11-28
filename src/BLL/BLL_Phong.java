@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -32,41 +33,16 @@ public class BLL_Phong {
         }
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_Phong.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void add(DTO_Phong phong) {
         if (!check(phong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaPhong", phong.getMaPhong())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_Phong.add(phong);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
     public static void delete(String maPhong) {
-        try {
-            DAL_Phong.delete(maPhong);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_Phong.delete(maPhong);
     }
 
     public static void edit(DTO_Phong phong) {
@@ -74,7 +50,6 @@ public class BLL_Phong {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_Phong.edit(phong);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -88,6 +63,22 @@ public class BLL_Phong {
                 phong.setTenPhong(rs.getString("TenPhong"));
                 phong.setMaTang(rs.getString("MaTang"));
                 phong.setMaLoaiPhong(rs.getString("MaLoaiPhong"));
+                phong.setMaTrangThaiPhong(rs.getString("MaTrangThaiPhong"));
+                array.add(phong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public static ArrayList<DTO_Phong> searchChonPhong(String maTang, int index) {
+        ResultSet rs = DAL_Phong.searchChonPhong(maTang, index);
+        ArrayList<DTO_Phong> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_Phong phong = new DTO_Phong();
+                phong.setMaPhong(rs.getString("MaPhong"));
                 phong.setMaTrangThaiPhong(rs.getString("MaTrangThaiPhong"));
                 array.add(phong);
             }
@@ -112,5 +103,24 @@ public class BLL_Phong {
             tbl.getColumnModel().getColumn(7).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
         }
+    }
+
+    public static void loadChonPhong(ArrayList<DTO_Phong> array, JLabel lblSoPhong, JLabel lblTrangThai) {
+        for (DTO_Phong phong : array) {
+            lblSoPhong.setText(BLL_MaTenLoai.findTenPhong(phong.getMaPhong()));
+            lblTrangThai.setText(BLL_MaTenLoai.findTenTrangThaiPhong(phong.getMaTrangThaiPhong()));
+        }
+    }
+
+    public static int countSearchChonPhong(String maTang) {
+        ResultSet rs = DAL_Phong.countSearchChonPhong(maTang);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

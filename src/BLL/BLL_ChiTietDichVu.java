@@ -34,48 +34,24 @@ public class BLL_ChiTietDichVu {
         }
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_ChiTietDichVu.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void add(DTO_ChiTietDichVu chiTietDichVu) {
         if (!check(chiTietDichVu)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaChiTiet", chiTietDichVu.getMaChiTiet())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_ChiTietDichVu.add(chiTietDichVu);
         }
     }
 
     public static void delete(String maDichVu, String maSanPham) {
-        try {
-            DAL_ChiTietDichVu.delete(maDichVu, maSanPham);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_ChiTietDichVu.delete(maDichVu, maSanPham);
     }
 
     public static void edit(int soLuong, String maSanPham, String maPhieuDichVu) {
-        try {
-            DAL_ChiTietDichVu.edit(soLuong, maSanPham, maPhieuDichVu);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        }
+//        try {
+//            DAL_ChiTietDichVu.edit(soLuong, maSanPham, maPhieuDichVu);
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+//        }
     }
 
     public static ArrayList<DTO_ChiTietDichVu> select(String maDichVu) {

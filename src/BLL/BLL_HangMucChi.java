@@ -34,41 +34,16 @@ public class BLL_HangMucChi {
         }
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_HangMucChi.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void add(DTO_HangMucChi hangMucChi) {
         if (!check(hangMucChi)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaLoaiTienChi", hangMucChi.getMaChi())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_HangMucChi.add(hangMucChi);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
     public static void delete(String maLoaiTienChi) {
-        try {
-            DAL_HangMucChi.delete(maLoaiTienChi);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_HangMucChi.delete(maLoaiTienChi);
     }
 
     public static void edit(DTO_HangMucChi hangMucChi) {
@@ -76,7 +51,6 @@ public class BLL_HangMucChi {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_HangMucChi.edit(hangMucChi);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 

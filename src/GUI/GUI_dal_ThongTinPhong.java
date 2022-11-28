@@ -71,7 +71,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         loadThongTinPhong();
         trangThaiPhong();
         tongThoiGian();
-        loadGiaPhong();
         phuongThucThanhToan();
         loadSanPham();
         loadChiTietDichVu();
@@ -130,20 +129,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
         diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
         lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
-    }
-
-    public void loadGiaPhong() {
-        int giaPhong = 0;
-        if (diffInDay >= 1) {
-            giaPhong += BLL_LoaiPhong.findGiaPhong(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), "GiaNgay") * (int) diffInDay;
-        }
-        if (diffInHours < 5) {
-            giaPhong += BLL_LoaiPhong.findGiaPhong(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), "GiaGio");
-        }
-        if (diffInHours >= 5) {
-            giaPhong += BLL_LoaiPhong.findGiaPhong(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), "GiaNgay");
-        }
-        lblSetGiaPhong.setText(HELPER_ChuyenDoi.getSoString(giaPhong));
     }
 
     public void phuongThucThanhToan() {
@@ -799,7 +784,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (dateNgayDen.getDate() != null && dateNgayDi.getDate() != null) {
             tongThoiGian();
-            loadGiaPhong();
             dateNgayDen.setMaxSelectableDate(dateNgayDi.getDate());
         }
     }//GEN-LAST:event_dateNgayDiPropertyChange
@@ -808,7 +792,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (dateNgayDen.getDate() != null && dateNgayDi.getDate() != null) {
             tongThoiGian();
-            loadGiaPhong();
             dateNgayDi.setMinSelectableDate(dateNgayDen.getDate());;
         }
     }//GEN-LAST:event_dateNgayDenPropertyChange

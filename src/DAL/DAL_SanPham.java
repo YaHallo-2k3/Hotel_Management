@@ -23,9 +23,9 @@ public class DAL_SanPham {
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
     
-    public static ResultSet select(String tenLoaiSanPham) {
-        String sqlSelect = "SELECT * FROM SanPham JOIN LoaiSanPham ON LoaiSanPham.MaLoaiSanPham = SanPham.MaLoaiSanPham WHERE TenLoaiSanPham = ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, tenLoaiSanPham);
+    public static ResultSet select(String maLoaiSanPham) {
+        String sqlSelect = "SELECT * FROM SanPham JOIN LoaiSanPham ON LoaiSanPham.MaLoaiSanPham = SanPham.MaLoaiSanPham WHERE LoaiSanPham.MaLoaiSanPham = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maLoaiSanPham);
     }
 
     public static void add(DTO_SanPham sanPham) {

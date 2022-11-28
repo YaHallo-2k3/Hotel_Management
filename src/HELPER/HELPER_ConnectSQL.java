@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +24,7 @@ public class HELPER_ConnectSQL {
     private static Connection conn;
 
     static {
-        try {   
+        try {
             Class.forName(Driver);
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
@@ -45,6 +46,26 @@ public class HELPER_ConnectSQL {
     }
 
     public static void executeUpdate(String sql, Object... args) {
+        try {
+            PreparedStatement pst = prepareStatement(sql, args);
+            try {
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
+            } catch (Exception e) {
+                if (e.getMessage().contains("PRIMARY KEY") || e.getMessage().contains("UNIQUE KEY")) {
+                    JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại ???");
+                } else {
+                    e.printStackTrace();
+                }
+            } finally {
+                pst.getConnection().close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void executeUpdateNoMessage(String sql, Object... args) {
         try {
             PreparedStatement pst = prepareStatement(sql, args);
             try {

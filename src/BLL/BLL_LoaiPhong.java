@@ -25,48 +25,23 @@ import javax.swing.table.DefaultTableModel;
 public class BLL_LoaiPhong {
 
     public static boolean check(DTO_LoaiPhong loaiPhong) {
-        if (loaiPhong.getMaPhong().isEmpty() || loaiPhong.getTenPhong().isEmpty() || loaiPhong.getSoGiuong()==0 || loaiPhong.getSoNguoi()==0) {
+        if (loaiPhong.getMaPhong().isEmpty() || loaiPhong.getTenPhong().isEmpty() || loaiPhong.getSoGiuong() == 0 || loaiPhong.getSoNguoi() == 0) {
             return false;
         } else {
             return true;
         }
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_LoaiPhong.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void add(DTO_LoaiPhong loaiPhong) {
         if (!check(loaiPhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaLoaiPhong", loaiPhong.getMaPhong())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_LoaiPhong.add(loaiPhong);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
     public static void delete(String maPhong) {
-        try {
-            DAL_LoaiPhong.delete(maPhong);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_LoaiPhong.delete(maPhong);
     }
 
     public static void edit(DTO_LoaiPhong loaiPhong) {
@@ -74,7 +49,6 @@ public class BLL_LoaiPhong {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_LoaiPhong.edit(loaiPhong);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -109,17 +83,5 @@ public class BLL_LoaiPhong {
             tbl.getColumnModel().getColumn(5).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
         }
-    }
-
-    public static int findGiaPhong(String maLoaiPhong, String loaiGia) {
-        ResultSet rs = DAL_LoaiPhong.findGiaPhong(maLoaiPhong);
-        try {
-            while (rs.next()) {
-                return rs.getInt(loaiGia);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 }

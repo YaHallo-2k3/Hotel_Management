@@ -16,12 +16,12 @@ import java.sql.*;
 public class DAL_LoaiSanPham {
 
     public static ResultSet select() {
-        String sqlSelect = "SELECT * FROM LoaiSanPham";
+        String sqlSelect = "SELECT * FROM LoaiSanPham ORDER BY MaLoaiSanPham";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
 
     public static void add(DTO_LoaiSanPham loaiSanPham) {
-        String sqlInsert = "INSERT INTO LoaiSanPham VALUES(?,?)";
+        String sqlInsert = "INSERT INTO LoaiSanPham VALUES(?, ?)";
         HELPER_ConnectSQL.executeUpdate(sqlInsert, loaiSanPham.getMaLoaiSanPham(), loaiSanPham.getTenLoaiSanPham());
     }
 

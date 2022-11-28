@@ -7,6 +7,7 @@ package BLL;
 
 import DAL.DAL_LoaiSanPham;
 import DTO.DTO_LoaiSanPham;
+import GUI.GUI_dal_PhieuNhap;
 import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.sql.ResultSet;
@@ -39,41 +40,16 @@ public class BLL_LoaiSanPham {
         }
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_LoaiSanPham.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void add(DTO_LoaiSanPham loaiSanPham) {
         if (!check(loaiSanPham)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaLoaiSanPham", loaiSanPham.getMaLoaiSanPham())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_LoaiSanPham.add(loaiSanPham);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
     public static void delete(String maLoaiSanPham) {
-        try {
-            DAL_LoaiSanPham.delete(maLoaiSanPham);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_LoaiSanPham.delete(maLoaiSanPham);
     }
 
     public static void edit(DTO_LoaiSanPham loaiSanPham) {
@@ -81,7 +57,6 @@ public class BLL_LoaiSanPham {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_LoaiSanPham.edit(loaiSanPham);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -111,6 +86,35 @@ public class BLL_LoaiSanPham {
             tbl.getColumnModel().getColumn(2).setCellRenderer(new HELPER_SetIcon.iconEdit());
             tbl.getColumnModel().getColumn(3).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
+        }
+    }
+
+    public static void load() {
+        ResultSet rs = DAL_LoaiSanPham.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString("TenLoaiSanPham"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (array.size() == 0) {
+            GUI_dal_PhieuNhap.str_1 = null;
+            GUI_dal_PhieuNhap.str_2 = null;
+            GUI_dal_PhieuNhap.str_3 = null;
+        } else if (array.size() == 1) {
+            GUI_dal_PhieuNhap.str_1 = array.get(0);
+            GUI_dal_PhieuNhap.str_2 = null;
+            GUI_dal_PhieuNhap.str_3 = null;
+        } else if (array.size() == 2) {
+            GUI_dal_PhieuNhap.str_1 = array.get(0);
+            GUI_dal_PhieuNhap.str_2 = array.get(1);
+            GUI_dal_PhieuNhap.str_3 = null;
+        } else if (array.size() >= 3) {
+            GUI_dal_PhieuNhap.str_1 = array.get(0);
+            GUI_dal_PhieuNhap.str_2 = array.get(1);
+            GUI_dal_PhieuNhap.str_3 = array.get(2);
         }
     }
 }

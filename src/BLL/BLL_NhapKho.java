@@ -40,16 +40,11 @@ public class BLL_NhapKho {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_NhapKho.add(nhapKho);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
     public static void delete(String maNhapKho) {
-        try {
-            DAL_NhapKho.delete(maNhapKho);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_NhapKho.delete(maNhapKho);
     }
 
     public static ArrayList<DTO_NhapKho> search(String dateTuNgay, String dateDenNgay, int index) {

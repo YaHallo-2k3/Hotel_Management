@@ -34,41 +34,16 @@ public class BLL_PhieuChi {
         }
     }
 
-    public static boolean alreayExits(String data, String value) {
-        ResultSet rs = DAL_PhieuChi.select();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                array.add(rs.getString(data));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.size(); i++) {
-            if (value.equals(array.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void add(DTO_PhieuChi phieuChi) {
         if (!check(phieuChi)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else if (!alreayExits("MaPhieuChi", phieuChi.getMaPhieuChi())) {
-            JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại !!!");
         } else {
             DAL_PhieuChi.add(phieuChi);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
     public static void delete(String maPhieuChi) {
-        try {
-            DAL_PhieuChi.delete(maPhieuChi);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_PhieuChi.delete(maPhieuChi);
     }
 
     public static void edit(DTO_PhieuChi phieuChi) {
@@ -76,7 +51,6 @@ public class BLL_PhieuChi {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_PhieuChi.edit(phieuChi);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -124,7 +98,7 @@ public class BLL_PhieuChi {
             lblNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(phieuChi.getMaNhanVien()));
         }
     }
-    
+
     public static int money(String tuNgay, String denNgay) {
         ResultSet rs = DAL_PhieuChi.money(tuNgay, denNgay);
         try {
