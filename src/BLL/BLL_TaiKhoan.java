@@ -11,7 +11,7 @@ import DTO.DTO_TaiKhoan;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-import javafx.scene.control.ComboBox;
+//import javafx.scene.control.ComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
