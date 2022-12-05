@@ -17,11 +17,11 @@ import javax.swing.JOptionPane;
  */
 public class HELPER_ConnectSQL {
 
-    private static String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static String Url = "jdbc:sqlserver://localhost:1433;database=Hotel_Management";
-    private static String User = "sa";
-    private static String Pass = "64647428";
-    private static Connection conn;
+    public static String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    public static String Url = "jdbc:sqlserver://localhost:1433;database=Hotel_Management";
+    public static String User = "sa";
+    public static String Pass = "64647428";
+    public static Connection conn;
 
     static {
         try {

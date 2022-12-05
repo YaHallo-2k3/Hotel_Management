@@ -39,7 +39,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     public boolean isShowHidden = false;
     public boolean isDonPhong = false;
     public boolean isKhachRaNgoai = false;
-    public static int isDatThue;
+    public static boolean isDatThue = false;
     public static int indexPosition;
     long diffInDay;
     long diffInHours;
@@ -512,9 +512,9 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         indexPosition = GUI_pnl_SoDoPhong.pnlFormChinh.getComponentZOrder(sdoChiTietPhong);
         if (lblSetTrangThai.getText().equals("Đặt Trước")) {
-            isDatThue = 0;
+            isDatThue = true;
         } else {
-            isDatThue = 1;
+            isDatThue = false;
         }
         if (evt.getClickCount() == 2) {
             new GUI_dal_ThongTinPhong(null, true).setVisible(true);
@@ -567,7 +567,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
 
     private void mniThuePhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThuePhongActionPerformed
         // TODO add your handling code here:  
-        isDatThue = 1;
+        isDatThue = false;
         new GUI_dal_ThongTinPhong(null, true).setVisible(true);
     }//GEN-LAST:event_mniThuePhongActionPerformed
 
@@ -605,16 +605,16 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     private void mniThongTinPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThongTinPhongActionPerformed
         // TODO add your handling code here:
         if (lblSetTrangThai.getText().equals("Đặt Trước")) {
-            isDatThue = 0;
+            isDatThue = true;
         } else {
-            isDatThue = 1;
+            isDatThue = false;
         }
         new GUI_dal_ThongTinPhong(null, true).setVisible(true);
     }//GEN-LAST:event_mniThongTinPhongActionPerformed
 
     private void mniDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDatPhongActionPerformed
         // TODO add your handling code here:
-        isDatThue = 0;
+        isDatThue = true;
         new GUI_dal_ThongTinPhong(null, true).setVisible(true);
     }//GEN-LAST:event_mniDatPhongActionPerformed
 

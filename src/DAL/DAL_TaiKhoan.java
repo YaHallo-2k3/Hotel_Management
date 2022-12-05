@@ -26,7 +26,7 @@ public class DAL_TaiKhoan {
     }
 
     public static void edit(String tenDangNhap, String matKhau, String maTaiKhoan) {
-        String sqlUpdate = "UPDATE TaiKhoan TenDangNhap = ?, MatKhau = ? WHERE MaTaiKhoan = ?";
+        String sqlUpdate = "UPDATE TaiKhoan SET TenDangNhap = ?, MatKhau = ? WHERE MaTaiKhoan = ?";
         HELPER_ConnectSQL.executeUpdate(sqlUpdate, tenDangNhap, matKhau, maTaiKhoan);
     }
 

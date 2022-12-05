@@ -5,9 +5,11 @@
  */
 package GUI;
 
+import BLL.BLL_ChucVu;
 import BLL.BLL_MaTenLoai;
 import BLL.BLL_NhanVien;
 import DAL.DAL_NhanVien;
+import DTO.DTO_ChucVu;
 import DTO.DTO_NhanVien;
 import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_SetIcon;
@@ -36,6 +38,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         initComponents();
         validate();
         load();
+        loadChucVu();
     }
 
     public void validate() {
@@ -45,7 +48,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     }
 
     public void add() {
-        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), HELPER_ChuyenDoi.getSoInt(lblSetTrangThai.getText()), URL);
+        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), 0, URL);
         BLL_NhanVien.add(nhanVien);
     }
 
@@ -66,14 +69,14 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     public void reset() {
         txtMaNhanVien.setText(null);
         txtTenNhanVien.setText(null);
-        cboGioiTinh.setSelectedItem("Nam");
+        cboGioiTinh.setSelectedItem(null);
         dateNgaySinh.setDate(null);
         txtSoDienThoai.setText(null);
         txtCMND.setText(null);
-        cboChucVu.setSelectedItem("Nhân Viên");
+        cboChucVu.setSelectedItem(null);
         txtLuong.setText(null);
         lblSetNgayTao.setText(null);
-        lblSetTrangThai.setText("0");
+        lblSetTrangThai.setText(null);
         URL = null;
         lblImage.setIcon(null);
     }
@@ -96,6 +99,11 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     public void load() {
         ArrayList<DTO_NhanVien> array = BLL_NhanVien.select();
         BLL_NhanVien.load(array, tblNhanVien);
+    }
+
+    public void loadChucVu() {
+        ArrayList<DTO_ChucVu> array = BLL_ChucVu.select();
+        BLL_ChucVu.load(array, cboChucVu);
     }
 
     public void loadTaiKhoan() {
@@ -189,7 +197,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         lblLamMoi.setBackground(new java.awt.Color(255, 255, 255));
         lblLamMoi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblLamMoi.setForeground(new java.awt.Color(33, 150, 243));
-        lblLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/add (1).png"))); // NOI18N
+        lblLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/circle-of-two-clockwise-arrows-rotation.png"))); // NOI18N
         lblLamMoi.setText("Làm Mới");
         lblLamMoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -206,9 +214,8 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
 
         cboChucVu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboChucVu.setForeground(new java.awt.Color(62, 73, 95));
-        cboChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản Lí", "Nhân Viên" }));
         cboChucVu.setBorder(null);
-        sdoFormChinh.add(cboChucVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, 80, 20));
+        sdoFormChinh.add(cboChucVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, 90, 20));
 
         cboGioiTinh.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboGioiTinh.setForeground(new java.awt.Color(62, 73, 95));
@@ -354,7 +361,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayTao.setText("22-02-22 22:22");
         sdoFormChinh.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 100, 20));
 
         dateNgaySinh.setBackground(new java.awt.Color(255, 255, 255));
@@ -379,7 +385,6 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         lblSetTrangThai.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTrangThai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTrangThai.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetTrangThai.setText("Offline");
         sdoFormChinh.add(lblSetTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 70, 20));
 
         sdoNhanVien.setBackground(new java.awt.Color(255, 255, 255));
@@ -501,7 +506,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
             edit();
             load();
         } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) != null && tblNhanVien.getValueAt(row, column + 1) == null) {
-            loadTaiKhoan();           
+            loadTaiKhoan();
         }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
@@ -517,11 +522,13 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     private void txtSoDienThoaiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoDienThoaiKeyReleased
         // TODO add your handling code here:
         HELPER_Validate.validateNumber(txtSoDienThoai);
+        HELPER_Validate.setTextLimited(txtSoDienThoai, 10);
     }//GEN-LAST:event_txtSoDienThoaiKeyReleased
 
     private void txtCMNDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCMNDKeyReleased
         // TODO add your handling code here:
         HELPER_Validate.validateNumber(txtCMND);
+        HELPER_Validate.setTextLimited(txtCMND, 12);
     }//GEN-LAST:event_txtCMNDKeyReleased
 
     private void txtLuongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLuongMousePressed

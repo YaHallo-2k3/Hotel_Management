@@ -17,7 +17,7 @@ public class DAL_ChiTietDichVu {
 
     public static void add(DTO_ChiTietDichVu chiTietDichVu) {
         String sqlInsert = "INSERT INTO ChiTietDichVu VALUES (?, ?, ?, ?, ?)";
-        HELPER_ConnectSQL.executeUpdate(sqlInsert, chiTietDichVu.getMaChiTiet(), chiTietDichVu.getMaPhieuDichVu(), chiTietDichVu.getMaSanPham(), chiTietDichVu.getSoLuong(), chiTietDichVu.getGiaTien());
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlInsert, chiTietDichVu.getMaChiTiet(), chiTietDichVu.getMaPhieuDichVu(), chiTietDichVu.getMaSanPham(), chiTietDichVu.getSoLuong(), chiTietDichVu.getGiaTien());
     }
 
     public static void delete(String maDichVu, String maSanPham) {

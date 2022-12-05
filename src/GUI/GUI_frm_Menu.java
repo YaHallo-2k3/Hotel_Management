@@ -640,7 +640,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblThuNganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThuNganMouseClicked
         // TODO add your handling code here:
-//        menuItemClicked(lblThuNgan, lblThuNganIconClicked, lblThuNganIconExited);
+        menuItemClicked(lblThuNgan, lblThuNganIconClicked, lblThuNganIconExited, new GUI_pnl_ThuNgan());
     }//GEN-LAST:event_lblThuNganMouseClicked
 
     private void lblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDichVuMouseClicked
@@ -685,7 +685,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblLichSuThuePhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLichSuThuePhongMouseClicked
         // TODO add your handling code here:
-//        menuItemClicked(lblLichSuThuePhong, lblLichSuThuePhongIconClicked, lblLichSuThuePhongIconExited);
+        menuItemClicked(lblLichSuThuePhong, lblLichSuThuePhongIconClicked, lblLichSuThuePhongIconExited, new GUI_pnl_ThuePhong());
     }//GEN-LAST:event_lblLichSuThuePhongMouseClicked
 
     private void lblThuNganMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThuNganMouseExited
@@ -820,7 +820,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblThongKeTrongNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThongKeTrongNgayMouseClicked
         // TODO add your handling code here:
-//        menuItemClicked(lblThongKeTrongNgay, lblThongKeTrongNgayIconClicked, lblThongKeTrongNgayIconExited);
+        menuItemClicked(lblThongKeTrongNgay, lblThongKeTrongNgayIconClicked, lblThongKeTrongNgayIconExited, new GUI_pnl_ThongKe());
     }//GEN-LAST:event_lblThongKeTrongNgayMouseClicked
 
     private void lblQuanLiKhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLiKhoMouseClicked
@@ -917,7 +917,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 
     private void lblDanhSachDatPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDanhSachDatPhongMouseClicked
         // TODO add your handling code here:
-//        menuItemClicked(lblDanhSachDatPhong, lblDanhSachDatPhongIconClicked, lblDanhSachDatPhongIconExited);
+        menuItemClicked(lblDanhSachDatPhong, lblDanhSachDatPhongIconClicked, lblDanhSachDatPhongIconExited, new GUI_pnl_DatPhong());
     }//GEN-LAST:event_lblDanhSachDatPhongMouseClicked
 
     private void lblDanhSachDatPhongMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDanhSachDatPhongMouseExited

@@ -43,13 +43,8 @@ public class DAL_ThuePhong {
         HELPER_ConnectSQL.executeUpdate(sqlUpdate, BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()), BLL_MaTenLoai.findMaNhanVien(thuePhong.getMaNhanVien()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", thuePhong.getNgayTao()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", thuePhong.getNgayDen()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", thuePhong.getNgayDi()), thuePhong.getCMND(), thuePhong.getTenKhachHang(), thuePhong.getSoLuong(), thuePhong.getGhiChu(), thuePhong.getTienCoc(), thuePhong.getGiamGia(), thuePhong.getTrangThaiThanhToan(), thuePhong.getMaPhieuThue());
     }
 
-    public static ResultSet select() {
-        String sqlSelect = "SELECT * FROM ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE TrangThaiThanhToan = 0";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect);
-    }
-
     public static ResultSet select(String maPhong) {
-        String sqlSelect = "SELECT * FROM ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE Phong.MaPhong = ? AND TrangThaiThanhToan = 0";
+        String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhong = ? AND TrangThaiThanhToan = 0";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong);
     }
 

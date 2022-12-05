@@ -5,7 +5,10 @@
  */
 package GUI;
 
+import BLL.BLL_DichVu;
 import GUI.GUI_pnl_ChiTietPhong;
+import HELPER.HELPER_ChuyenDoi;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 /**
@@ -15,13 +18,38 @@ import java.awt.GridLayout;
 public class GUI_pnl_DichVu extends javax.swing.JPanel {
 
     public static int index;
+    public static String tuNgay;
+    public static String denNgay;
 
     /**
      * Creates new form GUI_pnlSoDoPhong
      */
     public GUI_pnl_DichVu() {
         initComponents();
+        load();
+        search();
+    }
 
+    public void load() {
+        String dateTimeTuNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
+        String dateTimeDenNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
+        dateTuNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeTuNgay));
+        dateDenNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeDenNgay));
+        tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
+        denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
+    }
+
+    public void search() {
+        int setHeight = BLL_DichVu.countSearch(tuNgay, denNgay) / 3;
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
+        pnlFormChinh.removeAll();
+        for (int i = 1; i <= BLL_DichVu.countSearch(tuNgay, denNgay); i++) {
+            index = i;
+            pnlFormChinh.add(new GUI_pnl_ChiTietDichVu().sdoChiTietDichVu);
+        }
+        pnlFormChinh.validate();
+        pnlFormChinh.repaint();
+        lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(BLL_DichVu.money(tuNgay, denNgay)) + "K");
     }
 
     /**
@@ -46,7 +74,6 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
         lblDenNgay = new javax.swing.JLabel();
         lblTuNgay = new javax.swing.JLabel();
         lblPhieuBan = new javax.swing.JLabel();
-        lblIconPhieuBan = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1150, 730));
@@ -77,6 +104,11 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
 
         lblTimKiem.setBackground(new java.awt.Color(255, 255, 255));
         lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/magnifier (1).png"))); // NOI18N
+        lblTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTimKiemMouseClicked(evt);
+            }
+        });
         sdoChucNang.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, 30, 30));
 
         lblGioPhutTuNgay.setBackground(new java.awt.Color(255, 255, 255));
@@ -96,11 +128,21 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
         dateTuNgay.setBackground(new java.awt.Color(255, 255, 255));
         dateTuNgay.setForeground(new java.awt.Color(62, 73, 95));
         dateTuNgay.setDateFormatString("dd-MM-yyyy");
+        dateTuNgay.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateTuNgayPropertyChange(evt);
+            }
+        });
         sdoChucNang.add(dateTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 100, 20));
 
         dateDenNgay.setBackground(new java.awt.Color(255, 255, 255));
         dateDenNgay.setForeground(new java.awt.Color(62, 73, 95));
         dateDenNgay.setDateFormatString("dd-MM-yyyy");
+        dateDenNgay.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateDenNgayPropertyChange(evt);
+            }
+        });
         sdoChucNang.add(dateDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 100, 20));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
@@ -124,18 +166,14 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
         lblPhieuBan.setBackground(new java.awt.Color(255, 255, 255));
         lblPhieuBan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblPhieuBan.setForeground(new java.awt.Color(33, 150, 243));
+        lblPhieuBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/queue.png"))); // NOI18N
         lblPhieuBan.setText("Tạo Phiếu Bán Hàng");
         lblPhieuBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPhieuBanMouseClicked(evt);
             }
         });
-        sdoChucNang.add(lblPhieuBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 40, 150, 40));
-
-        lblIconPhieuBan.setBackground(new java.awt.Color(255, 255, 255));
-        lblIconPhieuBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIconPhieuBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/queue.png"))); // NOI18N
-        sdoChucNang.add(lblIconPhieuBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 40, 40, 30));
+        sdoChucNang.add(lblPhieuBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 40, 170, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -158,6 +196,27 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
         new GUI_dal_ThongTinDichVu(null, true).setVisible(true);
     }//GEN-LAST:event_lblPhieuBanMouseClicked
 
+    private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked
+        // TODO add your handling code here:
+        tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
+        denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
+        search();
+    }//GEN-LAST:event_lblTimKiemMouseClicked
+
+    private void dateTuNgayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateTuNgayPropertyChange
+        // TODO add your handling code here:
+        if (dateTuNgay.getDate() != null && dateDenNgay.getDate() != null) {
+            dateDenNgay.setMinSelectableDate(dateTuNgay.getDate());;
+        }
+    }//GEN-LAST:event_dateTuNgayPropertyChange
+
+    private void dateDenNgayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateDenNgayPropertyChange
+        // TODO add your handling code here:
+        if (dateDenNgay.getDate() != null && dateTuNgay.getDate() != null) {
+            dateTuNgay.setMaxSelectableDate(dateDenNgay.getDate());;
+        }
+    }//GEN-LAST:event_dateDenNgayPropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dateDenNgay;
@@ -165,13 +224,12 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
     private javax.swing.JLabel lblDenNgay;
     private javax.swing.JLabel lblGioPhutDenNgay;
     private javax.swing.JLabel lblGioPhutTuNgay;
-    private javax.swing.JLabel lblIconPhieuBan;
     private javax.swing.JLabel lblPhieuBan;
     private javax.swing.JLabel lblSetTongTien;
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lblTuNgay;
-    private javax.swing.JPanel pnlFormChinh;
+    public static javax.swing.JPanel pnlFormChinh;
     private javax.swing.JScrollPane scrFormChinh;
     private HELPER.PanelShadow sdoChucNang;
     // End of variables declaration//GEN-END:variables

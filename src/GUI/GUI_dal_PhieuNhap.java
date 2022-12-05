@@ -14,6 +14,7 @@ import BLL.BLL_SanPham;
 import BLL.BLL_TaiKhoan;
 import DAL.DAL_ChiTietNhapKho;
 import DAL.DAL_LoaiSanPham;
+import DAL.DAL_NhapKho;
 import DAL.DAL_ThuePhong;
 import DTO.DTO_ChiTietNhapKho;
 import DTO.DTO_LoaiPhong;
@@ -53,6 +54,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         check();
         loadSanPham();
         loadTenLoaiSanPham();
+        loadChiTietNhapKho();
         setTongTien();
     }
 
@@ -62,12 +64,10 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
             GUI_pnl_ChiTietNhapKho.isNhapKho = false;
             lblCapNhat.setText("Xóa");
             loadPhieuNhap();
-            loadChiTietNhapKho();
         } else {
             isUpgrade = false;
             GUI_pnl_ChiTietNhapKho.isNhapKho = false;
             load();
-            loadChiTietNhapKho();
         }
     }
 
@@ -76,17 +76,13 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         BLL_ChiTietNhapKho.add(chiTietNhapKho);
     }
 
-    public void deleteChiTietNhapKho(int row) {
-        BLL_ChiTietNhapKho.delete(lblSetMaPhieu.getText(), tblKhoDichVu.getValueAt(row, 0).toString());
-    }
-
     public void loadSanPham() {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select();
         BLL_SanPham.loadSanPham(array, tblDichVu);
     }
 
     public void loadTenLoaiSanPham() {
-        BLL_LoaiSanPham.load();
+        BLL_LoaiSanPham.loadTenLoaiPhieuNhap();
         lbl_1.setText(str_1);
         lbl_2.setText(str_2);
         lbl_3.setText(str_3);
@@ -122,7 +118,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     }
 
     public void load() {
-        lblSetMaPhieu.setText(HELPER_SetMa.setMaDateTime("PN", DAL_ChiTietNhapKho.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))));
+        lblSetMaPhieu.setText(HELPER_SetMa.setMaDateTime("PN", DAL_NhapKho.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))));
         lblSetNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)));
         lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
     }
@@ -202,7 +198,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMaPhieu.setText("220912001");
         sdoThongTinPhong.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 110, 20));
 
         lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
@@ -214,7 +209,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblSetNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNhanVien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNhanVien.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNhanVien.setText("CherryCe");
         sdoThongTinPhong.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 110, 20));
 
         lblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
@@ -244,14 +238,12 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayTao.setText("16/09/22 22:08");
-        sdoThongTinPhong.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, -1, 20));
+        sdoThongTinPhong.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 120, 20));
 
         lbl_1.setBackground(new java.awt.Color(255, 102, 102));
         lbl_1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lbl_1.setForeground(new java.awt.Color(255, 255, 255));
         lbl_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_1.setText("Đồ Uống");
         lbl_1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lbl_1.setOpaque(true);
         lbl_1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -265,7 +257,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lbl_3.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lbl_3.setForeground(new java.awt.Color(255, 255, 255));
         lbl_3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_3.setText("Di Chuyển");
         lbl_3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lbl_3.setOpaque(true);
         lbl_3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -279,7 +270,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblAll.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblAll.setForeground(new java.awt.Color(255, 255, 255));
         lblAll.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAll.setText("ALL");
+        lblAll.setText("All");
         lblAll.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblAll.setOpaque(true);
         lblAll.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -293,7 +284,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lbl_2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lbl_2.setForeground(new java.awt.Color(255, 255, 255));
         lbl_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_2.setText("Thức Ăn");
         lbl_2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lbl_2.setOpaque(true);
         lbl_2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -434,7 +424,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTongTien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTongTien.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetTongTien.setText("220912001");
         sdoChucNang.add(lblSetTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, 30));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
@@ -543,7 +532,6 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         } else {
             return;
         }
-
     }//GEN-LAST:event_tblDichVuMouseClicked
 
     private void tblKhoDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhoDichVuMouseClicked
@@ -575,7 +563,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
 
     private void lbl_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_1MouseClicked
         // TODO add your handling code here:
-        loadSanPham(BLL_MaTenLoai.findMaSanPham(str_1));
+        loadSanPham(BLL_MaTenLoai.findMaLoaiSanPham(str_1));
     }//GEN-LAST:event_lbl_1MouseClicked
 
     private void lblAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAllMouseClicked
@@ -585,12 +573,12 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
 
     private void lbl_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_2MouseClicked
         // TODO add your handling code here:
-        loadSanPham(BLL_MaTenLoai.findMaSanPham(str_2));
+        loadSanPham(BLL_MaTenLoai.findMaLoaiSanPham(str_2));
     }//GEN-LAST:event_lbl_2MouseClicked
 
     private void lbl_3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_3MouseClicked
         // TODO add your handling code here:
-        loadSanPham(BLL_MaTenLoai.findMaSanPham(str_3));
+        loadSanPham(BLL_MaTenLoai.findMaLoaiSanPham(str_3));
     }//GEN-LAST:event_lbl_3MouseClicked
 
     /**

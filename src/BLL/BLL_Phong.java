@@ -7,6 +7,8 @@ package BLL;
 
 import DAL.DAL_Phong;
 import DTO.DTO_Phong;
+import DTO.DTO_ThuePhong;
+import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.sql.ResultSet;
@@ -88,6 +90,23 @@ public class BLL_Phong {
         return array;
     }
 
+    public static ArrayList<DTO_ThuePhong> searchSoPhong(String maTang, int index) {
+        ResultSet rs = DAL_Phong.searchChonPhong(maTang, index);
+        ArrayList<DTO_ThuePhong> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_ThuePhong thuePhong = new DTO_ThuePhong();
+                thuePhong.setMaPhong(rs.getString("MaPhong"));
+                thuePhong.setNgayDen(rs.getTimestamp("NgayDen"));
+                thuePhong.setNgayDi(rs.getTimestamp("NgayDi"));
+                array.add(thuePhong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
     public static void load(ArrayList<DTO_Phong> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
@@ -109,6 +128,19 @@ public class BLL_Phong {
         for (DTO_Phong phong : array) {
             lblSoPhong.setText(BLL_MaTenLoai.findTenPhong(phong.getMaPhong()));
             lblTrangThai.setText(BLL_MaTenLoai.findTenTrangThaiPhong(phong.getMaTrangThaiPhong()));
+        }
+    }
+
+    public static void loadSoPhong(ArrayList<DTO_ThuePhong> array, JLabel lblSoPhong, JLabel lblNgayDen, JLabel lblNgayDi) {
+        for (DTO_ThuePhong thuePhong : array) {
+            lblSoPhong.setText(BLL_MaTenLoai.findTenPhong(thuePhong.getMaPhong()));
+            if (thuePhong.getNgayDi() == null) {
+                lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", thuePhong.getNgayDen()));
+                lblNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy"));
+            } else {
+                lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", thuePhong.getNgayDen()));
+                lblNgayDi.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", thuePhong.getNgayDi()));
+            }
         }
     }
 

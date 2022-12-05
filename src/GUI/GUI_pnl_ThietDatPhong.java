@@ -445,7 +445,6 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         lblSetTrangThai.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTrangThai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTrangThai.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetTrangThai.setText("Có Khách");
         sdoPhong.add(lblSetTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 40, 90, 20));
 
         sdoLoaiPhong.setBackground(new java.awt.Color(255, 255, 255));

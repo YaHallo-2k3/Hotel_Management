@@ -48,14 +48,14 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
     public long diffInMinutes;
     public String path;
     public String setPrice;
-    public String singleRoom_Day_Rate = "/DOCUMENT/SingleRoom_Day_Rate.xlsx";
-    public String singleRoom_Hour_Rate = "/DOCUMENT/SingleRoom_Hour_Rate.xlsx";
-    public String doubleRoom_Day_Rate = "/DOCUMENT/DoubleRoom_Day_Rate.xlsx";
-    public String doubleRoom_Hour_Rate = "/DOCUMENT/DoubleRoom_Hour_Rate.xlsx";
-    public String tripleRoom_Day_Rate = "/DOCUMENT/TripleRoom_Day_Rate.xlsx";
-    public String tripleRoom_Hour_Rate = "/DOCUMENT/TripleRoom_Hour_Rate.xlsx";
-    public String quadraRoom_Day_Rate = "/DOCUMENT/QuadraRoom_Day_Rate.xlsx";
-    public String quadraRoom_Hour_Rate = "/DOCUMENT/QuadraRoom_Hour_Rate.xlsx";
+    public static String singleRoom_Day_Rate = "/DOCUMENT/SingleRoom_Day_Rate.xlsx";
+    public static String singleRoom_Hour_Rate = "/DOCUMENT/SingleRoom_Hour_Rate.xlsx";
+    public static String doubleRoom_Day_Rate = "/DOCUMENT/DoubleRoom_Day_Rate.xlsx";
+    public static String doubleRoom_Hour_Rate = "/DOCUMENT/DoubleRoom_Hour_Rate.xlsx";
+    public static String tripleRoom_Day_Rate = "/DOCUMENT/TripleRoom_Day_Rate.xlsx";
+    public static String tripleRoom_Hour_Rate = "/DOCUMENT/TripleRoom_Hour_Rate.xlsx";
+    public static String quadraRoom_Day_Rate = "/DOCUMENT/QuadraRoom_Day_Rate.xlsx";
+    public static String quadraRoom_Hour_Rate = "/DOCUMENT/QuadraRoom_Hour_Rate.xlsx";
 
     /**
      * Creates new form GUI_pnlSoDoPhong
@@ -132,8 +132,8 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
                 Row row = sheet.createRow(j + 1);
                 for (int k = 0; k < tblGiaPhong.getColumnCount(); k++) {
                     Cell cell = row.createCell(k);
-                    if (tblGiaPhong.getValueAt(j, k) != null) {
-                        cell.setCellValue(tblGiaPhong.getValueAt(j, k).toString());
+                    if (tblGiaPhong.getValueAt(j, k) != null && !tblGiaPhong.getValueAt(j, k).toString().isEmpty()) {
+                        cell.setCellValue(Integer.parseInt(tblGiaPhong.getValueAt(j, k).toString()));
                     }
                 }
             }
@@ -143,7 +143,7 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
             out.close();
             JOptionPane.showMessageDialog(this, "Cập Nhật Hoàn Tất !!!");
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi Định Dạng ???");
         }
     }
 
@@ -223,13 +223,17 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
             FileInputStream file = new FileInputStream(new File(String.valueOf(new ImageIcon(getClass().getResource(filePath))).replaceAll("file:/", "")));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
-            if (String.valueOf(lblSetThoiGian.getText().charAt(0)).equals("0")) {
+            if (diffInDay == 0) {
                 lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column)))) + "K");
             } else {
-                lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(String.valueOf(lblSetThoiGian.getText().substring(0, lblSetThoiGian.getText().indexOf("d")))) * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column)))) + "K");
+                if (HELPER_ChuyenDoi.getSoInt(txtGioTuNgay.getText()) <= HELPER_ChuyenDoi.getSoInt(txtGioDenNgay.getText())) {
+                    lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString((diffInDay - 1) * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column)))) + "K");
+                } else {
+                    lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column)))) + "K");
+                }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi Định Dạng Số ???");
+            JOptionPane.showMessageDialog(this, "Lỗi Định Dạng ???");
         }
     }
 
@@ -411,7 +415,7 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
         lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTongTien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTongTien.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetTongTien.setText("1,200,000");
+        lblSetTongTien.setText("0K");
         sdoChucNang.add(lblSetTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 50, 80, 20));
 
         cboLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -695,16 +699,15 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         rowIndex = tblGiaPhong.getSelectedRow();
         columnIndex = tblGiaPhong.getSelectedColumn();
-        if (setPrice.equals("Giá Giờ") && evt.getClickCount() == 2) {
-            if (rowIndex >= 0 && rowIndex <= 22 && columnIndex >= 0 && columnIndex <= 23 - rowIndex) {
-                JOptionPane.showMessageDialog(this, "Không Được Chỉnh Sửa ???");
-            }
+        if (setPrice.equals("Giá Giờ") && rowIndex >= 0 && rowIndex <= 22 && columnIndex >= 0 && columnIndex <= 23 - rowIndex) {
+            JOptionPane.showMessageDialog(this, "Không Được Chỉnh Sửa ???");
         }
+        return;
     }//GEN-LAST:event_tblGiaPhongMousePressed
 
     private void lblTinhGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTinhGiaMouseClicked
         // TODO add your handling code here:
-        setThoiGian_GiaTien(23 - HELPER_ChuyenDoi.getSoInt(txtGioTuNgay.getText()), HELPER_ChuyenDoi.getSoInt(txtGioDenNgay.getText()) + 1);
+        setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(txtGioTuNgay.getText()), HELPER_ChuyenDoi.getSoInt(txtGioDenNgay.getText()) + 1);
     }//GEN-LAST:event_lblTinhGiaMouseClicked
 
     private void txtGioTuNgayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGioTuNgayActionPerformed
@@ -743,7 +746,6 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         HELPER_Validate.validateNumber(txtGioDenNgay);
         HELPER_Validate.setTextLimited(txtGioDenNgay, 2);
-
     }//GEN-LAST:event_txtGioDenNgayKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

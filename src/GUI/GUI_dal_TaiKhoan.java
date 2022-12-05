@@ -217,7 +217,6 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
         lblSetMaTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMaTaiKhoan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetMaTaiKhoan.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMaTaiKhoan.setText("TK001");
         sdoTaiKhoan.add(lblSetMaTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 60, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

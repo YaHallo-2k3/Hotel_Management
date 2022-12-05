@@ -22,9 +22,9 @@ public class DAL_SanPham {
         String sqlSelect = "SELECT * FROM SanPham ORDER BY MaSanPham";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
-    
+
     public static ResultSet select(String maLoaiSanPham) {
-        String sqlSelect = "SELECT * FROM SanPham JOIN LoaiSanPham ON LoaiSanPham.MaLoaiSanPham = SanPham.MaLoaiSanPham WHERE LoaiSanPham.MaLoaiSanPham = ?";
+        String sqlSelect = "SELECT * FROM SanPham WHERE MaLoaiSanPham = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maLoaiSanPham);
     }
 

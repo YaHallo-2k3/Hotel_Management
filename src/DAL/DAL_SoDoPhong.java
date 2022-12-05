@@ -26,7 +26,7 @@ public class DAL_SoDoPhong {
     }
 
     public static ResultSet rowNumber(int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY TenPhong) AS RowNumber FROM Phong) AS Phong WHERE Phong.RowNumber = ?";
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(PARTITION BY NULL ORDER BY MaPhong) AS RowNumber FROM Phong) AS Phong WHERE Phong.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
     }
     

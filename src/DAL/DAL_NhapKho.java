@@ -38,7 +38,7 @@ public class DAL_NhapKho {
     }
 
     public static ResultSet search(String tuNgay, String denNgay, int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaNhapKho) AS RowNumber FROM NhapKho) AS NhapKho WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND NhapKho.RowNumber = ?";
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(PARTITION BY CONVERT(DATE, NgayTao) ORDER BY MaNhapKho) AS RowNumber FROM NhapKho) AS NhapKho WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND NhapKho.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);
     }
     

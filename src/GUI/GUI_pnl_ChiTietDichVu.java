@@ -5,7 +5,15 @@
  */
 package GUI;
 
+import BLL.BLL_ChiTietDichVu;
+import BLL.BLL_DichVu;
+import DTO.DTO_ChiTietDichVu;
+import DTO.DTO_DichVu;
+import HELPER.HELPER_ChuyenDoi;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
 
 /**
  *
@@ -13,14 +21,28 @@ import java.awt.event.MouseEvent;
  */
 public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
 
+    public static int indexPosition;
+    public static boolean isDichVu = false;
+
     /**
      * Creates new form GUI_pnlChiTietPhong
      */
     public GUI_pnl_ChiTietDichVu() {
         initComponents();
-        lblPhongSo.setText("" + GUI_pnl_ThuNgan.index);
+        load();
     }
 
+    public void load() {
+        ArrayList<DTO_DichVu> arrayDichVu = BLL_DichVu.search(GUI_pnl_DichVu.tuNgay, GUI_pnl_DichVu.denNgay, GUI_pnl_DichVu.index);
+        BLL_DichVu.loadDichVu(arrayDichVu, lblSetMaPhieu, lblSetPhongSo, lblSetNgay);
+        ArrayList<DTO_ChiTietDichVu> arrayChiTietDichVu = BLL_ChiTietDichVu.select(lblSetMaPhieu.getText());
+        BLL_ChiTietDichVu.loadChiTietDichVu(arrayChiTietDichVu, tblDichVu);
+        int total = 0;
+        for (int i = 0; i < tblDichVu.getRowCount(); i++) {
+            total += HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(i, 3).toString());
+        }
+        lblTongTien.setText(HELPER_ChuyenDoi.getSoString(total) + "K");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,10 +57,10 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblSetPhongSo = new javax.swing.JLabel();
         lblSetNgay = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
-        lblMaHoaDon = new javax.swing.JLabel();
+        lblMaPhieu = new javax.swing.JLabel();
         scrDichVu = new javax.swing.JScrollPane();
         tblDichVu = new javax.swing.JTable();
-        lblSetMaHoaDon = new javax.swing.JLabel();
+        lblSetMaPhieu = new javax.swing.JLabel();
         lblNgay = new javax.swing.JLabel();
         lblPhongSo = new javax.swing.JLabel();
 
@@ -52,9 +74,20 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         sdoChiTietDichVu.setShadowOpacity(0.3F);
         sdoChiTietDichVu.setShadowSize(4);
         sdoChiTietDichVu.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietDichVu.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                sdoChiTietDichVuMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                sdoChiTietDichVuMouseMoved(evt);
+            }
+        });
         sdoChiTietDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 sdoChiTietDichVuMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sdoChiTietDichVuMouseExited(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 sdoChiTietDichVuMouseReleased(evt);
@@ -66,7 +99,7 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblSetPhongSo.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetPhongSo.setForeground(new java.awt.Color(62, 73, 95));
         lblSetPhongSo.setText("302");
-        sdoChiTietDichVu.add(lblSetPhongSo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 30, 20));
+        sdoChiTietDichVu.add(lblSetPhongSo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 30, 20));
 
         lblSetNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -77,16 +110,16 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(255, 102, 102));
-        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTongTien.setText("2250,000");
         lblTongTien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sdoChiTietDichVu.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 90, 20));
 
-        lblMaHoaDon.setBackground(new java.awt.Color(255, 255, 255));
-        lblMaHoaDon.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        lblMaHoaDon.setForeground(new java.awt.Color(153, 153, 153));
-        lblMaHoaDon.setText("Mã Hóa Đơn");
-        sdoChiTietDichVu.add(lblMaHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 20));
+        lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        lblMaPhieu.setForeground(new java.awt.Color(153, 153, 153));
+        lblMaPhieu.setText("Mã Phiếu");
+        sdoChiTietDichVu.add(lblMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 20));
 
         scrDichVu.setBackground(new java.awt.Color(255, 255, 255));
         scrDichVu.setBorder(null);
@@ -100,20 +133,28 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblDichVu.setRowHeight(24);
         tblDichVu.setShowHorizontalLines(false);
         scrDichVu.setViewportView(tblDichVu);
 
         sdoChiTietDichVu.add(scrDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 320, 110));
 
-        lblSetMaHoaDon.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetMaHoaDon.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblSetMaHoaDon.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMaHoaDon.setText("220923001");
-        sdoChiTietDichVu.add(lblSetMaHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 80, 20));
+        lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
+        lblSetMaPhieu.setText("220923001");
+        sdoChiTietDichVu.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 100, 20));
 
         lblNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblNgay.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -141,21 +182,37 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
 
     private void sdoChiTietDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietDichVuMouseClicked
         // TODO add your handling code here:
-        scrDichVu.setVisible(false);
-        sdoChiTietDichVu.setSize(350, 110);
+        indexPosition = GUI_pnl_DichVu.pnlFormChinh.getComponentZOrder(sdoChiTietDichVu);
+        if (evt.getClickCount() == 2) {
+            isDichVu = true;
+            new GUI_dal_ThongTinDichVu(null, true).setVisible(true);
+        }
     }//GEN-LAST:event_sdoChiTietDichVuMouseClicked
 
     private void sdoChiTietDichVuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietDichVuMouseReleased
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:      
     }//GEN-LAST:event_sdoChiTietDichVuMouseReleased
+
+    private void sdoChiTietDichVuMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietDichVuMouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sdoChiTietDichVuMouseDragged
+
+    private void sdoChiTietDichVuMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietDichVuMouseMoved
+        // TODO add your handling code here:
+        sdoChiTietDichVu.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(33, 150, 243)));
+    }//GEN-LAST:event_sdoChiTietDichVuMouseMoved
+
+    private void sdoChiTietDichVuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietDichVuMouseExited
+        // TODO add your handling code here:
+        sdoChiTietDichVu.setBorder(null);
+    }//GEN-LAST:event_sdoChiTietDichVuMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JLabel lblMaHoaDon;
+    public javax.swing.JLabel lblMaPhieu;
     public javax.swing.JLabel lblNgay;
     private javax.swing.JLabel lblPhongSo;
-    public javax.swing.JLabel lblSetMaHoaDon;
+    public javax.swing.JLabel lblSetMaPhieu;
     public javax.swing.JLabel lblSetNgay;
     public javax.swing.JLabel lblSetPhongSo;
     public javax.swing.JLabel lblTongTien;

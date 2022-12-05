@@ -107,7 +107,7 @@ public class BLL_SanPham {
             obj[1] = sanPham.getTenSanPham();
             obj[2] = BLL_MaTenLoai.findTenLoaiSanPham(sanPham.getMaLoaiSanPham());
             obj[3] = sanPham.getDonViTinh();
-            obj[4] = sanPham.getGiaBan();
+            obj[4] = sanPham.getGiaBan() + "K";
             obj[5] = HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", sanPham.getNgayTao());
             tbl.getColumnModel().getColumn(6).setCellRenderer(new HELPER_SetIcon.iconEdit());
             tbl.getColumnModel().getColumn(7).setCellRenderer(new HELPER_SetIcon.iconDelete());
@@ -136,7 +136,7 @@ public class BLL_SanPham {
             Object obj[] = new Object[3];
             obj[0] = sanPham.getMaSanPham();
             obj[1] = sanPham.getTenSanPham();
-            obj[2] = sanPham.getGiaBan();
+            obj[2] = sanPham.getGiaBan() + "K";
             tbl.getColumnModel().getColumn(3).setCellRenderer(new HELPER_SetIcon.iconAdd());
             tblModel.addRow(obj);
         }

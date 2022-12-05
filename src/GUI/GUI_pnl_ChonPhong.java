@@ -5,8 +5,14 @@
  */
 package GUI;
 
+import BLL.BLL_DichVu;
+import BLL.BLL_MaTenLoai;
 import BLL.BLL_Phong;
+import BLL.BLL_SanPham;
+import BLL.BLL_ThuePhong;
 import DTO.DTO_Phong;
+import DTO.DTO_SanPham;
+import DTO.DTO_ThuePhong;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
@@ -35,6 +41,12 @@ public class GUI_pnl_ChonPhong extends javax.swing.JPanel {
         } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
             pnlChonPhong.setBackground(new Color(102, 153, 255));
         }
+    }
+
+    public void loadPhong() {
+        ArrayList<DTO_ThuePhong> array = BLL_Phong.searchSoPhong(GUI_dal_ChonPhong.maTang, indexPosition + 1);
+        BLL_Phong.loadSoPhong(array, GUI_dal_ThongTinDichVu.lblSetSoPhong, GUI_dal_ThongTinDichVu.lblSetNgayDen, GUI_dal_ThongTinDichVu.lblSetNgayDi);
+        GUI_dal_ChonPhong.dal.dispose();
     }
 
     /**
@@ -114,13 +126,14 @@ public class GUI_pnl_ChonPhong extends javax.swing.JPanel {
     private void pnlChonPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlChonPhongMouseClicked
         // TODO add your handling code here:
         indexPosition = GUI_dal_ChonPhong.pnlDanhSachPhong.getComponentZOrder(pnlChonPhong);
+        loadPhong();
     }//GEN-LAST:event_pnlChonPhongMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblIconTrangThai;
     private javax.swing.JLabel lblSetTrangThai;
-    public static javax.swing.JLabel lblSoPhong;
+    private javax.swing.JLabel lblSoPhong;
     public javax.swing.JPanel pnlChonPhong;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,6 +13,9 @@ import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -98,6 +101,16 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select();
         BLL_SanPham.load(array, tblSanPham);
     }
+    
+    public void search() {
+        TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(tblSanPham.getModel());
+        tblSanPham.setRowSorter(rowSorter);
+        if (txtTimKiem.getText().length() == 0) {
+            rowSorter.setRowFilter(null);
+        } else {
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtTimKiem.getText()));
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,6 +138,8 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         cboLoaiHang = new javax.swing.JComboBox<>();
         lblGiaBan = new javax.swing.JLabel();
         lblSetNgayTao = new javax.swing.JLabel();
+        txtTimKiem = new javax.swing.JTextField();
+        lblTimKiem = new javax.swing.JLabel();
         sdoLoaiSanPham = new HELPER.PanelShadow();
         scrLoaiSanPham = new javax.swing.JScrollPane();
         tblLoaiSanPham = new javax.swing.JTable();
@@ -286,6 +301,34 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
         sdoSanPham.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 100, 20));
+
+        txtTimKiem.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        txtTimKiem.setForeground(new java.awt.Color(62, 73, 95));
+        txtTimKiem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtTimKiem.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTimKiemMouseClicked(evt);
+            }
+        });
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+        });
+        sdoSanPham.add(txtTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 100, 30));
+
+        lblTimKiem.setBackground(new java.awt.Color(255, 255, 255));
+        lblTimKiem.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblTimKiem.setForeground(new java.awt.Color(33, 150, 243));
+        lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/magnifier (2).png"))); // NOI18N
+        lblTimKiem.setText("Tìm Kiếm");
+        lblTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTimKiemMouseClicked(evt);
+            }
+        });
+        sdoSanPham.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 90, 30));
 
         sdoLoaiSanPham.setBackground(new java.awt.Color(255, 255, 255));
         sdoLoaiSanPham.setMinimumSize(new java.awt.Dimension(320, 730));
@@ -449,6 +492,20 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         loadTenLoaiSanPham();
     }//GEN-LAST:event_lblThemLoaiMouseClicked
 
+    private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblTimKiemMouseClicked
+
+    private void txtTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseClicked
+        // TODO add your handling code here:
+        search();
+    }//GEN-LAST:event_txtTimKiemMouseClicked
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        // TODO add your handling code here:
+        search();
+    }//GEN-LAST:event_txtTimKiemKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboDonVi;
@@ -466,6 +523,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     private javax.swing.JLabel lblTenLoai;
     private javax.swing.JLabel lblThemHang;
     private javax.swing.JLabel lblThemLoai;
+    private javax.swing.JLabel lblTimKiem;
     private javax.swing.JScrollPane scrLoaiSanPham;
     private javax.swing.JScrollPane scrSanPham;
     private HELPER.PanelShadow sdoLoaiSanPham;
@@ -477,5 +535,6 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     private javax.swing.JTextField txtMaLoai;
     private javax.swing.JTextField txtTenHang;
     private javax.swing.JTextField txtTenLoai;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,15 +6,23 @@
 package GUI;
 
 import BLL.BLL_MaTenLoai;
-import BLL.BLL_NhanVien;
-import DAL.DAL_NhanVien;
-import DTO.DTO_NhanVien;
+import BLL.BLL_DatPhong;
+import BLL.BLL_LoaiPhong;
+import BLL.BLL_TaiKhoan;
+import DAL.DAL_DatPhong;
+import DTO.DTO_DatPhong;
+import DTO.DTO_LoaiPhong;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_SetMa;
 import HELPER.HELPER_ShowHinhAnh;
+import HELPER.HELPER_Validate;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -22,84 +30,100 @@ import javax.swing.JOptionPane;
  */
 public class GUI_pnl_DatPhong extends javax.swing.JPanel {
 
-    public static String maNhanVien;
+    public String tuNgay;
+    public String denNgay;
 
     /**
-     * Creates new form GUI_pnl_NhanVien
+     * Creates new form GUI_pnl_DatPhong
      */
     public GUI_pnl_DatPhong() {
         initComponents();
         load();
-    }
-
-    public void validate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -18);
-        dateNgayDi.setMaxSelectableDate(calendar.getTime());
+        loadDatPhong();
+        loadTenLoaiPhong();
     }
 
     public void add() {
-//        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaPhieu.getText(), txtGhiChu.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgayDi.getDate(), txtTienCoc.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), String.valueOf(cboLoaiPhong.getSelectedItem()).equals("Online") ? 1 : 0);
-//        BLL_NhanVien.add(nhanVien);
+        DTO_DatPhong datPhong = new DTO_DatPhong(HELPER_SetMa.setMaDateTime("DP", DAL_DatPhong.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))), String.valueOf(cboLoaiPhong.getSelectedItem()), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm")), dateNgayDen.getDate(), dateNgayDi.getDate(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), "Không Phòng");
+        BLL_DatPhong.add(datPhong);
     }
 
     public void delete(int index) {
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
-        } else {
-            int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
-                int indexs[] = tblDatPhong.getSelectedRows();
-                for (int i = 0; i < indexs.length; i++) {
-                    String maNhanVien = tblDatPhong.getValueAt(indexs[i], 0).toString();
-                    BLL_NhanVien.delete(maNhanVien);
-                }
-            }
-            return;
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            String maPhieuDat = tblDatPhong.getValueAt(index, 0).toString();
+            BLL_DatPhong.delete(maPhieuDat);
         }
+        return;
     }
 
-    public void edit(int index) {
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Cần Sửa");
-        }
-//        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaPhieu.getText(), txtGhiChu.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgayDi.getDate(), txtTienCoc.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), String.valueOf(cboLoaiPhong.getSelectedItem()).equals("Online") ? 1 : 0);
-//        BLL_NhanVien.edit(nhanVien);
+    public void edit() {
+        DTO_DatPhong datPhong = new DTO_DatPhong(lblSetMaPhieu.getText(), String.valueOf(cboLoaiPhong.getSelectedItem()), String.valueOf(cboLoaiKhach.getSelectedItem()), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("đ-MM-yyyy HH:mm", lblSetNgayTao.getText()), dateNgayDen.getDate(), dateNgayDi.getDate(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), lblSetTrangThai.getText());
+        BLL_DatPhong.edit(datPhong);
     }
 
     public void reset() {
-//        txtMaPhieu.setText(null);
-//        txtGhiChu.setText(null);
-//        cboGioiTinh.setSelectedItem("Nam");
-//        dateNgayDi.setDate(null);
-//        txtTienCoc.setText(null);
-//        txtCMND.setText(null);
-//        cboChucVu.setSelectedItem("Nhân Viên");
-//        txtLuong.setText(null);
+        lblSetMaPhieu.setText(null);
+        cboLoaiPhong.setSelectedItem(null);
+        cboLoaiKhach.setSelectedItem(null);
+        lblSetNhanVien.setText(null);
         lblSetNgayTao.setText(null);
-        cboLoaiPhong.setSelectedItem("Offline");
+        dateNgayDen.setDate(null);
+        dateNgayDi.setDate(null);
+        txtTenKhach.setText(null);
+        txtSoLuong.setText(null);
+        txtSoDienThoai.setText(null);
+        txtGhiChu.setText(null);
+        txtTienCoc.setText(null);
+        lblSetTrangThai.setText(null);
     }
 
     public void fill(int index) {
-//        txtMaPhieu.setText(tblDatPhong.getValueAt(index, 0).toString());
-//        txtGhiChu.setText(tblDatPhong.getValueAt(index, 1).toString());
-//        cboGioiTinh.setSelectedItem(tblDatPhong.getValueAt(index, 2).toString());
-//        dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 3).toString()));
-//        txtTienCoc.setText(tblDatPhong.getValueAt(index, 4).toString());
-//        txtCMND.setText(tblDatPhong.getValueAt(index, 5).toString());
-//        cboChucVu.setSelectedItem(tblDatPhong.getValueAt(index, 6).toString());
-//        txtLuong.setText(tblDatPhong.getValueAt(index, 7).toString());
-        lblSetNgayTao.setText(tblDatPhong.getValueAt(index, 8).toString());
-        cboLoaiPhong.setSelectedItem(tblDatPhong.getValueAt(index, 9).toString());
+        lblSetMaPhieu.setText(tblDatPhong.getValueAt(index, 0).toString());
+        txtTenKhach.setText(tblDatPhong.getValueAt(index, 1).toString());
+        txtSoDienThoai.setText(tblDatPhong.getValueAt(index, 2).toString());
+        txtSoLuong.setText(tblDatPhong.getValueAt(index, 3).toString());
+        dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 4).toString()));
+        dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 5).toString()));
+        txtGioDen.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy ", tuNgay, tuNgay));
+//        txtTienCoc.setText(tblDatPhong.getValueAt(index, 6).toString());
+//        cboLoaiPhong.setSelectedItem(tblDatPhong.getValueAt(index, 7).toString());
+//        cboLoaiKhach.setSelectedItem(tblDatPhong.getValueAt(index, 8).toString());
+//        txtGhiChu.setText(tblDatPhong.getValueAt(index, 9).toString());
+//        lblSetNhanVien.setText(tblDatPhong.getValueAt(index, 10).toString());
+//        lblSetNgayTao.setText(tblDatPhong.getValueAt(index, 11).toString());
+//        lblSetTrangThai.setText(tblDatPhong.getValueAt(index, 12).toString());
     }
 
     public void load() {
-        ArrayList<DTO_NhanVien> array = BLL_NhanVien.select();
-        new BLL_NhanVien().load(array, tblDatPhong);
+        String dateTimeTuNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
+        String dateTimeDenNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
+        dateTuNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeTuNgay));
+        dateDenNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeDenNgay));
+        dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeTuNgay));
+        dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeDenNgay));
+        tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
+        denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
     }
 
-    public void loadTaiKhoan() {
-        new GUI_dal_TaiKhoan(null, true).setVisible(true);
+    public void loadDatPhong() {
+        ArrayList<DTO_DatPhong> array = BLL_DatPhong.select(tuNgay, denNgay);
+        BLL_DatPhong.load(array, tblDatPhong);
+    }
+
+    public void loadTenLoaiPhong() {
+        ArrayList<DTO_LoaiPhong> array = BLL_MaTenLoai.selectTenLoaiPhong();
+        BLL_MaTenLoai.loadTenLoaiPhong(array, cboLoaiPhong);
+    }
+
+    public void search() {
+        TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(tblDatPhong.getModel());
+        tblDatPhong.setRowSorter(rowSorter);
+        if (txtTimKiem.getText().length() == 0) {
+            rowSorter.setRowFilter(null);
+        } else {
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtTimKiem.getText()));
+        }
     }
 
     /**
@@ -138,11 +162,21 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         txtSoDienThoai = new javax.swing.JTextField();
         txtSoLuong = new javax.swing.JTextField();
         txtTimKiem = new javax.swing.JTextField();
-        txtNhanVien = new javax.swing.JTextField();
         lblThem = new javax.swing.JLabel();
         lblSetMaPhieu = new javax.swing.JLabel();
-        lblGioPhutVao = new javax.swing.JLabel();
-        lblGioPhutRa = new javax.swing.JLabel();
+        lblSetNhanVien = new javax.swing.JLabel();
+        txtPhutDen = new javax.swing.JTextField();
+        txtGioDen = new javax.swing.JTextField();
+        lblDoubleDotDen = new javax.swing.JLabel();
+        txtGioDi = new javax.swing.JTextField();
+        lblDoubleDotDi = new javax.swing.JLabel();
+        txtPhutDi = new javax.swing.JTextField();
+        lblTrangThai = new javax.swing.JLabel();
+        lblSetTrangThai = new javax.swing.JLabel();
+        lblTuNgay = new javax.swing.JLabel();
+        dateDenNgay = new com.toedter.calendar.JDateChooser();
+        lblDenNgay = new javax.swing.JLabel();
+        dateTuNgay = new com.toedter.calendar.JDateChooser();
         sdoDatPhong = new HELPER.PanelShadow();
         scrDatPhong = new javax.swing.JScrollPane();
         tblDatPhong = new javax.swing.JTable();
@@ -152,8 +186,8 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1150, 730));
 
         sdoFormChinh.setBackground(new java.awt.Color(255, 255, 255));
-        sdoFormChinh.setMinimumSize(new java.awt.Dimension(1150, 290));
-        sdoFormChinh.setPreferredSize(new java.awt.Dimension(1150, 290));
+        sdoFormChinh.setMinimumSize(new java.awt.Dimension(1150, 280));
+        sdoFormChinh.setPreferredSize(new java.awt.Dimension(1150, 280));
         sdoFormChinh.setShadowOpacity(0.4F);
         sdoFormChinh.setShadowSize(9);
         sdoFormChinh.setShadowType(HELPER.ShadowType.BOT);
@@ -169,7 +203,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 lblTimKiemMouseClicked(evt);
             }
         });
-        sdoFormChinh.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 230, 90, 30));
+        sdoFormChinh.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 220, 90, 30));
 
         lblLamMoi.setBackground(new java.awt.Color(255, 255, 255));
         lblLamMoi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -181,13 +215,13 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 lblLamMoiMouseClicked(evt);
             }
         });
-        sdoFormChinh.add(lblLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 230, 80, 30));
+        sdoFormChinh.add(lblLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 80, 30));
 
         lblLoaiPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblLoaiPhong.setForeground(new java.awt.Color(153, 153, 153));
         lblLoaiPhong.setText("Loại Phòng");
-        sdoFormChinh.add(lblLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 140, 70, 20));
+        sdoFormChinh.add(lblLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 140, 70, 20));
 
         txtTienCoc.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTienCoc.setForeground(new java.awt.Color(62, 73, 95));
@@ -202,7 +236,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 txtTienCocKeyReleased(evt);
             }
         });
-        sdoFormChinh.add(txtTienCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 70, 20));
+        sdoFormChinh.add(txtTienCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 80, 20));
 
         txtGhiChu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtGhiChu.setForeground(new java.awt.Color(62, 73, 95));
@@ -217,7 +251,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 txtGhiChuKeyReleased(evt);
             }
         });
-        sdoFormChinh.add(txtGhiChu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 540, 20));
+        sdoFormChinh.add(txtGhiChu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 540, 20));
 
         lblDanhSachDatPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblDanhSachDatPhong.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
@@ -229,13 +263,13 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         lblNgayTao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNgayTao.setForeground(new java.awt.Color(153, 153, 153));
         lblNgayTao.setText("Ngày Tạo ");
-        sdoFormChinh.add(lblNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 50, 60, 20));
+        sdoFormChinh.add(lblNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 60, 60, 20));
 
         lblNgayDi.setBackground(new java.awt.Color(255, 255, 255));
         lblNgayDi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNgayDi.setForeground(new java.awt.Color(153, 153, 153));
         lblNgayDi.setText("Ngày Đi ");
-        sdoFormChinh.add(lblNgayDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 50, 20));
+        sdoFormChinh.add(lblNgayDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 50, 20));
 
         lblNgayDen.setBackground(new java.awt.Color(255, 255, 255));
         lblNgayDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -247,47 +281,47 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         lblTenKhach.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTenKhach.setForeground(new java.awt.Color(153, 153, 153));
         lblTenKhach.setText("Tên Khách");
-        sdoFormChinh.add(lblTenKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 70, 20));
+        sdoFormChinh.add(lblTenKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 70, 20));
 
         lblSoLuong.setBackground(new java.awt.Color(255, 255, 255));
         lblSoLuong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSoLuong.setForeground(new java.awt.Color(153, 153, 153));
         lblSoLuong.setText("Số Lượng");
-        sdoFormChinh.add(lblSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 60, 20));
+        sdoFormChinh.add(lblSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 60, 20));
 
         lblTienCoc.setBackground(new java.awt.Color(255, 255, 255));
         lblTienCoc.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTienCoc.setForeground(new java.awt.Color(153, 153, 153));
         lblTienCoc.setText("Tiền Cọc");
-        sdoFormChinh.add(lblTienCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 50, 20));
+        sdoFormChinh.add(lblTienCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 50, 20));
 
         lblSoDienThoai.setBackground(new java.awt.Color(255, 255, 255));
         lblSoDienThoai.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSoDienThoai.setForeground(new java.awt.Color(153, 153, 153));
         lblSoDienThoai.setText("Số Điện Thoại");
-        sdoFormChinh.add(lblSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 90, 20));
+        sdoFormChinh.add(lblSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 90, 20));
 
         lblGhiChu.setBackground(new java.awt.Color(255, 255, 255));
         lblGhiChu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblGhiChu.setForeground(new java.awt.Color(153, 153, 153));
         lblGhiChu.setText("Ghi Chú");
-        sdoFormChinh.add(lblGhiChu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 60, 20));
+        sdoFormChinh.add(lblGhiChu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 60, 20));
 
         lblLoaiKhach.setBackground(new java.awt.Color(255, 255, 255));
         lblLoaiKhach.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblLoaiKhach.setForeground(new java.awt.Color(153, 153, 153));
         lblLoaiKhach.setText("Loại Khách");
-        sdoFormChinh.add(lblLoaiKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 70, 20));
+        sdoFormChinh.add(lblLoaiKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 140, 70, 20));
 
         cboLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboLoaiPhong.setForeground(new java.awt.Color(62, 73, 95));
         cboLoaiPhong.setBorder(null);
-        sdoFormChinh.add(cboLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 170, 100, 20));
+        sdoFormChinh.add(cboLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 170, 110, 20));
 
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        sdoFormChinh.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 80, 90, 20));
+        sdoFormChinh.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, 100, 20));
 
         dateNgayDi.setBackground(new java.awt.Color(255, 255, 255));
         dateNgayDi.setForeground(new java.awt.Color(62, 73, 95));
@@ -298,19 +332,19 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 dateNgayDiPropertyChange(evt);
             }
         });
-        sdoFormChinh.add(dateNgayDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 110, 20));
+        sdoFormChinh.add(dateNgayDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 110, 20));
 
         lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblMaPhieu.setForeground(new java.awt.Color(153, 153, 153));
         lblMaPhieu.setText("Mã Phiếu");
-        sdoFormChinh.add(lblMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 60, 20));
+        sdoFormChinh.add(lblMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 60, 20));
 
         lblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblNhanVien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(153, 153, 153));
         lblNhanVien.setText("Nhân Viên");
-        sdoFormChinh.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 70, 20));
+        sdoFormChinh.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 70, 20));
 
         dateNgayDen.setBackground(new java.awt.Color(255, 255, 255));
         dateNgayDen.setForeground(new java.awt.Color(62, 73, 95));
@@ -327,7 +361,12 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         cboLoaiKhach.setForeground(new java.awt.Color(62, 73, 95));
         cboLoaiKhach.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khách Đơn", "Khách Đoàn" }));
         cboLoaiKhach.setBorder(null);
-        sdoFormChinh.add(cboLoaiKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 170, 100, 20));
+        cboLoaiKhach.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboLoaiKhachItemStateChanged(evt);
+            }
+        });
+        sdoFormChinh.add(cboLoaiKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 100, 20));
 
         txtTenKhach.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTenKhach.setForeground(new java.awt.Color(62, 73, 95));
@@ -342,7 +381,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 txtTenKhachKeyReleased(evt);
             }
         });
-        sdoFormChinh.add(txtTenKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 100, 20));
+        sdoFormChinh.add(txtTenKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 100, 20));
 
         txtSoDienThoai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtSoDienThoai.setForeground(new java.awt.Color(62, 73, 95));
@@ -357,7 +396,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 txtSoDienThoaiKeyReleased(evt);
             }
         });
-        sdoFormChinh.add(txtSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 100, 20));
+        sdoFormChinh.add(txtSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 90, 20));
 
         txtSoLuong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtSoLuong.setForeground(new java.awt.Color(62, 73, 95));
@@ -372,7 +411,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 txtSoLuongKeyReleased(evt);
             }
         });
-        sdoFormChinh.add(txtSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 80, 20));
+        sdoFormChinh.add(txtSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, 70, 20));
 
         txtTimKiem.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTimKiem.setForeground(new java.awt.Color(62, 73, 95));
@@ -387,22 +426,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 txtTimKiemKeyReleased(evt);
             }
         });
-        sdoFormChinh.add(txtTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 230, 100, 30));
-
-        txtNhanVien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        txtNhanVien.setForeground(new java.awt.Color(62, 73, 95));
-        txtNhanVien.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtNhanVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNhanVienActionPerformed(evt);
-            }
-        });
-        txtNhanVien.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNhanVienKeyReleased(evt);
-            }
-        });
-        sdoFormChinh.add(txtNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, 80, 20));
+        sdoFormChinh.add(txtTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 220, 100, 30));
 
         lblThem.setBackground(new java.awt.Color(255, 255, 255));
         lblThem.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -414,30 +438,156 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 lblThemMouseClicked(evt);
             }
         });
-        sdoFormChinh.add(lblThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 230, 60, 30));
+        sdoFormChinh.add(lblThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 60, 30));
 
         lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        sdoFormChinh.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 70, 20));
+        sdoFormChinh.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 100, 20));
 
-        lblGioPhutVao.setBackground(new java.awt.Color(255, 255, 255));
-        lblGioPhutVao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblGioPhutVao.setForeground(new java.awt.Color(62, 73, 95));
-        lblGioPhutVao.setText("00:00");
-        lblGioPhutVao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoFormChinh.add(lblGioPhutVao, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 40, 20));
+        lblSetNhanVien.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetNhanVien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetNhanVien.setForeground(new java.awt.Color(62, 73, 95));
+        sdoFormChinh.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 110, 20));
 
-        lblGioPhutRa.setBackground(new java.awt.Color(255, 255, 255));
-        lblGioPhutRa.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblGioPhutRa.setForeground(new java.awt.Color(62, 73, 95));
-        lblGioPhutRa.setText("00:00");
-        lblGioPhutRa.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoFormChinh.add(lblGioPhutRa, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 40, 20));
+        txtPhutDen.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        txtPhutDen.setForeground(new java.awt.Color(62, 73, 95));
+        txtPhutDen.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtPhutDen.setText("00");
+        txtPhutDen.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtPhutDen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtPhutDenMouseReleased(evt);
+            }
+        });
+        txtPhutDen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPhutDenActionPerformed(evt);
+            }
+        });
+        sdoFormChinh.add(txtPhutDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 20, 20));
+
+        txtGioDen.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        txtGioDen.setForeground(new java.awt.Color(62, 73, 95));
+        txtGioDen.setText("00");
+        txtGioDen.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtGioDen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtGioDenMouseReleased(evt);
+            }
+        });
+        txtGioDen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGioDenActionPerformed(evt);
+            }
+        });
+        txtGioDen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtGioDenKeyReleased(evt);
+            }
+        });
+        sdoFormChinh.add(txtGioDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 20, 20));
+
+        lblDoubleDotDen.setBackground(new java.awt.Color(255, 255, 255));
+        lblDoubleDotDen.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblDoubleDotDen.setForeground(new java.awt.Color(62, 73, 95));
+        lblDoubleDotDen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDoubleDotDen.setText(":");
+        lblDoubleDotDen.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        sdoFormChinh.add(lblDoubleDotDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 10, 20));
+
+        txtGioDi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        txtGioDi.setForeground(new java.awt.Color(62, 73, 95));
+        txtGioDi.setText("00");
+        txtGioDi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtGioDi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtGioDiMouseReleased(evt);
+            }
+        });
+        txtGioDi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGioDiActionPerformed(evt);
+            }
+        });
+        txtGioDi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtGioDiKeyReleased(evt);
+            }
+        });
+        sdoFormChinh.add(txtGioDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 20, 20));
+
+        lblDoubleDotDi.setBackground(new java.awt.Color(255, 255, 255));
+        lblDoubleDotDi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblDoubleDotDi.setForeground(new java.awt.Color(62, 73, 95));
+        lblDoubleDotDi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDoubleDotDi.setText(":");
+        lblDoubleDotDi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        sdoFormChinh.add(lblDoubleDotDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 10, 20));
+
+        txtPhutDi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        txtPhutDi.setForeground(new java.awt.Color(62, 73, 95));
+        txtPhutDi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtPhutDi.setText("00");
+        txtPhutDi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtPhutDi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtPhutDiMouseReleased(evt);
+            }
+        });
+        txtPhutDi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPhutDiActionPerformed(evt);
+            }
+        });
+        sdoFormChinh.add(txtPhutDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 20, 20));
+
+        lblTrangThai.setBackground(new java.awt.Color(255, 255, 255));
+        lblTrangThai.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblTrangThai.setForeground(new java.awt.Color(153, 153, 153));
+        lblTrangThai.setText("Trạng Thái");
+        sdoFormChinh.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 140, 70, 20));
+
+        lblSetTrangThai.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetTrangThai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetTrangThai.setForeground(new java.awt.Color(62, 73, 95));
+        sdoFormChinh.add(lblSetTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 170, 100, 20));
+
+        lblTuNgay.setBackground(new java.awt.Color(255, 255, 255));
+        lblTuNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblTuNgay.setForeground(new java.awt.Color(153, 153, 153));
+        lblTuNgay.setText("Từ");
+        sdoFormChinh.add(lblTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 10, 20, 20));
+
+        dateDenNgay.setBackground(new java.awt.Color(255, 255, 255));
+        dateDenNgay.setForeground(new java.awt.Color(62, 73, 95));
+        dateDenNgay.setDateFormatString("dd-MM-yyyy");
+        dateDenNgay.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateDenNgayPropertyChange(evt);
+            }
+        });
+        sdoFormChinh.add(dateDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 10, 100, -1));
+
+        lblDenNgay.setBackground(new java.awt.Color(255, 255, 255));
+        lblDenNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblDenNgay.setForeground(new java.awt.Color(153, 153, 153));
+        lblDenNgay.setText("Đến");
+        sdoFormChinh.add(lblDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, -1, 20));
+
+        dateTuNgay.setBackground(new java.awt.Color(255, 255, 255));
+        dateTuNgay.setForeground(new java.awt.Color(62, 73, 95));
+        dateTuNgay.setDateFormatString("dd-MM-yyyy");
+        dateTuNgay.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateTuNgayPropertyChange(evt);
+            }
+        });
+        sdoFormChinh.add(dateTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 100, 20));
 
         sdoDatPhong.setBackground(new java.awt.Color(255, 255, 255));
-        sdoDatPhong.setMinimumSize(new java.awt.Dimension(1150, 440));
-        sdoDatPhong.setPreferredSize(new java.awt.Dimension(1150, 440));
+        sdoDatPhong.setMinimumSize(new java.awt.Dimension(1150, 450));
+        sdoDatPhong.setPreferredSize(new java.awt.Dimension(1150, 450));
         sdoDatPhong.setShadowOpacity(0.4F);
         sdoDatPhong.setShadowSize(9);
         sdoDatPhong.setShadowType(HELPER.ShadowType.BOT);
@@ -450,27 +600,27 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         tblDatPhong.setForeground(new java.awt.Color(62, 73, 95));
         tblDatPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Phiếu", "Tên Khách", "SĐT", "Số Lượng", "Ngày Đến", "Ngày Đi", "Tiền Cọc", "Loại Phòng", "Loại Khách", "Ghi Chú", "Nhân Viên", "Ngày Tạo", "", ""
+                "Mã Phiếu", "Tên Khách", "SĐT", "Số Lượng", "Ngày Đến", "Ngày Đi", "Tiền Cọc", "Loại Phòng", "Loại Khách", "Ghi Chú", "Nhân Viên", "Ngày Tạo", "Trạng Thái", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -486,25 +636,25 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         });
         scrDatPhong.setViewportView(tblDatPhong);
         if (tblDatPhong.getColumnModel().getColumnCount() > 0) {
-            tblDatPhong.getColumnModel().getColumn(12).setMaxWidth(40);
             tblDatPhong.getColumnModel().getColumn(13).setMaxWidth(40);
+            tblDatPhong.getColumnModel().getColumn(14).setMaxWidth(40);
         }
 
-        sdoDatPhong.add(scrDatPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1110, 400));
+        sdoDatPhong.add(scrDatPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1110, 410));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sdoFormChinh, javax.swing.GroupLayout.PREFERRED_SIZE, 1150, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(sdoDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 1150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoFormChinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sdoDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(sdoFormChinh, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sdoFormChinh, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(sdoDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(sdoDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -523,49 +673,45 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
 
     private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked
         // TODO add your handling code here:
-        add();
-        load();
+        search();
     }//GEN-LAST:event_lblTimKiemMouseClicked
 
     private void tblDatPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatPhongMouseClicked
         // TODO add your handling code here:
         int row = tblDatPhong.getSelectedRow();
         int column = tblDatPhong.getSelectedColumn();
-        maNhanVien = tblDatPhong.getValueAt(row, 0).toString();
         if (tblDatPhong.getValueAt(row, column) != null && tblDatPhong.getValueAt(row, column + 1) != null || tblDatPhong.getValueAt(row, column) != null && tblDatPhong.getValueAt(row, column - 1) != null) {
             fill(row);
-        } else if (tblDatPhong.getValueAt(row, column) == null && tblDatPhong.getValueAt(row, column - 1) == null && tblDatPhong.getValueAt(row, column - 2) == null) {
+        } else if (tblDatPhong.getValueAt(row, column) == null && tblDatPhong.getValueAt(row, column - 1) != null) {
+            edit();
+            loadDatPhong();
+        } else if (tblDatPhong.getValueAt(row, column) == null && tblDatPhong.getValueAt(row, column - 1) == null) {
             delete(row);
-            load();
-        } else if (tblDatPhong.getValueAt(row, column) == null && tblDatPhong.getValueAt(row, column - 1) == null && tblDatPhong.getValueAt(row, column + 1) == null) {
-            edit(row);
-            load();
-        } else if (tblDatPhong.getValueAt(row, column) == null && tblDatPhong.getValueAt(row, column - 1) != null && tblDatPhong.getValueAt(row, column + 1) == null) {
-            loadTaiKhoan();
+            loadDatPhong();
         }
     }//GEN-LAST:event_tblDatPhongMouseClicked
 
     private void dateNgayDiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgayDiPropertyChange
         // TODO add your handling code here:
-        if (dateNgayDi.getDate() != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.YEAR, -18);
-            dateNgayDi.setMaxSelectableDate(calendar.getTime());
+        if (dateNgayDi.getDate() != null && dateNgayDen.getDate() != null) {
+            dateNgayDen.setMaxSelectableDate(dateNgayDi.getDate());;
         }
     }//GEN-LAST:event_dateNgayDiPropertyChange
 
     private void txtGhiChuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGhiChuKeyReleased
         // TODO add your handling code here:
-        txtGhiChu.setText(txtGhiChu.getText().replaceAll("[1234567890[*/+-]]", ""));
     }//GEN-LAST:event_txtGhiChuKeyReleased
 
     private void txtTienCocKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienCocKeyReleased
         // TODO add your handling code here:
-        txtTienCoc.setText(txtTienCoc.getText().replaceAll("[abcdefghijklmnopqrstuvwxyz[*/-]]", ""));
+        HELPER_Validate.validateNumber(txtTienCoc);
     }//GEN-LAST:event_txtTienCocKeyReleased
 
     private void dateNgayDenPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgayDenPropertyChange
         // TODO add your handling code here:
+        if (dateNgayDen.getDate() != null && dateNgayDi.getDate() != null) {
+            dateNgayDi.setMinSelectableDate(dateNgayDen.getDate());;
+        }
     }//GEN-LAST:event_dateNgayDenPropertyChange
 
     private void txtTenKhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenKhachActionPerformed
@@ -574,6 +720,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
 
     private void txtTenKhachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenKhachKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.validateString(txtTenKhach);
     }//GEN-LAST:event_txtTenKhachKeyReleased
 
     private void txtSoDienThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiActionPerformed
@@ -582,6 +729,8 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
 
     private void txtSoDienThoaiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoDienThoaiKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtSoDienThoai);
+        HELPER_Validate.setTextLimited(txtSoDienThoai, 10);
     }//GEN-LAST:event_txtSoDienThoaiKeyReleased
 
     private void txtSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongActionPerformed
@@ -590,6 +739,8 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
 
     private void txtSoLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoLuongKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtSoLuong);
+        HELPER_Validate.setTextLimited(txtSoLuong, 2);
     }//GEN-LAST:event_txtSoLuongKeyReleased
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
@@ -598,30 +749,94 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
         // TODO add your handling code here:
+        search();
     }//GEN-LAST:event_txtTimKiemKeyReleased
-
-    private void txtNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNhanVienActionPerformed
-
-    private void txtNhanVienKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNhanVienKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNhanVienKeyReleased
 
     private void lblThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemMouseClicked
         // TODO add your handling code here:
+        add();
+        loadDatPhong();
     }//GEN-LAST:event_lblThemMouseClicked
+
+    private void txtPhutDenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPhutDenMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPhutDenMouseReleased
+
+    private void txtPhutDenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhutDenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPhutDenActionPerformed
+
+    private void txtGioDenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtGioDenMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGioDenMouseReleased
+
+    private void txtGioDenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGioDenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGioDenActionPerformed
+
+    private void txtGioDenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGioDenKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGioDenKeyReleased
+
+    private void txtGioDiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtGioDiMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGioDiMouseReleased
+
+    private void txtGioDiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGioDiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGioDiActionPerformed
+
+    private void txtGioDiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGioDiKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGioDiKeyReleased
+
+    private void txtPhutDiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPhutDiMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPhutDiMouseReleased
+
+    private void txtPhutDiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhutDiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPhutDiActionPerformed
+
+    private void dateTuNgayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateTuNgayPropertyChange
+        // TODO add your handling code here:
+        if (dateTuNgay.getDate() != null && dateDenNgay.getDate() != null) {
+            dateDenNgay.setMinSelectableDate(dateTuNgay.getDate());;
+        }
+        loadDatPhong();
+    }//GEN-LAST:event_dateTuNgayPropertyChange
+
+    private void dateDenNgayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateDenNgayPropertyChange
+        // TODO add your handling code here:
+        if (dateDenNgay.getDate() != null && dateTuNgay.getDate() != null) {
+            dateTuNgay.setMaxSelectableDate(dateDenNgay.getDate());;
+        }
+        loadDatPhong();
+    }//GEN-LAST:event_dateDenNgayPropertyChange
+
+    private void cboLoaiKhachItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLoaiKhachItemStateChanged
+        // TODO add your handling code here:
+        if (String.valueOf(cboLoaiKhach.getSelectedItem()).equals("Khách Đoàn")) {
+            cboLoaiPhong.setSelectedItem(null);
+            cboLoaiPhong.setEnabled(false);
+        } else {
+            cboLoaiPhong.setEnabled(true);
+        }
+    }//GEN-LAST:event_cboLoaiKhachItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboLoaiKhach;
     private javax.swing.JComboBox<String> cboLoaiPhong;
+    private com.toedter.calendar.JDateChooser dateDenNgay;
     private com.toedter.calendar.JDateChooser dateNgayDen;
     private com.toedter.calendar.JDateChooser dateNgayDi;
+    private com.toedter.calendar.JDateChooser dateTuNgay;
     private javax.swing.JLabel lblDanhSachDatPhong;
+    private javax.swing.JLabel lblDenNgay;
+    private javax.swing.JLabel lblDoubleDotDen;
+    private javax.swing.JLabel lblDoubleDotDi;
     private javax.swing.JLabel lblGhiChu;
-    private javax.swing.JLabel lblGioPhutRa;
-    private javax.swing.JLabel lblGioPhutVao;
     private javax.swing.JLabel lblLamMoi;
     private javax.swing.JLabel lblLoaiKhach;
     private javax.swing.JLabel lblLoaiPhong;
@@ -632,18 +847,25 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     private javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lblSetMaPhieu;
     private javax.swing.JLabel lblSetNgayTao;
+    private javax.swing.JLabel lblSetNhanVien;
+    private javax.swing.JLabel lblSetTrangThai;
     private javax.swing.JLabel lblSoDienThoai;
     private javax.swing.JLabel lblSoLuong;
     private javax.swing.JLabel lblTenKhach;
     private javax.swing.JLabel lblThem;
     private javax.swing.JLabel lblTienCoc;
     private javax.swing.JLabel lblTimKiem;
+    private javax.swing.JLabel lblTrangThai;
+    private javax.swing.JLabel lblTuNgay;
     private javax.swing.JScrollPane scrDatPhong;
     private HELPER.PanelShadow sdoDatPhong;
     private HELPER.PanelShadow sdoFormChinh;
     private javax.swing.JTable tblDatPhong;
     private javax.swing.JTextField txtGhiChu;
-    private javax.swing.JTextField txtNhanVien;
+    private javax.swing.JTextField txtGioDen;
+    private javax.swing.JTextField txtGioDi;
+    private javax.swing.JTextField txtPhutDen;
+    private javax.swing.JTextField txtPhutDi;
     private javax.swing.JTextField txtSoDienThoai;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenKhach;

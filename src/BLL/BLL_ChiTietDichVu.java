@@ -100,8 +100,8 @@ public class BLL_ChiTietDichVu {
             obj[0] = chiTietDichVu.getMaSanPham();
             obj[1] = BLL_MaTenLoai.findTenSanPham(chiTietDichVu.getMaSanPham());
             obj[2] = chiTietDichVu.getSoLuong();
-            obj[3] = chiTietDichVu.getGiaTien();
-            obj[4] = chiTietDichVu.getSoLuong() * chiTietDichVu.getGiaTien();
+            obj[3] = chiTietDichVu.getGiaTien() + "K";
+            obj[4] = chiTietDichVu.getSoLuong() * chiTietDichVu.getGiaTien() + "K";
             tbl.getColumnModel().getColumn(5).setCellRenderer(new HELPER_SetIcon.iconDelete());
             tblModel.addRow(obj);
         }
@@ -114,8 +114,8 @@ public class BLL_ChiTietDichVu {
             Object obj[] = new Object[4];
             obj[0] = BLL_MaTenLoai.findTenSanPham(chiTietDichVu.getMaSanPham());
             obj[1] = chiTietDichVu.getSoLuong();
-            obj[2] = chiTietDichVu.getGiaTien();
-            obj[3] = chiTietDichVu.getSoLuong() * chiTietDichVu.getGiaTien();
+            obj[2] = chiTietDichVu.getGiaTien() + "K";
+            obj[3] = chiTietDichVu.getSoLuong() * chiTietDichVu.getGiaTien() + "K";
             tblModel.addRow(obj);
         }
     }

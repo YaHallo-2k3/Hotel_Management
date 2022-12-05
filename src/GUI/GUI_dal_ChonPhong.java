@@ -12,6 +12,7 @@ import DTO.DTO_HangMucChi;
 import DTO.DTO_SoTang;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +23,7 @@ public class GUI_dal_ChonPhong extends javax.swing.JDialog {
 
     public static String maTang;
     public static int index;
+    public static JDialog dal = null;
 
     /**
      * Creates new form GUI_dalThongTinPhong
@@ -32,6 +34,7 @@ public class GUI_dal_ChonPhong extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         loadTenTang();
         search();
+        dal = this;
     }
 
     public void loadTenTang() {

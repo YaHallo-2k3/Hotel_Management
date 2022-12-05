@@ -5,15 +5,37 @@
  */
 package GUI;
 
+import BLL.BLL_ChiTietDichVu;
+import BLL.BLL_DichVu;
+import BLL.BLL_LoaiSanPham;
+import BLL.BLL_MaTenLoai;
 import BLL.BLL_SanPham;
+import BLL.BLL_TaiKhoan;
+import DAL.DAL_ChiTietDichVu;
+import DAL.DAL_DichVu;
+import DTO.DTO_ChiTietDichVu;
+import DTO.DTO_DichVu;
 import DTO.DTO_SanPham;
+import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_SetIcon;
+import HELPER.HELPER_SetMa;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author CherryCe
  */
 public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
+
+    public int row;
+    public int column;
+    public static String str_1;
+    public static String str_2;
+    public static String str_3;
+    public boolean isUpgrade = false;
+    public boolean isAddEdit = false;
 
     /**
      * Creates new form GUI_dalThongTinPhong
@@ -22,12 +44,114 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        check();
         loadSanPham();
+        loadTenLoaiSanPham();
+        loadChiTietDichVu();
+        setTongTien();
     }
-    
+
+    public void check() {
+        if (GUI_pnl_ChiTietDichVu.isDichVu) {
+            isUpgrade = true;
+            lblCapNhat.setText("Xóa");
+            loadPhieuDichVu();
+        } else {
+            isUpgrade = false;
+            load();
+        }
+        GUI_pnl_ChiTietDichVu.isDichVu = false;
+    }
+
+    public void addChiTietDichVu(int row) {
+        DTO_ChiTietDichVu chiTietDichVu = new DTO_ChiTietDichVu(HELPER_SetMa.setMaDateTime("CT", DAL_ChiTietDichVu.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))), lblSetMaPhieu.getText(), tblDichVu.getValueAt(row, 0).toString(), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()), HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()));
+        BLL_ChiTietDichVu.add(chiTietDichVu);
+    }
+
     public void loadSanPham() {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select();
         BLL_SanPham.loadKhoDichVu(array, tblKhoDichVu);
+    }
+
+    public void loadTenLoaiSanPham() {
+        BLL_LoaiSanPham.loadTenLoaiDichVu();
+        lbl_1.setText(str_1);
+        lbl_2.setText(str_2);
+        lbl_3.setText(str_3);
+    }
+
+    public void loadSanPham(String maLoaiSanPham) {
+        ArrayList<DTO_SanPham> array = BLL_SanPham.select(maLoaiSanPham);
+        BLL_SanPham.loadKhoDichVu(array, tblKhoDichVu);
+    }
+
+    public void loadChiTietDichVu() {
+        ArrayList<DTO_ChiTietDichVu> arrayChiTiet = BLL_ChiTietDichVu.select(lblSetMaPhieu.getText());
+        BLL_ChiTietDichVu.load(arrayChiTiet, tblDichVu);
+    }
+
+    public void loadPhieuDichVu() {
+        ArrayList<DTO_DichVu> arrayDichVu = BLL_DichVu.search(GUI_pnl_DichVu.tuNgay, GUI_pnl_DichVu.denNgay, GUI_pnl_ChiTietDichVu.indexPosition + 1);
+        BLL_DichVu.loadChiTietDichVu(arrayDichVu, lblSetMaPhieu, lblSetSoPhong, lblSetNhanVien, lblSetNgayTao, txtGhiChu);
+    }
+
+    public void addDichVu() {
+        DTO_DichVu dichVu = new DTO_DichVu(lblSetMaPhieu.getText(), lblSetSoPhong.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText());
+        BLL_DichVu.add(dichVu);
+    }
+
+    public void deleteDichVu() {
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            String maPhieuDichVu = lblSetMaPhieu.getText();
+            BLL_DichVu.delete(maPhieuDichVu);
+        }
+        return;
+    }
+
+    public void load() {
+        lblSetSoPhong.setText(null);
+        lblSetMaPhieu.setText(HELPER_SetMa.setMaDateTime("DV", DAL_DichVu.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))));
+        lblSetNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)));
+        lblSetNgayDen.setText(null);
+        lblSetNgayDi.setText(null);
+        lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
+    }
+
+    public void addRow(int row) {
+        DefaultTableModel tblModel = (DefaultTableModel) tblDichVu.getModel();
+        Object obj[] = new Object[5];
+        obj[0] = tblKhoDichVu.getValueAt(row, 0).toString();
+        obj[1] = tblKhoDichVu.getValueAt(row, 1).toString();
+        obj[2] = 1;
+        obj[3] = tblKhoDichVu.getValueAt(row, 2).toString();
+        obj[4] = HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 2).toString()) * HELPER_ChuyenDoi.getSoInt(obj[2].toString()) + "K";
+        tblDichVu.getColumnModel().getColumn(5).setCellRenderer(new HELPER_SetIcon.iconDelete());
+        tblModel.addRow(obj);
+    }
+
+    public void editRow(int row) {
+        DefaultTableModel tblModel = (DefaultTableModel) tblDichVu.getModel();
+        tblModel.setValueAt(HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()) + 1, row, 2);
+        tblModel.setValueAt(HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()) * HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()) + "K", row, 4);
+    }
+
+    public void deleteRow(int row) {
+        DefaultTableModel tblModel = (DefaultTableModel) tblDichVu.getModel();
+        if (HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()) != 1) {
+            tblModel.setValueAt(HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()) - 1, row, 2);
+            tblModel.setValueAt(HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 2).toString()) * HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString()) + "K", row, 4);
+        } else {
+            tblModel.removeRow(row);
+        }
+    }
+
+    public void setTongTien() {
+        int total = 0;
+        for (int i = 0; i < tblDichVu.getRowCount(); i++) {
+            total += HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(i, 4).toString());
+        }
+        lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(total) + "K");
     }
 
     /**
@@ -40,7 +164,7 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
     private void initComponents() {
 
         sdoThongTinPhong = new HELPER.PanelShadow();
-        lblSetMaHoaDon = new javax.swing.JLabel();
+        lblSetMaPhieu = new javax.swing.JLabel();
         lblMaPhieu = new javax.swing.JLabel();
         lblSoPhong = new javax.swing.JLabel();
         lblSetNhanVien = new javax.swing.JLabel();
@@ -85,11 +209,10 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         sdoThongTinPhong.setPreferredSize(new java.awt.Dimension(860, 130));
         sdoThongTinPhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblSetMaHoaDon.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetMaHoaDon.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblSetMaHoaDon.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMaHoaDon.setText("220912001");
-        sdoThongTinPhong.add(lblSetMaHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 100, 20));
+        lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
+        sdoThongTinPhong.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 100, 20));
 
         lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -106,14 +229,12 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         lblSetNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNhanVien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNhanVien.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNhanVien.setText("CherryCe");
-        sdoThongTinPhong.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 100, 20));
+        sdoThongTinPhong.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 110, 20));
 
         lblSetSoPhong.setBackground(new java.awt.Color(97, 177, 90));
         lblSetSoPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetSoPhong.setForeground(new java.awt.Color(255, 255, 255));
         lblSetSoPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSetSoPhong.setText("201");
         lblSetSoPhong.setOpaque(true);
         lblSetSoPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -161,55 +282,69 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         lblSetNgayDen.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayDen.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayDen.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayDen.setText("16/09/22");
         sdoThongTinPhong.add(lblSetNgayDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 70, 20));
 
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayTao.setText("16/09/22 22:08");
-        sdoThongTinPhong.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, -1, 20));
+        sdoThongTinPhong.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 120, 20));
 
         lblSetNgayDi.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayDi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayDi.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayDi.setText("16/09/22");
         sdoThongTinPhong.add(lblSetNgayDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, 70, 20));
 
         lbl_1.setBackground(new java.awt.Color(255, 102, 102));
         lbl_1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lbl_1.setForeground(new java.awt.Color(255, 255, 255));
         lbl_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_1.setText("Đồ Uống");
         lbl_1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lbl_1.setOpaque(true);
+        lbl_1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_1MouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lbl_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 70, 30));
 
         lbl_3.setBackground(new java.awt.Color(255, 102, 102));
         lbl_3.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lbl_3.setForeground(new java.awt.Color(255, 255, 255));
         lbl_3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_3.setText("Di Chuyển");
         lbl_3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lbl_3.setOpaque(true);
+        lbl_3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_3MouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lbl_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 80, 70, 30));
 
         lblAll.setBackground(new java.awt.Color(255, 102, 102));
         lblAll.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblAll.setForeground(new java.awt.Color(255, 255, 255));
         lblAll.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAll.setText("ALL");
+        lblAll.setText("All");
         lblAll.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblAll.setOpaque(true);
+        lblAll.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAllMouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lblAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 40, 30));
 
         lbl_2.setBackground(new java.awt.Color(255, 102, 102));
         lbl_2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lbl_2.setForeground(new java.awt.Color(255, 255, 255));
         lbl_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_2.setText("Thức Ăn");
         lbl_2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lbl_2.setOpaque(true);
+        lbl_2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_2MouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lbl_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 70, 30));
 
         txtGhiChu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -225,6 +360,11 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/close (1).png"))); // NOI18N
+        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExitMouseClicked(evt);
+            }
+        });
         sdoThongTinPhong.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 30, 30));
 
         sdoKhoDichVu.setBackground(new java.awt.Color(255, 255, 255));
@@ -266,6 +406,11 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         });
         tblKhoDichVu.setRowHeight(30);
         tblKhoDichVu.setShowHorizontalLines(false);
+        tblKhoDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKhoDichVuMouseClicked(evt);
+            }
+        });
         scrKhoDichVu.setViewportView(tblKhoDichVu);
         if (tblKhoDichVu.getColumnModel().getColumnCount() > 0) {
             tblKhoDichVu.getColumnModel().getColumn(3).setMaxWidth(40);
@@ -312,6 +457,11 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         });
         tblDichVu.setRowHeight(30);
         tblDichVu.setShowHorizontalLines(false);
+        tblDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDichVuMouseClicked(evt);
+            }
+        });
         scrDichVu.setViewportView(tblDichVu);
         if (tblDichVu.getColumnModel().getColumnCount() > 0) {
             tblDichVu.getColumnModel().getColumn(5).setMaxWidth(40);
@@ -328,13 +478,11 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         lblSetDaThanhToan.setBackground(new java.awt.Color(255, 255, 255));
         lblSetDaThanhToan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetDaThanhToan.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetDaThanhToan.setText("220912001");
         sdoChucNang.add(lblSetDaThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 90, 30));
 
         lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTongTien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTongTien.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetTongTien.setText("220912001");
         sdoChucNang.add(lblSetTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 90, 30));
 
         lblDaThanhToan.setBackground(new java.awt.Color(255, 255, 255));
@@ -368,6 +516,14 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         lblCapNhat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/upgrade (3).png"))); // NOI18N
         lblCapNhat.setText("Cập Nhật");
+        lblCapNhat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCapNhatMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCapNhatMouseEntered(evt);
+            }
+        });
         sdoChucNang.add(lblCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, 100, 30));
 
         lblInPhieu.setBackground(new java.awt.Color(255, 255, 255));
@@ -415,6 +571,94 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         // TODO add your handling code here:
         new GUI_dal_ChonPhong(null, true).setVisible(true);
     }//GEN-LAST:event_lblSetSoPhongMouseClicked
+
+    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_lblExitMouseClicked
+
+    private void tblKhoDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhoDichVuMouseClicked
+        // TODO add your handling code here:
+        row = tblKhoDichVu.getSelectedRow();
+        column = tblKhoDichVu.getSelectedColumn();
+        if (!isUpgrade) {
+            int rowIndex = 0;
+            if (tblKhoDichVu.getValueAt(row, column) == null) {
+                if (tblDichVu.getRowCount() == 0) {
+                    addRow(row);
+                } else {
+                    for (int i = 0; i < tblDichVu.getRowCount(); i++) {
+                        if (!tblKhoDichVu.getValueAt(row, 0).toString().equals(tblDichVu.getValueAt(i, 0).toString())) {
+                            isAddEdit = false;
+                        } else {
+                            isAddEdit = true;
+                            rowIndex = i;
+                            break;
+                        }
+                    }
+                    if (isAddEdit) {
+                        editRow(rowIndex);
+                    } else {
+                        addRow(row);
+                    }
+                }
+            }
+            setTongTien();
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_tblKhoDichVuMouseClicked
+
+    private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked
+        // TODO add your handling code here:
+        row = tblDichVu.getSelectedRow();
+        column = tblDichVu.getSelectedColumn();
+        if (!isUpgrade) {
+            if (tblDichVu.getValueAt(row, column) == null) {
+                deleteRow(row);
+            }
+            setTongTien();
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_tblDichVuMouseClicked
+
+    private void lblCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseClicked
+        // TODO add your handling code here:
+        if (!isUpgrade) {
+            for (int i = 0; i < tblDichVu.getRowCount(); i++) {
+                addChiTietDichVu(i);
+            }
+            addDichVu();
+        } else {
+            deleteDichVu();
+            this.dispose();
+        }
+    }//GEN-LAST:event_lblCapNhatMouseClicked
+
+    private void lblAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAllMouseClicked
+        // TODO add your handling code here:
+        loadSanPham();
+    }//GEN-LAST:event_lblAllMouseClicked
+
+    private void lbl_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_1MouseClicked
+        // TODO add your handling code here:
+        loadSanPham(BLL_MaTenLoai.findMaLoaiSanPham(str_1));
+    }//GEN-LAST:event_lbl_1MouseClicked
+
+    private void lbl_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_2MouseClicked
+        // TODO add your handling code here:
+        loadSanPham(BLL_MaTenLoai.findMaLoaiSanPham(str_2));
+    }//GEN-LAST:event_lbl_2MouseClicked
+
+    private void lbl_3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_3MouseClicked
+        // TODO add your handling code here:
+        loadSanPham(BLL_MaTenLoai.findMaLoaiSanPham(str_3));
+    }//GEN-LAST:event_lbl_3MouseClicked
+
+    private void lblCapNhatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCapNhatMouseEntered
 
     /**
      * @param args the command line arguments
@@ -473,12 +717,12 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
     private javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lblPhieuBanHang;
     private javax.swing.JLabel lblSetDaThanhToan;
-    private javax.swing.JLabel lblSetMaHoaDon;
-    private javax.swing.JLabel lblSetNgayDen;
-    private javax.swing.JLabel lblSetNgayDi;
+    private javax.swing.JLabel lblSetMaPhieu;
+    public static javax.swing.JLabel lblSetNgayDen;
+    public static javax.swing.JLabel lblSetNgayDi;
     private javax.swing.JLabel lblSetNgayTao;
     private javax.swing.JLabel lblSetNhanVien;
-    private javax.swing.JLabel lblSetSoPhong;
+    public static javax.swing.JLabel lblSetSoPhong;
     private javax.swing.JLabel lblSetTongTien;
     private javax.swing.JLabel lblSoPhong;
     private javax.swing.JLabel lblThoat;

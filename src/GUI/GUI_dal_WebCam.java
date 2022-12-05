@@ -20,7 +20,6 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
     public static Webcam webcam;
     public static boolean check = false;
     public static int count;
-    
     public static String path = String.valueOf(new ImageIcon().getClass().getResource("/WEBCAM")).replaceAll("file:/", "");
 
     /**
@@ -36,7 +35,7 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
     }
 
     public void load() {
-        webcam = Webcam.getWebcams().get(0);
+        webcam = Webcam.getWebcamByName("e2eSoft iVCam 0");
         webcam.setViewSize(WebcamResolution.VGA.getSize());
         webcam.open();
         File file = new File(path);
@@ -122,6 +121,7 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
         setMinimumSize(new java.awt.Dimension(680, 570));
         setUndecorated(true);
 
+        pnlWebCam.setBackground(new java.awt.Color(255, 255, 255));
         pnlWebCam.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(33, 150, 243)));
         pnlWebCam.setMinimumSize(new java.awt.Dimension(680, 570));
         pnlWebCam.setPreferredSize(new java.awt.Dimension(680, 570));
@@ -151,7 +151,6 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
         });
         pnlWebCam.add(lblLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, 60, 40));
 
-        lblShowWebCam.setBackground(new java.awt.Color(255, 255, 255));
         lblShowWebCam.setOpaque(true);
         pnlWebCam.add(lblShowWebCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 640, 480));
 
@@ -183,7 +182,8 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
 
     private void lblLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLuuMouseClicked
         // TODO add your handling code here:
-
+        Image img = webcam.getImage();
+        GUI_dal_ThongTinPhong.lblImage.setIcon(new ImageIcon(img));
     }//GEN-LAST:event_lblLuuMouseClicked
 
     private void lblXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXoaMouseClicked
@@ -191,7 +191,7 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
         check = false;
         File file = new File(String.valueOf(getLastModified(path)));
         file.delete();
-        new videoFeed().start();
+        count = new File(path).list().length;
         new videoFeed().start();
     }//GEN-LAST:event_lblXoaMouseClicked
 

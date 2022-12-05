@@ -96,7 +96,7 @@ public class BLL_NhanVien {
             obj[3] = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", nhanVien.getNgaySinh());
             obj[4] = nhanVien.getSoDienThoai();
             obj[5] = nhanVien.getCMND();
-            obj[6] = nhanVien.getMaChucVu();
+            obj[6] = BLL_MaTenLoai.findTenChucVu(nhanVien.getMaChucVu());
             obj[7] = nhanVien.getLuong();
             obj[8] = HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", nhanVien.getNgayTao());
             obj[9] = nhanVien.getTrangThaiNhanVien() == 1 ? "Online" : "Offline";

@@ -165,13 +165,11 @@ public class BLL_ThuePhong {
             lblNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(thuePhong.getMaNhanVien()));
             lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", thuePhong.getNgayTao()));
             dateNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy HH:mm", thuePhong.getNgayDen()));
-
             if (thuePhong.getNgayDi() == null) {
                 dateNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
             } else {
                 dateNgayDi.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy HH:mm", thuePhong.getNgayDi()));
             }
-
             txtCMND.setText(thuePhong.getCMND());
             txtTenKhach.setText(thuePhong.getTenKhachHang());
             txtSoLuong.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getSoLuong()));
@@ -194,7 +192,6 @@ public class BLL_ThuePhong {
             lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd", thuePhong.getNgayDen()));
             lblThangDen.setText(HELPER_ChuyenDoi.getNgayString("MM", thuePhong.getNgayDen()));
             lblGioPhutDen.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDen()));
-
             if (thuePhong.getNgayDi() == null) {
                 lblNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd"));
                 lblThangDi.setText(HELPER_ChuyenDoi.getTimeNow("MM"));
@@ -204,7 +201,6 @@ public class BLL_ThuePhong {
                 lblThangDi.setText(HELPER_ChuyenDoi.getNgayString("MM", thuePhong.getNgayDi()));
                 lblGioPhutDi.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDi()));
             }
-
             lblTenKhachHang.setText(thuePhong.getTenKhachHang());
         }
     }

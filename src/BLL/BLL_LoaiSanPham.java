@@ -8,6 +8,7 @@ package BLL;
 import DAL.DAL_LoaiSanPham;
 import DTO.DTO_LoaiSanPham;
 import GUI.GUI_dal_PhieuNhap;
+import GUI.GUI_dal_ThongTinDichVu;
 import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.sql.ResultSet;
@@ -89,7 +90,7 @@ public class BLL_LoaiSanPham {
         }
     }
 
-    public static void load() {
+    public static void loadTenLoaiPhieuNhap() {
         ResultSet rs = DAL_LoaiSanPham.select();
         ArrayList<String> array = new ArrayList<>();
         try {
@@ -115,6 +116,35 @@ public class BLL_LoaiSanPham {
             GUI_dal_PhieuNhap.str_1 = array.get(0);
             GUI_dal_PhieuNhap.str_2 = array.get(1);
             GUI_dal_PhieuNhap.str_3 = array.get(2);
+        }
+    }
+    
+    public static void loadTenLoaiDichVu() {
+        ResultSet rs = DAL_LoaiSanPham.select();
+        ArrayList<String> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                array.add(rs.getString("TenLoaiSanPham"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (array.size() == 0) {
+            GUI_dal_ThongTinDichVu.str_1 = null;
+            GUI_dal_ThongTinDichVu.str_2 = null;
+            GUI_dal_ThongTinDichVu.str_3 = null;
+        } else if (array.size() == 1) {
+            GUI_dal_ThongTinDichVu.str_1 = array.get(0);
+            GUI_dal_ThongTinDichVu.str_2 = null;
+            GUI_dal_ThongTinDichVu.str_3 = null;
+        } else if (array.size() == 2) {
+            GUI_dal_ThongTinDichVu.str_1 = array.get(0);
+            GUI_dal_ThongTinDichVu.str_2 = array.get(1);
+            GUI_dal_ThongTinDichVu.str_3 = null;
+        } else if (array.size() >= 3) {
+            GUI_dal_ThongTinDichVu.str_1 = array.get(0);
+            GUI_dal_ThongTinDichVu.str_2 = array.get(1);
+            GUI_dal_ThongTinDichVu.str_3 = array.get(2);
         }
     }
 }
