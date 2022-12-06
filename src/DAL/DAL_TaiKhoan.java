@@ -79,9 +79,4 @@ public class DAL_TaiKhoan {
         String sqlSelect = "SELECT * FROM TaiKhoan JOIN NhanVien ON NhanVien.MaNhanVien = TaiKhoan.MaNhanVien WHERE TenDangNhap = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, auThen);
     }
-
-    public static ResultSet count() {
-        String sqlSelect = "SELECT COUNT(*) FROM TaiKhoan";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect);
-    }
 }

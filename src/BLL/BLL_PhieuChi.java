@@ -46,14 +46,6 @@ public class BLL_PhieuChi {
         DAL_PhieuChi.delete(maPhieuChi);
     }
 
-    public static void edit(DTO_PhieuChi phieuChi) {
-        if (!check(phieuChi)) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-        } else {
-            DAL_PhieuChi.edit(phieuChi);
-        }
-    }
-
     public static ArrayList<DTO_PhieuChi> search(String dateTuNgay, String dateDenNgay, int index) {
         ResultSet rs = DAL_PhieuChi.search(dateTuNgay, dateDenNgay, index);
         ArrayList<DTO_PhieuChi> array = new ArrayList<>();
@@ -79,7 +71,7 @@ public class BLL_PhieuChi {
         for (DTO_PhieuChi phieuChi : array) {
             lblMaPhieu.setText(phieuChi.getMaPhieuChi());
             lblMucChi.setText(BLL_MaTenLoai.findTenLoaiTienChi(phieuChi.getMaLoaiTienChi()));
-            lblTongTien.setText(HELPER_ChuyenDoi.getSoString(phieuChi.getTienChi()));
+            lblTongTien.setText(HELPER_ChuyenDoi.getSoString(phieuChi.getTienChi()) + "K");
             lblPhuongThuc.setText(BLL_MaTenLoai.findTenPhuongThuc(phieuChi.getMaPhuongThuc()));
             txtGhiChu.setText(phieuChi.getGhiChu());
             lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", phieuChi.getNgayTao()));
@@ -91,7 +83,7 @@ public class BLL_PhieuChi {
         for (DTO_PhieuChi phieuChi : array) {
             lblMaPhieu.setText(phieuChi.getMaPhieuChi());
             cboMucChi.setSelectedItem(BLL_MaTenLoai.findTenLoaiTienChi(phieuChi.getMaLoaiTienChi()));
-            txtTongTien.setText(HELPER_ChuyenDoi.getSoString(phieuChi.getTienChi()));
+            txtTongTien.setText(HELPER_ChuyenDoi.getSoString(phieuChi.getTienChi()) + "K");
             cboPhuongThuc.setSelectedItem(BLL_MaTenLoai.findTenPhuongThuc(phieuChi.getMaPhuongThuc()));
             txtGhiChu.setText(phieuChi.getGhiChu());
             lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", phieuChi.getNgayTao()));

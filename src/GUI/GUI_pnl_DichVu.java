@@ -39,7 +39,7 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
         denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
     }
 
-    public void search() {
+    public static void search() {
         int setHeight = BLL_DichVu.countSearch(tuNgay, denNgay) / 3;
         pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
         pnlFormChinh.removeAll();
@@ -99,7 +99,6 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
         lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblSetTongTien.setForeground(new java.awt.Color(255, 102, 102));
-        lblSetTongTien.setText("1,200K");
         sdoChucNang.add(lblSetTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 90, 20));
 
         lblTimKiem.setBackground(new java.awt.Color(255, 255, 255));
@@ -225,7 +224,7 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
     private javax.swing.JLabel lblGioPhutDenNgay;
     private javax.swing.JLabel lblGioPhutTuNgay;
     private javax.swing.JLabel lblPhieuBan;
-    private javax.swing.JLabel lblSetTongTien;
+    public static javax.swing.JLabel lblSetTongTien;
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lblTuNgay;

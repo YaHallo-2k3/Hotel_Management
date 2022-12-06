@@ -17,8 +17,11 @@ import HELPER.HELPER_SetMa;
 import HELPER.HELPER_ShowHinhAnh;
 import HELPER.HELPER_Validate;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
@@ -44,7 +47,9 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     }
 
     public void add() {
-        DTO_DatPhong datPhong = new DTO_DatPhong(HELPER_SetMa.setMaDateTime("DP", DAL_DatPhong.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))), String.valueOf(cboLoaiPhong.getSelectedItem()), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm")), dateNgayDen.getDate(), dateNgayDi.getDate(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), "Không Phòng");
+        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
+        String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
+        DTO_DatPhong datPhong = new DTO_DatPhong(HELPER_SetMa.setMaDateTime("DP"), String.valueOf(cboLoaiPhong.getSelectedItem()), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm")), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), "Không Phòng");
         BLL_DatPhong.add(datPhong);
     }
 
@@ -58,7 +63,9 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     }
 
     public void edit() {
-        DTO_DatPhong datPhong = new DTO_DatPhong(lblSetMaPhieu.getText(), String.valueOf(cboLoaiPhong.getSelectedItem()), String.valueOf(cboLoaiKhach.getSelectedItem()), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("đ-MM-yyyy HH:mm", lblSetNgayTao.getText()), dateNgayDen.getDate(), dateNgayDi.getDate(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), lblSetTrangThai.getText());
+        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
+        String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
+        DTO_DatPhong datPhong = new DTO_DatPhong(lblSetMaPhieu.getText(), String.valueOf(cboLoaiPhong.getSelectedItem()), String.valueOf(cboLoaiKhach.getSelectedItem()), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("đ-MM-yyyy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), lblSetTrangThai.getText());
         BLL_DatPhong.edit(datPhong);
     }
 
@@ -79,20 +86,27 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     }
 
     public void fill(int index) {
-        lblSetMaPhieu.setText(tblDatPhong.getValueAt(index, 0).toString());
-        txtTenKhach.setText(tblDatPhong.getValueAt(index, 1).toString());
-        txtSoDienThoai.setText(tblDatPhong.getValueAt(index, 2).toString());
-        txtSoLuong.setText(tblDatPhong.getValueAt(index, 3).toString());
-        dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 4).toString()));
-        dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 5).toString()));
-        txtGioDen.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy ", tuNgay, tuNgay));
-//        txtTienCoc.setText(tblDatPhong.getValueAt(index, 6).toString());
-//        cboLoaiPhong.setSelectedItem(tblDatPhong.getValueAt(index, 7).toString());
-//        cboLoaiKhach.setSelectedItem(tblDatPhong.getValueAt(index, 8).toString());
-//        txtGhiChu.setText(tblDatPhong.getValueAt(index, 9).toString());
-//        lblSetNhanVien.setText(tblDatPhong.getValueAt(index, 10).toString());
-//        lblSetNgayTao.setText(tblDatPhong.getValueAt(index, 11).toString());
-//        lblSetTrangThai.setText(tblDatPhong.getValueAt(index, 12).toString());
+        try {
+            lblSetMaPhieu.setText(tblDatPhong.getValueAt(index, 0).toString());
+            txtTenKhach.setText(tblDatPhong.getValueAt(index, 1).toString());
+            txtSoDienThoai.setText(tblDatPhong.getValueAt(index, 2).toString());
+            txtSoLuong.setText(tblDatPhong.getValueAt(index, 3).toString());
+            dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 4).toString()));
+            txtGioDen.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "HH", tblDatPhong.getValueAt(index, 4).toString()));
+            txtPhutDen.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "mm", tblDatPhong.getValueAt(index, 4).toString()));
+            dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 5).toString()));
+            txtGioDi.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "HH", tblDatPhong.getValueAt(index, 5).toString()));
+            txtPhutDi.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "mm", tblDatPhong.getValueAt(index, 5).toString()));
+            txtTienCoc.setText(tblDatPhong.getValueAt(index, 6).toString());
+            cboLoaiPhong.setSelectedItem(tblDatPhong.getValueAt(index, 7).toString());
+            cboLoaiKhach.setSelectedItem(tblDatPhong.getValueAt(index, 8).toString());
+            txtGhiChu.setText(tblDatPhong.getValueAt(index, 9).toString());
+            lblSetNhanVien.setText(tblDatPhong.getValueAt(index, 10).toString());
+            lblSetNgayTao.setText(tblDatPhong.getValueAt(index, 11).toString());
+            lblSetTrangThai.setText(tblDatPhong.getValueAt(index, 12).toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public void load() {
@@ -694,7 +708,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     private void dateNgayDiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgayDiPropertyChange
         // TODO add your handling code here:
         if (dateNgayDi.getDate() != null && dateNgayDen.getDate() != null) {
-            dateNgayDen.setMaxSelectableDate(dateNgayDi.getDate());;
+            dateNgayDen.setMaxSelectableDate(dateNgayDi.getDate());
         }
     }//GEN-LAST:event_dateNgayDiPropertyChange
 
@@ -710,7 +724,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     private void dateNgayDenPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgayDenPropertyChange
         // TODO add your handling code here:
         if (dateNgayDen.getDate() != null && dateNgayDi.getDate() != null) {
-            dateNgayDi.setMinSelectableDate(dateNgayDen.getDate());;
+            dateNgayDi.setMinSelectableDate(dateNgayDen.getDate());
         }
     }//GEN-LAST:event_dateNgayDenPropertyChange
 
@@ -801,7 +815,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     private void dateTuNgayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateTuNgayPropertyChange
         // TODO add your handling code here:
         if (dateTuNgay.getDate() != null && dateDenNgay.getDate() != null) {
-            dateDenNgay.setMinSelectableDate(dateTuNgay.getDate());;
+            dateDenNgay.setMinSelectableDate(dateTuNgay.getDate());
         }
         loadDatPhong();
     }//GEN-LAST:event_dateTuNgayPropertyChange
@@ -809,7 +823,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     private void dateDenNgayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateDenNgayPropertyChange
         // TODO add your handling code here:
         if (dateDenNgay.getDate() != null && dateTuNgay.getDate() != null) {
-            dateTuNgay.setMaxSelectableDate(dateDenNgay.getDate());;
+            dateTuNgay.setMaxSelectableDate(dateDenNgay.getDate());
         }
         loadDatPhong();
     }//GEN-LAST:event_dateDenNgayPropertyChange

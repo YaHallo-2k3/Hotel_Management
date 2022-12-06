@@ -23,12 +23,12 @@ public class DTO_NhanVien {
     public int luong;
     public Date ngayTao;
     public int trangThaiNhanVien;
-    public String URL;
+    public byte[] hinhAnh;
 
     public DTO_NhanVien() {
     }
 
-    public DTO_NhanVien(String maNhanVien, String tenNhanVien, int gioiTinh, Date ngaySinh, String soDienThoai, String CMND, String maChucVu, int luong, Date ngayTao, int trangThaiNhanVien, String URL) {
+    public DTO_NhanVien(String maNhanVien, String tenNhanVien, int gioiTinh, Date ngaySinh, String soDienThoai, String CMND, String maChucVu, int luong, Date ngayTao, int trangThaiNhanVien, byte[] hinhAnh) {
         this.maNhanVien = maNhanVien;
         this.tenNhanVien = tenNhanVien;
         this.gioiTinh = gioiTinh;
@@ -39,7 +39,7 @@ public class DTO_NhanVien {
         this.luong = luong;
         this.ngayTao = ngayTao;
         this.trangThaiNhanVien = trangThaiNhanVien;
-        this.URL = URL;
+        this.hinhAnh = hinhAnh;
     }
 
     public String getMaNhanVien() {
@@ -122,11 +122,11 @@ public class DTO_NhanVien {
         this.trangThaiNhanVien = trangThaiNhanVien;
     }
 
-    public String getURL() {
-        return URL;
+    public byte[] getHinhAnh() {
+        return hinhAnh;
     }
 
-    public void setURL(String URL) {
-        this.URL = URL;
+    public void setHinhAnh(byte[] hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 }

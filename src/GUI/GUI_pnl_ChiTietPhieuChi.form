@@ -78,7 +78,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5f" green="49" red="3e" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n M&#x1eb7;t"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -101,7 +100,6 @@
               <Color blue="5f" green="49" red="3e" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="CherryCe"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
           <AuxValues>
@@ -125,11 +123,10 @@
               <Color blue="66" green="66" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="525,000"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="20" width="80" height="-1"/>
+              <AbsoluteConstraints x="160" y="20" width="80" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -144,7 +141,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5f" green="49" red="3e" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="MC220922001"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -163,7 +159,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5f" green="49" red="3e" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="22-09-22 22:22"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -250,7 +245,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5f" green="49" red="3e" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="22/09/22"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

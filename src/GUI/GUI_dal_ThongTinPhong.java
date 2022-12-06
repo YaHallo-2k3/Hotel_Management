@@ -103,7 +103,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             dateTimeNgayDen.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
             dateTimeNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
             lblSetTrangThai.setBackground(new Color(97, 177, 90));
-            lblSetMaPhieuThue.setText(HELPER_SetMa.setMaDateTime("PT", DAL_ThuePhong.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))));
+            lblSetMaPhieuThue.setText(HELPER_SetMa.setMaDateTime("PT"));
             lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm"));
             lblThanhToanPhong.setVisible(false);
         } else {

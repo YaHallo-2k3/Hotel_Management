@@ -48,11 +48,6 @@ public class DAL_ThuePhong {
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong);
     }
 
-    public static ResultSet count(String thoiGian) {
-        String sqlSelect = "SELECT COUNT(*) FROM ThuePhong WHERE MaPhieuThue LIKE ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + thoiGian + "%");
-    }
-
     public static ResultSet count() {
         String sqlSelect = "SELECT COUNT(*) FROM ThuePhong";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
@@ -65,7 +60,7 @@ public class DAL_ThuePhong {
 
     public static void setTrangThaiPhong(String maTrangThaiPhong, String maPhong) {
         String sqlUpdate = "UPDATE Phong SET MaTrangThaiPhong = ? WHERE MaPhong = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlUpdate, maTrangThaiPhong, maPhong);
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlUpdate, maTrangThaiPhong, maPhong);
     }
 
     public static void setTrangThaiPhong(String maTrangThaiPhong, int index) {

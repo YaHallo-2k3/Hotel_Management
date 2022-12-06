@@ -13,6 +13,10 @@ import java.sql.ResultSet;
  */
 public class HELPER_SetMa {
 
+    public static String setMaDateTime(String setMa) {
+        return setMa + HELPER_ChuyenDoi.getTimeNow("yyMMddHHmmss");
+    }
+    
     public static String setMaCount(String setMa, ResultSet selectCount) {
         String primaryKey = setMa;
         try {
@@ -33,7 +37,7 @@ public class HELPER_SetMa {
         }
         return primaryKey;
     }
-
+    
     public static String setMaDateTime(String setMa, ResultSet selectCount) {
         String primaryKey = setMa;
         try {

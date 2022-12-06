@@ -29,7 +29,7 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         load();
         loadTonKho();
-        loadTongTien();
+//        loadTongTien();
     }
 
     public void load() {

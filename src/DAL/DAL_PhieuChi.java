@@ -29,11 +29,6 @@ public class DAL_PhieuChi {
         HELPER_ConnectSQL.executeUpdate(sqlInsert, phieuChi.getMaPhieuChi(), BLL_MaTenLoai.findMaLoaiTienChi(phieuChi.getMaLoaiTienChi()), phieuChi.getTienChi(), BLL_MaTenLoai.findMaPhuongThuc(phieuChi.getMaPhuongThuc()), phieuChi.getGhiChu(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", phieuChi.getNgayTao()), BLL_MaTenLoai.findMaNhanVien(phieuChi.getMaNhanVien()));
     }
 
-    public static void edit(DTO_PhieuChi phieuChi) {
-        String sqlUpdate = "UPDATE PhieuChi SET MaLoaiTienChi = ?, TienChi = ?, MaPhuongThuc = ?, GhiChu = ?, CONVERT(VARCHAR, ?), MaNhanVien = ? WHERE MaPhieuChi = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlUpdate, BLL_MaTenLoai.findMaLoaiTienChi(phieuChi.getMaLoaiTienChi()), phieuChi.getTienChi(), BLL_MaTenLoai.findMaPhuongThuc(phieuChi.getMaPhuongThuc()), phieuChi.getGhiChu(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", phieuChi.getNgayTao()), BLL_MaTenLoai.findMaNhanVien(phieuChi.getMaNhanVien()), phieuChi.getMaPhieuChi());
-    }
-
     public static void delete(String maPhieuChi) {
         String sqlDelete = "DELETE FROM PhieuChi WHERE MaPhieuChi = ?";
         HELPER_ConnectSQL.executeUpdate(sqlDelete, maPhieuChi);
@@ -52,10 +47,5 @@ public class DAL_PhieuChi {
     public static ResultSet countSearch(String tuNgay, String denNgay) {
         String sqlSelect = "SELECT COUNT(*) FROM PhieuChi WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
-    }
-
-    public static ResultSet count() {
-        String sqlSelect = "SELECT COUNT(*) FROM PhieuChi";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
 }

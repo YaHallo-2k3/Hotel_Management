@@ -93,14 +93,12 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
         lblLoaiTien.setBackground(new java.awt.Color(255, 255, 255));
         lblLoaiTien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblLoaiTien.setForeground(new java.awt.Color(62, 73, 95));
-        lblLoaiTien.setText("Tiền Mặt");
         sdoChiTietPhieuChi.add(lblLoaiTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 70, 20));
 
         lblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblNhanVien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(62, 73, 95));
         lblNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNhanVien.setText("CherryCe");
         lblNhanVien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sdoChiTietPhieuChi.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 80, 20));
 
@@ -108,19 +106,16 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(255, 102, 102));
         lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTongTien.setText("525,000");
-        sdoChiTietPhieuChi.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 80, -1));
+        sdoChiTietPhieuChi.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 80, 20));
 
         lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        lblMaPhieu.setText("MC220922001");
         sdoChiTietPhieuChi.add(lblMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 90, 20));
 
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayTao.setText("22-09-22 22:22");
         sdoChiTietPhieuChi.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 90, 20));
 
         lblMucChi.setBackground(new java.awt.Color(255, 255, 255));
@@ -145,7 +140,6 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
         lblSetMucChi.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMucChi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetMucChi.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMucChi.setText("22/09/22");
         sdoChiTietPhieuChi.add(lblSetMucChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 170, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

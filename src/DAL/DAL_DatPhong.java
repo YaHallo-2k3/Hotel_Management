@@ -36,9 +36,4 @@ public class DAL_DatPhong {
         String sqlSelect = "SELECT * FROM DatPhong WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? ORDER BY MaPhieuDat";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, dateTuNgay, dateDenNgay);
     }
-
-    public static ResultSet count(String thoiGian) {
-        String sqlSelect = "SELECT COUNT(*) FROM DatPhong WHERE MaPhieuDat LIKE ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + thoiGian + "%");
-    }
 }

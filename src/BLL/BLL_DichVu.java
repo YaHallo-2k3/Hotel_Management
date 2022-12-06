@@ -84,6 +84,7 @@ public class BLL_DichVu {
                 dichVu.setMaNhanVien(rs.getString("MaNhanVien"));
                 dichVu.setNgayTao(rs.getTimestamp("NgayTao"));
                 dichVu.setGhiChu(rs.getString("GhiChu"));
+                dichVu.setTrangThaiThanhToan(rs.getInt("TrangThaiThanhToan"));
                 array.add(dichVu);
             }
         } catch (Exception e) {
@@ -127,6 +128,18 @@ public class BLL_DichVu {
         try {
             while (rs.next()) {
                 return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static int findThanhToan(String maPhieuDichVu) {
+        ResultSet rs = DAL_DichVu.findThanhToan(maPhieuDichVu);
+        try {
+            while (rs.next()) {
+                return rs.getInt("TrangThaiThanhToan");
             }
         } catch (Exception e) {
             e.printStackTrace();

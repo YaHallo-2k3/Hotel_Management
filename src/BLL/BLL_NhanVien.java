@@ -33,8 +33,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BLL_NhanVien {
 
+    public static ArrayList<byte[]> hinhAnh = new ArrayList<byte[]>();
+
     public static boolean check(DTO_NhanVien nhanVien) {
-        if (nhanVien.getMaNhanVien().isEmpty() || nhanVien.getTenNhanVien().isEmpty() || nhanVien.getNgaySinh() == null || nhanVien.getSoDienThoai().isEmpty() || nhanVien.getCMND().isEmpty() || nhanVien.getMaChucVu().isEmpty() || nhanVien.getLuong() == 0 || nhanVien.getNgayTao() == null || nhanVien.getURL() == null) {
+        if (nhanVien.getMaNhanVien().isEmpty() || nhanVien.getTenNhanVien().isEmpty() || nhanVien.getNgaySinh() == null || nhanVien.getSoDienThoai().isEmpty() || nhanVien.getCMND().isEmpty() || nhanVien.getMaChucVu().isEmpty() || nhanVien.getLuong() == 0 || nhanVien.getNgayTao() == null || nhanVien.getHinhAnh() == null) {
             return false;
         }
         return true;
@@ -76,7 +78,7 @@ public class BLL_NhanVien {
                 nhanVien.setLuong(rs.getInt("Luong"));
                 nhanVien.setNgayTao(rs.getTimestamp("NgayTao"));
                 nhanVien.setTrangThaiNhanVien(rs.getInt("TrangThaiNhanVien"));
-                nhanVien.setURL(rs.getString("HinhAnh"));
+                nhanVien.setHinhAnh(rs.getBytes("HinhAnh"));
                 array.add(nhanVien);
             }
         } catch (Exception e) {
@@ -88,6 +90,7 @@ public class BLL_NhanVien {
     public static void load(ArrayList<DTO_NhanVien> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
+        hinhAnh.clear();
         for (DTO_NhanVien nhanVien : array) {
             Object obj[] = new Object[11];
             obj[0] = nhanVien.getMaNhanVien();
@@ -100,8 +103,9 @@ public class BLL_NhanVien {
             obj[7] = nhanVien.getLuong();
             obj[8] = HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", nhanVien.getNgayTao());
             obj[9] = nhanVien.getTrangThaiNhanVien() == 1 ? "Online" : "Offline";
-            obj[10] = nhanVien.getURL();
-            tbl.getColumnModel().getColumn(10).setCellRenderer(new showImage(nhanVien.getURL()));
+            obj[10] = nhanVien.getHinhAnh();
+            hinhAnh.add(nhanVien.getHinhAnh());
+            tbl.getColumnModel().getColumn(10).setCellRenderer(new showImage());
             tbl.getColumnModel().getColumn(11).setCellRenderer(new HELPER_SetIcon.iconAccount());
             tbl.getColumnModel().getColumn(12).setCellRenderer(new HELPER_SetIcon.iconEdit());
             tbl.getColumnModel().getColumn(13).setCellRenderer(new HELPER_SetIcon.iconDelete());
@@ -111,14 +115,10 @@ public class BLL_NhanVien {
 
     public static class showImage extends DefaultTableCellRenderer {
 
-        String URL;
-
-        public showImage(String URL) {
-            this.URL = URL;
-        }
-
+        @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            ImageIcon imgIcon = new ImageIcon(new ImageIcon(URL).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH));
+            byte[] hinhAnh = (byte[]) value;
+            ImageIcon imgIcon = new ImageIcon(new ImageIcon(hinhAnh).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH));
             return new JLabel(imgIcon);
         }
     }

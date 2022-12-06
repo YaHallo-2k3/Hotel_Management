@@ -55,7 +55,7 @@ public class HELPER_SetIcon {
         }
     }
 
-    public ImageIcon resizeImage(String imagePath, JLabel lbl) {
+    public static ImageIcon resizeImage(byte[] imagePath, JLabel lbl) {
         ImageIcon myIMG = new ImageIcon(imagePath);
         Image img = myIMG.getImage();
         Image newIMG = img.getScaledInstance(lbl.getWidth(), lbl.getHeight(), Image.SCALE_SMOOTH);

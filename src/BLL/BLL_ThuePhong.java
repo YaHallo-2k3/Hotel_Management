@@ -44,7 +44,6 @@ public class BLL_ThuePhong {
         } else {
             DAL_ThuePhong.addThuePhong(thuePhong);
             DAL_ThuePhong.setTrangThaiPhong("CoKhach", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -54,7 +53,6 @@ public class BLL_ThuePhong {
         } else {
             DAL_ThuePhong.addDatPhong(thuePhong);
             DAL_ThuePhong.setTrangThaiPhong("DatTruoc", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 

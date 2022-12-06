@@ -18,16 +18,18 @@ public class DTO_DichVu {
     public String maNhanVien;
     public Date ngayTao;
     public String ghiChu;
+    public int trangThaiThanhToan;
 
     public DTO_DichVu() {
     }
 
-    public DTO_DichVu(String maPhieuDichVu, String maPhong, String maNhanVien, Date ngayTao, String ghiChu) {
+    public DTO_DichVu(String maPhieuDichVu, String maPhong, String maNhanVien, Date ngayTao, String ghiChu, int trangThaiThanhToan) {
         this.maPhieuDichVu = maPhieuDichVu;
         this.maPhong = maPhong;
         this.maNhanVien = maNhanVien;
         this.ngayTao = ngayTao;
         this.ghiChu = ghiChu;
+        this.trangThaiThanhToan = trangThaiThanhToan;
     }
 
     public String getMaPhieuDichVu() {
@@ -68,5 +70,13 @@ public class DTO_DichVu {
 
     public void setGhiChu(String ghiChu) {
         this.ghiChu = ghiChu;
+    }
+
+    public int getTrangThaiThanhToan() {
+        return trangThaiThanhToan;
+    }
+
+    public void setTrangThaiThanhToan(int trangThaiThanhToan) {
+        this.trangThaiThanhToan = trangThaiThanhToan;
     }
 }

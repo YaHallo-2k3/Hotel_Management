@@ -20,7 +20,7 @@ import javax.swing.JFrame;
  * @author CherryCe
  */
 public class GUI_pnl_DangNhap extends javax.swing.JPanel {
-
+    
     public boolean isPassword = false;
     public static String taiKhoan = null;
 
@@ -30,12 +30,18 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
     public GUI_pnl_DangNhap() {
         initComponents();
         load();
+        loadDangNhap();
     }
-
+    
     public void load() {
+        txtTenDangNhap.setText("Nhập Mail Của Bạn");
         txtTenDangNhap.setForeground(new Color(153, 153, 153));
+        psdMatKhau.setText("Nhập Mật Khẩu");
         psdMatKhau.setEchoChar((char) 0);
         psdMatKhau.setForeground(new Color(153, 153, 153));
+    }
+    
+    public void loadDangNhap() {
         ResultSet rs = DAL_TaiKhoan.checkDangNhap();
         try {
             while (rs.next()) {
@@ -52,14 +58,14 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-
+    
     public void focusTaiKhoan(javax.swing.JTextField txt, String getText, String setText, int r, int g, int b) {
         if (txt.getText().equals(getText)) {
             txt.setForeground(new Color(r, g, b));
             txt.setText(setText);
         }
     }
-
+    
     public void focusMatKhau(javax.swing.JPasswordField psd, String getText, String setText, int r, int g, int b, char c) {
         if (String.valueOf(psd.getPassword()).equals(getText)) {
             psd.setForeground(new Color(r, g, b));
@@ -67,11 +73,11 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
             psd.setEchoChar(c);
         }
     }
-
+    
     public void login() {
         String tenDangNhap = txtTenDangNhap.getText();
         String matKhau = String.valueOf(psdMatKhau.getPassword());
-
+        
         if (tenDangNhap.isEmpty() || matKhau.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không Được Để Trống !!!");
         } else {
@@ -81,50 +87,50 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Đăng Nhập Không Thành Công ???");
                 } else {
                     taiKhoan = txtTenDangNhap.getText();
-                    GUI_frm_Login.frm.dispose();
-                    new GUI_frm_Menu().setVisible(true);
                     if (chkLuuDangNhap.isSelected()) {
                         DAL_TaiKhoan.editCheckDangNhap_0();
                         DAL_TaiKhoan.editCheckDangNhap_1(taiKhoan);
                     } else {
                         DAL_TaiKhoan.editCheckDangNhap_0();
                     }
+                    GUI_frm_Login.frm.dispose();
+                    new GUI_frm_Menu().setVisible(true);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-
+    
     public void isPassword() {
         if (!isPassword) {
             psdMatKhau.setEchoChar((char) 0);
             isPassword = true;
             lblShowHiddenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden.png")));
-
+            
         } else {
             psdMatKhau.setEchoChar('*');
             isPassword = false;
             lblShowHiddenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden (1).png")));
         }
     }
-
+    
     public void setBackground_78_87_103(javax.swing.JLabel lbl) {
         lbl.setBackground(new Color(78, 87, 103));
     }
-
+    
     public void setBackground_62_73_95(javax.swing.JLabel lbl) {
         lbl.setBackground(new Color(62, 73, 95));
     }
-
+    
     public void setForeground_33_150_243(javax.swing.JLabel lbl) {
         lbl.setForeground(new Color(33, 150, 243));
     }
-
+    
     public void setForeground_62_73_95(javax.swing.JLabel lbl) {
         lbl.setForeground(new Color(62, 73, 95));
     }
-
+    
     public void showFanPage() {
         Desktop desktop = Desktop.getDesktop();
         try {
@@ -133,7 +139,7 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-
+    
     public void showDisCord() {
         Desktop desktop = Desktop.getDesktop();
         try {
@@ -142,7 +148,7 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-
+    
     public void exit() {
         int choice = JOptionPane.showConfirmDialog(null, "Bạn Có Muốn Thoát Chương Trình ???", "Thoát", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
@@ -195,7 +201,6 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
 
         psdMatKhau.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         psdMatKhau.setForeground(new java.awt.Color(62, 73, 95));
-        psdMatKhau.setText("Nhập Mật Khẩu");
         psdMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         psdMatKhau.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -248,7 +253,6 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
 
         txtTenDangNhap.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTenDangNhap.setForeground(new java.awt.Color(62, 73, 95));
-        txtTenDangNhap.setText("Nhập Mail Của Bạn");
         txtTenDangNhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtTenDangNhap.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {

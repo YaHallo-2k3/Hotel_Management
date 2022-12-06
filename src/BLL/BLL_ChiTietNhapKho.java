@@ -44,10 +44,6 @@ public class BLL_ChiTietNhapKho {
         }
     }
 
-    public static void delete(String maNhapKho, String maSanPham) {
-        DAL_ChiTietNhapKho.delete(maNhapKho, maSanPham);
-    }
-
     public static ArrayList<DTO_ChiTietNhapKho> select(String maNhapKho) {
         ResultSet rs = DAL_ChiTietNhapKho.select(maNhapKho);
         ArrayList<DTO_ChiTietNhapKho> array = new ArrayList<>();

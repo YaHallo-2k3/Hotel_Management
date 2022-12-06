@@ -15,11 +15,20 @@ import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_SetIcon;
 import HELPER.HELPER_ShowHinhAnh;
 import HELPER.HELPER_Validate;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +38,7 @@ import javax.swing.JOptionPane;
 public class GUI_pnl_NhanVien extends javax.swing.JPanel {
 
     public static String maNhanVien;
-    public String URL = null;
+    public byte[] hinhAnh = null;
 
     /**
      * Creates new form GUI_pnl_NhanVien
@@ -48,7 +57,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     }
 
     public void add() {
-        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), 0, URL);
+        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), 0, hinhAnh);
         BLL_NhanVien.add(nhanVien);
     }
 
@@ -62,7 +71,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     }
 
     public void edit() {
-        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getSoInt(lblSetTrangThai.getText()), URL);
+        DTO_NhanVien nhanVien = new DTO_NhanVien(txtMaNhanVien.getText(), txtTenNhanVien.getText(), String.valueOf(cboGioiTinh.getSelectedItem()).equals("Nam") ? 1 : 0, dateNgaySinh.getDate(), txtSoDienThoai.getText(), txtCMND.getText(), String.valueOf(cboChucVu.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtLuong.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getSoInt(lblSetTrangThai.getText()), hinhAnh);
         BLL_NhanVien.edit(nhanVien);
     }
 
@@ -77,7 +86,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         txtLuong.setText(null);
         lblSetNgayTao.setText(null);
         lblSetTrangThai.setText(null);
-        URL = null;
+        hinhAnh = null;
         lblImage.setIcon(null);
     }
 
@@ -92,8 +101,8 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         txtLuong.setText(tblNhanVien.getValueAt(index, 7).toString());
         lblSetNgayTao.setText(tblNhanVien.getValueAt(index, 8).toString());
         lblSetTrangThai.setText(tblNhanVien.getValueAt(index, 9).toString());
-        URL = tblNhanVien.getValueAt(index, 10).toString();
-        lblImage.setIcon(new HELPER_SetIcon().resizeImage(URL, lblImage));
+        hinhAnh = BLL_NhanVien.hinhAnh.get(index);
+        lblImage.setIcon(HELPER_SetIcon.resizeImage(hinhAnh, lblImage));
     }
 
     public void load() {
@@ -116,13 +125,14 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
             chooser.setDialogTitle("Open File");
             chooser.showOpenDialog(this);
             File nameIMG = chooser.getSelectedFile();
-            URL = nameIMG.getAbsolutePath();
-            if (URL.endsWith(".jpg") || URL.endsWith("png")) {
-                lblImage.setIcon(new HELPER_SetIcon().resizeImage(URL, lblImage));
-            } else {
-                JOptionPane.showMessageDialog(this, "Add IMG Failed");
-                URL = null;
+            FileInputStream fis = new FileInputStream(nameIMG.getAbsolutePath());
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int readnum; (readnum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readnum);
             }
+            hinhAnh = bos.toByteArray();
+            lblImage.setIcon(HELPER_SetIcon.resizeImage(hinhAnh, lblImage));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -497,15 +507,15 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         int row = tblNhanVien.getSelectedRow();
         int column = tblNhanVien.getSelectedColumn();
         maNhanVien = tblNhanVien.getValueAt(row, 0).toString();
-        if (tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column + 1) != null || tblNhanVien.getValueAt(row, column) != null && tblNhanVien.getValueAt(row, column - 1) != null) {
+        if (column <= 10) {
             fill(row);
-        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column - 2) == null) {
+        } else if (column == 13) {
             delete(row);
             load();
-        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) == null && tblNhanVien.getValueAt(row, column + 1) == null) {
+        } else if (column == 12) {
             edit();
             load();
-        } else if (tblNhanVien.getValueAt(row, column) == null && tblNhanVien.getValueAt(row, column - 1) != null && tblNhanVien.getValueAt(row, column + 1) == null) {
+        } else if (column == 11) {
             loadTaiKhoan();
         }
     }//GEN-LAST:event_tblNhanVienMouseClicked

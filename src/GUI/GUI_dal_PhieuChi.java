@@ -12,8 +12,10 @@ import DAL.DAL_PhieuChi;
 import DTO.DTO_HangMucChi;
 import DTO.DTO_PhieuChi;
 import DTO.DTO_PhuongThucThanhToan;
+import static GUI.GUI_pnl_QuanLiChiPhi.pnlFormChinh;
 import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_SetMa;
+import HELPER.HELPER_Validate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -23,6 +25,8 @@ import javax.swing.JOptionPane;
  */
 public class GUI_dal_PhieuChi extends javax.swing.JDialog {
 
+    public boolean isDelete = false;
+
     /**
      * Creates new form GUI_dalThongTinPhong
      */
@@ -30,12 +34,22 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        loadComboBox();
+        loadMucChi();
+        loadPhuongThuc();
+        check();
+    }
+
+    public void check() {
         if (GUI_pnl_ChiTietPhieuChi.isPhieuChi) {
             loadChiTiet();
+            lblThanhToan.setVisible(false);
+            isDelete = true;
             GUI_pnl_ChiTietPhieuChi.isPhieuChi = false;
         } else {
             load();
+            lblThanhToan.setVisible(true);
+            isDelete = false;
+            GUI_pnl_ChiTietPhieuChi.isPhieuChi = false;
         }
     }
 
@@ -53,11 +67,6 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
         return;
     }
 
-    public void edit() {
-        DTO_PhieuChi phieuChi = new DTO_PhieuChi(lblSetMaPhieu.getText(), String.valueOf(cboMucChi.getSelectedItem()), HELPER_ChuyenDoi.getSoInt(txtTongTien.getText()), String.valueOf(cboPhuongThuc.getSelectedItem()), txtGhiChu.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), lblSetNhanVien.getText());
-        BLL_PhieuChi.edit(phieuChi);
-    }
-
     public void loadChiTiet() {
         ArrayList<DTO_PhieuChi> array = BLL_PhieuChi.search(GUI_pnl_QuanLiChiPhi.tuNgay, GUI_pnl_QuanLiChiPhi.denNgay, GUI_pnl_ChiTietPhieuChi.indexPosition + 1);
         BLL_PhieuChi.loadChiTiet(array, lblSetMaPhieu, cboMucChi, txtTongTien, cboPhuongThuc, txtGhiChu, lblSetNgayTao, lblSetNhanVien);
@@ -65,13 +74,16 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
 
     public void load() {
         lblSetNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)));
-        lblSetMaPhieu.setText(HELPER_SetMa.setMaDateTime("MC", DAL_PhieuChi.count()));
+        lblSetMaPhieu.setText(HELPER_SetMa.setMaDateTime("MC"));
         lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm"));
     }
 
-    public void loadComboBox() {
+    public void loadMucChi() {
         ArrayList<DTO_HangMucChi> arrayMucChi = BLL_MaTenLoai.selectTenMucChi();
         BLL_MaTenLoai.loadTenMucChi(arrayMucChi, cboMucChi);
+    }
+
+    public void loadPhuongThuc() {
         ArrayList<DTO_PhuongThucThanhToan> arrayPhuongThuc = BLL_MaTenLoai.selectTenPhuongThuc();
         BLL_MaTenLoai.loadTenPhuongThuc(arrayPhuongThuc, cboPhuongThuc);
     }
@@ -201,7 +213,6 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
         lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMaPhieu.setText("220922001");
         sdoPhieuChi.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 100, 20));
 
         lblMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
@@ -219,13 +230,11 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
         lblSetNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNhanVien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNhanVien.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNhanVien.setText("CherryCe");
         sdoPhieuChi.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 90, 20));
 
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayTao.setText("22/09/22 22:03");
         sdoPhieuChi.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 120, 20));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
@@ -237,9 +246,19 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
         txtTongTien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTongTien.setForeground(new java.awt.Color(62, 73, 95));
         txtTongTien.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtTongTien.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTongTienFocusLost(evt);
+            }
+        });
         txtTongTien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTongTienActionPerformed(evt);
+            }
+        });
+        txtTongTien.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTongTienKeyReleased(evt);
             }
         });
         sdoPhieuChi.add(txtTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 70, 20));
@@ -256,14 +275,12 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
 
         cboMucChi.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboMucChi.setForeground(new java.awt.Color(62, 73, 95));
-        cboMucChi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboMucChi.setToolTipText("");
         cboMucChi.setBorder(null);
         sdoPhieuChi.add(cboMucChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 110, 20));
 
         cboPhuongThuc.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboPhuongThuc.setForeground(new java.awt.Color(62, 73, 95));
-        cboPhuongThuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboPhuongThuc.setToolTipText("");
         cboPhuongThuc.setBorder(null);
         sdoPhieuChi.add(cboPhuongThuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 110, 20));
@@ -307,28 +324,44 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         // TODO add your handling code here:
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_lblThoatMouseClicked
 
     private void lblThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThanhToanMouseClicked
         // TODO add your handling code here:
         add();
+        GUI_pnl_QuanLiChiPhi.search();
+        dispose();
     }//GEN-LAST:event_lblThanhToanMouseClicked
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
         // TODO add your handling code here:
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void lblXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXoaMouseClicked
         // TODO add your handling code here:
-        delete();
-        this.dispose();
+        if (isDelete) {
+            delete();
+            GUI_pnl_QuanLiChiPhi.search();
+            dispose();
+        }
+        return;
     }//GEN-LAST:event_lblXoaMouseClicked
 
     private void lblXoaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblXoaKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_lblXoaKeyPressed
+
+    private void txtTongTienKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTongTienKeyReleased
+        // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtTongTien);
+    }//GEN-LAST:event_txtTongTienKeyReleased
+
+    private void txtTongTienFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTongTienFocusLost
+        // TODO add your handling code here:
+        txtTongTien.setText(txtTongTien.getText() + "K");
+    }//GEN-LAST:event_txtTongTienFocusLost
 
     /**
      * @param args the command line arguments
@@ -355,262 +388,6 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI_dal_PhieuChi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {

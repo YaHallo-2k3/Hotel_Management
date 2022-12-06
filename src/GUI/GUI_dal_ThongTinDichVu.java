@@ -20,6 +20,7 @@ import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_SetIcon;
 import HELPER.HELPER_SetMa;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,18 +50,25 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         loadTenLoaiSanPham();
         loadChiTietDichVu();
         setTongTien();
+        setThanhToan();
     }
 
     public void check() {
         if (GUI_pnl_ChiTietDichVu.isDichVu) {
-            isUpgrade = true;
-            lblCapNhat.setText("Xóa");
             loadPhieuDichVu();
+            lblInPhieu.setVisible(false);
+            lblCapNhat.setText("Xóa");
+            lblCapNhat.setIcon(new ImageIcon(getClass().getResource("/IMG/delete.png")));
+            isUpgrade = true;
+            GUI_pnl_ChiTietDichVu.isDichVu = false;
         } else {
-            isUpgrade = false;
             load();
+            lblInPhieu.setVisible(true);
+            lblCapNhat.setText("Cập Nhật");
+            lblCapNhat.setIcon(new ImageIcon(getClass().getResource("/IMG/upgrade (3).png")));
+            isUpgrade = false;
+            GUI_pnl_ChiTietDichVu.isDichVu = false;
         }
-        GUI_pnl_ChiTietDichVu.isDichVu = false;
     }
 
     public void addChiTietDichVu(int row) {
@@ -96,7 +104,7 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
     }
 
     public void addDichVu() {
-        DTO_DichVu dichVu = new DTO_DichVu(lblSetMaPhieu.getText(), lblSetSoPhong.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText());
+        DTO_DichVu dichVu = new DTO_DichVu(lblSetMaPhieu.getText(), lblSetSoPhong.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText(), 0);
         BLL_DichVu.add(dichVu);
     }
 
@@ -111,7 +119,7 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
 
     public void load() {
         lblSetSoPhong.setText(null);
-        lblSetMaPhieu.setText(HELPER_SetMa.setMaDateTime("DV", DAL_DichVu.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))));
+        lblSetMaPhieu.setText(HELPER_SetMa.setMaDateTime("DV"));
         lblSetNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)));
         lblSetNgayDen.setText(null);
         lblSetNgayDi.setText(null);
@@ -152,6 +160,14 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
             total += HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(i, 4).toString());
         }
         lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(total) + "K");
+    }
+
+    public void setThanhToan() {
+        if (BLL_DichVu.findThanhToan(lblSetMaPhieu.getText()) == 0) {
+            lblSetDaThanhToan.setText("0K");
+        } else {
+            lblSetDaThanhToan.setText(lblSetTongTien.getText());
+        }
     }
 
     /**
@@ -532,6 +548,11 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         lblInPhieu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInPhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/bill (3).png"))); // NOI18N
         lblInPhieu.setText("In Phiếu");
+        lblInPhieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInPhieuMouseClicked(evt);
+            }
+        });
         sdoChucNang.add(lblInPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 90, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -564,17 +585,20 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         // TODO add your handling code here:
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_lblThoatMouseClicked
 
     private void lblSetSoPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSetSoPhongMouseClicked
         // TODO add your handling code here:
-        new GUI_dal_ChonPhong(null, true).setVisible(true);
+        if (!isUpgrade) {
+            new GUI_dal_ChonPhong(null, true).setVisible(true);
+        }
+        return;
     }//GEN-LAST:event_lblSetSoPhongMouseClicked
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
         // TODO add your handling code here:
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void tblKhoDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhoDichVuMouseClicked
@@ -624,16 +648,25 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
     }//GEN-LAST:event_tblDichVuMouseClicked
 
     private void lblCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseClicked
-        // TODO add your handling code here:
-        if (!isUpgrade) {
-            for (int i = 0; i < tblDichVu.getRowCount(); i++) {
-                addChiTietDichVu(i);
+        // TODO add your handling code here:        
+        if (lblSetSoPhong.getText() != null) {
+            if (!isUpgrade) {
+                if (tblDichVu.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(this, "Dữ Liệu Không Được Để Trống !!!");
+                    return;
+                } else {
+                    for (int i = 0; i < tblDichVu.getRowCount(); i++) {
+                        addChiTietDichVu(i);
+                    }
+                    addDichVu();
+                }
+            } else {
+                deleteDichVu();
             }
-            addDichVu();
-        } else {
-            deleteDichVu();
-            this.dispose();
+            GUI_pnl_DichVu.search();
+            dispose();
         }
+        return;
     }//GEN-LAST:event_lblCapNhatMouseClicked
 
     private void lblAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAllMouseClicked
@@ -659,6 +692,21 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
     private void lblCapNhatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_lblCapNhatMouseEntered
+
+    private void lblInPhieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInPhieuMouseClicked
+        // TODO add your handling code here:
+        if (tblDichVu.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Dữ Liệu Không Được Để Trống !!!");
+        } else {
+            for (int i = 0; i < tblDichVu.getRowCount(); i++) {
+                addChiTietDichVu(i);
+            }
+            addDichVu();
+            DAL_DichVu.setThanhToan(lblSetMaPhieu.getText());
+            GUI_pnl_DichVu.search();
+            dispose();
+        }
+    }//GEN-LAST:event_lblInPhieuMouseClicked
 
     /**
      * @param args the command line arguments

@@ -32,11 +32,6 @@ public class DAL_NhapKho {
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
     }
 
-    public static ResultSet count(String thoiGian) {
-        String sqlSelect = "SELECT COUNT(*) FROM Nhapkho WHERE MaNhapKho LIKE ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + thoiGian + "%");
-    }
-
     public static ResultSet search(String tuNgay, String denNgay, int index) {
         String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(PARTITION BY CONVERT(DATE, NgayTao) ORDER BY MaNhapKho) AS RowNumber FROM NhapKho) AS NhapKho WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND NhapKho.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);

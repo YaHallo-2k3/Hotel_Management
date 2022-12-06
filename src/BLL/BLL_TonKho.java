@@ -95,7 +95,7 @@ public class BLL_TonKho {
                 } else if (rsSoLuongNhap.next() && !rsSoLuongBan.next()) {
                     tonDauKi.add(rsSoLuongNhap.getInt("SoLuongNhap") - 0);
                 } else if (!rsSoLuongNhap.next() && rsSoLuongBan.next()) {
-                    tonDauKi.add(0 - rsSoLuongNhap.getInt("SoLuongNhap"));
+                    tonDauKi.add(0 - rsSoLuongBan.getInt("SoLuongBan"));
                 } else {
                     tonDauKi.add(0);
                 }

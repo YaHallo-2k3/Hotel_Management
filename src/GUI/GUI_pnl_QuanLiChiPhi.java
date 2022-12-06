@@ -40,7 +40,7 @@ public class GUI_pnl_QuanLiChiPhi extends javax.swing.JPanel {
         denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
     }
 
-    public void search() {
+    public static void search() {
         int setHeight = BLL_PhieuChi.countSearch(tuNgay, denNgay) / 4;
         pnlFormChinh.setPreferredSize(new Dimension(1150, 250 * setHeight));
         pnlFormChinh.removeAll();
@@ -245,7 +245,7 @@ public class GUI_pnl_QuanLiChiPhi extends javax.swing.JPanel {
     private javax.swing.JLabel lblGioPhutDenNgay;
     private javax.swing.JLabel lblGioPhutTuNgay;
     private javax.swing.JLabel lblHangMucChi;
-    private javax.swing.JLabel lblSetTongTien;
+    public static javax.swing.JLabel lblSetTongTien;
     private javax.swing.JLabel lblThemPhieu;
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTongTien;

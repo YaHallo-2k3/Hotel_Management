@@ -19,7 +19,7 @@ public class DAL_NhanVien {
 
     public static void add(DTO_NhanVien nhanVien) {
         String sqlInsert = "INSERT INTO NhanVien VALUES (?, ?, ?, CONVERT(VARCHAR, ?), ?, ?, ?, ?, CONVERT(VARCHAR, ?), ?, ?)";
-        HELPER_ConnectSQL.executeUpdate(sqlInsert, nhanVien.getMaNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getGioiTinh(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", nhanVien.getNgaySinh()), nhanVien.getSoDienThoai(), nhanVien.getCMND(), BLL_MaTenLoai.findMaChucVu(nhanVien.getMaChucVu()), nhanVien.getLuong(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", nhanVien.getNgayTao()), nhanVien.getTrangThaiNhanVien(), nhanVien.getURL());
+        HELPER_ConnectSQL.executeUpdate(sqlInsert, nhanVien.getMaNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getGioiTinh(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", nhanVien.getNgaySinh()), nhanVien.getSoDienThoai(), nhanVien.getCMND(), BLL_MaTenLoai.findMaChucVu(nhanVien.getMaChucVu()), nhanVien.getLuong(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", nhanVien.getNgayTao()), nhanVien.getTrangThaiNhanVien(), nhanVien.getHinhAnh());
     }
 
     public static void delete(String maNhanVien) {
@@ -29,7 +29,7 @@ public class DAL_NhanVien {
 
     public static void edit(DTO_NhanVien nhanVien) {
         String sqlUpdate = "UPDATE NhanVien SET TenNhanVien = ?, GioiTinh = ?, NgaySinh = CONVERT(VARCHAR, ?), SoDienThoai = ?, CMND = ?, MaChucVu = ?, Luong = ?, NgayTao = CONVERT(VARCHAR, ?), TrangThaiNhanVien = ?, HinhAnh = ? WHERE MaNhanVien = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlUpdate, nhanVien.getTenNhanVien(), nhanVien.getGioiTinh(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", nhanVien.getNgaySinh()), nhanVien.getSoDienThoai(), nhanVien.getCMND(), BLL_MaTenLoai.findMaChucVu(nhanVien.getMaChucVu()), nhanVien.getLuong(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", nhanVien.getNgayTao()), nhanVien.getTrangThaiNhanVien(), nhanVien.getURL(), nhanVien.getMaNhanVien());
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, nhanVien.getTenNhanVien(), nhanVien.getGioiTinh(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", nhanVien.getNgaySinh()), nhanVien.getSoDienThoai(), nhanVien.getCMND(), BLL_MaTenLoai.findMaChucVu(nhanVien.getMaChucVu()), nhanVien.getLuong(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", nhanVien.getNgayTao()), nhanVien.getTrangThaiNhanVien(), nhanVien.getHinhAnh(), nhanVien.getMaNhanVien());
     }
 
     public static ResultSet select() {

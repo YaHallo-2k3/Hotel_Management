@@ -14,7 +14,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -33,13 +35,23 @@ public class Test3 {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        try {
-            FileInputStream file = new FileInputStream("C:\\Users\\CherryCe\\Documents\\NetBeansProjects\\Hotel_Management\\build\\classes\\DOCUMENT\\SingleRoom_Hour_Rate.xlsx");
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
-            XSSFSheet sheet = workbook.getSheetAt(0);
-            System.out.println(HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(1).getCell(0))));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-   }
+        
+
+    
+
+//    class RenderLable extends DefaultTableCellRenderer {
+//
+//        @Override
+//        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//            byte[] photo = null;
+//            photo = (byte[]) value;
+//            ImageIcon imageIcon = new ImageIcon(new ImageIcon(photo)
+//                    .getImage().getScaledInstance(
+//                            60,
+//                            60,
+//                            Image.SCALE_DEFAULT));
+//            return new JLabel(imageIcon);
+//        }
+//    }
+}
 }

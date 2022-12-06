@@ -3,14 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DAL/DAL_DatPhong.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_PhieuNhap.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_DangNhap.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/HELPER/HELPER_SetMa.java</file>
             <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_QuanLiKho.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_DatPhong.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/BLL/BLL_PhieuChi.java</file>
             <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/BLL/BLL_NhanVien.java</file>
             <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_pnl_NhanVien.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DAL/DAL_TaiKhoan.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DAL/DAL_ChiTietNhapKho.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_PhieuChi.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/BLL/BLL_TonKho.java</file>
             <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DAL/DAL_NhanVien.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DTO/DTO_DatPhong.java</file>
-            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/BLL/BLL_DatPhong.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_TaiKhoan.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DAL/DAL_PhieuChi.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/GUI/GUI_dal_HangTonKho.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/DAL/DAL_TonKho.java</file>
+            <file>file:/C:/Users/CherryCe/Documents/NetBeansProjects/Hotel_Management/src/HELPER/HELPER_ConnectSQL.java</file>
         </group>
     </open-files>
 </project-private>

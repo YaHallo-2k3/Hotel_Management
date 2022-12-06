@@ -42,39 +42,8 @@ public class BLL_ChiTietDichVu {
         }
     }
 
-    public static void delete(String maDichVu, String maSanPham) {
-        DAL_ChiTietDichVu.delete(maDichVu, maSanPham);
-    }
-
-    public static void edit(int soLuong, String maSanPham, String maPhieuDichVu) {
-//        try {
-//            DAL_ChiTietDichVu.edit(soLuong, maSanPham, maPhieuDichVu);
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
-//        }
-    }
-
     public static ArrayList<DTO_ChiTietDichVu> select(String maDichVu) {
         ResultSet rs = DAL_ChiTietDichVu.selectMaDichVu(maDichVu);
-        ArrayList<DTO_ChiTietDichVu> array = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                DTO_ChiTietDichVu chiTietDichVu = new DTO_ChiTietDichVu();
-                chiTietDichVu.setMaChiTiet(rs.getString("MaChiTiet"));
-                chiTietDichVu.setMaPhieuDichVu(rs.getString("MaPhieuDichVu"));
-                chiTietDichVu.setMaSanPham(rs.getString("MaSanPham"));
-                chiTietDichVu.setSoLuong(rs.getInt("SoLuongBan"));
-                chiTietDichVu.setGiaTien(rs.getInt("GiaTien"));
-                array.add(chiTietDichVu);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return array;
-    }
-
-    public static ArrayList<DTO_ChiTietDichVu> selectChiTietDichVu(int index) {
-        ResultSet rs = DAL_ChiTietDichVu.rowNumber(index);
         ArrayList<DTO_ChiTietDichVu> array = new ArrayList<>();
         try {
             while (rs.next()) {

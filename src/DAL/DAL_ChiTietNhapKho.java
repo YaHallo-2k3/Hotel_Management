@@ -14,29 +14,24 @@ import java.sql.ResultSet;
  * @author CherryCe
  */
 public class DAL_ChiTietNhapKho {
-    
+
     public static void add(DTO_ChiTietNhapKho chiTietNhapKho) {
         String sqlInsert = "INSERT INTO ChiTietNhapKho VALUES (?, ?, ?, ?, ?)";
         HELPER_ConnectSQL.executeUpdateNoMessage(sqlInsert, chiTietNhapKho.getMaChiTietNhapKho(), chiTietNhapKho.getMaNhapKho(), chiTietNhapKho.getMaSanPham(), chiTietNhapKho.getSoLuong(), chiTietNhapKho.getGiaNhap());
-    }
-
-    public static void delete(String maNhapKho, String maSanPham) {
-        String sqlDelete = "DELETE FROM ChiTietNhapKho WHERE MaNhapKho = ? AND MaSanPham = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlDelete, maNhapKho, maSanPham);
     }
 
     public static ResultSet select(String maNhapKho) {
         String sqlSelect = "SELECT * FROM ChiTietNhapKho WHERE MaNhapKho = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maNhapKho);
     }
-    
+
     public static ResultSet select() {
         String sqlSelect = "SELECT * FROM ChiTietNhapKho ORDER BY MaChiTietNhapKho";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
-    
-    public static ResultSet count(String thoiGian) {
-        String sqlSelect = "SELECT COUNT(*) FROM ChiTietNhapkho WHERE MaNhapKho LIKE ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + thoiGian + "%");
+
+    public static ResultSet count(String dateTime) {
+        String sqlSelect = "SELECT COUNT(*) FROM ChiTietNhapKho WHERE MaChiTietNhapKho LIKE ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + dateTime + "%");
     }
 }

@@ -20,16 +20,6 @@ public class DAL_ChiTietDichVu {
         HELPER_ConnectSQL.executeUpdateNoMessage(sqlInsert, chiTietDichVu.getMaChiTiet(), chiTietDichVu.getMaPhieuDichVu(), chiTietDichVu.getMaSanPham(), chiTietDichVu.getSoLuong(), chiTietDichVu.getGiaTien());
     }
 
-    public static void delete(String maDichVu, String maSanPham) {
-        String sqlDelete = "DELETE FROM ChiTietDichVu WHERE MaPhieuDichVu = ? AND MaSanPham = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlDelete, maDichVu, maSanPham);
-    }
-
-    public static void edit(int soLuong, String maSanPham, String maPhieuDichVu) {
-        String sqlInsert = "UPDATE ChiTietDichVu SET SoLuongBan = ? WHERE MaSanPham = ? AND MaPhieuDichVu = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlInsert, soLuong, maSanPham, maPhieuDichVu);
-    }
-    
     public static ResultSet select() {
         String sqlSelect = "SELECT * FROM ChiTietDichVu ORDER BY MaChiTiet";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
@@ -39,24 +29,14 @@ public class DAL_ChiTietDichVu {
         String sqlSelect = "SELECT * FROM ChiTietDichVu WHERE MaPhieuDichVu = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maDichVu);
     }
-    
+
     public static ResultSet selectMaSanPham(String maSanPham) {
         String sqlSelect = "SELECT * FROM ChiTietDichVu WHERE MaSanPham = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maSanPham);
     }
 
-    public static ResultSet count() {
-        String sqlSelect = "SELECT COUNT(*) FROM ChiTietDichVu";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect);
-    }
-
-    public static ResultSet count(String thoiGian) {
-        String sqlSelect = "SELECT COUNT(*) FROM ChiTietDichVu WHERE MaPhieuDichVu LIKE ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + thoiGian + "%");
-    }
-
-    public static ResultSet rowNumber(int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaChiTiet) AS RowNumber FROM ChiTietDichVu) AS ChiTietDichVu  WHERE ChiTietDichVu.RowNumber = ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
+    public static ResultSet count(String dateTime) {
+        String sqlSelect = "SELECT COUNT(*) FROM ChiTietDichVu WHERE MaChiTiet LIKE ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + dateTime + "%");
     }
 }
