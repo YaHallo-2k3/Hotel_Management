@@ -134,11 +134,10 @@ public class BLL_Phong {
     public static void loadSoPhong(ArrayList<DTO_ThuePhong> array, JLabel lblSoPhong, JLabel lblNgayDen, JLabel lblNgayDi) {
         for (DTO_ThuePhong thuePhong : array) {
             lblSoPhong.setText(BLL_MaTenLoai.findTenPhong(thuePhong.getMaPhong()));
+            lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", thuePhong.getNgayDen()));
             if (thuePhong.getNgayDi() == null) {
-                lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", thuePhong.getNgayDen()));
                 lblNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy"));
             } else {
-                lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", thuePhong.getNgayDen()));
                 lblNgayDi.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", thuePhong.getNgayDi()));
             }
         }

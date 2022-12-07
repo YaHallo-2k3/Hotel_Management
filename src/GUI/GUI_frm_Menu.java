@@ -27,7 +27,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     public boolean isWindow = false;
     public String tenNhanVien;
     public String chucVu;
-    public javax.swing.JLabel lbl;
+    public JLabel lbl;
     public String lblIcon;
     public String lblSoDoPhongIconClicked = "/IMG/app.png";
     public String lblThuNganIconClicked = "/IMG/money (1).png";
@@ -66,10 +66,8 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     public GUI_frm_Menu() {
         initComponents();
         setLocationRelativeTo(null);
-//            auThenTiCaTion();
         load();
-//        pnlFormChinh.add(new GUI_pnl_ThietDatPhong());
-//        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
+//            auThenTiCaTion();
     }
 
     public void auThenTiCaTion() {
@@ -96,9 +94,13 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         setForeground_33_150_243(lblSoDoPhong);
         lbl = lblSoDoPhong;
         lblIcon = lblSoDoPhongIconExited;
+        pnlFormChinh.removeAll();
+        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
+        pnlFormChinh.validate();
+        pnlFormChinh.repaint();
     }
 
-    public void menuItemClicked(javax.swing.JLabel lblClicked, String lblIconClicked, String lblIconExited, Component component) {
+    public void menuItemClicked(JLabel lblClicked, String lblIconClicked, String lblIconExited, Component component) {
         lbl.setIcon(new ImageIcon(getClass().getResource(lblIcon)));
         setForeground_255_255_255(lbl);
         lblClicked.setIcon(new ImageIcon(getClass().getResource(lblIconClicked)));
@@ -108,6 +110,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         pnlFormChinh.removeAll();
         pnlFormChinh.add(component);
         pnlFormChinh.validate();
+        pnlFormChinh.repaint();
     }
 
     public void logOut() {

@@ -409,13 +409,11 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
         lblSetThoiGian.setBackground(new java.awt.Color(255, 255, 255));
         lblSetThoiGian.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetThoiGian.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetThoiGian.setText("0d 0h 0m");
         sdoChucNang.add(lblSetThoiGian, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 50, 80, 20));
 
         lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTongTien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTongTien.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetTongTien.setText("0K");
         sdoChucNang.add(lblSetTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 50, 80, 20));
 
         cboLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N

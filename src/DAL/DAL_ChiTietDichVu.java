@@ -39,4 +39,14 @@ public class DAL_ChiTietDichVu {
         String sqlSelect = "SELECT COUNT(*) FROM ChiTietDichVu WHERE MaChiTiet LIKE ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, "%" + dateTime + "%");
     }
+
+    public static ResultSet countDichVu(String maPhieuThue) {
+        String sqlSelect = "SELECT MaSanPham, SUM(SoLuongBan) AS SoLuongBan, GiaTien FROM PhieuDichVu JOIN ChiTietDichVu ON ChiTietDichVu.MaPhieuDichVu = PhieuDichVu.MaPhieuDichVu WHERE MaPhieuThue = ? GROUP BY MaSanPham, GiaTien ORDER BY MaSanPham";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
+    }
+    
+    public static ResultSet countThanhToan(String maPhieuThue) {
+        String sqlSelect = "SELECT SUM(SoLuongBan * GiaTien) FROM PhieuDichVu JOIN ChiTietDichVu ON ChiTietDichVu.MaPhieuDichVu = PhieuDichVu.MaPhieuDichVu WHERE MaPhieuThue = ? AND TrangThaiThanhToan = 1 GROUP BY MaPhieuThue";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
+    }
 }

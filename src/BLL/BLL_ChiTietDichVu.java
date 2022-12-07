@@ -61,6 +61,35 @@ public class BLL_ChiTietDichVu {
         return array;
     }
 
+    public static ArrayList<DTO_ChiTietDichVu> countDichVu(String maPhieuThue) {
+        ResultSet rs = DAL_ChiTietDichVu.countDichVu(maPhieuThue);
+        ArrayList<DTO_ChiTietDichVu> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_ChiTietDichVu chiTietDichVu = new DTO_ChiTietDichVu();
+                chiTietDichVu.setMaSanPham(rs.getString("MaSanPham"));
+                chiTietDichVu.setSoLuong(rs.getInt("SoLuongBan"));
+                chiTietDichVu.setGiaTien(rs.getInt("GiaTien"));
+                array.add(chiTietDichVu);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public static int countThanhToan(String maPhieuThue) {
+        ResultSet rs = DAL_ChiTietDichVu.countThanhToan(maPhieuThue);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static void load(ArrayList<DTO_ChiTietDichVu> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);

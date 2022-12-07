@@ -5,12 +5,17 @@
  */
 package GUI;
 
+import BLL.BLL_MaTenLoai;
 import BLL.BLL_SoDoPhong;
 import DAL.DAL_SoDoPhong;
+import DTO.DTO_SoTang;
 import GUI.GUI_pnl_ChiTietPhong;
+import HELPER.HELPER_ChuyenDoi;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -21,25 +26,58 @@ import javax.swing.SwingUtilities;
 public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
 
     public static int index;
+    public static String maTang;
+    public static boolean isSelectPhong = false;
 
     /**
      * Creates new form GUI_pnlSoDoPhong
      */
     public GUI_pnl_SoDoPhong() {
         initComponents();
+        loadTenTang();
         load();
+        countLoaiPhongAll(lblSetCoKhach, "CoKhach", "Có Khách");
+        countLoaiPhongAll(lblSetDatTruoc, "DatTruoc", "Đặt Phòng");
+        countLoaiPhongAll(lblSetPhongTrong, "PhongTrong", "Phòng Trống");
+        countLoaiPhongAll(lblSetTraPhong, "TraPhong", "Trả Phòng");
     }
 
-    public void load() {
-        if (BLL_SoDoPhong.countPhong() % 5 == 0) {
-            pnlFormChinh.setLayout(new GridLayout(BLL_SoDoPhong.countPhong() / 5, 5, 10, 7));
-        } else {
-            pnlFormChinh.setLayout(new GridLayout(BLL_SoDoPhong.countPhong() / 5 + 1, 5, 10, 7));
-        }
+    public static void load() {
+        int setHeight = BLL_SoDoPhong.countPhong() / 5;
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
+        pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_SoDoPhong.countPhong(); i++) {
             index = i;
             pnlFormChinh.add(new GUI_pnl_ChiTietPhong().sdoChiTietPhong);
         }
+        pnlFormChinh.validate();
+        pnlFormChinh.repaint();
+    }
+
+    public static void search() {
+        int setHeight = BLL_SoDoPhong.countPhong(maTang) / 5;
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
+        pnlFormChinh.removeAll();
+        for (int i = 1; i <= BLL_SoDoPhong.countPhong(maTang); i++) {
+            index = i;
+            pnlFormChinh.add(new GUI_pnl_ChiTietPhong().sdoChiTietPhong);
+        }
+        pnlFormChinh.validate();
+        pnlFormChinh.repaint();
+    }
+
+    public void countLoaiPhongAll(JLabel lbl, String maTrangThaiPhong, String text) {
+        lbl.setText("(" + HELPER_ChuyenDoi.getSoString(BLL_SoDoPhong.countLoaiPhong(maTrangThaiPhong)) + ")" + " " + text);
+    }
+
+    public void countLoaiPhong(JLabel lbl, String maTrangThaiPhong, String text) {
+        lbl.setText("(" + HELPER_ChuyenDoi.getSoString(BLL_SoDoPhong.countLoaiPhong(maTang, maTrangThaiPhong)) + ")" + " " + text);
+    }
+
+    public void loadTenTang() {
+        ArrayList<DTO_SoTang> array = BLL_MaTenLoai.selectTenTang();
+        BLL_MaTenLoai.loadTenTang(array, cboTang);
+        cboTang.addItem("All");
     }
 
     /**
@@ -55,7 +93,6 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         spt_1 = new javax.swing.JSeparator();
         spt_2 = new javax.swing.JSeparator();
         cboTang = new javax.swing.JComboBox<>();
-        dateNgay = new com.toedter.calendar.JDateChooser();
         lblSetDatTruoc = new javax.swing.JLabel();
         lblSetPhongTrong = new javax.swing.JLabel();
         lblSetTraPhong = new javax.swing.JLabel();
@@ -65,8 +102,8 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblDonPhong = new javax.swing.JLabel();
         lblRaNgoai = new javax.swing.JLabel();
         lblPhongTrong = new javax.swing.JLabel();
-        lblNgay = new javax.swing.JLabel();
         lblCoKhach = new javax.swing.JLabel();
+        lblTimKiem = new javax.swing.JLabel();
         scrFormChinh = new javax.swing.JScrollPane();
         pnlFormChinh = new javax.swing.JPanel();
 
@@ -83,22 +120,21 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         sdoChuThich.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         spt_1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        sdoChuThich.add(spt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 10, 60));
+        sdoChuThich.add(spt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 10, 60));
 
         spt_2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        sdoChuThich.add(spt_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 10, 60));
+        sdoChuThich.add(spt_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 10, 60));
 
         cboTang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboTang.setForeground(new java.awt.Color(62, 73, 95));
         cboTang.setToolTipText("");
         cboTang.setBorder(null);
-        sdoChuThich.add(cboTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 80, 20));
-
-        dateNgay.setBackground(new java.awt.Color(255, 255, 255));
-        dateNgay.setForeground(new java.awt.Color(62, 73, 95));
-        dateNgay.setToolTipText("");
-        dateNgay.setDateFormatString("dd-MM-yyyy");
-        sdoChuThich.add(dateNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 100, 20));
+        cboTang.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboTangItemStateChanged(evt);
+            }
+        });
+        sdoChuThich.add(cboTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 80, 20));
 
         lblSetDatTruoc.setBackground(new java.awt.Color(102, 153, 255));
         lblSetDatTruoc.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -154,7 +190,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblTang.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTang.setForeground(new java.awt.Color(153, 153, 153));
         lblTang.setText("Tầng");
-        sdoChuThich.add(lblTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 40, -1));
+        sdoChuThich.add(lblTang, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 40, -1));
 
         lblDonPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblDonPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -173,7 +209,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblRaNgoai.setFocusable(false);
         lblRaNgoai.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblRaNgoai.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoChuThich.add(lblRaNgoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, -1));
+        sdoChuThich.add(lblRaNgoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, -1, -1));
 
         lblPhongTrong.setBackground(new java.awt.Color(255, 255, 255));
         lblPhongTrong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -182,13 +218,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblPhongTrong.setText("Phòng Trống");
         lblPhongTrong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblPhongTrong.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoChuThich.add(lblPhongTrong, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
-
-        lblNgay.setBackground(new java.awt.Color(255, 255, 255));
-        lblNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        lblNgay.setForeground(new java.awt.Color(153, 153, 153));
-        lblNgay.setText("Ngày");
-        sdoChuThich.add(lblNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 40, 20));
+        sdoChuThich.add(lblPhongTrong, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, -1, -1));
 
         lblCoKhach.setBackground(new java.awt.Color(255, 255, 255));
         lblCoKhach.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -197,14 +227,30 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblCoKhach.setText("Có Khách");
         lblCoKhach.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblCoKhach.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sdoChuThich.add(lblCoKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, -1));
+        sdoChuThich.add(lblCoKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+
+        lblTimKiem.setBackground(new java.awt.Color(255, 255, 255));
+        lblTimKiem.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblTimKiem.setForeground(new java.awt.Color(33, 150, 243));
+        lblTimKiem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/magnifier (2).png"))); // NOI18N
+        lblTimKiem.setText("Tìm Kiếm");
+        lblTimKiem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblTimKiem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        lblTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTimKiemMouseClicked(evt);
+            }
+        });
+        sdoChuThich.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 70, 40));
 
         scrFormChinh.setBackground(new java.awt.Color(255, 255, 255));
         scrFormChinh.setBorder(null);
+        scrFormChinh.setMinimumSize(new java.awt.Dimension(1150, 620));
 
         pnlFormChinh.setMinimumSize(new java.awt.Dimension(1150, 620));
         pnlFormChinh.setPreferredSize(new java.awt.Dimension(1150, 620));
-        pnlFormChinh.setLayout(new java.awt.GridLayout());
+        pnlFormChinh.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 20));
         scrFormChinh.setViewportView(pnlFormChinh);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -225,17 +271,38 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
 
     private void lblSetCoKhachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSetCoKhachMouseClicked
         // TODO add your handling code here:
-
     }//GEN-LAST:event_lblSetCoKhachMouseClicked
+
+    private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked
+        // TODO add your handling code here:
+        if (String.valueOf(cboTang.getSelectedItem()).equals("All")) {
+            isSelectPhong = false;
+            load();
+            countLoaiPhongAll(lblSetCoKhach, "CoKhach", "Có Khách");
+            countLoaiPhongAll(lblSetDatTruoc, "DatTruoc", "Đặt Phòng");
+            countLoaiPhongAll(lblSetPhongTrong, "PhongTrong", "Phòng Trống");
+            countLoaiPhongAll(lblSetTraPhong, "TraPhong", "Trả Phòng");
+        } else {
+            isSelectPhong = true;
+            maTang = BLL_MaTenLoai.findMaTang(String.valueOf(cboTang.getSelectedItem()));
+            search();
+            countLoaiPhong(lblSetCoKhach, "CoKhach", "Có Khách");
+            countLoaiPhong(lblSetDatTruoc, "DatTruoc", "Đặt Phòng");
+            countLoaiPhong(lblSetPhongTrong, "PhongTrong", "Phòng Trống");
+            countLoaiPhong(lblSetTraPhong, "TraPhong", "Trả Phòng");
+        }
+    }//GEN-LAST:event_lblTimKiemMouseClicked
+
+    private void cboTangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboTangItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboTangItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboTang;
-    private com.toedter.calendar.JDateChooser dateNgay;
     private javax.swing.JLabel lblCoKhach;
     private javax.swing.JLabel lblDatPhong;
     private javax.swing.JLabel lblDonPhong;
-    private javax.swing.JLabel lblNgay;
     private javax.swing.JLabel lblPhongTrong;
     private javax.swing.JLabel lblRaNgoai;
     private javax.swing.JLabel lblSetCoKhach;
@@ -243,6 +310,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
     private javax.swing.JLabel lblSetPhongTrong;
     private javax.swing.JLabel lblSetTraPhong;
     private javax.swing.JLabel lblTang;
+    private javax.swing.JLabel lblTimKiem;
     public static javax.swing.JPanel pnlFormChinh;
     public static javax.swing.JScrollPane scrFormChinh;
     public static HELPER.PanelShadow sdoChuThich;

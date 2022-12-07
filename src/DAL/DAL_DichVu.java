@@ -19,7 +19,7 @@ public class DAL_DichVu {
 
     public static void add(DTO_DichVu dichVu) {
         String sqlInsert = "INSERT INTO PhieuDichVu VALUES (?, ?, ?, CONVERT(VARCHAR, ?), ?, ?)";
-        HELPER_ConnectSQL.executeUpdate(sqlInsert, dichVu.getMaPhieuDichVu(), BLL_MaTenLoai.findMaPhong(dichVu.getMaPhong()), BLL_MaTenLoai.findMaNhanVien(dichVu.getMaNhanVien()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", dichVu.getNgayTao()), dichVu.getGhiChu(), dichVu.getTrangThaiThanhToan());
+        HELPER_ConnectSQL.executeUpdate(sqlInsert, dichVu.getMaPhieuDichVu(), dichVu.getMaPhieuThue(), BLL_MaTenLoai.findMaNhanVien(dichVu.getMaNhanVien()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", dichVu.getNgayTao()), dichVu.getGhiChu(), dichVu.getTrangThaiThanhToan());
     }
 
     public static void delete(String maPhieuDichVu) {
@@ -41,14 +41,24 @@ public class DAL_DichVu {
         String sqlSelect = "SELECT SUM(SoLuongBan * GiaTien) FROM ChiTietDichVu JOIN PhieuDichVu ON PhieuDichVu.MaPhieuDichVu = ChiTietDichVu.MaPhieuDichVu WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
     }
-    
+
     public static void setThanhToan(String maPhieuDichVu) {
         String sqlDelete = "UPDATE PhieuDichVu SET TrangThaiThanhToan = 1 WHERE MaPhieuDichVu = ?";
         HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maPhieuDichVu);
     }
-    
+
     public static ResultSet findThanhToan(String maPhieuDichVu) {
         String sqlSelect = "SELECT * FROM PhieuDichVu WHERE MaPhieuDichVu = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuDichVu);
+    }
+
+    public static ResultSet findPhong(String maPhieuThue) {
+        String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhieuThue = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
+    }
+
+    public static ResultSet findMaPhieuThue(String maPhong) {
+        String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhong = ? AND TrangThaiThanhToan = 0";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong);
     }
 }

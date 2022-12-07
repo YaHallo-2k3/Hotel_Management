@@ -11,6 +11,7 @@ import BLL.BLL_MaTenLoai;
 import BLL.BLL_PhuongThucThanhToan;
 import BLL.BLL_SanPham;
 import BLL.BLL_SoDoPhong;
+import BLL.BLL_TaiKhoan;
 import BLL.BLL_ThuePhong;
 import DAL.DAL_ChiTietDichVu;
 import DAL.DAL_ThuePhong;
@@ -20,6 +21,14 @@ import DTO.DTO_Phong;
 import DTO.DTO_PhuongThucThanhToan;
 import DTO.DTO_SanPham;
 import DTO.DTO_ThuePhong;
+import static GUI.GUI_pnl_GiaPhong.doubleRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.doubleRoom_Hour_Rate;
+import static GUI.GUI_pnl_GiaPhong.quadraRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.quadraRoom_Hour_Rate;
+import static GUI.GUI_pnl_GiaPhong.singleRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.singleRoom_Hour_Rate;
+import static GUI.GUI_pnl_GiaPhong.tripleRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.tripleRoom_Hour_Rate;
 import static GUI.GUI_pnl_SoDoPhong.index;
 import static GUI.GUI_pnl_SoDoPhong.pnlFormChinh;
 import HELPER.HELPER_ChuyenDoi;
@@ -58,12 +67,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
-    public boolean isDatThue = GUI_pnl_ChiTietPhong.isDatThue;
     public int row;
     public int column;
     public long diffInDay;
     public long diffInHours;
     public long diffInMinutes;
+    public static byte[] hinhAnh;
 
     /**
      * Creates new form GUI_dalThongTinPhong
@@ -74,26 +83,34 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         loadThongTinPhong();
         trangThaiPhong();
-        setThoiGian_GiaTien(23 - HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()), HELPER_ChuyenDoi.getSoInt(txtGioDi.getText()) + 1);
-        phuongThucThanhToan();
-        loadSanPham();
+        setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()), HELPER_ChuyenDoi.getSoInt(txtGioDi.getText()) + 1);
         loadChiTietDichVu();
+        loadTongTienDichVu();
+        loadThanhToan();
+        setTongTien();
+        setConLai();
+        phuongThucThanhToan();
     }
 
     public void loadThongTinPhong() {
-        ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(GUI_pnl_ChiTietPhong.indexPosition + 1);
-        BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
+        if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+            ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(GUI_pnl_ChiTietPhong.indexPosition + 1);
+            BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
+        } else {
+            ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(GUI_pnl_SoDoPhong.maTang, GUI_pnl_ChiTietPhong.indexPosition + 1);
+            BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
+        }
     }
 
     public void trangThaiPhong() {
         JLabel dateTimeNgayDen = new JLabel();
         JLabel dateTimeNgayDi = new JLabel();
-        if (isDatThue) {
+        if (GUI_pnl_ChiTietPhong.isDatThue) {
             txtGioDen.setEnabled(true);
             txtPhutDen.setEnabled(true);
             txtGioDi.setEnabled(true);
             txtPhutDi.setEnabled(true);
-        } else if (!isDatThue) {
+        } else if (!GUI_pnl_ChiTietPhong.isDatThue) {
             txtGioDen.setEnabled(false);
             txtPhutDen.setEnabled(false);
             txtGioDi.setEnabled(false);
@@ -106,10 +123,10 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             lblSetMaPhieuThue.setText(HELPER_SetMa.setMaDateTime("PT"));
             lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm"));
             lblThanhToanPhong.setVisible(false);
+            lblSetNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)));
         } else {
             ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuePhong.select(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)));
-            BLL_ThuePhong.load(arrayThuePhong, lblSetMaPhieuThue, lblSetNhanVien, lblSetNgayTao, dateTimeNgayDen, dateTimeNgayDi, txtCMND, txtTenKhach, txtSoLuong, txtGhiChu, txtTienCoc, txtGiamGia);
-
+            BLL_ThuePhong.load(arrayThuePhong, lblSetMaPhieuThue, lblSetNhanVien, lblSetNgayTao, dateTimeNgayDen, dateTimeNgayDi, txtCMND, txtTenKhach, txtSoLuong, txtGhiChu, txtTienCoc, txtGiamGia, lblImage);
             if (lblSetTrangThai.getText().equals("Có Khách")) {
                 lblSetTrangThai.setBackground(new Color(255, 142, 113));
             } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
@@ -120,10 +137,10 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             lblThanhToanPhong.setVisible(true);
         }
         try {
-            dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDen.getText()));
+            dateTuNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDen.getText()));
             txtGioDen.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH", dateTimeNgayDen.getText()));
             txtPhutDen.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "mm", dateTimeNgayDen.getText()));
-            dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDi.getText()));
+            dateDenNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDi.getText()));
             txtGioDi.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH", dateTimeNgayDi.getText()));
             txtPhutDi.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "mm", dateTimeNgayDi.getText()));
         } catch (Exception e) {
@@ -135,42 +152,42 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         int price = 0;
         String filePath = null;
         String setPrice = null;
-        String dateTimeNgayDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate());
-        String dateTimeNgayDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate());
-        if (dateTimeNgayDen.equals(dateTimeNgayDi)) {
+        String dateNgayDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateTuNgay.getDate());
+        String dateNgayDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateDenNgay.getDate());
+        if (dateNgayDen.equals(dateNgayDi)) {
             setPrice = "Giá Giờ";
         } else {
             setPrice = "Giá Ngày";
         }
-        if (lblSetSoPhong.getText().substring(6).equals("Phòng Đơn") && setPrice.equals("Giá Giờ")) {
-            filePath = GUI_pnl_GiaPhong.singleRoom_Hour_Rate;
+        if (lblSetSoPhong.getText().contains("Phòng Đơn") && setPrice.equals("Giá Giờ")) {
+            filePath = singleRoom_Hour_Rate;
             price = 0;
-        } else if (lblSetSoPhong.getText().substring(6).equals("Phòng Đơn") && setPrice.equals("Giá Ngày")) {
-            filePath = GUI_pnl_GiaPhong.singleRoom_Day_Rate;
+        } else if (lblSetSoPhong.getText().contains("Phòng Đơn") && setPrice.equals("Giá Ngày")) {
+            filePath = singleRoom_Day_Rate;
             price = 250;
-        } else if (lblSetSoPhong.getText().substring(6).equals("Phòng Đôi Nhỏ") && setPrice.equals("Giá Giờ")) {
-            filePath = GUI_pnl_GiaPhong.doubleRoom_Hour_Rate;
+        } else if (lblSetSoPhong.getText().contains("Phòng Đôi Nhỏ") && setPrice.equals("Giá Giờ")) {
+            filePath = doubleRoom_Hour_Rate;
             price = 0;
-        } else if (lblSetSoPhong.getText().substring(6).equals("Phòng Đôi Nhỏ") && setPrice.equals("Giá Ngày")) {
-            filePath = GUI_pnl_GiaPhong.doubleRoom_Day_Rate;
+        } else if (lblSetSoPhong.getText().contains("Phòng Đôi Nhỏ") && setPrice.equals("Giá Ngày")) {
+            filePath = doubleRoom_Day_Rate;
             price = 300;
-        } else if (lblSetSoPhong.getText().substring(6).equals("Phòng Lớn Nhỏ") && setPrice.equals("Giá Giờ")) {
-            filePath = GUI_pnl_GiaPhong.tripleRoom_Hour_Rate;
+        } else if (lblSetSoPhong.getText().contains("Phòng Lớn Nhỏ") && setPrice.equals("Giá Giờ")) {
+            filePath = tripleRoom_Hour_Rate;
             price = 0;
-        } else if (lblSetSoPhong.getText().substring(6).equals("Phòng Lớn Nhỏ") && setPrice.equals("Giá Ngày")) {
-            filePath = GUI_pnl_GiaPhong.tripleRoom_Day_Rate;
+        } else if (lblSetSoPhong.getText().contains("Phòng Lớn Nhỏ") && setPrice.equals("Giá Ngày")) {
+            filePath = tripleRoom_Day_Rate;
             price = 350;
-        } else if (lblSetSoPhong.getText().substring(6).equals("Phòng Đôi Lớn") && setPrice.equals("Giá Giờ")) {
-            filePath = GUI_pnl_GiaPhong.quadraRoom_Hour_Rate;
+        } else if (lblSetSoPhong.getText().contains("Phòng Đôi Lớn") && setPrice.equals("Giá Giờ")) {
+            filePath = quadraRoom_Hour_Rate;
             price = 0;
-        } else if (lblSetSoPhong.getText().substring(6).equals("Phòng Đôi Lớn") && setPrice.equals("Giá Ngày")) {
-            filePath = GUI_pnl_GiaPhong.quadraRoom_Day_Rate;
+        } else if (lblSetSoPhong.getText().contains("Phòng Đôi Lớn") && setPrice.equals("Giá Ngày")) {
+            filePath = quadraRoom_Day_Rate;
             price = 400;
         }
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            LocalDateTime dateTimeDen = LocalDateTime.parse(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText(), formatter);
-            LocalDateTime dateTimeDi = LocalDateTime.parse(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText(), formatter);
+            LocalDateTime dateTimeDen = LocalDateTime.parse(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateTuNgay.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText(), formatter);
+            LocalDateTime dateTimeDi = LocalDateTime.parse(HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateDenNgay.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText(), formatter);
             diffInDay = Duration.between(dateTimeDen, dateTimeDi).toDays();
             diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
             diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
@@ -181,11 +198,40 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             if (diffInDay == 0) {
                 lblSetGiaPhong.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column)))) + "K");
             } else {
-                lblSetGiaPhong.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column)))) + "K");
+                if (HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()) <= HELPER_ChuyenDoi.getSoInt(txtGioDi.getText())) {
+                    lblSetGiaPhong.setText(HELPER_ChuyenDoi.getSoString((diffInDay - 1) * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column)))) + "K");
+                } else {
+                    lblSetGiaPhong.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column)))) + "K");
+                }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi Định Dạng Số ???");
+            JOptionPane.showMessageDialog(this, "Lỗi Định Dạng ???");
         }
+    }
+
+    public void loadChiTietDichVu() {
+        ArrayList<DTO_ChiTietDichVu> arrayChiTiet = BLL_ChiTietDichVu.countDichVu(lblSetMaPhieuThue.getText());
+        BLL_ChiTietDichVu.loadChiTietDichVu(arrayChiTiet, tblDichVu);
+    }
+
+    public void loadThanhToan() {
+        lblSetThanhToan.setText(HELPER_ChuyenDoi.getSoString(BLL_ChiTietDichVu.countThanhToan(lblSetMaPhieuThue.getText())) + "K");
+    }
+
+    public void loadTongTienDichVu() {
+        int total = 0;
+        for (int i = 0; i < tblDichVu.getRowCount(); i++) {
+            total += HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(i, 3).toString());
+        }
+        lblSetDichVu.setText(HELPER_ChuyenDoi.getSoString(total) + "K");
+    }
+
+    public void setTongTien() {
+        lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(lblSetGiaPhong.getText()) + HELPER_ChuyenDoi.getSoInt(lblSetDichVu.getText())) + "K");
+    }
+
+    public void setConLai() {
+        lblSetConLai.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(lblSetGiaPhong.getText()) + HELPER_ChuyenDoi.getSoInt(lblSetDichVu.getText()) - HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()) - HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()) - HELPER_ChuyenDoi.getSoInt(lblSetThanhToan.getText())) + "K");
     }
 
     public void phuongThucThanhToan() {
@@ -194,39 +240,29 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     }
 
     public void addThuePhong() {
-        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
-        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), null, txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), 0);
+        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateTuNgay.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
+        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), null, txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), hinhAnh, 0);
         BLL_ThuePhong.addThuePhong(thuePhong);
     }
 
     public void addDatPhong() {
-        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
-        String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
-        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), 0);
+        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateTuNgay.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
+        String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateDenNgay.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
+        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), null, 0);
         BLL_ThuePhong.addDatPhong(thuePhong);
     }
 
     public void editThuePhong() {
-        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
-        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), null, txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), 0);
+        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateTuNgay.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
+        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), null, txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), hinhAnh, 0);
         BLL_ThuePhong.editThuePhong(thuePhong);
     }
 
     public void editDatPhong() {
-        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
-        String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
-        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), 0);
+        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateTuNgay.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
+        String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateDenNgay.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
+        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), null, 0);
         BLL_ThuePhong.editDatPhong(thuePhong);
-    }
-
-    public void loadSanPham() {
-        ArrayList<DTO_SanPham> array = BLL_SanPham.select();
-        BLL_SanPham.loadKhoDichVu(array, tblDichVu);
-    }
-
-    public void loadChiTietDichVu() {
-        ArrayList<DTO_ChiTietDichVu> array = BLL_ChiTietDichVu.select("DV" + lblSetMaPhieuThue.getText().substring(2, lblSetMaPhieuThue.getText().length()));
-        BLL_ChiTietDichVu.load(array, tblDichVu);
     }
 
     public String tienDichVu() {
@@ -235,16 +271,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             tienDichVu += HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString());
         }
         return HELPER_ChuyenDoi.getSoString(tienDichVu);
-    }
-
-    public void exit() {
-        pnlFormChinh.removeAll();
-        for (int i = 1; i <= BLL_SoDoPhong.countPhong(); i++) {
-            index = i;
-            pnlFormChinh.add(new GUI_pnl_ChiTietPhong().sdoChiTietPhong);
-        }
-        pnlFormChinh.validate();
-        dispose();
     }
 
     /**
@@ -284,8 +310,8 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblNgayTao = new javax.swing.JLabel();
         lblThongTinPhong = new javax.swing.JLabel();
         lblSetNgayTao = new javax.swing.JLabel();
-        dateNgayDi = new com.toedter.calendar.JDateChooser();
-        dateNgayDen = new com.toedter.calendar.JDateChooser();
+        dateDenNgay = new com.toedter.calendar.JDateChooser();
+        dateTuNgay = new com.toedter.calendar.JDateChooser();
         lblTongThoiGian = new javax.swing.JLabel();
         lblImage = new javax.swing.JLabel();
         txtGioDen = new javax.swing.JTextField();
@@ -299,14 +325,13 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         tblDichVu = new javax.swing.JTable();
         lblExit = new javax.swing.JLabel();
         sdoGiaPhong = new HELPER.PanelShadow();
-        txtThanhToan = new javax.swing.JTextField();
         lblSetGiaPhong = new javax.swing.JLabel();
         txtGiamGia = new javax.swing.JTextField();
-        lblSetCoLai = new javax.swing.JLabel();
+        lblSetConLai = new javax.swing.JLabel();
         txtTienCoc = new javax.swing.JTextField();
         lblSetDichVu = new javax.swing.JLabel();
         cboThanhToan = new javax.swing.JComboBox<>();
-        lblSetTongTien = new javax.swing.JLabel();
+        lblSetThanhToan = new javax.swing.JLabel();
         lblThanhToan = new javax.swing.JLabel();
         lblTienCoc = new javax.swing.JLabel();
         lblConLai = new javax.swing.JLabel();
@@ -314,6 +339,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblGiamGia = new javax.swing.JLabel();
         lblGiaPhong = new javax.swing.JLabel();
         lblDichVu = new javax.swing.JLabel();
+        lblSetTongTien = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1020, 580));
@@ -396,7 +422,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblSetTrangThai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTrangThai.setForeground(new java.awt.Color(255, 255, 255));
         lblSetTrangThai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSetTrangThai.setText("Có Khách");
         lblSetTrangThai.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblSetTrangThai.setOpaque(true);
         sdoThongTinPhong.add(lblSetTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 100, 20));
@@ -404,7 +429,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblSetMaPhieuThue.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMaPhieuThue.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetMaPhieuThue.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMaPhieuThue.setText("PT220912001");
         sdoThongTinPhong.add(lblSetMaPhieuThue, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 90, 20));
 
         lblNhanPhong.setBackground(new java.awt.Color(255, 255, 255));
@@ -448,13 +472,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblSetNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNhanVien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNhanVien.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNhanVien.setText("CherryCe");
-        sdoThongTinPhong.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 110, 20));
+        sdoThongTinPhong.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 100, 20));
 
         lblSetSoPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblSetSoPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetSoPhong.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetSoPhong.setText("201 - Phòng Đôi Lớn");
         sdoThongTinPhong.add(lblSetSoPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 160, 20));
 
         lblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
@@ -496,37 +518,35 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayTao.setText("16-09-22 22:08");
-        sdoThongTinPhong.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, 20));
+        sdoThongTinPhong.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 100, 20));
 
-        dateNgayDi.setBackground(new java.awt.Color(255, 255, 255));
-        dateNgayDi.setForeground(new java.awt.Color(62, 73, 95));
-        dateNgayDi.setToolTipText("");
-        dateNgayDi.setDateFormatString("dd-MM-yyyy");
-        dateNgayDi.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        dateDenNgay.setBackground(new java.awt.Color(255, 255, 255));
+        dateDenNgay.setForeground(new java.awt.Color(62, 73, 95));
+        dateDenNgay.setToolTipText("");
+        dateDenNgay.setDateFormatString("dd-MM-yyyy");
+        dateDenNgay.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                dateNgayDiPropertyChange(evt);
+                dateDenNgayPropertyChange(evt);
             }
         });
-        sdoThongTinPhong.add(dateNgayDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, 100, 20));
+        sdoThongTinPhong.add(dateDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, 100, 20));
 
-        dateNgayDen.setBackground(new java.awt.Color(255, 255, 255));
-        dateNgayDen.setForeground(new java.awt.Color(62, 73, 95));
-        dateNgayDen.setToolTipText("");
-        dateNgayDen.setDateFormatString("dd-MM-yyyy");
-        dateNgayDen.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        dateTuNgay.setBackground(new java.awt.Color(255, 255, 255));
+        dateTuNgay.setForeground(new java.awt.Color(62, 73, 95));
+        dateTuNgay.setToolTipText("");
+        dateTuNgay.setDateFormatString("dd-MM-yyyy");
+        dateTuNgay.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                dateNgayDenPropertyChange(evt);
+                dateTuNgayPropertyChange(evt);
             }
         });
-        sdoThongTinPhong.add(dateNgayDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 100, 20));
+        sdoThongTinPhong.add(dateTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 100, 20));
 
         lblTongThoiGian.setBackground(new java.awt.Color(255, 255, 255));
         lblTongThoiGian.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblTongThoiGian.setForeground(new java.awt.Color(62, 73, 95));
         lblTongThoiGian.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongThoiGian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/circle (1).png"))); // NOI18N
-        lblTongThoiGian.setText("7d 16h 15m");
         lblTongThoiGian.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblTongThoiGian.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -680,11 +700,10 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
-                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "Mã Hàng", "Tên Hàng", "Đơn Giá", ""
+                "Tên Hàng", "Số Lượng", "Đơn Giá", "Thành Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -695,7 +714,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tblDichVu.setRowHeight(24);
+        tblDichVu.setRowHeight(30);
         tblDichVu.setShowHorizontalLines(false);
         tblDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -706,9 +725,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             }
         });
         scrDichVu.setViewportView(tblDichVu);
-        if (tblDichVu.getColumnModel().getColumnCount() > 0) {
-            tblDichVu.getColumnModel().getColumn(3).setMaxWidth(40);
-        }
 
         sdoDichVu.add(scrDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 360, 460));
 
@@ -730,15 +746,9 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         sdoGiaPhong.setPreferredSize(new java.awt.Dimension(640, 140));
         sdoGiaPhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtThanhToan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        txtThanhToan.setForeground(new java.awt.Color(62, 73, 95));
-        txtThanhToan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        sdoGiaPhong.add(txtThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, 60, 20));
-
         lblSetGiaPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblSetGiaPhong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetGiaPhong.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetGiaPhong.setText("220912001");
         sdoGiaPhong.add(lblSetGiaPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 90, 20));
 
         txtGiamGia.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -749,34 +759,41 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 txtGiamGiaActionPerformed(evt);
             }
         });
+        txtGiamGia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtGiamGiaKeyReleased(evt);
+            }
+        });
         sdoGiaPhong.add(txtGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 90, 20));
 
-        lblSetCoLai.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetCoLai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblSetCoLai.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetCoLai.setText("220912001");
-        sdoGiaPhong.add(lblSetCoLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, -1, 20));
+        lblSetConLai.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetConLai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetConLai.setForeground(new java.awt.Color(62, 73, 95));
+        sdoGiaPhong.add(lblSetConLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 70, 20));
 
         txtTienCoc.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTienCoc.setForeground(new java.awt.Color(62, 73, 95));
         txtTienCoc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtTienCoc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTienCocKeyReleased(evt);
+            }
+        });
         sdoGiaPhong.add(txtTienCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 90, 20));
 
         lblSetDichVu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetDichVu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetDichVu.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetDichVu.setText("220912001");
         sdoGiaPhong.add(lblSetDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 90, 20));
 
         cboThanhToan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboThanhToan.setForeground(new java.awt.Color(62, 73, 95));
         sdoGiaPhong.add(cboThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 90, 20));
 
-        lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetTongTien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        lblSetTongTien.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetTongTien.setText("220912001");
-        sdoGiaPhong.add(lblSetTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, -1, 20));
+        lblSetThanhToan.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetThanhToan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetThanhToan.setForeground(new java.awt.Color(62, 73, 95));
+        sdoGiaPhong.add(lblSetThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, 70, 20));
 
         lblThanhToan.setBackground(new java.awt.Color(255, 255, 255));
         lblThanhToan.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -820,6 +837,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         lblDichVu.setText("Dịch Vụ");
         sdoGiaPhong.add(lblDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 50, 20));
 
+        lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetTongTien.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblSetTongTien.setForeground(new java.awt.Color(62, 73, 95));
+        sdoGiaPhong.add(lblSetTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 70, 20));
+
         getContentPane().add(sdoGiaPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, -1, 140));
 
         pack();
@@ -831,7 +853,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         // TODO add your handling code here:  
-        exit();
+        dispose();
     }//GEN-LAST:event_lblThoatMouseClicked
 
     private void lblTongThoiGianMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTongThoiGianMouseMoved
@@ -846,36 +868,53 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblTongThoiGianMouseExited
 
-    private void dateNgayDiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgayDiPropertyChange
+    private void dateDenNgayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateDenNgayPropertyChange
         // TODO add your handling code here:
-        if (dateNgayDen.getDate() != null && dateNgayDi.getDate() != null) {
-            setThoiGian_GiaTien(23 - HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()), HELPER_ChuyenDoi.getSoInt(txtGioDi.getText()) + 1);
-            dateNgayDen.setMaxSelectableDate(dateNgayDi.getDate());
+        if (dateTuNgay.getDate() != null && dateDenNgay.getDate() != null) {
+            setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()), HELPER_ChuyenDoi.getSoInt(txtGioDi.getText()) + 1);
+            dateTuNgay.setMaxSelectableDate(dateDenNgay.getDate());
         }
-    }//GEN-LAST:event_dateNgayDiPropertyChange
+    }//GEN-LAST:event_dateDenNgayPropertyChange
 
-    private void dateNgayDenPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateNgayDenPropertyChange
+    private void dateTuNgayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateTuNgayPropertyChange
         // TODO add your handling code here:
-        if (dateNgayDen.getDate() != null && dateNgayDi.getDate() != null) {
-            setThoiGian_GiaTien(23 - HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()), HELPER_ChuyenDoi.getSoInt(txtGioDi.getText()) + 1);
-            dateNgayDi.setMinSelectableDate(dateNgayDen.getDate());;
+        if (dateTuNgay.getDate() != null && dateDenNgay.getDate() != null) {
+            setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()), HELPER_ChuyenDoi.getSoInt(txtGioDi.getText()) + 1);
+            dateDenNgay.setMinSelectableDate(dateTuNgay.getDate());;
         }
-    }//GEN-LAST:event_dateNgayDenPropertyChange
+    }//GEN-LAST:event_dateTuNgayPropertyChange
 
     private void lblCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseClicked
         // TODO add your handling code here:
-        if (isDatThue) {
-            if (lblSetTrangThai.getText().equals("Phòng Trống")) {
-                addDatPhong();
-            } else {
-                editDatPhong();
+        if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+            if (GUI_pnl_ChiTietPhong.isDatThue) {
+                if (lblSetTrangThai.getText().equals("Phòng Trống")) {
+                    addDatPhong();
+                } else {
+                    editDatPhong();
+                }
+            } else if (!GUI_pnl_ChiTietPhong.isDatThue) {
+                if (lblSetTrangThai.getText().equals("Phòng Trống")) {
+                    addThuePhong();
+                } else {
+                    editThuePhong();
+                }
             }
-        } else if (!isDatThue) {
-            if (lblSetTrangThai.getText().equals("Phòng Trống")) {
-                addThuePhong();
-            } else {
-                editThuePhong();
+        } else {
+            if (GUI_pnl_ChiTietPhong.isDatThue) {
+                if (lblSetTrangThai.getText().equals("Phòng Trống")) {
+                    addDatPhong();
+                } else {
+                    editDatPhong();
+                }
+            } else if (!GUI_pnl_ChiTietPhong.isDatThue) {
+                if (lblSetTrangThai.getText().equals("Phòng Trống")) {
+                    addThuePhong();
+                } else {
+                    editThuePhong();
+                }
             }
+            GUI_pnl_SoDoPhong.search();
         }
     }//GEN-LAST:event_lblCapNhatMouseClicked
 
@@ -895,12 +934,15 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
         // TODO add your handling code here:
-        exit();
+        dispose();
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         // TODO add your handling code here:
-        new GUI_dal_WebCam(null, true).setVisible(true);
+        if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+            new GUI_dal_WebCam(null, true).setVisible(true);
+        }
+        return;
     }//GEN-LAST:event_lblImageMouseClicked
 
     private void txtPhutDenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPhutDenMouseReleased
@@ -946,6 +988,18 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private void txtPhutDiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhutDiKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPhutDiKeyReleased
+
+    private void txtGiamGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiamGiaKeyReleased
+        // TODO add your handling code here:
+        setTongTien();
+        setConLai();
+    }//GEN-LAST:event_txtGiamGiaKeyReleased
+
+    private void txtTienCocKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienCocKeyReleased
+        // TODO add your handling code here:
+        setTongTien();
+        setConLai();
+    }//GEN-LAST:event_txtTienCocKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1000,8 +1054,8 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboThanhToan;
-    private com.toedter.calendar.JDateChooser dateNgayDen;
-    private com.toedter.calendar.JDateChooser dateNgayDi;
+    private com.toedter.calendar.JDateChooser dateDenNgay;
+    private com.toedter.calendar.JDateChooser dateTuNgay;
     private javax.swing.JLabel lblCMND;
     private javax.swing.JLabel lblCapNhat;
     private javax.swing.JLabel lblConLai;
@@ -1017,13 +1071,14 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private javax.swing.JLabel lblNgayTao;
     private javax.swing.JLabel lblNhanPhong;
     private javax.swing.JLabel lblNhanVien;
-    private javax.swing.JLabel lblSetCoLai;
+    private javax.swing.JLabel lblSetConLai;
     private javax.swing.JLabel lblSetDichVu;
     private javax.swing.JLabel lblSetGiaPhong;
     private javax.swing.JLabel lblSetMaPhieuThue;
     private javax.swing.JLabel lblSetNgayTao;
     private javax.swing.JLabel lblSetNhanVien;
     private javax.swing.JLabel lblSetSoPhong;
+    private javax.swing.JLabel lblSetThanhToan;
     private javax.swing.JLabel lblSetTongTien;
     private javax.swing.JLabel lblSetTrangThai;
     private javax.swing.JLabel lblSoLuong;
@@ -1055,7 +1110,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private javax.swing.JTextField txtPhutDi;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenKhach;
-    private javax.swing.JTextField txtThanhToan;
     private javax.swing.JTextField txtTienCoc;
     // End of variables declaration//GEN-END:variables
 }

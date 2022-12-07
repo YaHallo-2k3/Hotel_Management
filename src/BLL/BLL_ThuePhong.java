@@ -10,6 +10,7 @@ import DAL.DAL_ThuePhong;
 import DTO.DTO_Phong;
 import DTO.DTO_ThuePhong;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_SetIcon;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
 import java.sql.ResultSet;
@@ -70,7 +71,6 @@ public class BLL_ThuePhong {
         } else {
             DAL_ThuePhong.editThuePhong(thuePhong);
             DAL_ThuePhong.setTrangThaiPhong("CoKhach", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -80,7 +80,6 @@ public class BLL_ThuePhong {
         } else {
             DAL_ThuePhong.editDatPhong(thuePhong);
             DAL_ThuePhong.setTrangThaiPhong("DatTruoc", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
-            JOptionPane.showMessageDialog(null, "Cập Nhật Hoàn Tất !!!");
         }
     }
 
@@ -102,6 +101,7 @@ public class BLL_ThuePhong {
                 thuePhong.setGhiChu(rs.getString("GhiChu"));
                 thuePhong.setTienCoc(rs.getInt("TienCoc"));
                 thuePhong.setGiamGia(rs.getInt("GiamGia"));
+                thuePhong.setHinhAnh(rs.getBytes("HinhAnh"));
                 thuePhong.setTrangThaiThanhToan(rs.getInt("TrangThaiThanhToan"));
                 array.add(thuePhong);
             }
@@ -129,6 +129,7 @@ public class BLL_ThuePhong {
                 thuePhong.setGhiChu(rs.getString("GhiChu"));
                 thuePhong.setTienCoc(rs.getInt("TienCoc"));
                 thuePhong.setGiamGia(rs.getInt("GiamGia"));
+                thuePhong.setHinhAnh(rs.getBytes("HinhAnh"));
                 thuePhong.setTrangThaiThanhToan(rs.getInt("TrangThaiThanhToan"));
                 array.add(thuePhong);
             }
@@ -157,7 +158,7 @@ public class BLL_ThuePhong {
         return array;
     }
 
-    public static void load(ArrayList<DTO_ThuePhong> array, JLabel lblMaPhieu, JLabel lblNhanVien, JLabel lblNgayTao, JLabel dateNgayDen, JLabel dateNgayDi, JTextField txtCMND, JTextField txtTenKhach, JTextField txtSoLuong, JTextField txtGhiChu, JTextField txtGiamGia, JTextField txtTienCoc) {
+    public static void load(ArrayList<DTO_ThuePhong> array, JLabel lblMaPhieu, JLabel lblNhanVien, JLabel lblNgayTao, JLabel dateNgayDen, JLabel dateNgayDi, JTextField txtCMND, JTextField txtTenKhach, JTextField txtSoLuong, JTextField txtGhiChu, JTextField txtGiamGia, JTextField txtTienCoc, JLabel lblImage) {
         for (DTO_ThuePhong thuePhong : array) {
             lblMaPhieu.setText(thuePhong.getMaPhieuThue());
             lblNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(thuePhong.getMaNhanVien()));
@@ -172,8 +173,9 @@ public class BLL_ThuePhong {
             txtTenKhach.setText(thuePhong.getTenKhachHang());
             txtSoLuong.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getSoLuong()));
             txtGhiChu.setText(thuePhong.getGhiChu());
-            txtGiamGia.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getGiamGia()));
-            txtTienCoc.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getTienCoc()));
+            txtGiamGia.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getGiamGia()) + "K");
+            txtTienCoc.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getTienCoc()) + "K");
+//            lblImage.setIcon(HELPER_SetIcon.resizeImage(thuePhong.getHinhAnh(), lblImage));
         }
     }
 

@@ -14,7 +14,7 @@ import java.util.Date;
 public class DTO_DichVu {
 
     public String maPhieuDichVu;
-    public String maPhong;
+    public String maPhieuThue;
     public String maNhanVien;
     public Date ngayTao;
     public String ghiChu;
@@ -23,9 +23,9 @@ public class DTO_DichVu {
     public DTO_DichVu() {
     }
 
-    public DTO_DichVu(String maPhieuDichVu, String maPhong, String maNhanVien, Date ngayTao, String ghiChu, int trangThaiThanhToan) {
+    public DTO_DichVu(String maPhieuDichVu, String maPhieuThue, String maNhanVien, Date ngayTao, String ghiChu, int trangThaiThanhToan) {
         this.maPhieuDichVu = maPhieuDichVu;
-        this.maPhong = maPhong;
+        this.maPhieuThue = maPhieuThue;
         this.maNhanVien = maNhanVien;
         this.ngayTao = ngayTao;
         this.ghiChu = ghiChu;
@@ -40,12 +40,12 @@ public class DTO_DichVu {
         this.maPhieuDichVu = maPhieuDichVu;
     }
 
-    public String getMaPhong() {
-        return maPhong;
+    public String getMaPhieuThue() {
+        return maPhieuThue;
     }
 
-    public void setMaPhong(String maPhong) {
-        this.maPhong = maPhong;
+    public void setMaPhieuThue(String maPhieuThue) {
+        this.maPhieuThue = maPhieuThue;
     }
 
     public String getMaNhanVien() {

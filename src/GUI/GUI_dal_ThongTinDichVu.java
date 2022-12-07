@@ -100,11 +100,11 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
 
     public void loadPhieuDichVu() {
         ArrayList<DTO_DichVu> arrayDichVu = BLL_DichVu.search(GUI_pnl_DichVu.tuNgay, GUI_pnl_DichVu.denNgay, GUI_pnl_ChiTietDichVu.indexPosition + 1);
-        BLL_DichVu.loadChiTietDichVu(arrayDichVu, lblSetMaPhieu, lblSetSoPhong, lblSetNhanVien, lblSetNgayTao, txtGhiChu);
+        BLL_DichVu.loadChiTietDichVu(arrayDichVu, lblSetMaPhieu, lblSetSoPhong, lblSetNhanVien, lblSetNgayTao, lblSetNgayDen, lblSetNgayDi, txtGhiChu);
     }
 
     public void addDichVu() {
-        DTO_DichVu dichVu = new DTO_DichVu(lblSetMaPhieu.getText(), lblSetSoPhong.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText(), 0);
+        DTO_DichVu dichVu = new DTO_DichVu(lblSetMaPhieu.getText(), BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText())), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText(), 0);
         BLL_DichVu.add(dichVu);
     }
 

@@ -5,11 +5,15 @@
  */
 package GUI;
 
+import HELPER.HELPER_SetIcon;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
 import java.awt.Image;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -83,6 +87,25 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+    
+    public void open() {
+        try {
+            JFileChooser chooser = new JFileChooser("C:\\Users\\CherryCe\\Downloads");
+            chooser.setDialogTitle("Open File");
+            chooser.showOpenDialog(this);
+            File nameIMG = chooser.getSelectedFile();
+            FileInputStream fis = new FileInputStream(nameIMG.getAbsolutePath());
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int readnum; (readnum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readnum);
+            }
+            GUI_dal_ThongTinPhong.hinhAnh = bos.toByteArray();
+            lblShowWebCam.setIcon(HELPER_SetIcon.resizeImage(GUI_dal_ThongTinPhong.hinhAnh, lblShowWebCam));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -184,6 +207,7 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
         // TODO add your handling code here:
         Image img = webcam.getImage();
         GUI_dal_ThongTinPhong.lblImage.setIcon(new ImageIcon(img));
+        dispose();
     }//GEN-LAST:event_lblLuuMouseClicked
 
     private void lblXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXoaMouseClicked

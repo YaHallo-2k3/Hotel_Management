@@ -35,6 +35,42 @@ public class BLL_SoDoPhong {
         return 0;
     }
 
+    public static int countPhong(String maTang) {
+        ResultSet rs = DAL_SoDoPhong.count(maTang);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public static int countLoaiPhong(String maTrangThaiPhong) {
+        ResultSet rs = DAL_SoDoPhong.countLoaiPhong(maTrangThaiPhong);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public static int countLoaiPhong(String maTang, String maTrangThaiPhong) {
+        ResultSet rs = DAL_SoDoPhong.countLoaiPhong(maTang, maTrangThaiPhong);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static ArrayList<DTO_Phong> selectPhong(int index) {
         ResultSet rs = DAL_SoDoPhong.rowNumber(index);
         ArrayList<DTO_Phong> array = new ArrayList<>();
@@ -54,8 +90,27 @@ public class BLL_SoDoPhong {
         return array;
     }
 
-    public static ArrayList<DTO_ThuePhong> selectThuePhong(String tenPhong) {
-        ResultSet rs = DAL_SoDoPhong.select(tenPhong);
+    public static ArrayList<DTO_Phong> selectPhong(String maTang, int index) {
+        ResultSet rs = DAL_SoDoPhong.rowNumber(maTang, index);
+        ArrayList<DTO_Phong> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_Phong phong = new DTO_Phong();
+                phong.setMaPhong(rs.getString("MaPhong"));
+                phong.setTenPhong(rs.getString("TenPhong"));
+                phong.setMaTang(rs.getString("MaTang"));
+                phong.setMaLoaiPhong(rs.getString("MaLoaiPhong"));
+                phong.setMaTrangThaiPhong(rs.getString("MaTrangThaiPhong"));
+                array.add(phong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public static ArrayList<DTO_ThuePhong> selectThuePhong(String maPhong) {
+        ResultSet rs = DAL_SoDoPhong.select(maPhong);
         ArrayList<DTO_ThuePhong> array = new ArrayList<>();
         try {
             while (rs.next()) {
