@@ -33,7 +33,7 @@ public class DAL_DichVu {
     }
 
     public static ResultSet search(String tuNgay, String denNgay, int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(PARTITION BY CONVERT(DATE, NgayTao) ORDER BY MaPhieuDichVu) AS RowNumber FROM PhieuDichVu) AS PhieuDichVu WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND PhieuDichVu.RowNumber = ?";
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuDichVu) AS RowNumber FROM PhieuDichVu WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?) AS PhieuDichVu WHERE PhieuDichVu.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);
     }
 

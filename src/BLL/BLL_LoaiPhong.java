@@ -84,4 +84,16 @@ public class BLL_LoaiPhong {
             tblModel.addRow(obj);
         }
     }
+
+    public static int selectSoNguoi(String maLoaiPhong) {
+        ResultSet rs = DAL_LoaiPhong.selectSoNguoi(maLoaiPhong);
+        try {
+            while (rs.next()) {
+                return rs.getInt("SoNguoi");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

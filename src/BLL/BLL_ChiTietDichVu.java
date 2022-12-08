@@ -78,11 +78,59 @@ public class BLL_ChiTietDichVu {
         return array;
     }
 
+    public static int tongTienDichVu(String maPhieuThue) {
+        ResultSet rs = DAL_ChiTietDichVu.tongTienDichVu(maPhieuThue);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static int countThanhToan(String maPhieuThue) {
         ResultSet rs = DAL_ChiTietDichVu.countThanhToan(maPhieuThue);
         try {
             while (rs.next()) {
                 return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static int countGiamGiaByPhong(String maPhong) {
+        ResultSet rs = DAL_ChiTietDichVu.countGiamGiaByPhong(maPhong);
+        try {
+            while (rs.next()) {
+                return rs.getInt("GiamGia");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public static int countGiamGiaByPhieu(String maPhieuThue) {
+        ResultSet rs = DAL_ChiTietDichVu.countGiamGiaByPhieu(maPhieuThue);
+        try {
+            while (rs.next()) {
+                return rs.getInt("GiamGia");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public static int countTienCoc(String maPhong) {
+        ResultSet rs = DAL_ChiTietDichVu.countTienCoc(maPhong);
+        try {
+            while (rs.next()) {
+                return rs.getInt("TienCoc");
             }
         } catch (Exception e) {
             e.printStackTrace();

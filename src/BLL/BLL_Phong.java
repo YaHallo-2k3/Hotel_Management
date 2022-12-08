@@ -91,7 +91,7 @@ public class BLL_Phong {
     }
 
     public static ArrayList<DTO_ThuePhong> searchSoPhong(String maTang, int index) {
-        ResultSet rs = DAL_Phong.searchChonPhong(maTang, index);
+        ResultSet rs = DAL_Phong.searchSoPhong(maTang, index);
         ArrayList<DTO_ThuePhong> array = new ArrayList<>();
         try {
             while (rs.next()) {

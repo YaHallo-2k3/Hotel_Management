@@ -94,10 +94,10 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         setForeground_33_150_243(lblSoDoPhong);
         lbl = lblSoDoPhong;
         lblIcon = lblSoDoPhongIconExited;
-        pnlFormChinh.removeAll();
-        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
-        pnlFormChinh.validate();
-        pnlFormChinh.repaint();
+//        pnlFormChinh.removeAll();
+//        pnlFormChinh.add(new GUI_pnl_SoDoPhong());
+//        pnlFormChinh.validate();
+//        pnlFormChinh.repaint();
     }
 
     public void menuItemClicked(JLabel lblClicked, String lblIconClicked, String lblIconExited, Component component) {

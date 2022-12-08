@@ -33,6 +33,7 @@ import static GUI.GUI_pnl_SoDoPhong.index;
 import static GUI.GUI_pnl_SoDoPhong.pnlFormChinh;
 import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_SetMa;
+import HELPER.HELPER_Validate;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.toedter.calendar.JDateChooser;
@@ -82,7 +83,6 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         loadThongTinPhong();
-        trangThaiPhong();
         setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()), HELPER_ChuyenDoi.getSoInt(txtGioDi.getText()) + 1);
         loadChiTietDichVu();
         loadTongTienDichVu();
@@ -93,24 +93,65 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     }
 
     public void loadThongTinPhong() {
-        if (!GUI_pnl_SoDoPhong.isSelectPhong) {
-            ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(GUI_pnl_ChiTietPhong.indexPosition + 1);
-            BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
+        if (!GUI_pnl_SoDoPhong.isThongTinPhong) {
+            if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+                ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(GUI_pnl_ChiTietPhong.indexPosition + 1);
+                BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
+            } else {
+                ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(GUI_pnl_SoDoPhong.maTang, GUI_pnl_ChiTietPhong.indexPosition + 1);
+                BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
+            }
+            trangThaiPhong();
         } else {
-            ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(GUI_pnl_SoDoPhong.maTang, GUI_pnl_ChiTietPhong.indexPosition + 1);
-            BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
+            JLabel dateTimeNgayDen = new JLabel();
+            JLabel dateTimeNgayDi = new JLabel();
+            if (GUI_pnl_ChiTietThuePhong.trangThaiPhong.equals("Trả Phòng")) {
+                ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(BLL_MaTenLoai.findMaPhong(GUI_pnl_ChiTietThuePhong.soPhong));
+                BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
+                ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuePhong.selectThuePhong(GUI_pnl_ChiTietThuePhong.ngayDen, GUI_pnl_ChiTietThuePhong.ngayDi);
+                BLL_ThuePhong.load(arrayThuePhong, lblSetMaPhieuThue, lblSetNhanVien, lblSetNgayTao, dateTimeNgayDen, dateTimeNgayDi, txtCMND, txtTenKhach, txtSoLuong, txtGhiChu, txtTienCoc, txtGiamGia, lblImage);
+                lblSetTrangThai.setText("Trả Phòng");
+            } else {
+                ArrayList<DTO_Phong> array = BLL_SoDoPhong.selectPhong(BLL_MaTenLoai.findMaPhong(GUI_pnl_ChiTietThuePhong.soPhong));
+                BLL_SoDoPhong.loadThongTinPhong(array, lblSetSoPhong, lblSetTrangThai);
+                ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuePhong.select(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)));
+                BLL_ThuePhong.load(arrayThuePhong, lblSetMaPhieuThue, lblSetNhanVien, lblSetNgayTao, dateTimeNgayDen, dateTimeNgayDi, txtCMND, txtTenKhach, txtSoLuong, txtGhiChu, txtTienCoc, txtGiamGia, lblImage);
+            }
+            if (lblSetTrangThai.getText().equals("Có Khách")) {
+                lblSetTrangThai.setBackground(new Color(255, 142, 113));
+
+            } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
+                lblSetTrangThai.setBackground(new Color(102, 153, 255));
+            } else if (lblSetTrangThai.getText().equals("Trả Phòng")) {
+                lblSetTrangThai.setBackground(new Color(240, 165, 0));
+            }
+            lblCapNhat.setVisible(false);
+            lblThanhToanPhong.setVisible(true);
+            try {
+                dateTuNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDen.getText()));
+                txtGioDen.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH", dateTimeNgayDen.getText()));
+                txtPhutDen.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "mm", dateTimeNgayDen.getText()));
+                dateDenNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDi.getText()));
+                txtGioDi.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "HH", dateTimeNgayDi.getText()));
+                txtPhutDi.setText(HELPER_ChuyenDoi.convertDate("yyyy-MM-dd HH:mm", "mm", dateTimeNgayDi.getText()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void trangThaiPhong() {
         JLabel dateTimeNgayDen = new JLabel();
         JLabel dateTimeNgayDi = new JLabel();
+        lblThanhToanPhong.setVisible(false);
         if (GUI_pnl_ChiTietPhong.isDatThue) {
+            dateDenNgay.setEnabled(true);
             txtGioDen.setEnabled(true);
             txtPhutDen.setEnabled(true);
             txtGioDi.setEnabled(true);
             txtPhutDi.setEnabled(true);
         } else if (!GUI_pnl_ChiTietPhong.isDatThue) {
+            dateDenNgay.setEnabled(false);
             txtGioDen.setEnabled(false);
             txtPhutDen.setEnabled(false);
             txtGioDi.setEnabled(false);
@@ -122,19 +163,21 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             lblSetTrangThai.setBackground(new Color(97, 177, 90));
             lblSetMaPhieuThue.setText(HELPER_SetMa.setMaDateTime("PT"));
             lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm"));
-            lblThanhToanPhong.setVisible(false);
             lblSetNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)));
+            txtTienCoc.setText("0K");
+            txtGiamGia.setText("0K");
         } else {
             ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuePhong.select(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)));
             BLL_ThuePhong.load(arrayThuePhong, lblSetMaPhieuThue, lblSetNhanVien, lblSetNgayTao, dateTimeNgayDen, dateTimeNgayDi, txtCMND, txtTenKhach, txtSoLuong, txtGhiChu, txtTienCoc, txtGiamGia, lblImage);
             if (lblSetTrangThai.getText().equals("Có Khách")) {
                 lblSetTrangThai.setBackground(new Color(255, 142, 113));
+                lblThanhToanPhong.setVisible(true);
             } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
                 lblSetTrangThai.setBackground(new Color(102, 153, 255));
             } else if (lblSetTrangThai.getText().equals("Trả Phòng")) {
                 lblSetTrangThai.setBackground(new Color(240, 165, 0));
+                lblCapNhat.setVisible(false);
             }
-            lblThanhToanPhong.setVisible(true);
         }
         try {
             dateTuNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDen.getText()));
@@ -265,12 +308,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         BLL_ThuePhong.editDatPhong(thuePhong);
     }
 
-    public String tienDichVu() {
-        int tienDichVu = 0;
-        for (int i = 0; i < tblDichVu.getRowCount(); i++) {
-            tienDichVu += HELPER_ChuyenDoi.getSoInt(tblDichVu.getValueAt(row, 3).toString());
-        }
-        return HELPER_ChuyenDoi.getSoString(tienDichVu);
+    public void addThanhToan() {
+        String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateTuNgay.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
+        String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateDenNgay.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
+        DTO_ThuePhong thuePhong = new DTO_ThuePhong(lblSetSoPhong.getText().substring(0, 3), lblSetMaPhieuThue.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), null, 0);
+        BLL_ThuePhong.addThanhToan(thuePhong);
     }
 
     /**
@@ -401,16 +443,31 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         txtSoLuong.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtSoLuong.setForeground(new java.awt.Color(62, 73, 95));
         txtSoLuong.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtSoLuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSoLuongKeyReleased(evt);
+            }
+        });
         sdoThongTinPhong.add(txtSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, 70, 20));
 
         txtTenKhach.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTenKhach.setForeground(new java.awt.Color(62, 73, 95));
         txtTenKhach.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtTenKhach.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTenKhachKeyReleased(evt);
+            }
+        });
         sdoThongTinPhong.add(txtTenKhach, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 140, 20));
 
         txtCMND.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtCMND.setForeground(new java.awt.Color(62, 73, 95));
         txtCMND.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtCMND.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCMNDKeyReleased(evt);
+            }
+        });
         sdoThongTinPhong.add(txtCMND, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 120, -1));
 
         txtGhiChu.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -886,35 +943,25 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void lblCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseClicked
         // TODO add your handling code here:
-        if (!GUI_pnl_SoDoPhong.isSelectPhong) {
-            if (GUI_pnl_ChiTietPhong.isDatThue) {
-                if (lblSetTrangThai.getText().equals("Phòng Trống")) {
-                    addDatPhong();
-                } else {
-                    editDatPhong();
-                }
-            } else if (!GUI_pnl_ChiTietPhong.isDatThue) {
-                if (lblSetTrangThai.getText().equals("Phòng Trống")) {
-                    addThuePhong();
-                } else {
-                    editThuePhong();
-                }
+        if (GUI_pnl_ChiTietPhong.isDatThue) {
+            if (lblSetTrangThai.getText().equals("Phòng Trống")) {
+                addDatPhong();
+            } else {
+                editDatPhong();
             }
         } else {
-            if (GUI_pnl_ChiTietPhong.isDatThue) {
-                if (lblSetTrangThai.getText().equals("Phòng Trống")) {
-                    addDatPhong();
-                } else {
-                    editDatPhong();
-                }
-            } else if (!GUI_pnl_ChiTietPhong.isDatThue) {
-                if (lblSetTrangThai.getText().equals("Phòng Trống")) {
-                    addThuePhong();
-                } else {
-                    editThuePhong();
-                }
+            if (lblSetTrangThai.getText().equals("Phòng Trống")) {
+                addThuePhong();
+            } else {
+                editThuePhong();
             }
+        }
+        if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+            GUI_pnl_SoDoPhong.load();
+            dispose();
+        } else {
             GUI_pnl_SoDoPhong.search();
+            dispose();
         }
     }//GEN-LAST:event_lblCapNhatMouseClicked
 
@@ -923,9 +970,15 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     }//GEN-LAST:event_tblDichVuMouseClicked
 
     private void lblThanhToanPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThanhToanPhongMouseClicked
-        // TODO add your handling code here:
-        DAL_ThuePhong.setTrangThaiPhong("TraPhong", BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)));
+        // TODO add your handling code here:     
+        addThanhToan();
         JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công !!!");
+        if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+            GUI_pnl_SoDoPhong.load();
+        } else {
+            GUI_pnl_SoDoPhong.search();
+        }
+        dispose();
     }//GEN-LAST:event_lblThanhToanPhongMouseClicked
 
     private void tblDichVuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMousePressed
@@ -991,15 +1044,37 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void txtGiamGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiamGiaKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtGiamGia);
         setTongTien();
         setConLai();
     }//GEN-LAST:event_txtGiamGiaKeyReleased
 
     private void txtTienCocKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienCocKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtTienCoc);
         setTongTien();
         setConLai();
     }//GEN-LAST:event_txtTienCocKeyReleased
+
+    private void txtCMNDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCMNDKeyReleased
+        // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtCMND);
+        HELPER_Validate.setTextLimited(txtCMND, 12);
+    }//GEN-LAST:event_txtCMNDKeyReleased
+
+    private void txtTenKhachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenKhachKeyReleased
+        // TODO add your handling code here:
+        HELPER_Validate.validateString(txtTenKhach);
+    }//GEN-LAST:event_txtTenKhachKeyReleased
+
+    private void txtSoLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoLuongKeyReleased
+        // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtSoLuong);
+        if (HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()) > BLL_LoaiPhong.selectSoNguoi(BLL_MaTenLoai.findMaLoaiPhong(lblSetSoPhong.getText().substring(6)))) {
+            txtSoLuong.setText(null);
+        }
+        return;
+    }//GEN-LAST:event_txtSoLuongKeyReleased
 
     /**
      * @param args the command line arguments

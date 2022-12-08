@@ -37,7 +37,12 @@ public class DAL_Phong {
     }
 
     public static ResultSet searchChonPhong(String maTang, int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(PARTITION BY MaTang ORDER BY MaPhong) AS RowNumber FROM Phong) AS Phong JOIN ThuePhong ON ThuePhong.MaPhong = Phong.MaPhong WHERE MaTrangThaiPhong NOT LIKE 'PhongTrong' AND MaTrangThaiPhong NOT LIKE 'TraPhong' AND Phong.MaTang = ? AND Phong.RowNumber = ?";
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhong) AS RowNumber FROM Phong WHERE MaTrangThaiPhong NOT LIKE 'PhongTrong' AND MaTrangThaiPhong NOT LIKE 'TraPhong' AND Phong.MaTang = ?) AS Phong WHERE Phong.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maTang, index);
+    }
+
+    public static ResultSet searchSoPhong(String maTang, int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhong) AS RowNumber FROM Phong WHERE MaTrangThaiPhong NOT LIKE 'PhongTrong' AND MaTrangThaiPhong NOT LIKE 'TraPhong' AND Phong.MaTang = ?) AS Phong JOIN ThuePhong ON ThuePhong.MaPhong = Phong.MaPhong WHERE TrangThaiThanhToan = 0 AND Phong.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maTang, index);
     }
 

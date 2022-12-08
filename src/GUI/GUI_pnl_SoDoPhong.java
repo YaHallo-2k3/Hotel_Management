@@ -28,6 +28,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
     public static int index;
     public static String maTang;
     public static boolean isSelectPhong = false;
+    public static boolean isThongTinPhong = false;
 
     /**
      * Creates new form GUI_pnlSoDoPhong

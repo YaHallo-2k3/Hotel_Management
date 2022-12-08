@@ -35,4 +35,9 @@ public class DAL_LoaiPhong {
         String sqlSelect = "SELECT * FROM LoaiPhong ORDER BY MaLoaiPhong";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
+    
+    public static ResultSet selectSoNguoi(String maLoaiPhong) {
+        String sqlSelect = "SELECT * FROM LoaiPhong WHERE MaLoaiPhong = ? ORDER BY MaLoaiPhong";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maLoaiPhong);
+    }
 }

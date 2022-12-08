@@ -421,6 +421,9 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
             }
         });
         txtSoLuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSoLuongKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSoLuongKeyReleased(evt);
             }
@@ -754,7 +757,14 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     private void txtSoLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoLuongKeyReleased
         // TODO add your handling code here:
         HELPER_Validate.validateNumber(txtSoLuong);
-        HELPER_Validate.setTextLimited(txtSoLuong, 2);
+        if (String.valueOf(cboLoaiKhach.getSelectedItem()).equals("Khách Đoàn")) {
+            HELPER_Validate.setTextLimited(txtSoLuong, 2);
+        } else {
+            if (HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()) > BLL_LoaiPhong.selectSoNguoi(BLL_MaTenLoai.findMaLoaiPhong(String.valueOf(cboLoaiPhong.getSelectedItem())))) {
+                txtSoLuong.setText(null);
+            }
+            return;
+        }
     }//GEN-LAST:event_txtSoLuongKeyReleased
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
@@ -837,6 +847,10 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
             cboLoaiPhong.setEnabled(true);
         }
     }//GEN-LAST:event_cboLoaiKhachItemStateChanged
+
+    private void txtSoLuongKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoLuongKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSoLuongKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

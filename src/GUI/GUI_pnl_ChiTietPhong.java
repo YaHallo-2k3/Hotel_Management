@@ -5,20 +5,33 @@
  */
 package GUI;
 
+import BLL.BLL_ChiTietDichVu;
+import BLL.BLL_DichVu;
 import BLL.BLL_LoaiPhong;
 import BLL.BLL_MaTenLoai;
 import BLL.BLL_Phong;
 import BLL.BLL_SoDoPhong;
 import BLL.BLL_SoTang;
+import BLL.BLL_ThuePhong;
 import DAL.DAL_SoDoPhong;
 import DAL.DAL_ThuePhong;
 import DTO.DTO_Phong;
 import DTO.DTO_SoTang;
 import DTO.DTO_ThuePhong;
+import static GUI.GUI_pnl_GiaPhong.doubleRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.doubleRoom_Hour_Rate;
+import static GUI.GUI_pnl_GiaPhong.quadraRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.quadraRoom_Hour_Rate;
+import static GUI.GUI_pnl_GiaPhong.singleRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.singleRoom_Hour_Rate;
+import static GUI.GUI_pnl_GiaPhong.tripleRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.tripleRoom_Hour_Rate;
 import HELPER.HELPER_ChuyenDoi;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -29,6 +42,9 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -110,18 +126,9 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (2).png")));
             isShowHiddenMoney(true);
             isShowHiddenTime(false);
-            tongThoiGian();
+            setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)), HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2)) + 1);
+            tongTienConLai();
         }
-    }
-
-    public void tongThoiGian() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        LocalDateTime dateTimeDen = LocalDateTime.parse(lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDen.getText(), formatter);
-        LocalDateTime dateTimeDi = LocalDateTime.parse(lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDi.getText(), formatter);
-        diffInDay = Duration.between(dateTimeDen, dateTimeDi).toDays();
-        diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
-        diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
-        lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
     }
 
     public void isShowHiddenTime(boolean isShowHidden) {
@@ -150,6 +157,75 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
 
     public void showPopUp(MouseEvent evt) {
         popMenu.show(this, evt.getX(), evt.getY());
+    }
+
+    public void setThoiGian_GiaTien(int row, int column) {
+        int price = 0;
+        String filePath = null;
+        String setPrice = null;
+        String dateNgayDen = lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy");
+        String dateNgayDi = lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy");
+        if (dateNgayDen.equals(dateNgayDi)) {
+            setPrice = "Giá Giờ";
+        } else {
+            setPrice = "Giá Ngày";
+        }
+        if (lblLoaiPhong.getText().equals("Phòng Đơn") && setPrice.equals("Giá Giờ")) {
+            filePath = singleRoom_Hour_Rate;
+            price = 0;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đơn") && setPrice.equals("Giá Ngày")) {
+            filePath = singleRoom_Day_Rate;
+            price = 250;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đôi Nhỏ") && setPrice.equals("Giá Giờ")) {
+            filePath = doubleRoom_Hour_Rate;
+            price = 0;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đôi Nhỏ") && setPrice.equals("Giá Ngày")) {
+            filePath = doubleRoom_Day_Rate;
+            price = 300;
+        } else if (lblLoaiPhong.getText().equals("Phòng Lớn Nhỏ") && setPrice.equals("Giá Giờ")) {
+            filePath = tripleRoom_Hour_Rate;
+            price = 0;
+        } else if (lblLoaiPhong.getText().equals("Phòng Lớn Nhỏ") && setPrice.equals("Giá Ngày")) {
+            filePath = tripleRoom_Day_Rate;
+            price = 350;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đôi Lớn") && setPrice.equals("Giá Giờ")) {
+            filePath = quadraRoom_Hour_Rate;
+            price = 0;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đôi Lớn") && setPrice.equals("Giá Ngày")) {
+            filePath = quadraRoom_Day_Rate;
+            price = 400;
+        }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            LocalDateTime dateTimeDen = LocalDateTime.parse(lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDen.getText(), formatter);
+            LocalDateTime dateTimeDi = LocalDateTime.parse(lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDi.getText(), formatter);
+            diffInDay = Duration.between(dateTimeDen, dateTimeDi).toDays();
+            diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
+            diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
+            lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
+            FileInputStream file = new FileInputStream(new File(String.valueOf(new ImageIcon(getClass().getResource(filePath))).replaceAll("file:/", "")));
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            if (diffInDay == 0) {
+                lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + tongTienDichVu()) + "K");
+            } else {
+                if (HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)) <= HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2))) {
+                    lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString((diffInDay - 1) * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + tongTienDichVu()) + "K");
+                } else {
+                    lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + tongTienDichVu()) + "K");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi Định Dạng ???");
+        }
+    }
+
+    public int tongTienDichVu() {
+        return BLL_ChiTietDichVu.tongTienDichVu(BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText())));
+    }
+
+    public void tongTienConLai() {
+        lblSetConLai.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(lblSetTongTien.getText()) - HELPER_ChuyenDoi.getSoInt(lblSetDatCoc.getText()) - BLL_ChiTietDichVu.countThanhToan(BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))) - BLL_ChiTietDichVu.countGiamGiaByPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))));
     }
 
     /**
@@ -291,6 +367,11 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniChuyenPhong.setMinimumSize(new java.awt.Dimension(150, 30));
         mniChuyenPhong.setOpaque(true);
         mniChuyenPhong.setPreferredSize(new java.awt.Dimension(150, 30));
+        mniChuyenPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniChuyenPhongActionPerformed(evt);
+            }
+        });
         popMenu.add(mniChuyenPhong);
 
         mniHuyPhong.setBackground(new java.awt.Color(255, 255, 255));
@@ -301,6 +382,11 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniHuyPhong.setMinimumSize(new java.awt.Dimension(150, 30));
         mniHuyPhong.setOpaque(true);
         mniHuyPhong.setPreferredSize(new java.awt.Dimension(150, 30));
+        mniHuyPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHuyPhongActionPerformed(evt);
+            }
+        });
         popMenu.add(mniHuyPhong);
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -484,6 +570,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     private void sdoChiTietPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietPhongMouseClicked
         // TODO add your handling code here:
         indexPosition = GUI_pnl_SoDoPhong.pnlFormChinh.getComponentZOrder(sdoChiTietPhong);
+        GUI_pnl_SoDoPhong.isThongTinPhong = false;
         if (lblSetTrangThai.getText().equals("Đặt Trước")) {
             isDatThue = true;
         } else {
@@ -547,8 +634,15 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     private void mniDonPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDonPhongActionPerformed
         // TODO add your handling code here:
         if (lblSetTrangThai.getText().equals("Trả Phòng")) {
-            DAL_ThuePhong.setTrangThaiPhong("PhongTrong", indexPosition + 1);
-            DAL_ThuePhong.setTrangThaiThanhToan(indexPosition + 1);
+            if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+                DAL_ThuePhong.setTrangThaiPhong("PhongTrong", BLL_ThuePhong.findMaPhong(indexPosition + 1));
+                DAL_ThuePhong.setThanhToan(BLL_ThuePhong.findMaPhong(indexPosition + 1));
+                GUI_pnl_SoDoPhong.load();
+            } else {
+                DAL_ThuePhong.setTrangThaiPhong("PhongTrong", BLL_ThuePhong.findMaPhong(GUI_pnl_SoDoPhong.maTang, indexPosition + 1));
+                DAL_ThuePhong.setThanhToan(BLL_ThuePhong.findMaPhong(GUI_pnl_SoDoPhong.maTang, indexPosition + 1));
+                GUI_pnl_SoDoPhong.search();
+            }
         } else {
             if (!isDonPhong) {
                 lblDonPhong.setVisible(true);
@@ -595,6 +689,49 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         indexPosition = GUI_pnl_SoDoPhong.pnlFormChinh.getComponentZOrder(sdoChiTietPhong);
     }//GEN-LAST:event_sdoChiTietPhongMousePressed
+
+    private void mniHuyPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHuyPhongActionPerformed
+        // TODO add your handling code here:
+        String maPhong = null;
+        if (isDatThue) {
+            if (diffInDay == 0 && diffInHours == 0 & diffInMinutes <= 10) {
+                int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Hủy Phòng Không ?", "Hủy", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+                        maPhong = BLL_SoDoPhong.findMaPhong(indexPosition + 1);
+                        BLL_ThuePhong.delete(maPhong);
+                        GUI_pnl_SoDoPhong.load();
+                    } else {
+                        maPhong = BLL_SoDoPhong.findMaPhong(GUI_pnl_SoDoPhong.maTang, indexPosition + 1);
+                        BLL_ThuePhong.delete(maPhong);
+                        GUI_pnl_SoDoPhong.search();
+                    }
+                }
+                return;
+            } else {
+                JOptionPane.showMessageDialog(this, "Phòng Đã Sử Dụng Quá 10 Phút !!!");
+            }
+        } else {
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Hủy Phòng Không ?", "Hủy", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+                    maPhong = BLL_SoDoPhong.findMaPhong(indexPosition + 1);
+                    BLL_ThuePhong.delete(maPhong);
+                    GUI_pnl_SoDoPhong.load();
+                } else {
+                    maPhong = BLL_SoDoPhong.findMaPhong(GUI_pnl_SoDoPhong.maTang, indexPosition + 1);
+                    BLL_ThuePhong.delete(maPhong);
+                    GUI_pnl_SoDoPhong.search();
+                }
+            }
+            return;
+        }
+    }//GEN-LAST:event_mniHuyPhongActionPerformed
+
+    private void mniChuyenPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChuyenPhongActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "CC");
+    }//GEN-LAST:event_mniChuyenPhongActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

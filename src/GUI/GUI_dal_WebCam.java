@@ -89,25 +89,6 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
             }
         }
     }
-    
-    public void open() {
-        try {
-            JFileChooser chooser = new JFileChooser("C:\\Users\\CherryCe\\Downloads");
-            chooser.setDialogTitle("Open File");
-            chooser.showOpenDialog(this);
-            File nameIMG = chooser.getSelectedFile();
-            FileInputStream fis = new FileInputStream(nameIMG.getAbsolutePath());
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            for (int readnum; (readnum = fis.read(buf)) != -1;) {
-                bos.write(buf, 0, readnum);
-            }
-            GUI_dal_ThongTinPhong.hinhAnh = bos.toByteArray();
-            lblShowWebCam.setIcon(HELPER_SetIcon.resizeImage(GUI_dal_ThongTinPhong.hinhAnh, lblShowWebCam));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static File getLastModified(String directoryFilePath) {
         File directory = new File(directoryFilePath);
@@ -206,8 +187,8 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
     private void lblLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLuuMouseClicked
         // TODO add your handling code here:
         Image img = webcam.getImage();
-        GUI_dal_ThongTinPhong.lblImage.setIcon(new ImageIcon(img));
-        dispose();
+//        GUI_dal_ThongTinPhong.lblImage.setIcon(new ImageIcon(img));
+//        dispose();
     }//GEN-LAST:event_lblLuuMouseClicked
 
     private void lblXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXoaMouseClicked

@@ -57,9 +57,10 @@ public class BLL_ThuePhong {
         }
     }
 
-    public static void delete(String maPhieuThue) {
+    public static void delete(String maPhong) {
         try {
-            DAL_ThuePhong.delete(maPhieuThue);
+            DAL_ThuePhong.delete(maPhong);
+            DAL_ThuePhong.setTrangThaiPhong("PhongTrong", maPhong);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
         }
@@ -78,8 +79,17 @@ public class BLL_ThuePhong {
         if (!check(thuePhong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
-            DAL_ThuePhong.editDatPhong(thuePhong);
+            DAL_ThuePhong.addThanhToan(thuePhong);
             DAL_ThuePhong.setTrangThaiPhong("DatTruoc", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
+        }
+    }
+
+    public static void addThanhToan(DTO_ThuePhong thuePhong) {
+        if (!check(thuePhong)) {
+            JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
+        } else {
+            DAL_ThuePhong.addThanhToan(thuePhong);
+            DAL_ThuePhong.setTrangThaiPhong("TraPhong", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
         }
     }
 
@@ -111,8 +121,36 @@ public class BLL_ThuePhong {
         return array;
     }
 
-    public static ArrayList<DTO_ThuePhong> selectThuePhong(int index) {
-        ResultSet rs = DAL_ThuePhong.rowNumber(index);
+    public static ArrayList<DTO_ThuePhong> selectThuePhong(String tuNgay, String denNgay, int index) {
+        ResultSet rs = DAL_ThuePhong.rowNumber(tuNgay, denNgay, index);
+        ArrayList<DTO_ThuePhong> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_ThuePhong thuePhong = new DTO_ThuePhong();
+                thuePhong.setMaPhong(rs.getString("MaPhong"));
+                thuePhong.setMaPhieuThue(rs.getString("MaPhieuThue"));
+                thuePhong.setMaNhanVien(rs.getString("MaNhanVien"));
+                thuePhong.setNgayTao(rs.getTimestamp("NgayTao"));
+                thuePhong.setNgayDen(rs.getTimestamp("NgayDen"));
+                thuePhong.setNgayDi(rs.getTimestamp("NgayDi"));
+                thuePhong.setCMND(rs.getString("CMND"));
+                thuePhong.setTenKhachHang(rs.getString("TenKhachHang"));
+                thuePhong.setSoLuong(rs.getInt("SoLuongKhach"));
+                thuePhong.setGhiChu(rs.getString("GhiChu"));
+                thuePhong.setTienCoc(rs.getInt("TienCoc"));
+                thuePhong.setGiamGia(rs.getInt("GiamGia"));
+                thuePhong.setHinhAnh(rs.getBytes("HinhAnh"));
+                thuePhong.setTrangThaiThanhToan(rs.getInt("TrangThaiThanhToan"));
+                array.add(thuePhong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+    
+    public static ArrayList<DTO_ThuePhong> selectThuePhong(String ngayDen, String ngayDi) {
+        ResultSet rs = DAL_ThuePhong.findMaPhieuThue(ngayDen, ngayDi);
         ArrayList<DTO_ThuePhong> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -139,8 +177,8 @@ public class BLL_ThuePhong {
         return array;
     }
 
-    public static ArrayList<DTO_Phong> selectPhong(int index) {
-        ResultSet rs = DAL_ThuePhong.rowNumber(index);
+    public static ArrayList<DTO_Phong> selectPhong(String tuNgay, String denNgay, int index) {
+        ResultSet rs = DAL_ThuePhong.rowNumber(tuNgay, denNgay, index);
         ArrayList<DTO_Phong> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -158,7 +196,7 @@ public class BLL_ThuePhong {
         return array;
     }
 
-    public static void load(ArrayList<DTO_ThuePhong> array, JLabel lblMaPhieu, JLabel lblNhanVien, JLabel lblNgayTao, JLabel dateNgayDen, JLabel dateNgayDi, JTextField txtCMND, JTextField txtTenKhach, JTextField txtSoLuong, JTextField txtGhiChu, JTextField txtGiamGia, JTextField txtTienCoc, JLabel lblImage) {
+    public static void load(ArrayList<DTO_ThuePhong> array, JLabel lblMaPhieu, JLabel lblNhanVien, JLabel lblNgayTao, JLabel dateNgayDen, JLabel dateNgayDi, JTextField txtCMND, JTextField txtTenKhach, JTextField txtSoLuong, JTextField txtGhiChu, JTextField txtTienCoc, JTextField txtGiamGia, JLabel lblImage) {
         for (DTO_ThuePhong thuePhong : array) {
             lblMaPhieu.setText(thuePhong.getMaPhieuThue());
             lblNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(thuePhong.getMaNhanVien()));
@@ -173,8 +211,8 @@ public class BLL_ThuePhong {
             txtTenKhach.setText(thuePhong.getTenKhachHang());
             txtSoLuong.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getSoLuong()));
             txtGhiChu.setText(thuePhong.getGhiChu());
-            txtGiamGia.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getGiamGia()) + "K");
             txtTienCoc.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getTienCoc()) + "K");
+            txtGiamGia.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getGiamGia()) + "K");
 //            lblImage.setIcon(HELPER_SetIcon.resizeImage(thuePhong.getHinhAnh(), lblImage));
         }
     }
@@ -187,7 +225,7 @@ public class BLL_ThuePhong {
         }
     }
 
-    public static void loadThuePhong(ArrayList<DTO_ThuePhong> array, JLabel lblNgayDen, JLabel lblThangDen, JLabel lblGioPhutDen, JLabel lblNgayDi, JLabel lblThangDi, JLabel lblGioPhutDi, JLabel lblTenKhachHang) {
+    public static void loadThuePhong(ArrayList<DTO_ThuePhong> array, JLabel lblNgayDen, JLabel lblThangDen, JLabel lblGioPhutDen, JLabel lblNgayDi, JLabel lblThangDi, JLabel lblGioPhutDi, JLabel lblTenKhachHang, JLabel lblTrangThaiPhong) {
         for (DTO_ThuePhong thuePhong : array) {
             lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd", thuePhong.getNgayDen()));
             lblThangDen.setText(HELPER_ChuyenDoi.getNgayString("MM", thuePhong.getNgayDen()));
@@ -202,11 +240,14 @@ public class BLL_ThuePhong {
                 lblGioPhutDi.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDi()));
             }
             lblTenKhachHang.setText(thuePhong.getTenKhachHang());
+            if (thuePhong.getTrangThaiThanhToan() == 1) {
+                lblTrangThaiPhong.setText("Trả Phòng");
+            }
         }
     }
 
-    public static int countThuePhong() {
-        ResultSet rs = DAL_ThuePhong.count();
+    public static int countSearch(String tuNgay, String denNgay) {
+        ResultSet rs = DAL_ThuePhong.countSearch(tuNgay, denNgay);
         try {
             while (rs.next()) {
                 return rs.getInt(1);
@@ -215,5 +256,41 @@ public class BLL_ThuePhong {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public static String findMaPhieuThue(String ngayDen, String ngayDi) {
+        ResultSet rs = DAL_ThuePhong.findMaPhieuThue(ngayDen, ngayDi);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaPhieuThue");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String findMaPhong(int index) {
+        ResultSet rs = DAL_ThuePhong.findMaPhong(index);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaPhong");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String findMaPhong(String maTang, int index) {
+        ResultSet rs = DAL_ThuePhong.findMaPhong(maTang, index);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaPhong");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

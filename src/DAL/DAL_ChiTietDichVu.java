@@ -45,8 +45,28 @@ public class DAL_ChiTietDichVu {
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
     }
     
+    public static ResultSet tongTienDichVu(String maPhieuThue) {
+        String sqlSelect = "SELECT SUM(SoLuongBan * GiaTien) FROM PhieuDichVu JOIN ChiTietDichVu ON ChiTietDichVu.MaPhieuDichVu = PhieuDichVu.MaPhieuDichVu WHERE MaPhieuThue = ? GROUP BY MaPhieuThue";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
+    }
+    
     public static ResultSet countThanhToan(String maPhieuThue) {
         String sqlSelect = "SELECT SUM(SoLuongBan * GiaTien) FROM PhieuDichVu JOIN ChiTietDichVu ON ChiTietDichVu.MaPhieuDichVu = PhieuDichVu.MaPhieuDichVu WHERE MaPhieuThue = ? AND TrangThaiThanhToan = 1 GROUP BY MaPhieuThue";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
+    }
+    
+    public static ResultSet countGiamGiaByPhong(String maPhong) {
+        String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhong = ? AND TrangThaiThanhToan = 0";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong);
+    }
+    
+    public static ResultSet countTienCoc(String maPhong) {
+        String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhong = ? AND TrangThaiThanhToan = 0";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong);
+    }
+    
+    public static ResultSet countGiamGiaByPhieu(String maPhieuThue) {
+        String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhieuThue = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
     }
 }

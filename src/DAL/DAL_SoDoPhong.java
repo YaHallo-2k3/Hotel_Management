@@ -19,6 +19,11 @@ public class DAL_SoDoPhong {
         String sqlSelect = "SELECT * FROM Phong";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
+    
+    public static ResultSet selectMaPhong(String maPhong) {
+        String sqlSelect = "SELECT * FROM Phong WHERE MaPhong = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong);
+    }
 
     public static ResultSet count() {
         String sqlSelect = "SELECT COUNT(*) FROM Phong";
@@ -36,7 +41,7 @@ public class DAL_SoDoPhong {
     }
 
     public static ResultSet rowNumber(String maTang, int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(PARTITION BY MaTang ORDER BY MaPhong) AS RowNumber FROM Phong) AS Phong WHERE MaTang = ? AND Phong.RowNumber = ?";
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhong) AS RowNumber FROM Phong WHERE MaTang = ?) AS Phong WHERE Phong.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maTang, index);
     }
 
