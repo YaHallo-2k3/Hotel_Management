@@ -44,6 +44,7 @@ public class GUI_pnl_CheckMail extends javax.swing.JPanel {
         txtOTP_4.setVisible(false);
         txtOTP_5.setVisible(false);
         lblDoiMa.setVisible(false);
+        txtTaiKhoan.setText("Nhập Mail Để Xác Thực Tài Khoản");
         txtTaiKhoan.setForeground(new Color(153, 153, 153));
         pnlCheckMail.add(lblTiepTuc, new AbsoluteConstraints(70, 250, 300, 40));
     }
@@ -78,6 +79,7 @@ public class GUI_pnl_CheckMail extends javax.swing.JPanel {
                 GUI_frm_Login.pnlLogin.removeAll();
                 GUI_frm_Login.pnlLogin.add(new GUI_pnl_ChangePassWord().pnlChangePassWord);
                 GUI_frm_Login.pnlLogin.validate();
+                GUI_frm_Login.pnlLogin.repaint();
             } else {
                 JOptionPane.showMessageDialog(this, "Xác Thực Thất Bại ???");
             }
@@ -205,7 +207,6 @@ public class GUI_pnl_CheckMail extends javax.swing.JPanel {
 
         txtTaiKhoan.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         txtTaiKhoan.setForeground(new java.awt.Color(62, 73, 95));
-        txtTaiKhoan.setText("Nhập Mail Để Xác Thực Tài Khoản");
         txtTaiKhoan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtTaiKhoan.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {

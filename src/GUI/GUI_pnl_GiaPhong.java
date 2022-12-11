@@ -246,7 +246,7 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChucNang = new HELPER.PanelShadow();
+        sdoChucNang = new LIB.PanelShadow();
         dateTuNgay = new com.toedter.calendar.JDateChooser();
         dateDenNgay = new com.toedter.calendar.JDateChooser();
         lblDenNgay = new javax.swing.JLabel();
@@ -265,7 +265,7 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
         txtGioDenNgay = new javax.swing.JTextField();
         lblPhutDenNgay = new javax.swing.JLabel();
         lblPhutTuNgay = new javax.swing.JLabel();
-        sdoChuThich = new HELPER.PanelShadow();
+        sdoChuThich = new LIB.PanelShadow();
         lblColorBlue = new javax.swing.JLabel();
         lblColorYellow = new javax.swing.JLabel();
         lblColorPink = new javax.swing.JLabel();
@@ -351,7 +351,7 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
         sdoChucNang.setPreferredSize(new java.awt.Dimension(1150, 110));
         sdoChucNang.setShadowOpacity(0.4F);
         sdoChucNang.setShadowSize(9);
-        sdoChucNang.setShadowType(HELPER.ShadowType.BOT);
+        sdoChucNang.setShadowType(LIB.ShadowType.BOT);
         sdoChucNang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         dateTuNgay.setBackground(new java.awt.Color(255, 255, 255));
@@ -772,8 +772,8 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
     private javax.swing.JLabel lblTuNgay;
     private javax.swing.JPanel pnlGiaPhong;
     private javax.swing.JScrollPane scrGiaPhong;
-    private HELPER.PanelShadow sdoChuThich;
-    private HELPER.PanelShadow sdoChucNang;
+    private LIB.PanelShadow sdoChuThich;
+    private LIB.PanelShadow sdoChucNang;
     private javax.swing.JTable tblGiaPhong;
     private javax.swing.JTextField txtGioDenNgay;
     private javax.swing.JTextField txtGioTuNgay;

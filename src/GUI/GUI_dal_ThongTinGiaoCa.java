@@ -29,7 +29,7 @@ public class GUI_dal_ThongTinGiaoCa extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoGiaoCa = new HELPER.PanelShadow();
+        sdoGiaoCa = new LIB.PanelShadow();
         txtBanGiao = new javax.swing.JTextField();
         lblSetCongSuatPhong = new javax.swing.JLabel();
         lblDatCoc = new javax.swing.JLabel();
@@ -59,7 +59,7 @@ public class GUI_dal_ThongTinGiaoCa extends javax.swing.JDialog {
         lblSetTongChi = new javax.swing.JLabel();
         lblSetDatCoc = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
-        sdoChucNang = new HELPER.PanelShadow();
+        sdoChucNang = new LIB.PanelShadow();
         lblThoat = new javax.swing.JLabel();
         lblGiaoCa = new javax.swing.JLabel();
 
@@ -377,8 +377,8 @@ public class GUI_dal_ThongTinGiaoCa extends javax.swing.JDialog {
     private javax.swing.JLabel lblTongChi;
     private javax.swing.JLabel lblTongCong;
     private javax.swing.JLabel lblTraPhong;
-    private HELPER.PanelShadow sdoChucNang;
-    private HELPER.PanelShadow sdoGiaoCa;
+    private LIB.PanelShadow sdoChucNang;
+    private LIB.PanelShadow sdoGiaoCa;
     private javax.swing.JSeparator spt_1;
     private javax.swing.JSeparator spt_2;
     private javax.swing.JTextField txtBanGiao;

@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 public class BLL_DichVu {
 
     public static boolean check(DTO_DichVu dichVu) {
-        if (dichVu.getMaPhieuDichVu().isEmpty() || dichVu.getMaPhieuThue().isEmpty() || dichVu.getMaNhanVien().isEmpty() || dichVu.getNgayTao() == null) {
+        if (dichVu.getMaPhieuDichVu().isEmpty() || dichVu.getMaNhanVien().isEmpty() || dichVu.getNgayTao() == null) {
             return false;
         } else {
             return true;
@@ -105,15 +105,17 @@ public class BLL_DichVu {
     public static void loadChiTietDichVu(ArrayList<DTO_DichVu> array, JLabel lblMaPhieu, JLabel lblMaPhong, JLabel lblMaNhanVien, JLabel lblNgayTao, JLabel lblNgayDen, JLabel lblNgayDi, JTextField txtGhiChu) {
         for (DTO_DichVu dichVu : array) {
             lblMaPhieu.setText(dichVu.getMaPhieuDichVu());
-            lblMaPhong.setText(BLL_MaTenLoai.findTenPhong(findMaPhong(dichVu.getMaPhieuThue())));
+            if (dichVu.getMaPhieuThue() != null) {
+                lblMaPhong.setText(BLL_MaTenLoai.findTenPhong(findMaPhong(dichVu.getMaPhieuThue())));
+                lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", findDateTimePhong(dichVu.getMaPhieuThue(), "NgayDen")));
+                if (findDateTimePhong(dichVu.getMaPhieuThue(), "NgayDi") == null) {
+                    lblNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy"));
+                } else {
+                    lblNgayDi.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", findDateTimePhong(dichVu.getMaPhieuThue(), "NgayDi")));
+                }
+            }
             lblMaNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(dichVu.getMaNhanVien()));
             lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", dichVu.getNgayTao()));
-            lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", findDateTimePhong(dichVu.getMaPhieuThue(), "NgayDen")));
-            if (findDateTimePhong(dichVu.getMaPhieuThue(), "NgayDi") == null) {
-                lblNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yy"));
-            } else {
-                lblNgayDi.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", findDateTimePhong(dichVu.getMaPhieuThue(), "NgayDi")));
-            }
             txtGhiChu.setText(dichVu.getGhiChu());
         }
     }

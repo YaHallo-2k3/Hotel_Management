@@ -121,7 +121,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoSanPham = new HELPER.PanelShadow();
+        sdoSanPham = new LIB.PanelShadow();
         lblMaHang = new javax.swing.JLabel();
         lblTenHang = new javax.swing.JLabel();
         txtTenHang = new javax.swing.JTextField();
@@ -140,7 +140,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         lblSetNgayTao = new javax.swing.JLabel();
         txtTimKiem = new javax.swing.JTextField();
         lblTimKiem = new javax.swing.JLabel();
-        sdoLoaiSanPham = new HELPER.PanelShadow();
+        sdoLoaiSanPham = new LIB.PanelShadow();
         scrLoaiSanPham = new javax.swing.JScrollPane();
         tblLoaiSanPham = new javax.swing.JTable();
         lblMaLoai = new javax.swing.JLabel();
@@ -157,7 +157,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         sdoSanPham.setMinimumSize(new java.awt.Dimension(830, 730));
         sdoSanPham.setPreferredSize(new java.awt.Dimension(830, 730));
         sdoSanPham.setShadowOpacity(0.3F);
-        sdoSanPham.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoSanPham.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoSanPham.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMaHang.setBackground(new java.awt.Color(255, 255, 255));
@@ -334,7 +334,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         sdoLoaiSanPham.setMinimumSize(new java.awt.Dimension(320, 730));
         sdoLoaiSanPham.setPreferredSize(new java.awt.Dimension(320, 730));
         sdoLoaiSanPham.setShadowOpacity(0.3F);
-        sdoLoaiSanPham.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoLoaiSanPham.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoLoaiSanPham.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scrLoaiSanPham.setBackground(new java.awt.Color(255, 255, 255));
@@ -526,8 +526,8 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JScrollPane scrLoaiSanPham;
     private javax.swing.JScrollPane scrSanPham;
-    private HELPER.PanelShadow sdoLoaiSanPham;
-    private HELPER.PanelShadow sdoSanPham;
+    private LIB.PanelShadow sdoLoaiSanPham;
+    private LIB.PanelShadow sdoSanPham;
     private javax.swing.JTable tblLoaiSanPham;
     private javax.swing.JTable tblSanPham;
     private javax.swing.JTextField txtGiaBan;

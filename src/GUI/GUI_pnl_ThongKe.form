@@ -18,7 +18,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Container class="HELPER.PanelShadow" name="sdoChucNang">
+    <Container class="LIB.PanelShadow" name="sdoChucNang">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -31,7 +31,7 @@
         </Property>
         <Property name="shadowOpacity" type="float" value="0.4"/>
         <Property name="shadowSize" type="int" value="9"/>
-        <Property name="shadowType" type="HELPER.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="shadowType" type="LIB.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="BOT"/>
         </Property>
       </Properties>
@@ -107,7 +107,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoFormChinh1">
+    <Container class="LIB.PanelShadow" name="sdoFormChinh1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -390,7 +390,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoFormChinh2">
+    <Container class="LIB.PanelShadow" name="sdoFormChinh2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -638,7 +638,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoFormChinh3">
+    <Container class="LIB.PanelShadow" name="sdoFormChinh3">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -671,14 +671,14 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoFormChinh4">
+    <Container class="LIB.PanelShadow" name="sdoFormChinh4">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="shadowOpacity" type="float" value="0.4"/>
         <Property name="shadowSize" type="int" value="9"/>
-        <Property name="shadowType" type="HELPER.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="shadowType" type="LIB.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="BOT"/>
         </Property>
       </Properties>
@@ -735,14 +735,14 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoFormChinh5">
+    <Container class="LIB.PanelShadow" name="sdoFormChinh5">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="shadowOpacity" type="float" value="0.4"/>
         <Property name="shadowSize" type="int" value="9"/>
-        <Property name="shadowType" type="HELPER.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="shadowType" type="LIB.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="BOT"/>
         </Property>
       </Properties>
@@ -790,14 +790,14 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Container class="HELPER.PanelShadow" name="sdoFormChinh6">
+        <Container class="LIB.PanelShadow" name="sdoFormChinh6">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="shadowOpacity" type="float" value="0.4"/>
             <Property name="shadowSize" type="int" value="9"/>
-            <Property name="shadowType" type="HELPER.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
+            <Property name="shadowType" type="LIB.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
               <Value id="BOT"/>
             </Property>
           </Properties>

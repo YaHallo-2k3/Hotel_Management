@@ -44,7 +44,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="HELPER.PanelShadow" name="sdoChucNang">
+    <Container class="LIB.PanelShadow" name="sdoChucNang">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -122,7 +122,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoTaiKhoan">
+    <Container class="LIB.PanelShadow" name="sdoTaiKhoan">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>

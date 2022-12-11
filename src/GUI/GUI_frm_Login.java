@@ -31,6 +31,7 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         pnlLogin.removeAll();
         pnlLogin.add(new GUI_pnl_DangNhap().pnlDangNhap);
         pnlLogin.validate();
+        pnlLogin.repaint();
         setForeground_255_255_255(lblDangNhap);
         setBackground_62_73_95(lblDangNhap);
         lblDangNhap.setIcon(new ImageIcon(getClass().getResource("/IMG/enter (1).png")));
@@ -43,6 +44,7 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         pnlLogin.removeAll();
         pnlLogin.add(new GUI_pnl_CheckMail().pnlCheckMail);
         pnlLogin.validate();
+        pnlLogin.repaint();
         setForeground_62_73_95(lblDangNhap);
         setBackground_255_255_255(lblDangNhap);
         lblDangNhap.setIcon(new ImageIcon(getClass().getResource("/IMG/enter.png")));

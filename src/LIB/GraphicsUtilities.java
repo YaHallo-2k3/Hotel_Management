@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HELPER;
+package LIB;
 
 import HELPER.*;
 import java.awt.image.BufferedImage;

@@ -8,12 +8,9 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.*;
 
-public class Test2{
+public class Test2 {
 
     public static void main(String[] args) {
-        System.out.println(setMaDateTime("TK"));
-    }
-    public static String setMaDateTime(String setMa) {
-        return setMa + HELPER_ChuyenDoi.getTimeNow("yyMMddHHmmss");
+        System.out.print("TK" + "\n" + "NK");
     }
 }

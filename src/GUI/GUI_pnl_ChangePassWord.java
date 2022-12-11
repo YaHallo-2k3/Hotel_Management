@@ -32,8 +32,10 @@ public class GUI_pnl_ChangePassWord extends javax.swing.JPanel {
     }
 
     public void load(javax.swing.JPasswordField psd, javax.swing.JPasswordField psdConfirm) {
+        psd.setText("Nhập Mật Khẩu");
         psd.setEchoChar((char) 0);
         psd.setForeground(new Color(153, 153, 153));
+        psd.setText("Nhập Lại Mật Khẩu");
         psdConfirm.setEchoChar((char) 0);
         psdConfirm.setForeground(new Color(153, 153, 153));
     }
@@ -83,6 +85,7 @@ public class GUI_pnl_ChangePassWord extends javax.swing.JPanel {
             GUI_frm_Login.pnlLogin.removeAll();
             GUI_frm_Login.pnlLogin.add(new GUI_pnl_DangNhap().pnlDangNhap);
             GUI_frm_Login.pnlLogin.validate();
+            GUI_frm_Login.pnlLogin.repaint();
         }
     }
 
@@ -182,7 +185,6 @@ public class GUI_pnl_ChangePassWord extends javax.swing.JPanel {
 
         psdMatKhau.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         psdMatKhau.setForeground(new java.awt.Color(62, 73, 95));
-        psdMatKhau.setText("Nhập Mật Khẩu");
         psdMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
         psdMatKhau.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -231,7 +233,6 @@ public class GUI_pnl_ChangePassWord extends javax.swing.JPanel {
 
         psdXacThucMatKhau.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         psdXacThucMatKhau.setForeground(new java.awt.Color(62, 73, 95));
-        psdXacThucMatKhau.setText("Nhập Lại Mật Khẩu");
         psdXacThucMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(62, 73, 95)));
         psdXacThucMatKhau.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {

@@ -40,6 +40,11 @@ public class DAL_Phong {
         String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhong) AS RowNumber FROM Phong WHERE MaTrangThaiPhong NOT LIKE 'PhongTrong' AND MaTrangThaiPhong NOT LIKE 'TraPhong' AND Phong.MaTang = ?) AS Phong WHERE Phong.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maTang, index);
     }
+    
+    public static ResultSet searchChuyenPhong(String maTang, int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhong) AS RowNumber FROM Phong WHERE MaTrangThaiPhong LIKE 'PhongTrong' AND Phong.MaTang = ?) AS Phong WHERE Phong.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maTang, index);
+    }
 
     public static ResultSet searchSoPhong(String maTang, int index) {
         String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhong) AS RowNumber FROM Phong WHERE MaTrangThaiPhong NOT LIKE 'PhongTrong' AND MaTrangThaiPhong NOT LIKE 'TraPhong' AND Phong.MaTang = ?) AS Phong JOIN ThuePhong ON ThuePhong.MaPhong = Phong.MaPhong WHERE TrangThaiThanhToan = 0 AND Phong.RowNumber = ?";
@@ -48,6 +53,11 @@ public class DAL_Phong {
 
     public static ResultSet countSearchChonPhong(String maTang) {
         String sqlSelect = "SELECT COUNT(*) FROM Phong WHERE MaTrangThaiPhong NOT LIKE 'PhongTrong' AND MaTrangThaiPhong NOT LIKE 'TraPhong' AND MaTang = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maTang);
+    }
+    
+    public static ResultSet countSearchChuyenPhong(String maTang) {
+        String sqlSelect = "SELECT COUNT(*) FROM Phong WHERE MaTrangThaiPhong LIKE 'PhongTrong' AND MaTang = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maTang);
     }
 }

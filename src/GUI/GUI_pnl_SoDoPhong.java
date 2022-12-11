@@ -90,7 +90,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChuThich = new HELPER.PanelShadow();
+        sdoChuThich = new LIB.PanelShadow();
         spt_1 = new javax.swing.JSeparator();
         spt_2 = new javax.swing.JSeparator();
         cboTang = new javax.swing.JComboBox<>();
@@ -117,7 +117,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         sdoChuThich.setPreferredSize(new java.awt.Dimension(1150, 110));
         sdoChuThich.setShadowOpacity(0.4F);
         sdoChuThich.setShadowSize(9);
-        sdoChuThich.setShadowType(HELPER.ShadowType.BOT);
+        sdoChuThich.setShadowType(LIB.ShadowType.BOT);
         sdoChuThich.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         spt_1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -314,7 +314,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
     private javax.swing.JLabel lblTimKiem;
     public static javax.swing.JPanel pnlFormChinh;
     public static javax.swing.JScrollPane scrFormChinh;
-    public static HELPER.PanelShadow sdoChuThich;
+    public static LIB.PanelShadow sdoChuThich;
     private javax.swing.JSeparator spt_1;
     private javax.swing.JSeparator spt_2;
     // End of variables declaration//GEN-END:variables

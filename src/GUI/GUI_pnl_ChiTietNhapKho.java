@@ -53,7 +53,7 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChiTietNhapKho = new HELPER.PanelShadow();
+        sdoChiTietNhapKho = new LIB.PanelShadow();
         lblSetNhanVien = new javax.swing.JLabel();
         lblSetNgayTao = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
@@ -73,7 +73,7 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
         sdoChiTietNhapKho.setPreferredSize(new java.awt.Dimension(350, 250));
         sdoChiTietNhapKho.setShadowOpacity(0.3F);
         sdoChiTietNhapKho.setShadowSize(4);
-        sdoChiTietNhapKho.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietNhapKho.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoChiTietNhapKho.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 sdoChiTietNhapKhoMouseMoved(evt);
@@ -95,20 +95,17 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
         lblSetNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNhanVien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNhanVien.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNhanVien.setText("CherryCe");
         sdoChiTietNhapKho.add(lblSetNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 80, 20));
 
         lblSetNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNgayTao.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgayTao.setText("22-09-22 12:02");
         sdoChiTietNhapKho.add(lblSetNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 90, 20));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(97, 177, 90));
         lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTongTien.setText("2250,000");
         lblTongTien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sdoChiTietNhapKho.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 100, 20));
 
@@ -152,7 +149,6 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
         lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMaPhieu.setText("220923001");
         sdoChiTietNhapKho.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 110, 20));
 
         lblNgayTao.setBackground(new java.awt.Color(255, 255, 255));
@@ -212,7 +208,7 @@ public class GUI_pnl_ChiTietNhapKho extends javax.swing.JPanel {
     public javax.swing.JLabel lblSetNhanVien;
     public javax.swing.JLabel lblTongTien;
     private javax.swing.JScrollPane scrChiTietNhapKho;
-    public HELPER.PanelShadow sdoChiTietNhapKho;
+    public LIB.PanelShadow sdoChiTietNhapKho;
     private javax.swing.JTable tblChiTietNhapKho;
     // End of variables declaration//GEN-END:variables
 }

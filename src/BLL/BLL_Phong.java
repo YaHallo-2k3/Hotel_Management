@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  * @author CherryCe
  */
 public class BLL_Phong {
-
+    
     public static boolean check(DTO_Phong phong) {
         if (phong.getMaPhong().isEmpty() || phong.getTenPhong().isEmpty() || phong.getMaTang().isEmpty() || phong.getMaLoaiPhong().isEmpty() || phong.getMaTrangThaiPhong().isEmpty()) {
             return false;
@@ -34,7 +34,7 @@ public class BLL_Phong {
             return true;
         }
     }
-
+    
     public static void add(DTO_Phong phong) {
         if (!check(phong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -42,11 +42,11 @@ public class BLL_Phong {
             DAL_Phong.add(phong);
         }
     }
-
+    
     public static void delete(String maPhong) {
         DAL_Phong.delete(maPhong);
     }
-
+    
     public static void edit(DTO_Phong phong) {
         if (!check(phong)) {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
@@ -54,7 +54,7 @@ public class BLL_Phong {
             DAL_Phong.edit(phong);
         }
     }
-
+    
     public static ArrayList<DTO_Phong> select() {
         ResultSet rs = DAL_Phong.select();
         ArrayList<DTO_Phong> array = new ArrayList<>();
@@ -73,7 +73,7 @@ public class BLL_Phong {
         }
         return array;
     }
-
+    
     public static ArrayList<DTO_Phong> searchChonPhong(String maTang, int index) {
         ResultSet rs = DAL_Phong.searchChonPhong(maTang, index);
         ArrayList<DTO_Phong> array = new ArrayList<>();
@@ -89,7 +89,23 @@ public class BLL_Phong {
         }
         return array;
     }
-
+    
+    public static ArrayList<DTO_Phong> searchChuyenPhong(String maTang, int index) {
+        ResultSet rs = DAL_Phong.searchChuyenPhong(maTang, index);
+        ArrayList<DTO_Phong> array = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                DTO_Phong phong = new DTO_Phong();
+                phong.setMaPhong(rs.getString("MaPhong"));
+                phong.setMaLoaiPhong(rs.getString("MaLoaiPhong"));
+                array.add(phong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+    
     public static ArrayList<DTO_ThuePhong> searchSoPhong(String maTang, int index) {
         ResultSet rs = DAL_Phong.searchSoPhong(maTang, index);
         ArrayList<DTO_ThuePhong> array = new ArrayList<>();
@@ -106,7 +122,7 @@ public class BLL_Phong {
         }
         return array;
     }
-
+    
     public static void load(ArrayList<DTO_Phong> array, JTable tbl) {
         DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
         tblModel.setRowCount(0);
@@ -123,14 +139,21 @@ public class BLL_Phong {
             tblModel.addRow(obj);
         }
     }
-
+    
     public static void loadChonPhong(ArrayList<DTO_Phong> array, JLabel lblSoPhong, JLabel lblTrangThai) {
         for (DTO_Phong phong : array) {
             lblSoPhong.setText(BLL_MaTenLoai.findTenPhong(phong.getMaPhong()));
             lblTrangThai.setText(BLL_MaTenLoai.findTenTrangThaiPhong(phong.getMaTrangThaiPhong()));
         }
     }
-
+    
+    public static void loadChuyenPhong(ArrayList<DTO_Phong> array, JLabel lblSoPhong, JLabel lblLoaiPhong) {
+        for (DTO_Phong phong : array) {
+            lblSoPhong.setText(BLL_MaTenLoai.findTenPhong(phong.getMaPhong()));
+            lblLoaiPhong.setText(BLL_MaTenLoai.findTenLoaiPhong(phong.getMaLoaiPhong()));
+        }
+    }
+    
     public static void loadSoPhong(ArrayList<DTO_ThuePhong> array, JLabel lblSoPhong, JLabel lblNgayDen, JLabel lblNgayDi) {
         for (DTO_ThuePhong thuePhong : array) {
             lblSoPhong.setText(BLL_MaTenLoai.findTenPhong(thuePhong.getMaPhong()));
@@ -142,7 +165,7 @@ public class BLL_Phong {
             }
         }
     }
-
+    
     public static int countSearchChonPhong(String maTang) {
         ResultSet rs = DAL_Phong.countSearchChonPhong(maTang);
         try {
@@ -153,5 +176,29 @@ public class BLL_Phong {
             e.printStackTrace();
         }
         return 0;
+    }
+    
+    public static int countSearchChuyenPhong(String maTang) {
+        ResultSet rs = DAL_Phong.countSearchChuyenPhong(maTang);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public static String selectChuyenPhong(String maTang, int index) {
+        ResultSet rs = DAL_Phong.searchChuyenPhong(maTang, index);
+        try {
+            while (rs.next()) {
+                return rs.getString("TenPhong") + " - " + BLL_MaTenLoai.findTenLoaiPhong(rs.getString("MaLoaiPhong"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

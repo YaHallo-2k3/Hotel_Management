@@ -147,7 +147,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoFormChinh = new HELPER.PanelShadow();
+        sdoFormChinh = new LIB.PanelShadow();
         lblThem = new javax.swing.JLabel();
         spt_1 = new javax.swing.JSeparator();
         lblLamMoi = new javax.swing.JLabel();
@@ -173,7 +173,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         dateNgaySinh = new com.toedter.calendar.JDateChooser();
         lblImage = new javax.swing.JLabel();
         lblSetTrangThai = new javax.swing.JLabel();
-        sdoNhanVien = new HELPER.PanelShadow();
+        sdoNhanVien = new LIB.PanelShadow();
         scrNhanVien = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
 
@@ -186,7 +186,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         sdoFormChinh.setPreferredSize(new java.awt.Dimension(1150, 290));
         sdoFormChinh.setShadowOpacity(0.4F);
         sdoFormChinh.setShadowSize(9);
-        sdoFormChinh.setShadowType(HELPER.ShadowType.BOT);
+        sdoFormChinh.setShadowType(LIB.ShadowType.BOT);
         sdoFormChinh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblThem.setBackground(new java.awt.Color(255, 255, 255));
@@ -402,7 +402,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         sdoNhanVien.setPreferredSize(new java.awt.Dimension(1150, 440));
         sdoNhanVien.setShadowOpacity(0.4F);
         sdoNhanVien.setShadowSize(9);
-        sdoNhanVien.setShadowType(HELPER.ShadowType.BOT);
+        sdoNhanVien.setShadowType(LIB.ShadowType.BOT);
         sdoNhanVien.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scrNhanVien.setBackground(new java.awt.Color(255, 255, 255));
@@ -577,8 +577,8 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
     private javax.swing.JLabel lblThem;
     private javax.swing.JLabel lblTrangThai;
     private javax.swing.JScrollPane scrNhanVien;
-    private HELPER.PanelShadow sdoFormChinh;
-    private HELPER.PanelShadow sdoNhanVien;
+    private LIB.PanelShadow sdoFormChinh;
+    private LIB.PanelShadow sdoNhanVien;
     private javax.swing.JSeparator spt_1;
     private javax.swing.JTable tblNhanVien;
     private javax.swing.JTextField txtCMND;

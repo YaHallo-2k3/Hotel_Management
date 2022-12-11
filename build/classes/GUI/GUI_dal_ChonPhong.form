@@ -39,7 +39,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="HELPER.PanelShadow" name="sdoDanhSachPhong">
+    <Container class="LIB.PanelShadow" name="sdoDanhSachPhong">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -63,7 +63,7 @@
         <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblDanhSachPhong">
+        <Component class="javax.swing.JLabel" name="lblChonPhong">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -74,11 +74,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5f" green="49" red="3e" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="DANH S&#xc1;CH PH&#xd2;NG"/>
+            <Property name="text" type="java.lang.String" value="CH&#x1ecc;N PH&#xd2;NG"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="14" width="180" height="30"/>
+              <AbsoluteConstraints x="20" y="14" width="130" height="30"/>
             </Constraint>
           </Constraints>
         </Component>

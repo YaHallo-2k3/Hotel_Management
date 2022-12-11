@@ -53,7 +53,7 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChiTietDichVu = new HELPER.PanelShadow();
+        sdoChiTietDichVu = new LIB.PanelShadow();
         lblSetPhongSo = new javax.swing.JLabel();
         lblSetNgay = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
@@ -73,7 +73,7 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         sdoChiTietDichVu.setPreferredSize(new java.awt.Dimension(350, 210));
         sdoChiTietDichVu.setShadowOpacity(0.3F);
         sdoChiTietDichVu.setShadowSize(4);
-        sdoChiTietDichVu.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietDichVu.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoChiTietDichVu.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 sdoChiTietDichVuMouseDragged(evt);
@@ -98,20 +98,17 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblSetPhongSo.setBackground(new java.awt.Color(255, 255, 255));
         lblSetPhongSo.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetPhongSo.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetPhongSo.setText("302");
         sdoChiTietDichVu.add(lblSetPhongSo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 30, 20));
 
         lblSetNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNgay.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgay.setText("22-09-22 12:02");
         sdoChiTietDichVu.add(lblSetNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 90, 20));
 
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(255, 102, 102));
         lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTongTien.setText("2250,000");
         lblTongTien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sdoChiTietDichVu.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 90, 20));
 
@@ -153,7 +150,6 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMaPhieu.setText("220923001");
         sdoChiTietDichVu.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 100, 20));
 
         lblNgay.setBackground(new java.awt.Color(255, 255, 255));
@@ -217,7 +213,7 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
     public javax.swing.JLabel lblSetPhongSo;
     public javax.swing.JLabel lblTongTien;
     private javax.swing.JScrollPane scrDichVu;
-    public HELPER.PanelShadow sdoChiTietDichVu;
+    public LIB.PanelShadow sdoChiTietDichVu;
     private javax.swing.JTable tblDichVu;
     // End of variables declaration//GEN-END:variables
 }

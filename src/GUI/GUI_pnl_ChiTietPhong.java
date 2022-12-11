@@ -225,7 +225,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     }
 
     public void tongTienConLai() {
-        lblSetConLai.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(lblSetTongTien.getText()) - HELPER_ChuyenDoi.getSoInt(lblSetDatCoc.getText()) - BLL_ChiTietDichVu.countThanhToan(BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))) - BLL_ChiTietDichVu.countGiamGiaByPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))));
+        lblSetConLai.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(lblSetTongTien.getText()) - HELPER_ChuyenDoi.getSoInt(lblSetDatCoc.getText()) - BLL_ChiTietDichVu.countThanhToan(BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))) - BLL_ChiTietDichVu.countGiamGiaByPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))) + "K");
     }
 
     /**
@@ -245,7 +245,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         mniDatPhong = new javax.swing.JMenuItem();
         mniChuyenPhong = new javax.swing.JMenuItem();
         mniHuyPhong = new javax.swing.JMenuItem();
-        sdoChiTietPhong = new HELPER.PanelShadow();
+        sdoChiTietPhong = new LIB.PanelShadow();
         lblGioPhutDi = new javax.swing.JLabel();
         spt_1 = new javax.swing.JSeparator();
         lblNgayDi = new javax.swing.JLabel();
@@ -399,7 +399,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         sdoChiTietPhong.setPreferredSize(new java.awt.Dimension(220, 180));
         sdoChiTietPhong.setShadowOpacity(0.3F);
         sdoChiTietPhong.setShadowSize(3);
-        sdoChiTietPhong.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietPhong.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoChiTietPhong.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 sdoChiTietPhongMouseMoved(evt);
@@ -730,7 +730,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
 
     private void mniChuyenPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChuyenPhongActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "CC");
+        new GUI_dal_ChuyenPhong(null, true).setVisible(true);
     }//GEN-LAST:event_mniChuyenPhongActionPerformed
 
 
@@ -763,7 +763,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     public javax.swing.JMenuItem mniThongTinPhong;
     public javax.swing.JMenuItem mniThuePhong;
     public javax.swing.JPopupMenu popMenu;
-    public HELPER.PanelShadow sdoChiTietPhong;
+    public LIB.PanelShadow sdoChiTietPhong;
     public javax.swing.JSeparator spt_1;
     public javax.swing.JSeparator spt_2;
     // End of variables declaration//GEN-END:variables

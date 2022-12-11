@@ -98,7 +98,7 @@ public class BLL_DatPhong {
             obj[3] = datPhong.getSoLuongKhach();
             obj[4] = HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", datPhong.getNgayDen());
             obj[5] = HELPER_ChuyenDoi.getNgayString("dd-MM-yy HH:mm", datPhong.getNgayDi());
-            obj[6] = datPhong.getTienCoc();
+            obj[6] = datPhong.getTienCoc() + "K";
             obj[7] = BLL_MaTenLoai.findTenLoaiPhong(datPhong.getMaLoaiPhong());
             obj[8] = datPhong.getLoaiKhach();
             obj[9] = datPhong.getGhiChu();

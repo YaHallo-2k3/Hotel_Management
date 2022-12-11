@@ -63,7 +63,7 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
 
         scrFormChinh = new javax.swing.JScrollPane();
         pnlFormChinh = new javax.swing.JPanel();
-        sdoChucNang = new HELPER.PanelShadow();
+        sdoChucNang = new LIB.PanelShadow();
         lblSetTongTien = new javax.swing.JLabel();
         lblTimKiem = new javax.swing.JLabel();
         lblGioPhutTuNgay = new javax.swing.JLabel();
@@ -93,7 +93,7 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
         sdoChucNang.setPreferredSize(new java.awt.Dimension(1150, 110));
         sdoChucNang.setShadowOpacity(0.4F);
         sdoChucNang.setShadowSize(9);
-        sdoChucNang.setShadowType(HELPER.ShadowType.BOT);
+        sdoChucNang.setShadowType(LIB.ShadowType.BOT);
         sdoChucNang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblSetTongTien.setBackground(new java.awt.Color(255, 255, 255));
@@ -230,6 +230,6 @@ public class GUI_pnl_DichVu extends javax.swing.JPanel {
     private javax.swing.JLabel lblTuNgay;
     public static javax.swing.JPanel pnlFormChinh;
     private javax.swing.JScrollPane scrFormChinh;
-    private HELPER.PanelShadow sdoChucNang;
+    private LIB.PanelShadow sdoChucNang;
     // End of variables declaration//GEN-END:variables
 }

@@ -137,7 +137,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoThongTinPhong">
+    <Container class="LIB.PanelShadow" name="sdoThongTinPhong">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -835,7 +835,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoDichVu">
+    <Container class="LIB.PanelShadow" name="sdoDichVu">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -958,7 +958,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoGiaPhong">
+    <Container class="LIB.PanelShadow" name="sdoGiaPhong">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>

@@ -20,6 +20,10 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
     public static int index;
     public static String tuNgay;
     public static String denNgay;
+    public static int tienPhong;
+    public static int dichVu;
+    public static int daTra;
+    public static int giamGia;
 
     /**
      * Creates new form GUI_pnlThuePhong
@@ -40,6 +44,10 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
     }
 
     public static void search() {
+        tienPhong = 0;
+        dichVu = 0;
+        daTra = 0;
+        giamGia = 0;
         int setHeight = BLL_ThuePhong.countSearch(tuNgay, denNgay) / 4;
         pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
         pnlFormChinh.removeAll();
@@ -49,6 +57,11 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         }
         pnlFormChinh.validate();
         pnlFormChinh.repaint();
+        lblSetTienPhong.setText(HELPER_ChuyenDoi.getSoString(tienPhong) + "K");
+        lblSetDichVu.setText(HELPER_ChuyenDoi.getSoString(dichVu) + "K");
+        lblSetTongCong.setText(HELPER_ChuyenDoi.getSoString(tienPhong + dichVu) + "K");
+        lblsetDaTra.setText(HELPER_ChuyenDoi.getSoString(daTra) + "K");
+        lblSetConLai.setText(HELPER_ChuyenDoi.getSoString(tienPhong + dichVu - giamGia - daTra) + "K");
     }
 
     /**
@@ -62,7 +75,7 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
 
         scrFormChinh = new javax.swing.JScrollPane();
         pnlFormChinh = new javax.swing.JPanel();
-        sdoChucNang = new HELPER.PanelShadow();
+        sdoChucNang = new LIB.PanelShadow();
         lblsetDaTra = new javax.swing.JLabel();
         lblTimKiem = new javax.swing.JLabel();
         lblGioPhutTuNgay = new javax.swing.JLabel();
@@ -76,7 +89,7 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         lblTienPhong = new javax.swing.JLabel();
         lblDichVu = new javax.swing.JLabel();
         lblDaTra = new javax.swing.JLabel();
-        lblSetTongTien1 = new javax.swing.JLabel();
+        lblSetConLai = new javax.swing.JLabel();
         lblSetTienPhong = new javax.swing.JLabel();
         lblSetDichVu = new javax.swing.JLabel();
         lblSetTongCong = new javax.swing.JLabel();
@@ -99,13 +112,12 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         sdoChucNang.setPreferredSize(new java.awt.Dimension(1150, 110));
         sdoChucNang.setShadowOpacity(0.4F);
         sdoChucNang.setShadowSize(9);
-        sdoChucNang.setShadowType(HELPER.ShadowType.BOT);
+        sdoChucNang.setShadowType(LIB.ShadowType.BOT);
         sdoChucNang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblsetDaTra.setBackground(new java.awt.Color(255, 255, 255));
         lblsetDaTra.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblsetDaTra.setForeground(new java.awt.Color(97, 177, 90));
-        lblsetDaTra.setText("1,200K");
         sdoChucNang.add(lblsetDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 50, 60, 20));
 
         lblTimKiem.setBackground(new java.awt.Color(255, 255, 255));
@@ -193,28 +205,24 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         lblDaTra.setText("Đã Trả");
         sdoChucNang.add(lblDaTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, -1, 20));
 
-        lblSetTongTien1.setBackground(new java.awt.Color(255, 255, 255));
-        lblSetTongTien1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        lblSetTongTien1.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetTongTien1.setText("1,200K");
-        sdoChucNang.add(lblSetTongTien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 50, 60, 20));
+        lblSetConLai.setBackground(new java.awt.Color(255, 255, 255));
+        lblSetConLai.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblSetConLai.setForeground(new java.awt.Color(255, 102, 102));
+        sdoChucNang.add(lblSetConLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 50, 60, 20));
 
         lblSetTienPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTienPhong.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblSetTienPhong.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetTienPhong.setText("1,200,000");
         sdoChucNang.add(lblSetTienPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 80, 20));
 
         lblSetDichVu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetDichVu.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblSetDichVu.setForeground(new java.awt.Color(97, 177, 90));
-        lblSetDichVu.setText("1,200K");
         sdoChucNang.add(lblSetDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, 60, 20));
 
         lblSetTongCong.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTongCong.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblSetTongCong.setForeground(new java.awt.Color(255, 102, 102));
-        lblSetTongCong.setText("1,200K");
         sdoChucNang.add(lblSetTongCong, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 50, 70, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -263,18 +271,18 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
     private javax.swing.JLabel lblDichVu;
     private javax.swing.JLabel lblGioPhutDenNgay;
     private javax.swing.JLabel lblGioPhutTuNgay;
-    private javax.swing.JLabel lblSetDichVu;
-    private javax.swing.JLabel lblSetTienPhong;
-    private javax.swing.JLabel lblSetTongCong;
-    private javax.swing.JLabel lblSetTongTien1;
+    public static javax.swing.JLabel lblSetConLai;
+    public static javax.swing.JLabel lblSetDichVu;
+    public static javax.swing.JLabel lblSetTienPhong;
+    public static javax.swing.JLabel lblSetTongCong;
     private javax.swing.JLabel lblTienPhong;
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTongCOng;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lblTuNgay;
-    private javax.swing.JLabel lblsetDaTra;
+    public static javax.swing.JLabel lblsetDaTra;
     public static javax.swing.JPanel pnlFormChinh;
     private javax.swing.JScrollPane scrFormChinh;
-    private HELPER.PanelShadow sdoChucNang;
+    private LIB.PanelShadow sdoChucNang;
     // End of variables declaration//GEN-END:variables
 }

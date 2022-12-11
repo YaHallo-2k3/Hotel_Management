@@ -5,13 +5,27 @@
  */
 package GUI;
 
+import BLL.BLL_ChiTietDichVu;
+import BLL.BLL_DichVu;
+import BLL.BLL_MaTenLoai;
 import BLL.BLL_ThuNgan;
 import BLL.BLL_ThuePhong;
+import DTO.DTO_DichVu;
 import DTO.DTO_Phong;
 import DTO.DTO_ThuePhong;
+import static GUI.GUI_pnl_GiaPhong.doubleRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.doubleRoom_Hour_Rate;
+import static GUI.GUI_pnl_GiaPhong.quadraRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.quadraRoom_Hour_Rate;
+import static GUI.GUI_pnl_GiaPhong.singleRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.singleRoom_Hour_Rate;
+import static GUI.GUI_pnl_GiaPhong.tripleRoom_Day_Rate;
+import static GUI.GUI_pnl_GiaPhong.tripleRoom_Hour_Rate;
 import HELPER.HELPER_ChuyenDoi;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -20,13 +34,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
  * @author CherryCe
  */
 public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
-    
+
     long diffInDay;
     long diffInHours;
     long diffInMinutes;
@@ -37,24 +55,117 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
     public GUI_pnl_ChiTietThuNgan() {
         initComponents();
         load();
+        validate();
     }
 
     public void load() {
-        ArrayList<DTO_Phong> arrayPhong = BLL_ThuNgan.selectPhong(GUI_pnl_ThuNgan.index);
-        BLL_ThuNgan.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong);
-        ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuNgan.selectThuePhong(GUI_pnl_ThuNgan.index);
-        BLL_ThuNgan.loadThuePhong(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblTongTien, lblSetMaPhieu, lblSetNgay, lblSetGio, lblLoaiThanhToan, lblNhanVien);
-        tongThoiGian();
+        if (!GUI_pnl_ThuNgan.isSelect.equals("DichVu")) {
+            ArrayList<DTO_Phong> arrayPhong;
+            ArrayList<DTO_ThuePhong> arrayThuePhong;
+            if (GUI_pnl_ThuNgan.isSelect.equals("ThuePhong")) {
+                arrayPhong = BLL_ThuNgan.selectByThuePhong(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+                arrayThuePhong = BLL_ThuNgan.selectThuePhong(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+            } else {
+                arrayPhong = BLL_ThuNgan.selectByTienCoc(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+                arrayThuePhong = BLL_ThuNgan.selectTienCoc(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+            }
+            BLL_ThuNgan.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong);
+            BLL_ThuNgan.loadThuePhong(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblSetMaPhieu, lblSetNgay, lblSetGio, lblLoaiThanhToan, lblNhanVien, lblLoaiTien);
+            if (GUI_pnl_ThuNgan.isSelect.equals("ThuePhong")) {
+                setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)), HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2)) + 1);
+            } else {
+                setTienCoc();
+            }
+        } else {
+            ArrayList<DTO_DichVu> arrayDichVu = BLL_ThuNgan.selectDichVu(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+            BLL_ThuNgan.loadDichVu(arrayDichVu, lblSoPhong, lblNhanVien, lblSetMaPhieu, lblSetNgay, lblSetGio, lblLoaiThanhToan, lblLoaiTien);
+            setTienDichVu();
+        }
+        GUI_pnl_ThuNgan.tongTien += HELPER_ChuyenDoi.getSoInt(lblTongTien.getText());
     }
 
-    public void tongThoiGian() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        LocalDateTime dateTimeDen = LocalDateTime.parse(lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDen.getText(), formatter);
-        LocalDateTime dateTimeDi = LocalDateTime.parse(lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDi.getText(), formatter);
-        diffInDay = Duration.between(dateTimeDen, dateTimeDi).toDays();
-        diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
-        diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
-        lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
+    public void validate() {
+        if (GUI_pnl_ThuNgan.isSelect.equals("DichVu")) {
+            lblLoaiPhong.setVisible(false);
+            lblThangDen.setVisible(false);
+            lblNgayDen.setVisible(false);
+            lblGioPhutDen.setVisible(false);
+            spt_1.setVisible(false);
+            lblThangDi.setVisible(false);
+            lblNgayDi.setVisible(false);
+            lblGioPhutDi.setVisible(false);
+            spt_2.setVisible(false);
+            lblTongThoiGian.setText("0d 0h 0m");
+        }
+    }
+
+    public void setThoiGian_GiaTien(int row, int column) {
+        int price = 0;
+        String filePath = null;
+        String setPrice = null;
+        String dateNgayDen = lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy");
+        String dateNgayDi = lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy");
+        if (dateNgayDen.equals(dateNgayDi)) {
+            setPrice = "Giá Giờ";
+        } else {
+            setPrice = "Giá Ngày";
+        }
+        if (lblLoaiPhong.getText().equals("Phòng Đơn") && setPrice.equals("Giá Giờ")) {
+            filePath = singleRoom_Hour_Rate;
+            price = 0;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đơn") && setPrice.equals("Giá Ngày")) {
+            filePath = singleRoom_Day_Rate;
+            price = 250;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đôi Nhỏ") && setPrice.equals("Giá Giờ")) {
+            filePath = doubleRoom_Hour_Rate;
+            price = 0;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đôi Nhỏ") && setPrice.equals("Giá Ngày")) {
+            filePath = doubleRoom_Day_Rate;
+            price = 300;
+        } else if (lblLoaiPhong.getText().equals("Phòng Lớn Nhỏ") && setPrice.equals("Giá Giờ")) {
+            filePath = tripleRoom_Hour_Rate;
+            price = 0;
+        } else if (lblLoaiPhong.getText().equals("Phòng Lớn Nhỏ") && setPrice.equals("Giá Ngày")) {
+            filePath = tripleRoom_Day_Rate;
+            price = 350;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đôi Lớn") && setPrice.equals("Giá Giờ")) {
+            filePath = quadraRoom_Hour_Rate;
+            price = 0;
+        } else if (lblLoaiPhong.getText().equals("Phòng Đôi Lớn") && setPrice.equals("Giá Ngày")) {
+            filePath = quadraRoom_Day_Rate;
+            price = 400;
+        }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            LocalDateTime dateTimeDen = LocalDateTime.parse(lblNgayDen.getText() + "-" + lblThangDen.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDen.getText(), formatter);
+            LocalDateTime dateTimeDi = LocalDateTime.parse(lblNgayDi.getText() + "-" + lblThangDi.getText() + "-" + HELPER_ChuyenDoi.getTimeNow("yyyy") + " " + lblGioPhutDi.getText(), formatter);
+            diffInDay = Duration.between(dateTimeDen, dateTimeDi).toDays();
+            diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
+            diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
+            lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
+            FileInputStream file = new FileInputStream(new File(String.valueOf(new ImageIcon(getClass().getResource(filePath))).replaceAll("file:/", "")));
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            if (diffInDay == 0) {
+                lblTongTien.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + BLL_ChiTietDichVu.tongTienDichVu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countTienCocByMaPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countGiamGiaByPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countThanhToan(lblSetMaPhieu.getText())) + "K");
+            } else {
+                if (HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)) <= HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2))) {
+                    lblTongTien.setText(HELPER_ChuyenDoi.getSoString((diffInDay - 1) * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + BLL_ChiTietDichVu.tongTienDichVu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countTienCocByMaPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countGiamGiaByPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countThanhToan(lblSetMaPhieu.getText())) + "K");
+                } else {
+                    lblTongTien.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + BLL_ChiTietDichVu.tongTienDichVu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countTienCocByMaPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countGiamGiaByPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countThanhToan(lblSetMaPhieu.getText())) + "K");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi Định Dạng ???");
+        }
+    }
+
+    public void setTienCoc() {
+        lblTongTien.setText(HELPER_ChuyenDoi.getSoString(BLL_ChiTietDichVu.countTienCocByMaPhieu(lblSetMaPhieu.getText())) + "K");
+    }
+
+    public void setTienDichVu() {
+        lblTongTien.setText(HELPER_ChuyenDoi.getSoString(BLL_ChiTietDichVu.countTienDichVu(lblSetMaPhieu.getText())) + "K");
     }
 
     /**
@@ -66,7 +177,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChiTietThuNgan = new HELPER.PanelShadow();
+        sdoChiTietThuNgan = new LIB.PanelShadow();
         lblGioPhutDi = new javax.swing.JLabel();
         lblLoaiTien = new javax.swing.JLabel();
         lblLoaiThanhToan = new javax.swing.JLabel();
@@ -100,7 +211,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         sdoChiTietThuNgan.setPreferredSize(new java.awt.Dimension(250, 220));
         sdoChiTietThuNgan.setShadowOpacity(0.3F);
         sdoChiTietThuNgan.setShadowSize(4);
-        sdoChiTietThuNgan.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietThuNgan.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoChiTietThuNgan.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 sdoChiTietThuNganMouseMoved(evt);
@@ -120,25 +231,21 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblGioPhutDi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblGioPhutDi.setForeground(new java.awt.Color(62, 73, 95));
         lblGioPhutDi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGioPhutDi.setText("19:09");
         sdoChiTietThuNgan.add(lblGioPhutDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 40, 20));
 
         lblLoaiTien.setBackground(new java.awt.Color(255, 255, 255));
         lblLoaiTien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblLoaiTien.setForeground(new java.awt.Color(62, 73, 95));
-        lblLoaiTien.setText("Tiền Mặt");
-        sdoChiTietThuNgan.add(lblLoaiTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, 30));
+        sdoChiTietThuNgan.add(lblLoaiTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 60, 30));
 
         lblLoaiThanhToan.setBackground(new java.awt.Color(255, 255, 255));
         lblLoaiThanhToan.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblLoaiThanhToan.setForeground(new java.awt.Color(62, 73, 95));
-        lblLoaiThanhToan.setText("Hóa Đơn");
-        sdoChiTietThuNgan.add(lblLoaiThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, 30));
+        sdoChiTietThuNgan.add(lblLoaiThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 60, 30));
 
         lblLoaiPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblLoaiPhong.setForeground(new java.awt.Color(153, 153, 153));
-        lblLoaiPhong.setText("Phòng Đơn");
         sdoChiTietThuNgan.add(lblLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 100, 20));
 
         spt_3.setForeground(new java.awt.Color(62, 73, 95));
@@ -159,14 +266,12 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         lblNhanVien.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(62, 73, 95));
-        lblNhanVien.setText("CherryCe");
         sdoChiTietThuNgan.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 60, 30));
 
         lblThangDen.setBackground(new java.awt.Color(255, 255, 255));
         lblThangDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblThangDen.setForeground(new java.awt.Color(62, 73, 95));
         lblThangDen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThangDen.setText("9");
         lblThangDen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sdoChiTietThuNgan.add(lblThangDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 20, 30));
 
@@ -178,14 +283,12 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblNgayDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNgayDen.setForeground(new java.awt.Color(62, 73, 95));
         lblNgayDen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNgayDen.setText("16");
         lblNgayDen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        sdoChiTietThuNgan.add(lblNgayDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 20, -1));
+        sdoChiTietThuNgan.add(lblNgayDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 57, 20, 20));
 
         lblSetGio.setBackground(new java.awt.Color(255, 255, 255));
         lblSetGio.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetGio.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetGio.setText("19:09");
         sdoChiTietThuNgan.add(lblSetGio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 40, 20));
 
         lblGio.setBackground(new java.awt.Color(255, 255, 255));
@@ -197,14 +300,12 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
 
         lblSoPhong.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lblSoPhong.setForeground(new java.awt.Color(62, 73, 95));
-        lblSoPhong.setText("101");
-        sdoChiTietThuNgan.add(lblSoPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, -1));
+        sdoChiTietThuNgan.add(lblSoPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 30));
 
         lblThangDi.setBackground(new java.awt.Color(255, 255, 255));
         lblThangDi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblThangDi.setForeground(new java.awt.Color(62, 73, 95));
         lblThangDi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThangDi.setText("9");
         lblThangDi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sdoChiTietThuNgan.add(lblThangDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 20, 30));
 
@@ -215,18 +316,16 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblTongTien.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTien.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(255, 102, 102));
-        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTongTien.setText("525,000");
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTongTien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        sdoChiTietThuNgan.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 80, -1));
+        sdoChiTietThuNgan.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 70, 30));
 
         lblNgayDi.setBackground(new java.awt.Color(255, 255, 255));
         lblNgayDi.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblNgayDi.setForeground(new java.awt.Color(62, 73, 95));
         lblNgayDi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNgayDi.setText("16");
         lblNgayDi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        sdoChiTietThuNgan.add(lblNgayDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 20, -1));
+        sdoChiTietThuNgan.add(lblNgayDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 57, 20, 20));
 
         lblIconDongHo.setBackground(new java.awt.Color(255, 255, 255));
         lblIconDongHo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clock.png"))); // NOI18N
@@ -236,26 +335,22 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         lblTongThoiGian.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblTongThoiGian.setForeground(new java.awt.Color(255, 102, 102));
         lblTongThoiGian.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTongThoiGian.setText("30'");
-        sdoChiTietThuNgan.add(lblTongThoiGian, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 90, 30));
+        sdoChiTietThuNgan.add(lblTongThoiGian, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 100, 30));
 
         lblGioPhutDen.setBackground(new java.awt.Color(255, 255, 255));
         lblGioPhutDen.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblGioPhutDen.setForeground(new java.awt.Color(62, 73, 95));
         lblGioPhutDen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGioPhutDen.setText("19:09");
         sdoChiTietThuNgan.add(lblGioPhutDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 40, 20));
 
         lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetMaPhieu.setText("220922001");
         sdoChiTietThuNgan.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 80, 20));
 
         lblSetNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgay.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetNgay.setForeground(new java.awt.Color(62, 73, 95));
-        lblSetNgay.setText("22/09/22");
         sdoChiTietThuNgan.add(lblSetNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 70, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -306,7 +401,7 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
     private javax.swing.JLabel lblThangDi;
     private javax.swing.JLabel lblTongThoiGian;
     private javax.swing.JLabel lblTongTien;
-    public HELPER.PanelShadow sdoChiTietThuNgan;
+    public LIB.PanelShadow sdoChiTietThuNgan;
     private javax.swing.JSeparator spt_1;
     private javax.swing.JSeparator spt_2;
     private javax.swing.JSeparator spt_3;

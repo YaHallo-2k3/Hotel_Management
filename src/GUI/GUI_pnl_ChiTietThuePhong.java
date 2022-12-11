@@ -46,10 +46,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
 
-    public static String ngayDen;
-    public static String ngayDi;
-    public static String soPhong;
-    public static String trangThaiPhong;
+    public static int indexPosition;
     long diffInDay;
     long diffInHours;
     long diffInMinutes;
@@ -63,6 +60,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)), HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2)) + 1);
         tongTienDichVu();
         setDaTra();
+        setGiamGia();
     }
 
     public void load() {
@@ -138,6 +136,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
                     lblSetTienPhong.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column)))) + "K");
                 }
             }
+            GUI_pnl_ThuePhong.tienPhong += HELPER_ChuyenDoi.getSoInt(lblSetTienPhong.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi Định Dạng ???");
         }
@@ -149,14 +148,25 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         } else {
             lblSetDichVu.setText(HELPER_ChuyenDoi.getSoString(BLL_ChiTietDichVu.tongTienDichVu(BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText())))) + "K");
         }
+        GUI_pnl_ThuePhong.dichVu += HELPER_ChuyenDoi.getSoInt(lblSetDichVu.getText());
     }
 
     public void setDaTra() {
         if (lblTrangThaiPhong.getText().equals("Trả Phòng")) {
             lblSetDaTra.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(lblSetTienPhong.getText()) + HELPER_ChuyenDoi.getSoInt(lblSetDichVu.getText()) - BLL_ChiTietDichVu.countGiamGiaByPhieu(BLL_ThuePhong.findMaPhieuThue(HELPER_ChuyenDoi.getTimeNow("yyyy") + "-" + lblThangDen.getText() + "-" + lblNgayDen.getText() + " " + lblGioPhutDen.getText(), HELPER_ChuyenDoi.getTimeNow("yyyy") + "-" + lblThangDi.getText() + "-" + lblNgayDi.getText() + " " + lblGioPhutDi.getText()))) + "K");
         } else {
-            lblSetDaTra.setText(HELPER_ChuyenDoi.getSoString(BLL_ChiTietDichVu.countTienCoc(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText())) + BLL_ChiTietDichVu.countThanhToan(BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText())))) + "K");
+            lblSetDaTra.setText(HELPER_ChuyenDoi.getSoString(BLL_ChiTietDichVu.countTienCocByMaPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText())) + BLL_ChiTietDichVu.countThanhToan(BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText())))) + "K");
         }
+        GUI_pnl_ThuePhong.daTra += HELPER_ChuyenDoi.getSoInt(lblSetDaTra.getText());
+    }
+
+    public void setGiamGia() {
+        if (lblTrangThaiPhong.getText().equals("Trả Phòng")) {
+            GUI_pnl_ThuePhong.giamGia += BLL_ChiTietDichVu.countGiamGiaByPhieu(BLL_ThuePhong.findMaPhieuThue(HELPER_ChuyenDoi.getTimeNow("yyyy") + "-" + lblThangDen.getText() + "-" + lblNgayDen.getText() + " " + lblGioPhutDen.getText(), HELPER_ChuyenDoi.getTimeNow("yyyy") + "-" + lblThangDi.getText() + "-" + lblNgayDi.getText() + " " + lblGioPhutDi.getText()));
+        } else {
+            GUI_pnl_ThuePhong.giamGia += BLL_ChiTietDichVu.countGiamGiaByPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()));
+        }
+
     }
 
     /**
@@ -168,7 +178,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChiTietThuePhong = new HELPER.PanelShadow();
+        sdoChiTietThuePhong = new LIB.PanelShadow();
         lblGioPhutDi = new javax.swing.JLabel();
         lblLoaiPhong = new javax.swing.JLabel();
         lblDichVu = new javax.swing.JLabel();
@@ -201,7 +211,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         sdoChiTietThuePhong.setPreferredSize(new java.awt.Dimension(250, 220));
         sdoChiTietThuePhong.setShadowOpacity(0.3F);
         sdoChiTietThuePhong.setShadowSize(4);
-        sdoChiTietThuePhong.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietThuePhong.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoChiTietThuePhong.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 sdoChiTietThuePhongMouseMoved(evt);
@@ -365,10 +375,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
     private void sdoChiTietThuePhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietThuePhongMouseClicked
         // TODO add your handling code here:
         GUI_pnl_SoDoPhong.isThongTinPhong = true;
-        ngayDen = HELPER_ChuyenDoi.getTimeNow("yyyy") + "-" + lblThangDen.getText() + "-" + lblNgayDen.getText() + " " + lblGioPhutDen.getText();
-        ngayDi = HELPER_ChuyenDoi.getTimeNow("yyyy") + "-" + lblThangDi.getText() + "-" + lblNgayDi.getText() + " " + lblGioPhutDi.getText();
-        soPhong = lblSoPhong.getText();
-        trangThaiPhong = lblTrangThaiPhong.getText();
+        indexPosition = GUI_pnl_ThuePhong.pnlFormChinh.getComponentZOrder(sdoChiTietThuePhong);
         if (evt.getClickCount() == 2) {
             new GUI_dal_ThongTinPhong(null, true).setVisible(true);
         }
@@ -395,7 +402,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
     public javax.swing.JLabel lblTienPhong;
     private javax.swing.JLabel lblTongThoiGian;
     private javax.swing.JLabel lblTrangThaiPhong;
-    public HELPER.PanelShadow sdoChiTietThuePhong;
+    public LIB.PanelShadow sdoChiTietThuePhong;
     private javax.swing.JSeparator spt_1;
     private javax.swing.JSeparator spt_2;
     private javax.swing.JSeparator spt_3;

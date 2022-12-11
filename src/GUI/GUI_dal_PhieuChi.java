@@ -97,11 +97,11 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChucNang = new HELPER.PanelShadow();
+        sdoChucNang = new LIB.PanelShadow();
         lblThoat = new javax.swing.JLabel();
         lblThanhToan = new javax.swing.JLabel();
         lblXoa = new javax.swing.JLabel();
-        sdoPhieuChi = new HELPER.PanelShadow();
+        sdoPhieuChi = new LIB.PanelShadow();
         lblNgayTao = new javax.swing.JLabel();
         lblNhanVien = new javax.swing.JLabel();
         lblGhiChu = new javax.swing.JLabel();
@@ -422,8 +422,8 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
     private javax.swing.JLabel lblThoat;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lblXoa;
-    private HELPER.PanelShadow sdoChucNang;
-    private HELPER.PanelShadow sdoPhieuChi;
+    private LIB.PanelShadow sdoChucNang;
+    private LIB.PanelShadow sdoPhieuChi;
     private javax.swing.JSeparator spt_1;
     private javax.swing.JTextField txtGhiChu;
     private javax.swing.JTextField txtTongTien;

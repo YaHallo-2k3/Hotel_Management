@@ -49,7 +49,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     public void add() {
         String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
         String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
-        DTO_DatPhong datPhong = new DTO_DatPhong(HELPER_SetMa.setMaDateTime("DP"), String.valueOf(cboLoaiPhong.getSelectedItem()), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm")), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), "Không Phòng");
+        DTO_DatPhong datPhong = new DTO_DatPhong(HELPER_SetMa.setMaDateTime("DP"), BLL_MaTenLoai.findMaLoaiPhong(String.valueOf(cboLoaiPhong.getSelectedItem())), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm")), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), "Không Phòng");
         BLL_DatPhong.add(datPhong);
     }
 
@@ -65,7 +65,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     public void edit() {
         String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
         String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
-        DTO_DatPhong datPhong = new DTO_DatPhong(lblSetMaPhieu.getText(), String.valueOf(cboLoaiPhong.getSelectedItem()), String.valueOf(cboLoaiKhach.getSelectedItem()), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("đ-MM-yyyy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), lblSetTrangThai.getText());
+        DTO_DatPhong datPhong = new DTO_DatPhong(lblSetMaPhieu.getText(), BLL_MaTenLoai.findMaLoaiPhong(String.valueOf(cboLoaiPhong.getSelectedItem())), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_MaTenLoai.findMaNhanVien(lblSetNhanVien.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), lblSetTrangThai.getText());
         BLL_DatPhong.edit(datPhong);
     }
 
@@ -149,7 +149,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoFormChinh = new HELPER.PanelShadow();
+        sdoFormChinh = new LIB.PanelShadow();
         lblTimKiem = new javax.swing.JLabel();
         lblLamMoi = new javax.swing.JLabel();
         lblLoaiPhong = new javax.swing.JLabel();
@@ -191,7 +191,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         dateDenNgay = new com.toedter.calendar.JDateChooser();
         lblDenNgay = new javax.swing.JLabel();
         dateTuNgay = new com.toedter.calendar.JDateChooser();
-        sdoDatPhong = new HELPER.PanelShadow();
+        sdoDatPhong = new LIB.PanelShadow();
         scrDatPhong = new javax.swing.JScrollPane();
         tblDatPhong = new javax.swing.JTable();
 
@@ -204,7 +204,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         sdoFormChinh.setPreferredSize(new java.awt.Dimension(1150, 280));
         sdoFormChinh.setShadowOpacity(0.4F);
         sdoFormChinh.setShadowSize(9);
-        sdoFormChinh.setShadowType(HELPER.ShadowType.BOT);
+        sdoFormChinh.setShadowType(LIB.ShadowType.BOT);
         sdoFormChinh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTimKiem.setBackground(new java.awt.Color(255, 255, 255));
@@ -607,7 +607,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         sdoDatPhong.setPreferredSize(new java.awt.Dimension(1150, 450));
         sdoDatPhong.setShadowOpacity(0.4F);
         sdoDatPhong.setShadowSize(9);
-        sdoDatPhong.setShadowType(HELPER.ShadowType.BOT);
+        sdoDatPhong.setShadowType(LIB.ShadowType.BOT);
         sdoDatPhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scrDatPhong.setBackground(new java.awt.Color(255, 255, 255));
@@ -886,8 +886,8 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     private javax.swing.JLabel lblTrangThai;
     private javax.swing.JLabel lblTuNgay;
     private javax.swing.JScrollPane scrDatPhong;
-    private HELPER.PanelShadow sdoDatPhong;
-    private HELPER.PanelShadow sdoFormChinh;
+    private LIB.PanelShadow sdoDatPhong;
+    private LIB.PanelShadow sdoFormChinh;
     private javax.swing.JTable tblDatPhong;
     private javax.swing.JTextField txtGhiChu;
     private javax.swing.JTextField txtGioDen;

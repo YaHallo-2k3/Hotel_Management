@@ -63,8 +63,8 @@ public class GUI_dal_ChonPhong extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoDanhSachPhong = new HELPER.PanelShadow();
-        lblDanhSachPhong = new javax.swing.JLabel();
+        sdoDanhSachPhong = new LIB.PanelShadow();
+        lblChonPhong = new javax.swing.JLabel();
         cboTang = new javax.swing.JComboBox<>();
         lblExit = new javax.swing.JLabel();
         scrDanhSachPhong = new javax.swing.JScrollPane();
@@ -80,11 +80,11 @@ public class GUI_dal_ChonPhong extends javax.swing.JDialog {
         sdoDanhSachPhong.setPreferredSize(new java.awt.Dimension(750, 450));
         sdoDanhSachPhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblDanhSachPhong.setBackground(new java.awt.Color(255, 255, 255));
-        lblDanhSachPhong.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
-        lblDanhSachPhong.setForeground(new java.awt.Color(62, 73, 95));
-        lblDanhSachPhong.setText("DANH SÁCH PHÒNG");
-        sdoDanhSachPhong.add(lblDanhSachPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 14, 180, 30));
+        lblChonPhong.setBackground(new java.awt.Color(255, 255, 255));
+        lblChonPhong.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        lblChonPhong.setForeground(new java.awt.Color(62, 73, 95));
+        lblChonPhong.setText("CHỌN PHÒNG");
+        sdoDanhSachPhong.add(lblChonPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 14, 130, 30));
 
         cboTang.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         cboTang.setForeground(new java.awt.Color(62, 73, 95));
@@ -186,10 +186,10 @@ public class GUI_dal_ChonPhong extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboTang;
-    private javax.swing.JLabel lblDanhSachPhong;
+    private javax.swing.JLabel lblChonPhong;
     private javax.swing.JLabel lblExit;
     public static javax.swing.JPanel pnlDanhSachPhong;
     private javax.swing.JScrollPane scrDanhSachPhong;
-    private HELPER.PanelShadow sdoDanhSachPhong;
+    private LIB.PanelShadow sdoDanhSachPhong;
     // End of variables declaration//GEN-END:variables
 }

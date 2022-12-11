@@ -80,7 +80,7 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoThongTinPhong = new HELPER.PanelShadow();
+        sdoThongTinPhong = new LIB.PanelShadow();
         lblDenNgay = new javax.swing.JLabel();
         lblTuNgay = new javax.swing.JLabel();
         lblTienBan = new javax.swing.JLabel();
@@ -94,7 +94,7 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         lblSetTienNhap = new javax.swing.JLabel();
         lblTimKiem = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
-        sdoHangTon = new HELPER.PanelShadow();
+        sdoHangTon = new LIB.PanelShadow();
         scrHangTon = new javax.swing.JScrollPane();
         tblHangTon = new javax.swing.JTable();
 
@@ -363,8 +363,8 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTuNgay;
     private javax.swing.JScrollPane scrHangTon;
-    private HELPER.PanelShadow sdoHangTon;
-    private HELPER.PanelShadow sdoThongTinPhong;
+    private LIB.PanelShadow sdoHangTon;
+    private LIB.PanelShadow sdoThongTinPhong;
     private javax.swing.JTable tblHangTon;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables

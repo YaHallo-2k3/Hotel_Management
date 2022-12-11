@@ -89,10 +89,10 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChucNang = new HELPER.PanelShadow();
+        sdoChucNang = new LIB.PanelShadow();
         lblThoat = new javax.swing.JLabel();
         lblCapNhat = new javax.swing.JLabel();
-        sdoTaiKhoan = new HELPER.PanelShadow();
+        sdoTaiKhoan = new LIB.PanelShadow();
         lblIconMatKhau = new javax.swing.JLabel();
         lblIconTaiKhoan = new javax.swing.JLabel();
         lblTaiKhoan = new javax.swing.JLabel();
@@ -331,8 +331,8 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
     private javax.swing.JLabel lblTaiKhoan;
     private javax.swing.JLabel lblThoat;
     private javax.swing.JPasswordField psdMatKhau;
-    private HELPER.PanelShadow sdoChucNang;
-    private HELPER.PanelShadow sdoTaiKhoan;
+    private LIB.PanelShadow sdoChucNang;
+    private LIB.PanelShadow sdoTaiKhoan;
     private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }

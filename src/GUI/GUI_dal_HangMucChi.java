@@ -64,7 +64,7 @@ public class GUI_dal_HangMucChi extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoHangMucChi = new HELPER.PanelShadow();
+        sdoHangMucChi = new LIB.PanelShadow();
         lblMucChi = new javax.swing.JLabel();
         lblMaChi = new javax.swing.JLabel();
         lblHangMucChi = new javax.swing.JLabel();
@@ -813,7 +813,7 @@ public class GUI_dal_HangMucChi extends javax.swing.JDialog {
     private javax.swing.JLabel lblMucChi;
     private javax.swing.JLabel lblThoat;
     private javax.swing.JScrollPane scrHangMucChi;
-    private HELPER.PanelShadow sdoHangMucChi;
+    private LIB.PanelShadow sdoHangMucChi;
     private javax.swing.JTable tblHangMucChi;
     private javax.swing.JTextField txtMaChi;
     private javax.swing.JTextField txtMucChi;

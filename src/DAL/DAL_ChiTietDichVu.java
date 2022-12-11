@@ -44,27 +44,37 @@ public class DAL_ChiTietDichVu {
         String sqlSelect = "SELECT MaSanPham, SUM(SoLuongBan) AS SoLuongBan, GiaTien FROM PhieuDichVu JOIN ChiTietDichVu ON ChiTietDichVu.MaPhieuDichVu = PhieuDichVu.MaPhieuDichVu WHERE MaPhieuThue = ? GROUP BY MaSanPham, GiaTien ORDER BY MaSanPham";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
     }
-    
+
     public static ResultSet tongTienDichVu(String maPhieuThue) {
         String sqlSelect = "SELECT SUM(SoLuongBan * GiaTien) FROM PhieuDichVu JOIN ChiTietDichVu ON ChiTietDichVu.MaPhieuDichVu = PhieuDichVu.MaPhieuDichVu WHERE MaPhieuThue = ? GROUP BY MaPhieuThue";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
     }
-    
+
+    public static ResultSet countTienDichVu(String maPhieuDichVu) {
+        String sqlSelect = "SELECT SUM(SoLuongBan*GiaTien) FROM PhieuDichVu JOIN ChiTietDichVu ON ChiTietDichVu.MaPhieuDichVu = PhieuDichVu.MaPhieuDichVu WHERE PhieuDichVu.MaPhieuDichVu = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuDichVu);
+    }
+
     public static ResultSet countThanhToan(String maPhieuThue) {
         String sqlSelect = "SELECT SUM(SoLuongBan * GiaTien) FROM PhieuDichVu JOIN ChiTietDichVu ON ChiTietDichVu.MaPhieuDichVu = PhieuDichVu.MaPhieuDichVu WHERE MaPhieuThue = ? AND TrangThaiThanhToan = 1 GROUP BY MaPhieuThue";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
     }
-    
+
     public static ResultSet countGiamGiaByPhong(String maPhong) {
         String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhong = ? AND TrangThaiThanhToan = 0";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong);
     }
-    
-    public static ResultSet countTienCoc(String maPhong) {
+
+    public static ResultSet countTienCocByMaPhong(String maPhong) {
         String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhong = ? AND TrangThaiThanhToan = 0";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong);
     }
-    
+
+    public static ResultSet countTienCocByMaPhieu(String maPhieuThue) {
+        String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhieuThue = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);
+    }
+
     public static ResultSet countGiamGiaByPhieu(String maPhieuThue) {
         String sqlSelect = "SELECT * FROM ThuePhong WHERE MaPhieuThue = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhieuThue);

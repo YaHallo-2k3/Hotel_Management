@@ -89,6 +89,18 @@ public class BLL_ChiTietDichVu {
         }
         return 0;
     }
+    
+    public static int countTienDichVu(String maPhieuDichVu) {
+        ResultSet rs = DAL_ChiTietDichVu.countTienDichVu(maPhieuDichVu);
+        try {
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     public static int countThanhToan(String maPhieuThue) {
         ResultSet rs = DAL_ChiTietDichVu.countThanhToan(maPhieuThue);
@@ -126,8 +138,20 @@ public class BLL_ChiTietDichVu {
         return 0;
     }
     
-    public static int countTienCoc(String maPhong) {
-        ResultSet rs = DAL_ChiTietDichVu.countTienCoc(maPhong);
+    public static int countTienCocByMaPhong(String maPhong) {
+        ResultSet rs = DAL_ChiTietDichVu.countTienCocByMaPhong(maPhong);
+        try {
+            while (rs.next()) {
+                return rs.getInt("TienCoc");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public static int countTienCocByMaPhieu(String maPhieuThue) {
+        ResultSet rs = DAL_ChiTietDichVu.countTienCocByMaPhieu(maPhieuThue);
         try {
             while (rs.next()) {
                 return rs.getInt("TienCoc");

@@ -78,7 +78,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="HELPER.PanelShadow" name="sdoChucNang">
+    <Container class="LIB.PanelShadow" name="sdoChucNang">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -91,7 +91,7 @@
         </Property>
         <Property name="shadowOpacity" type="float" value="0.4"/>
         <Property name="shadowSize" type="int" value="9"/>
-        <Property name="shadowType" type="HELPER.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="shadowType" type="LIB.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="BOT"/>
         </Property>
       </Properties>

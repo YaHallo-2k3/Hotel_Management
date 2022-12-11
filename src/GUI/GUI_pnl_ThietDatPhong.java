@@ -155,7 +155,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoTang = new HELPER.PanelShadow();
+        sdoTang = new LIB.PanelShadow();
         lblMaTang = new javax.swing.JLabel();
         lblTenTang = new javax.swing.JLabel();
         txtTenTang = new javax.swing.JTextField();
@@ -164,7 +164,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         tblTang = new javax.swing.JTable();
         lblThietDatSoTang = new javax.swing.JLabel();
         lblThemTang = new javax.swing.JLabel();
-        sdoPhong = new HELPER.PanelShadow();
+        sdoPhong = new LIB.PanelShadow();
         lblTang = new javax.swing.JLabel();
         lblLoaiPhong = new javax.swing.JLabel();
         lblTenPhong = new javax.swing.JLabel();
@@ -181,7 +181,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         lblSetSTT = new javax.swing.JLabel();
         lblTrangThai = new javax.swing.JLabel();
         lblSetTrangThai = new javax.swing.JLabel();
-        sdoLoaiPhong = new HELPER.PanelShadow();
+        sdoLoaiPhong = new LIB.PanelShadow();
         lblSoNguoi = new javax.swing.JLabel();
         lblMaLoaiPhong = new javax.swing.JLabel();
         lblTenLoaiPhong = new javax.swing.JLabel();
@@ -203,7 +203,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         sdoTang.setMinimumSize(new java.awt.Dimension(440, 220));
         sdoTang.setPreferredSize(new java.awt.Dimension(440, 220));
         sdoTang.setShadowOpacity(0.3F);
-        sdoTang.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoTang.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoTang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMaTang.setBackground(new java.awt.Color(255, 255, 255));
@@ -299,7 +299,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         sdoPhong.setMinimumSize(new java.awt.Dimension(1150, 510));
         sdoPhong.setPreferredSize(new java.awt.Dimension(1150, 510));
         sdoPhong.setShadowOpacity(0.3F);
-        sdoPhong.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoPhong.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoPhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTang.setBackground(new java.awt.Color(255, 255, 255));
@@ -451,7 +451,7 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         sdoLoaiPhong.setMinimumSize(new java.awt.Dimension(710, 220));
         sdoLoaiPhong.setPreferredSize(new java.awt.Dimension(710, 220));
         sdoLoaiPhong.setShadowOpacity(0.3F);
-        sdoLoaiPhong.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoLoaiPhong.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoLoaiPhong.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblSoNguoi.setBackground(new java.awt.Color(255, 255, 255));
@@ -726,9 +726,9 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrLoaiPhong;
     private javax.swing.JScrollPane scrPhong;
     private javax.swing.JScrollPane scrTang;
-    private HELPER.PanelShadow sdoLoaiPhong;
-    private HELPER.PanelShadow sdoPhong;
-    private HELPER.PanelShadow sdoTang;
+    private LIB.PanelShadow sdoLoaiPhong;
+    private LIB.PanelShadow sdoPhong;
+    private LIB.PanelShadow sdoTang;
     private javax.swing.JTable tblLoaiPhong;
     private javax.swing.JTable tblPhong;
     private javax.swing.JTable tblTang;

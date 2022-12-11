@@ -18,18 +18,33 @@ import java.sql.ResultSet;
  */
 public class DAL_ThuNgan {
 
-    public static ResultSet select(String maPhong, String maTrangThaiPhong) {
-        String sqlSelect = "SELECT * FROM ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE Phong.MaPhong = ? AND MaTrangThaiPhong = ? ORDER BY MaPhieuThue";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, maPhong, maTrangThaiPhong);
+    public static ResultSet countThuePhong(String tuNgay, String denNgay) {
+        String sqlSelect = "SELECT COUNT(*) FROM ThuePhong WHERE CONVERT(DATE, NgayDi) BETWEEN ? AND ? AND TrangThaiThanhToan = 1 OR NgayDi IS NOT NULL";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
     }
     
-    public static ResultSet count() {
-        String sqlSelect = "SELECT COUNT(*) FROM ThuePhong";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect);
+    public static ResultSet countTienCoc(String tuNgay, String denNgay) {
+        String sqlSelect = "SELECT COUNT(*) FROM ThuePhong WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND TienCoc != 0";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
+    }
+
+    public static ResultSet countDichVu(String tuNgay, String denNgay) {
+        String sqlSelect = "SELECT COUNT(*) FROM PhieuDichVu WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND TrangThaiThanhToan = 1";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
+    }
+
+    public static ResultSet rowNumberThuePhong(String tuNgay, String denNgay, int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuThue) AS RowNumber FROM ThuePhong WHERE CONVERT(DATE, NgayDi) BETWEEN ? AND ? AND TrangThaiThanhToan = 1 OR NgayDi IS NOT NULL) AS ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE ThuePhong.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);
     }
     
-    public static ResultSet rowNumber(int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuThue) AS RowNumber FROM ThuePhong) AS ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE ThuePhong.RowNumber = ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, index);
+    public static ResultSet rowNumberTienCoc(String tuNgay, String denNgay, int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuThue) AS RowNumber FROM ThuePhong WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND TienCoc != 0) AS ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE ThuePhong.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);
+    }
+    
+    public static ResultSet rowNumberDichVu(String tuNgay, String denNgay, int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuDichVu) AS RowNumber FROM PhieuDichVu WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ? AND TrangThaiThanhToan = 1) AS PhieuDichVu WHERE PhieuDichVu.RowNumber = ?";
+        return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);
     }
 }

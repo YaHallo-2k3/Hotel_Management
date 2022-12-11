@@ -78,7 +78,14 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
                     Thread.sleep(1000);
                     if (countThread != count) {
                         check = true;
-                        lblShowWebCam.setIcon(new ImageIcon(String.valueOf(getLastModified(path))));
+                        FileInputStream fis = new FileInputStream(getLastModified(path));
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        byte[] buf = new byte[1024];
+                        for (int readnum; (readnum = fis.read(buf)) != -1;) {
+                            bos.write(buf, 0, readnum);
+                        }
+                        GUI_dal_ThongTinPhong.hinhAnh = bos.toByteArray();
+                        lblShowWebCam.setIcon(HELPER_SetIcon.resizeImage(GUI_dal_ThongTinPhong.hinhAnh, lblShowWebCam));
                         lblXoa.setVisible(true);
                         lblLuu.setVisible(true);
                         return;
@@ -186,18 +193,21 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
 
     private void lblLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLuuMouseClicked
         // TODO add your handling code here:
-        Image img = webcam.getImage();
-//        GUI_dal_ThongTinPhong.lblImage.setIcon(new ImageIcon(img));
-//        dispose();
+        GUI_dal_ThongTinPhong.lblImage.setIcon(HELPER_SetIcon.resizeImage(GUI_dal_ThongTinPhong.hinhAnh, GUI_dal_ThongTinPhong.lblImage));
+        dispose();
     }//GEN-LAST:event_lblLuuMouseClicked
 
     private void lblXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXoaMouseClicked
         // TODO add your handling code here:
         check = false;
+        GUI_dal_ThongTinPhong.hinhAnh = null;
+        lblXoa.setVisible(false);
+        lblLuu.setVisible(false);
         File file = new File(String.valueOf(getLastModified(path)));
         file.delete();
         count = new File(path).list().length;
         new videoFeed().start();
+        new photoFeed().start();
     }//GEN-LAST:event_lblXoaMouseClicked
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked

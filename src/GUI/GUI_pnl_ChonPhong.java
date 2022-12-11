@@ -87,14 +87,12 @@ public class GUI_pnl_ChonPhong extends javax.swing.JPanel {
         lblSoPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblSoPhong.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         lblSoPhong.setForeground(new java.awt.Color(255, 255, 255));
-        lblSoPhong.setText("101");
         pnlChonPhong.add(lblSoPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 20));
 
         lblSetTrangThai.setBackground(new java.awt.Color(255, 255, 255));
         lblSetTrangThai.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblSetTrangThai.setForeground(new java.awt.Color(255, 255, 255));
         lblSetTrangThai.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSetTrangThai.setText("Có Khách");
         pnlChonPhong.add(lblSetTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 90, 20));
 
         lblIconTrangThai.setBackground(new java.awt.Color(255, 255, 255));

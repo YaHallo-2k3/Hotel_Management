@@ -54,7 +54,7 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChiTietPhieuChi = new HELPER.PanelShadow();
+        sdoChiTietPhieuChi = new LIB.PanelShadow();
         lblLoaiTien = new javax.swing.JLabel();
         lblNhanVien = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
@@ -74,7 +74,7 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
         sdoChiTietPhieuChi.setPreferredSize(new java.awt.Dimension(260, 170));
         sdoChiTietPhieuChi.setShadowOpacity(0.3F);
         sdoChiTietPhieuChi.setShadowSize(4);
-        sdoChiTietPhieuChi.setShadowType(HELPER.ShadowType.BOT_RIGHT);
+        sdoChiTietPhieuChi.setShadowType(LIB.ShadowType.BOT_RIGHT);
         sdoChiTietPhieuChi.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 sdoChiTietPhieuChiMouseMoved(evt);
@@ -183,7 +183,7 @@ public class GUI_pnl_ChiTietPhieuChi extends javax.swing.JPanel {
     private javax.swing.JLabel lblSetMucChi;
     private javax.swing.JLabel lblSetNgayTao;
     private javax.swing.JLabel lblTongTien;
-    public HELPER.PanelShadow sdoChiTietPhieuChi;
+    public LIB.PanelShadow sdoChiTietPhieuChi;
     private javax.swing.JTextField txtGhiChu;
     // End of variables declaration//GEN-END:variables
 }

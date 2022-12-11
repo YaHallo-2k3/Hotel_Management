@@ -158,7 +158,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoThongTinPhong = new HELPER.PanelShadow();
+        sdoThongTinPhong = new LIB.PanelShadow();
         lblSetMaPhieu = new javax.swing.JLabel();
         lblMaPhieu = new javax.swing.JLabel();
         lblSetNhanVien = new javax.swing.JLabel();
@@ -173,13 +173,13 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         lbl_2 = new javax.swing.JLabel();
         txtGhiChu = new javax.swing.JTextField();
         lblExit = new javax.swing.JLabel();
-        sdoDichVu = new HELPER.PanelShadow();
+        sdoDichVu = new LIB.PanelShadow();
         scrDichVu = new javax.swing.JScrollPane();
         tblDichVu = new javax.swing.JTable();
-        sdoKhoDichVu = new HELPER.PanelShadow();
+        sdoKhoDichVu = new LIB.PanelShadow();
         scrKhoDichVu = new javax.swing.JScrollPane();
         tblKhoDichVu = new javax.swing.JTable();
-        sdoChucNang = new HELPER.PanelShadow();
+        sdoChucNang = new LIB.PanelShadow();
         lblSetTongTien = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
         lblThoat = new javax.swing.JLabel();
@@ -670,10 +670,10 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_3;
     private javax.swing.JScrollPane scrDichVu;
     private javax.swing.JScrollPane scrKhoDichVu;
-    private HELPER.PanelShadow sdoChucNang;
-    private HELPER.PanelShadow sdoDichVu;
-    private HELPER.PanelShadow sdoKhoDichVu;
-    private HELPER.PanelShadow sdoThongTinPhong;
+    private LIB.PanelShadow sdoChucNang;
+    private LIB.PanelShadow sdoDichVu;
+    private LIB.PanelShadow sdoKhoDichVu;
+    private LIB.PanelShadow sdoThongTinPhong;
     private javax.swing.JTable tblDichVu;
     private javax.swing.JTable tblKhoDichVu;
     private javax.swing.JTextField txtGhiChu;

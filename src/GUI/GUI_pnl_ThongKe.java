@@ -36,11 +36,11 @@ public class GUI_pnl_ThongKe extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sdoChucNang = new HELPER.PanelShadow();
+        sdoChucNang = new LIB.PanelShadow();
         lblThongKe = new javax.swing.JLabel();
         lblThongKeTrongNgay = new javax.swing.JLabel();
         dateNgay = new com.toedter.calendar.JDateChooser();
-        sdoFormChinh1 = new HELPER.PanelShadow();
+        sdoFormChinh1 = new LIB.PanelShadow();
         lblSetNgayTao1 = new javax.swing.JLabel();
         lblMaNhanVien11 = new javax.swing.JLabel();
         lblConLai = new javax.swing.JLabel();
@@ -55,7 +55,7 @@ public class GUI_pnl_ThongKe extends javax.swing.JPanel {
         lblDatCoc = new javax.swing.JLabel();
         lblDoanhThu = new javax.swing.JLabel();
         lblChiPhi = new javax.swing.JLabel();
-        sdoFormChinh2 = new HELPER.PanelShadow();
+        sdoFormChinh2 = new LIB.PanelShadow();
         lblPhanTramCuaPhongTrong = new javax.swing.JLabel();
         lblPhongTrong = new javax.swing.JLabel();
         lblMaNhanVien7 = new javax.swing.JLabel();
@@ -67,16 +67,16 @@ public class GUI_pnl_ThongKe extends javax.swing.JPanel {
         lblMaNhanVien10 = new javax.swing.JLabel();
         lblMaNhanVien13 = new javax.swing.JLabel();
         lblMaNhanVien20 = new javax.swing.JLabel();
-        sdoFormChinh3 = new HELPER.PanelShadow();
+        sdoFormChinh3 = new LIB.PanelShadow();
         barChartTheoLoaiPhong = new HELPER.Chart();
-        sdoFormChinh4 = new HELPER.PanelShadow();
+        sdoFormChinh4 = new LIB.PanelShadow();
         lblSetNgayTao4 = new javax.swing.JLabel();
         lblMaNhanVien12 = new javax.swing.JLabel();
         pieChartTheoLoaiPhong = new HELPER.PolarAreaChart();
-        sdoFormChinh5 = new HELPER.PanelShadow();
+        sdoFormChinh5 = new LIB.PanelShadow();
         lblSetNgayTao5 = new javax.swing.JLabel();
         lblMaNhanVien22 = new javax.swing.JLabel();
-        sdoFormChinh6 = new HELPER.PanelShadow();
+        sdoFormChinh6 = new LIB.PanelShadow();
         lblSetNgayTao6 = new javax.swing.JLabel();
         lblMaNhanVien23 = new javax.swing.JLabel();
         chart2 = new HELPER.Chart();
@@ -89,7 +89,7 @@ public class GUI_pnl_ThongKe extends javax.swing.JPanel {
         sdoChucNang.setPreferredSize(new java.awt.Dimension(1150, 60));
         sdoChucNang.setShadowOpacity(0.4F);
         sdoChucNang.setShadowSize(9);
-        sdoChucNang.setShadowType(HELPER.ShadowType.BOT);
+        sdoChucNang.setShadowType(LIB.ShadowType.BOT);
         sdoChucNang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblThongKe.setBackground(new java.awt.Color(255, 255, 255));
@@ -309,7 +309,7 @@ public class GUI_pnl_ThongKe extends javax.swing.JPanel {
         sdoFormChinh4.setBackground(new java.awt.Color(255, 255, 255));
         sdoFormChinh4.setShadowOpacity(0.4F);
         sdoFormChinh4.setShadowSize(9);
-        sdoFormChinh4.setShadowType(HELPER.ShadowType.BOT);
+        sdoFormChinh4.setShadowType(LIB.ShadowType.BOT);
         sdoFormChinh4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblSetNgayTao4.setBackground(new java.awt.Color(255, 255, 255));
@@ -328,7 +328,7 @@ public class GUI_pnl_ThongKe extends javax.swing.JPanel {
         sdoFormChinh5.setBackground(new java.awt.Color(255, 255, 255));
         sdoFormChinh5.setShadowOpacity(0.4F);
         sdoFormChinh5.setShadowSize(9);
-        sdoFormChinh5.setShadowType(HELPER.ShadowType.BOT);
+        sdoFormChinh5.setShadowType(LIB.ShadowType.BOT);
         sdoFormChinh5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblSetNgayTao5.setBackground(new java.awt.Color(255, 255, 255));
@@ -344,7 +344,7 @@ public class GUI_pnl_ThongKe extends javax.swing.JPanel {
         sdoFormChinh6.setBackground(new java.awt.Color(255, 255, 255));
         sdoFormChinh6.setShadowOpacity(0.4F);
         sdoFormChinh6.setShadowSize(9);
-        sdoFormChinh6.setShadowType(HELPER.ShadowType.BOT);
+        sdoFormChinh6.setShadowType(LIB.ShadowType.BOT);
 
         lblSetNgayTao6.setBackground(new java.awt.Color(255, 255, 255));
         lblSetNgayTao6.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
@@ -441,13 +441,13 @@ public class GUI_pnl_ThongKe extends javax.swing.JPanel {
     private javax.swing.JLabel lblTienDichVu;
     private javax.swing.JLabel lblTienPhong;
     private HELPER.PolarAreaChart pieChartTheoLoaiPhong;
-    private HELPER.PanelShadow sdoChucNang;
-    private HELPER.PanelShadow sdoFormChinh1;
-    private HELPER.PanelShadow sdoFormChinh2;
-    private HELPER.PanelShadow sdoFormChinh3;
-    private HELPER.PanelShadow sdoFormChinh4;
-    private HELPER.PanelShadow sdoFormChinh5;
-    private HELPER.PanelShadow sdoFormChinh6;
+    private LIB.PanelShadow sdoChucNang;
+    private LIB.PanelShadow sdoFormChinh1;
+    private LIB.PanelShadow sdoFormChinh2;
+    private LIB.PanelShadow sdoFormChinh3;
+    private LIB.PanelShadow sdoFormChinh4;
+    private LIB.PanelShadow sdoFormChinh5;
+    private LIB.PanelShadow sdoFormChinh6;
     // End of variables declaration//GEN-END:variables
 void init() {
         Date date = new Date();

@@ -26,12 +26,13 @@ public class DTO_ThuePhong {
     public int tienCoc;
     public int giamGia;
     public byte[] hinhAnh;
+    public String maPhuongThuc;
     public int trangThaiThanhToan;
 
     public DTO_ThuePhong() {
     }
 
-    public DTO_ThuePhong(String maPhong, String maPhieuThue, String maNhanVien, Date ngayTao, Date ngayDen, Date ngayDi, String CMND, String tenKhachHang, int soLuong, String ghiChu, int tienCoc, int giamGia, byte[] hinhAnh, int trangThaiThanhToan) {
+    public DTO_ThuePhong(String maPhong, String maPhieuThue, String maNhanVien, Date ngayTao, Date ngayDen, Date ngayDi, String CMND, String tenKhachHang, int soLuong, String ghiChu, int tienCoc, int giamGia, byte[] hinhAnh, String maPhuongThuc, int trangThaiThanhToan) {
         this.maPhong = maPhong;
         this.maPhieuThue = maPhieuThue;
         this.maNhanVien = maNhanVien;
@@ -45,6 +46,7 @@ public class DTO_ThuePhong {
         this.tienCoc = tienCoc;
         this.giamGia = giamGia;
         this.hinhAnh = hinhAnh;
+        this.maPhuongThuc = maPhuongThuc;
         this.trangThaiThanhToan = trangThaiThanhToan;
     }
 
@@ -150,6 +152,14 @@ public class DTO_ThuePhong {
 
     public void setHinhAnh(byte[] hinhAnh) {
         this.hinhAnh = hinhAnh;
+    }
+
+    public String getMaPhuongThuc() {
+        return maPhuongThuc;
+    }
+
+    public void setMaPhuongThuc(String maPhuongThuc) {
+        this.maPhuongThuc = maPhuongThuc;
     }
 
     public int getTrangThaiThanhToan() {

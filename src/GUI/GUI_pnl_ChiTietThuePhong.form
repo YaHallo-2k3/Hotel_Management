@@ -37,7 +37,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="HELPER.PanelShadow" name="sdoChiTietThuePhong">
+    <Container class="LIB.PanelShadow" name="sdoChiTietThuePhong">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -50,7 +50,7 @@
         </Property>
         <Property name="shadowOpacity" type="float" value="0.3"/>
         <Property name="shadowSize" type="int" value="4"/>
-        <Property name="shadowType" type="HELPER.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="shadowType" type="LIB.ShadowType" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="BOT_RIGHT"/>
         </Property>
       </Properties>

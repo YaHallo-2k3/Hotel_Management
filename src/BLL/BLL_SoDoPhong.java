@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author CherryCe
  */
 public class BLL_SoDoPhong {
-
+    
     public static int countPhong() {
         ResultSet rs = DAL_SoDoPhong.count();
         try {
@@ -34,7 +34,7 @@ public class BLL_SoDoPhong {
         }
         return 0;
     }
-
+    
     public static int countPhong(String maTang) {
         ResultSet rs = DAL_SoDoPhong.count(maTang);
         try {
@@ -46,7 +46,7 @@ public class BLL_SoDoPhong {
         }
         return 0;
     }
-
+    
     public static int countLoaiPhong(String maTrangThaiPhong) {
         ResultSet rs = DAL_SoDoPhong.countLoaiPhong(maTrangThaiPhong);
         try {
@@ -58,7 +58,7 @@ public class BLL_SoDoPhong {
         }
         return 0;
     }
-
+    
     public static int countLoaiPhong(String maTang, String maTrangThaiPhong) {
         ResultSet rs = DAL_SoDoPhong.countLoaiPhong(maTang, maTrangThaiPhong);
         try {
@@ -70,7 +70,7 @@ public class BLL_SoDoPhong {
         }
         return 0;
     }
-
+    
     public static ArrayList<DTO_Phong> selectPhong(int index) {
         ResultSet rs = DAL_SoDoPhong.rowNumber(index);
         ArrayList<DTO_Phong> array = new ArrayList<>();
@@ -108,7 +108,7 @@ public class BLL_SoDoPhong {
         }
         return array;
     }
-
+    
     public static ArrayList<DTO_Phong> selectPhong(String maTang, int index) {
         ResultSet rs = DAL_SoDoPhong.rowNumber(maTang, index);
         ArrayList<DTO_Phong> array = new ArrayList<>();
@@ -127,7 +127,7 @@ public class BLL_SoDoPhong {
         }
         return array;
     }
-
+    
     public static ArrayList<DTO_ThuePhong> selectThuePhong(String maPhong) {
         ResultSet rs = DAL_SoDoPhong.select(maPhong);
         ArrayList<DTO_ThuePhong> array = new ArrayList<>();
@@ -154,7 +154,7 @@ public class BLL_SoDoPhong {
         }
         return array;
     }
-
+    
     public static void loadPhong(ArrayList<DTO_Phong> array, JLabel lblSetPhong, JLabel lblSetLoaiPhong, JLabel lblSetTrangThaiPhong) {
         for (DTO_Phong phong : array) {
             lblSetPhong.setText(phong.getTenPhong());
@@ -162,7 +162,7 @@ public class BLL_SoDoPhong {
             lblSetTrangThaiPhong.setText(BLL_MaTenLoai.findTenTrangThaiPhong(phong.getMaTrangThaiPhong()));
         }
     }
-
+    
     public static void loadThuePhong(ArrayList<DTO_ThuePhong> array, JLabel lblNgayDen, JLabel lblThangDen, JLabel lblGioPhutDen, JLabel lblNgayDi, JLabel lblThangDi, JLabel lblGioPhutDi, JLabel lblDatCoc) {
         for (DTO_ThuePhong thuePhong : array) {
             lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd", thuePhong.getNgayDen()));
@@ -180,14 +180,14 @@ public class BLL_SoDoPhong {
             lblDatCoc.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getTienCoc()) + "K");
         }
     }
-
+    
     public static void loadThongTinPhong(ArrayList<DTO_Phong> array, JLabel lblSetSo_LoaiPhong, JLabel lblSetTrangThaiPhong) {
         for (DTO_Phong phong : array) {
             lblSetSo_LoaiPhong.setText(phong.getTenPhong() + " - " + BLL_MaTenLoai.findTenLoaiPhong(phong.getMaLoaiPhong()));
             lblSetTrangThaiPhong.setText(BLL_MaTenLoai.findTenTrangThaiPhong(phong.getMaTrangThaiPhong()));
         }
     }
-
+    
     public static String findMaPhong(int index) {
         ResultSet rs = DAL_SoDoPhong.rowNumber(index);
         try {
@@ -199,12 +199,36 @@ public class BLL_SoDoPhong {
         }
         return null;
     }
-
+    
     public static String findMaPhong(String maTang, int index) {
         ResultSet rs = DAL_SoDoPhong.rowNumber(maTang, index);
         try {
             while (rs.next()) {
                 return rs.getString("MaPhong");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static String selectChuyenPhong(int index) {
+        ResultSet rs = DAL_SoDoPhong.rowNumber(index);
+        try {
+            while (rs.next()) {
+                return rs.getString("TenPhong") + " - " + BLL_MaTenLoai.findTenLoaiPhong(rs.getString("MaLoaiPhong"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static String selectChuyenPhong(String maTang, int index) {
+        ResultSet rs = DAL_SoDoPhong.rowNumber(maTang, index);
+        try {
+            while (rs.next()) {
+                return rs.getString("TenPhong") + " - " + BLL_MaTenLoai.findTenLoaiPhong(rs.getString("MaLoaiPhong"));
             }
         } catch (Exception e) {
             e.printStackTrace();

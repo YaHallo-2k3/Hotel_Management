@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  * @author CherryCe
  */
 public class GUI_frm_Menu extends javax.swing.JFrame {
-
+    
     static boolean isShowHidden = false;
     public boolean isWindow = false;
     public String tenNhanVien;
@@ -69,7 +69,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         load();
 //            auThenTiCaTion();
     }
-
+    
     public void auThenTiCaTion() {
         ResultSet rs = DAL_TaiKhoan.auThenTiCaTion(GUI_pnl_DangNhap.taiKhoan);
         try {
@@ -88,7 +88,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
             lblQuanLiNguoiDung.setEnabled(false);
         }
     }
-
+    
     public void load() {
         lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource(lblSoDoPhongIconClicked)));
         setForeground_33_150_243(lblSoDoPhong);
@@ -99,7 +99,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 //        pnlFormChinh.validate();
 //        pnlFormChinh.repaint();
     }
-
+    
     public void menuItemClicked(JLabel lblClicked, String lblIconClicked, String lblIconExited, Component component) {
         lbl.setIcon(new ImageIcon(getClass().getResource(lblIcon)));
         setForeground_255_255_255(lbl);
@@ -107,12 +107,13 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         setForeground_33_150_243(lblClicked);
         lbl = lblClicked;
         lblIcon = lblIconExited;
+        lblSetTenMenu.setText("Game2K - " + lbl.getText());
         pnlFormChinh.removeAll();
         pnlFormChinh.add(component);
         pnlFormChinh.validate();
         pnlFormChinh.repaint();
     }
-
+    
     public void logOut() {
         int choice = JOptionPane.showConfirmDialog(null, "Bạn Có Muốn Đăng Xuất ???", "LogOut", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
@@ -122,7 +123,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         }
         return;
     }
-
+    
     public void exit() {
         int choice = JOptionPane.showConfirmDialog(null, "Bạn Có Muốn Thoát Chương Trình ???", "Thoát", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
@@ -130,19 +131,19 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         }
         return;
     }
-
+    
     public void setBackground_78_87_103(javax.swing.JLabel lbl) {
         lbl.setBackground(new Color(78, 87, 103));
     }
-
+    
     public void setBackground_62_73_95(javax.swing.JLabel lbl) {
         lbl.setBackground(new Color(62, 73, 95));
     }
-
+    
     public void setForeground_255_255_255(javax.swing.JLabel lbl) {
         lbl.setForeground(new Color(255, 255, 255));
     }
-
+    
     public void setForeground_33_150_243(javax.swing.JLabel lbl) {
         lbl.setForeground(new Color(33, 150, 243));
     }
