@@ -9,6 +9,7 @@ import DAL.DAL_SoDoPhong;
 import DAL.DAL_ThuePhong;
 import DTO.DTO_Phong;
 import DTO.DTO_ThuePhong;
+import GUI.GUI_dal_ChuyenPhong;
 import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_SetIcon;
 import com.toedter.calendar.JDateChooser;
@@ -48,7 +49,7 @@ public class BLL_ThuePhong {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_ThuePhong.addThuePhong(thuePhong);
-            DAL_ThuePhong.setTrangThaiPhong("CoKhach", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
+            DAL_ThuePhong.setTrangThaiPhong("CoKhach", thuePhong.getMaPhong());
         }
     }
 
@@ -57,7 +58,7 @@ public class BLL_ThuePhong {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_ThuePhong.addDatPhong(thuePhong);
-            DAL_ThuePhong.setTrangThaiPhong("DatTruoc", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
+            DAL_ThuePhong.setTrangThaiPhong("DatTruoc", thuePhong.getMaPhong());
         }
     }
 
@@ -75,7 +76,7 @@ public class BLL_ThuePhong {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_ThuePhong.editThuePhong(thuePhong);
-            DAL_ThuePhong.setTrangThaiPhong("CoKhach", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
+            DAL_ThuePhong.setTrangThaiPhong("CoKhach", thuePhong.getMaPhong());
         }
     }
 
@@ -84,7 +85,7 @@ public class BLL_ThuePhong {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_ThuePhong.editDatPhong(thuePhong);
-            DAL_ThuePhong.setTrangThaiPhong("DatTruoc", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
+            DAL_ThuePhong.setTrangThaiPhong("DatTruoc", thuePhong.getMaPhong());
         }
     }
 
@@ -93,7 +94,7 @@ public class BLL_ThuePhong {
             JOptionPane.showMessageDialog(null, "Dữ Liệu Không Được Để Trống !!!");
         } else {
             DAL_ThuePhong.addThanhToan(thuePhong);
-            DAL_ThuePhong.setTrangThaiPhong("TraPhong", BLL_MaTenLoai.findMaPhong(thuePhong.getMaPhong()));
+            DAL_ThuePhong.setTrangThaiPhong("TraPhong", thuePhong.getMaPhong());
         }
     }
 
@@ -224,6 +225,26 @@ public class BLL_ThuePhong {
                 lblImage.setIcon(HELPER_SetIcon.resizeImage(thuePhong.getHinhAnh(), lblImage));
             }
             cboPhuongThuc.setSelectedItem(BLL_MaTenLoai.findTenPhuongThuc(thuePhong.getMaPhuongThuc()));
+        }
+    }
+
+    public static void load(ArrayList<DTO_ThuePhong> array) {
+        for (DTO_ThuePhong thuePhong : array) {
+            GUI_dal_ChuyenPhong.maPhong = thuePhong.getMaPhong();
+            GUI_dal_ChuyenPhong.maPhieuThue = thuePhong.getMaPhieuThue();
+            GUI_dal_ChuyenPhong.maNhanVien = thuePhong.getMaNhanVien();
+            GUI_dal_ChuyenPhong.ngayTao = thuePhong.getNgayTao();
+            GUI_dal_ChuyenPhong.ngayDen = thuePhong.getNgayDen();
+            GUI_dal_ChuyenPhong.ngayDi = thuePhong.getNgayDi();
+            GUI_dal_ChuyenPhong.CMND = thuePhong.getCMND();
+            GUI_dal_ChuyenPhong.tenKhachHang = thuePhong.getTenKhachHang();
+            GUI_dal_ChuyenPhong.soLuong = thuePhong.getSoLuong();
+            GUI_dal_ChuyenPhong.ghiChu = thuePhong.getGhiChu();
+            GUI_dal_ChuyenPhong.tienCoc = thuePhong.getTienCoc();
+            GUI_dal_ChuyenPhong.giamGia = thuePhong.getGiamGia();
+            GUI_dal_ChuyenPhong.hinhAnh = thuePhong.getHinhAnh();
+            GUI_dal_ChuyenPhong.maPhuongThuc = thuePhong.getMaPhuongThuc();
+            GUI_dal_ChuyenPhong.trangThaiThanhToan = thuePhong.getTrangThaiThanhToan();
         }
     }
 

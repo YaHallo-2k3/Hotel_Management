@@ -9,14 +9,23 @@ import BLL.BLL_HangMucChi;
 import BLL.BLL_MaTenLoai;
 import BLL.BLL_Phong;
 import BLL.BLL_SoDoPhong;
+import BLL.BLL_TaiKhoan;
 import BLL.BLL_ThuePhong;
+import DAL.DAL_ThuePhong;
 import DTO.DTO_HangMucChi;
 import DTO.DTO_Phong;
 import DTO.DTO_SoTang;
+import DTO.DTO_ThuePhong;
+import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_SetMa;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -27,6 +36,22 @@ public class GUI_dal_ChuyenPhong extends javax.swing.JDialog {
     public static String maTang;
     public static int index;
     public static JDialog dal = null;
+    public static String maPhong;
+    public static String maPhieuThue;
+    public static String maNhanVien;
+    public static Date ngayTao;
+    public static Date ngayDen;
+    public static Date ngayDi;
+    public static String CMND;
+    public static String tenKhachHang;
+    public static int soLuong;
+    public static String ghiChu;
+    public static int tienCoc;
+    public static int giamGia;
+    public static byte[] hinhAnh;
+    public static String maPhuongThuc;
+    public static int trangThaiThanhToan;
+    public static int conLai;
 
     /**
      * Creates new form GUI_dalThongTinPhong
@@ -35,13 +60,14 @@ public class GUI_dal_ChuyenPhong extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        loadThuePhong();
+        loadPhong();
         loadTenTang();
         search();
+        loadThuePhong();
         dal = this;
     }
 
-    public void loadThuePhong() {
+    public void loadPhong() {
         if (!GUI_pnl_SoDoPhong.isSelectPhong) {
             lblSoPhongDi.setText(BLL_SoDoPhong.selectChuyenPhong(GUI_pnl_ChiTietPhong.indexPosition + 1));
         } else {
@@ -66,6 +92,11 @@ public class GUI_dal_ChuyenPhong extends javax.swing.JDialog {
         }
         pnlDanhSachPhong.validate();
         pnlDanhSachPhong.repaint();
+    }
+
+    public void loadThuePhong() {
+        ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuePhong.select(BLL_MaTenLoai.findMaPhong(lblSoPhongDi.getText().substring(0, 3)));
+        BLL_ThuePhong.load(arrayThuePhong);
     }
 
     /**
@@ -258,9 +289,26 @@ public class GUI_dal_ChuyenPhong extends javax.swing.JDialog {
         // TODO add your handling code here:
         int choice = JOptionPane.showConfirmDialog(this, "Chuyển Từ Phòng " + lblSoPhongDi.getText().substring(0, 3) + " Đến Phòng " + lblSoPhongDen.getText().substring(0, 3) + "\n" + "Bạn Có Muốn Thanh Toán Không ???", "Chuyển Phòng", JOptionPane.YES_NO_CANCEL_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
-
+            DTO_ThuePhong thuePhong = new DTO_ThuePhong(BLL_MaTenLoai.findMaPhong(lblSoPhongDen.getText().substring(0, 3)), HELPER_SetMa.setMaDateTime("PT"), BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm")), null, CMND, tenKhachHang, soLuong, ghiChu, 0, 0, hinhAnh, maPhuongThuc, trangThaiThanhToan);
+            BLL_ThuePhong.addThuePhong(thuePhong);
+            DTO_ThuePhong thanhToan = new DTO_ThuePhong(BLL_MaTenLoai.findMaPhong(lblSoPhongDi.getText().substring(0, 3)), maPhieuThue, maNhanVien, ngayTao, ngayDen, HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm")), CMND, tenKhachHang, soLuong, ghiChu, tienCoc, giamGia, hinhAnh, maPhuongThuc, trangThaiThanhToan);
+            BLL_ThuePhong.addThanhToan(thanhToan);
+            if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+                GUI_pnl_SoDoPhong.load();
+            } else {
+                GUI_pnl_SoDoPhong.search();
+            }
+            GUI_dal_ChuyenPhong.dal.dispose();
         } else if (choice == JOptionPane.NO_OPTION) {
-
+            DTO_ThuePhong thuePhong = new DTO_ThuePhong(BLL_MaTenLoai.findMaPhong(lblSoPhongDen.getText().substring(0, 3)), HELPER_SetMa.setMaDateTime("PT"), BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm")), null, CMND, tenKhachHang, soLuong, ghiChu, 0, 0 - conLai, hinhAnh, maPhuongThuc, trangThaiThanhToan);
+            BLL_ThuePhong.addThuePhong(thuePhong);
+            DAL_ThuePhong.setTrangThaiPhong("TraPhong", BLL_MaTenLoai.findMaPhong(lblSoPhongDi.getText().substring(0, 3)));
+            if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+                GUI_pnl_SoDoPhong.load();
+            } else {
+                GUI_pnl_SoDoPhong.search();
+            }
+            GUI_dal_ChuyenPhong.dal.dispose();
         }
         return;
     }//GEN-LAST:event_lblChuyenMouseClicked

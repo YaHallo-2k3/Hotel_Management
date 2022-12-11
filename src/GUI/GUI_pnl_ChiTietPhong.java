@@ -730,6 +730,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
 
     private void mniChuyenPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChuyenPhongActionPerformed
         // TODO add your handling code here:
+        GUI_dal_ChuyenPhong.conLai = HELPER_ChuyenDoi.getSoInt(lblSetConLai.getText());
         new GUI_dal_ChuyenPhong(null, true).setVisible(true);
     }//GEN-LAST:event_mniChuyenPhongActionPerformed
 

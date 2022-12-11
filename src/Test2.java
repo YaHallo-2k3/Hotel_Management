@@ -11,6 +11,6 @@ import javax.swing.table.*;
 public class Test2 {
 
     public static void main(String[] args) {
-        System.out.print("TK" + "\n" + "NK");
+        System.out.print(HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", "12-12-2022 22:22"));
     }
 }
