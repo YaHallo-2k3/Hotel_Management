@@ -24,7 +24,7 @@ public class DAL_DichVu {
 
     public static void delete(String maPhieuDichVu) {
         String sqlDelete = "DELETE FROM PhieuDichVu WHERE MaPhieuDichVu = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlDelete, maPhieuDichVu);
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maPhieuDichVu);
     }
 
     public static ResultSet countSearch(String tuNgay, String denNgay) {

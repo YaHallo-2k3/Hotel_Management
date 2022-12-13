@@ -45,7 +45,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
 
     public static void load() {
         int setHeight = BLL_SoDoPhong.countPhong() / 5;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_SoDoPhong.countPhong(); i++) {
             index = i;

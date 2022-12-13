@@ -98,7 +98,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     public void validatePhong() {
         if (lblSetTrangThai.getText().equals("Phòng Trống")) {
             sdoChiTietPhong.setBackground(new Color(97, 177, 90));
-            lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/beds (1).png")));
+            lblIconTrangThai.setIcon(new ImageIcon("src/IMG/beds (1).png"));
             mniDonPhong.setVisible(true);
             mniDatPhong.setVisible(true);
             mniThuePhong.setVisible(true);
@@ -123,7 +123,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
                 mniThongTinPhong.setVisible(true);
                 sdoChiTietPhong.setBackground(new Color(240, 165, 0));
             }
-            lblIconTrangThai.setIcon(new ImageIcon(getClass().getResource("/IMG/hotel-sign (2).png")));
+            lblIconTrangThai.setIcon(new ImageIcon("src/IMG/hotel-sign (2).png"));
             isShowHiddenMoney(true);
             isShowHiddenTime(false);
             setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)), HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2)) + 1);
@@ -203,7 +203,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
             diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
             lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
-            FileInputStream file = new FileInputStream(new File(String.valueOf(new ImageIcon(getClass().getResource(filePath))).replaceAll("file:/", "")));
+            FileInputStream file = new FileInputStream(filePath);
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
             if (diffInDay == 0) {

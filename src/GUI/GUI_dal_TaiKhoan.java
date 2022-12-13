@@ -76,7 +76,6 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
             psdMatKhau.setEchoChar('*');
             psdMatKhau.setForeground(new Color(62, 73, 95));
             isAddEdit = true;
-
         }
     }
 

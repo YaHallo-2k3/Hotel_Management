@@ -42,7 +42,7 @@ public class GUI_pnl_QuanLiChiPhi extends javax.swing.JPanel {
 
     public static void search() {
         int setHeight = BLL_PhieuChi.countSearch(tuNgay, denNgay) / 4;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 250 * setHeight));
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_PhieuChi.countSearch(tuNgay, denNgay); i++) {
             index = i;

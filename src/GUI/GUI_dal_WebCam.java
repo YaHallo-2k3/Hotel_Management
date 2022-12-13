@@ -24,7 +24,7 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
     public static Webcam webcam;
     public static boolean check = false;
     public static int count;
-    public static String path = String.valueOf(new ImageIcon().getClass().getResource("/WEBCAM")).replaceAll("file:/", "");
+    public static String path = "src/WEBCAM";
 
     /**
      * Creates new form GUI_dal_WebCam
@@ -44,6 +44,7 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
         webcam.open();
         File file = new File(path);
         count = file.list().length;
+        System.out.println(count);
         lblXoa.setVisible(false);
         lblLuu.setVisible(false);
     }

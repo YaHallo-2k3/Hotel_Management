@@ -44,7 +44,7 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
     public static void search() {
         tongTien = 0;
         int setHeight = (BLL_ThuNgan.countThuePhong(tuNgay, denNgay) + BLL_ThuNgan.countTienCoc(tuNgay, denNgay) + BLL_ThuNgan.countDichVu(tuNgay, denNgay)) / 4;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_ThuNgan.countThuePhong(tuNgay, denNgay); i++) {
             isSelect = "ThuePhong";

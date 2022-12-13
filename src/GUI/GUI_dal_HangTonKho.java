@@ -29,7 +29,7 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         load();
         loadTonKho();
-//        loadTongTien();
+        loadTongTien();
     }
 
     public void load() {
@@ -277,7 +277,7 @@ public class GUI_dal_HangTonKho extends javax.swing.JDialog {
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
         // TODO add your handling code here:
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked

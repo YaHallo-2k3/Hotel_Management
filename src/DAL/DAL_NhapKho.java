@@ -24,7 +24,7 @@ public class DAL_NhapKho {
 
     public static void delete(String maNhapKho) {
         String sqlDelete = "DELETE FROM NhapKho WHERE MaNhapKho = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlDelete, maNhapKho);
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maNhapKho);
     }
 
     public static ResultSet countSearch(String tuNgay, String denNgay) {
@@ -36,7 +36,7 @@ public class DAL_NhapKho {
         String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaNhapKho) AS RowNumber FROM NhapKho WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?) AS NhapKho WHERE NhapKho.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);
     }
-    
+
     public static ResultSet money(String tuNgay, String denNgay) {
         String sqlSelect = "SELECT SUM(SoLuong * GiaNhap) FROM ChiTietNhapkho JOIN NhapKho ON NhapKho.MaNhapKho = ChiTietNhapkho.MaNhapKho WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);

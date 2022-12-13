@@ -457,12 +457,12 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblSanPham.getSelectedRow();
         int column = tblSanPham.getSelectedColumn();
-        if (tblSanPham.getValueAt(row, column) != null && tblSanPham.getValueAt(row, column + 1) != null || tblSanPham.getValueAt(row, column) != null && tblSanPham.getValueAt(row, column - 1) != null) {
+        if (column<6) {
             fillSanPham(row);
-        } else if (tblSanPham.getValueAt(row, column) == null && tblSanPham.getValueAt(row, column - 1) != null) {
+        } else if (column==6) {
             editSanPham();
             loadSanPham();
-        } else if (tblSanPham.getValueAt(row, column) == null && tblSanPham.getValueAt(row, column - 1) == null) {
+        } else if (column==7) {
             deleteSanPham(row);
             loadSanPham();
         }
@@ -472,13 +472,13 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblLoaiSanPham.getSelectedRow();
         int column = tblLoaiSanPham.getSelectedColumn();
-        if (tblLoaiSanPham.getValueAt(row, column) != null && tblLoaiSanPham.getValueAt(row, column + 1) != null || tblLoaiSanPham.getValueAt(row, column) != null && tblLoaiSanPham.getValueAt(row, column - 1) != null) {
+        if (column<2) {
             fillLoaiSanPham(row);
-        } else if (tblLoaiSanPham.getValueAt(row, column) == null && tblLoaiSanPham.getValueAt(row, column - 1) != null) {
+        } else if (column==2) {
             editLoaiSanPham();
             loadLoaiSanPham();
             loadTenLoaiSanPham();
-        } else if (tblLoaiSanPham.getValueAt(row, column) == null && tblLoaiSanPham.getValueAt(row, column - 1) == null) {
+        } else if (column==3) {
             deleteLoaiSanPham(row);
             loadLoaiSanPham();
             loadTenLoaiSanPham();

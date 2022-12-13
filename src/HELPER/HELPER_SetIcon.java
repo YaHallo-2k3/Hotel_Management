@@ -22,7 +22,7 @@ public class HELPER_SetIcon {
     public static class iconAccount extends DefaultTableCellRenderer {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon(getClass().getResource("/IMG/profile-user (5).png")));
+            setIcon(new ImageIcon("src/IMG/profile-user (5).png"));
             setHorizontalAlignment(CENTER);
             return this;
         }
@@ -31,7 +31,7 @@ public class HELPER_SetIcon {
     public static class iconAdd extends DefaultTableCellRenderer {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon(getClass().getResource("/IMG/queue.png")));
+            setIcon(new ImageIcon("src/IMG/queue.png"));
             setHorizontalAlignment(CENTER);
             return this;
         }
@@ -40,7 +40,7 @@ public class HELPER_SetIcon {
     public static class iconEdit extends DefaultTableCellRenderer {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon(getClass().getResource("/IMG/edit.png")));
+            setIcon(new ImageIcon("src/IMG/edit.png"));
             setHorizontalAlignment(CENTER);
             return this;
         }
@@ -49,7 +49,7 @@ public class HELPER_SetIcon {
     public static class iconDelete extends DefaultTableCellRenderer {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setIcon(new ImageIcon(getClass().getResource("/IMG/trash.png")));
+            setIcon(new ImageIcon("src/IMG/trash.png"));
             setHorizontalAlignment(CENTER);
             return this;
         }

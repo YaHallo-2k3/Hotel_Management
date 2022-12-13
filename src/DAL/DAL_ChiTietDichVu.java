@@ -19,6 +19,11 @@ public class DAL_ChiTietDichVu {
         String sqlInsert = "INSERT INTO ChiTietDichVu VALUES (?, ?, ?, ?, ?)";
         HELPER_ConnectSQL.executeUpdateNoMessage(sqlInsert, chiTietDichVu.getMaChiTiet(), chiTietDichVu.getMaPhieuDichVu(), chiTietDichVu.getMaSanPham(), chiTietDichVu.getSoLuong(), chiTietDichVu.getGiaTien());
     }
+    
+    public static void delete(String maPhieuDichVu) {
+        String sqlDelete = "DELETE FROM ChiTietDichVu WHERE MaPhieuDichVu = ?";
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maPhieuDichVu);
+    }
 
     public static ResultSet select() {
         String sqlSelect = "SELECT * FROM ChiTietDichVu ORDER BY MaChiTiet";

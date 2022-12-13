@@ -29,36 +29,36 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     public String chucVu;
     public JLabel lbl;
     public String lblIcon;
-    public String lblSoDoPhongIconClicked = "/IMG/app.png";
-    public String lblThuNganIconClicked = "/IMG/money (1).png";
-    public String lblLichSuThuePhongIconClicked = "/IMG/hotel-sign (3).png";
-    public String lblDanhSachDatPhongIconClicked = "/IMG/booking (1).png";
-    public String lblDichVuIconClicked = "/IMG/minibar (3).png";
-    public String lblThongKeTrongNgayIconClicked = "/IMG/line-chart (1).png";
-    public String lblChiTietGiaoCaIconClicked = "/IMG/exchange (7).png";
-    public String lblQuanLiSanPhamIconClicked = "/IMG/box (1).png";
-    public String lblQuanLiKhoIconClicked = "/IMG/project-management (1).png";
-    public String lblQuanLiChiPhiIconClicked = "/IMG/assets (2).png";
-    public String lblThietDatPhongIconClicked = "/IMG/bed (2).png";
-    public String lblThietDatGiaPhongIconClicked = "/IMG/card (1).png";
-    public String lblQuanLiNguoiDungIconClicked = "/IMG/profile-user (3).png";
-    public String lblThayDoiMatKhauIconClicked = "/IMG/reset-password (3).png";
-    public String lblDangXuatIconClicked = "/IMG/logout (7).png";
-    public String lblSoDoPhongIconExited = "/IMG/show-apps-button.png";
-    public String lblThuNganIconExited = "/IMG/money.png";
-    public String lblLichSuThuePhongIconExited = "/IMG/hotel.png";
-    public String lblDanhSachDatPhongIconExited = "/IMG/booking.png";
-    public String lblDichVuIconExited = "/IMG/minibar (2).png";
-    public String lblThongKeTrongNgayIconExited = "/IMG/line-chart.png";
-    public String lblChiTietGiaoCaIconExited = "/IMG/exchange (6).png";
-    public String lblQuanLiSanPhamIconExited = "/IMG/box.png";
-    public String lblQuanLiKhoIconExited = "/IMG/project-management.png";
-    public String lblQuanLiChiPhiIconExited = "/IMG/assets (1).png";
-    public String lblThietDatPhongIconExited = "/IMG/bed (1).png";
-    public String lblThietDatGiaPhongIconExited = "/IMG/card.png";
-    public String lblQuanLiNguoiDungIconExited = "/IMG/profile-user (2).png";
-    public String lblThayDoiMatKhauIconExited = "/IMG/reset-password (1).png";
-    public String lblDangXuatIconExited = "/IMG/logout.png";
+    public String lblSoDoPhongIconClicked = "src/IMG/app.png";
+    public String lblThuNganIconClicked = "src/IMG/money (1).png";
+    public String lblLichSuThuePhongIconClicked = "src/IMG/hotel-sign (3).png";
+    public String lblDanhSachDatPhongIconClicked = "src/IMG/booking (1).png";
+    public String lblDichVuIconClicked = "src/IMG/minibar (3).png";
+    public String lblThongKeTrongNgayIconClicked = "src/IMG/line-chart (1).png";
+    public String lblChiTietGiaoCaIconClicked = "src/IMG/exchange (7).png";
+    public String lblQuanLiSanPhamIconClicked = "src/IMG/box (1).png";
+    public String lblQuanLiKhoIconClicked = "src/IMG/project-management (1).png";
+    public String lblQuanLiChiPhiIconClicked = "src/IMG/assets (2).png";
+    public String lblThietDatPhongIconClicked = "src/IMG/bed (2).png";
+    public String lblThietDatGiaPhongIconClicked = "src/IMG/card (1).png";
+    public String lblQuanLiNguoiDungIconClicked = "src/IMG/profile-user (3).png";
+    public String lblThayDoiMatKhauIconClicked = "src/IMG/reset-password (3).png";
+    public String lblDangXuatIconClicked = "src/IMG/logout (7).png";
+    public String lblSoDoPhongIconExited = "src/IMG/show-apps-button.png";
+    public String lblThuNganIconExited = "src/IMG/money.png";
+    public String lblLichSuThuePhongIconExited = "src/IMG/hotel.png";
+    public String lblDanhSachDatPhongIconExited = "src/IMG/booking.png";
+    public String lblDichVuIconExited = "src/IMG/minibar (2).png";
+    public String lblThongKeTrongNgayIconExited = "src/IMG/line-chart.png";
+    public String lblChiTietGiaoCaIconExited = "src/IMG/exchange (6).png";
+    public String lblQuanLiSanPhamIconExited = "src/IMG/box.png";
+    public String lblQuanLiKhoIconExited = "src/IMG/project-management.png";
+    public String lblQuanLiChiPhiIconExited = "src/IMG/assets (1).png";
+    public String lblThietDatPhongIconExited = "src/IMG/bed (1).png";
+    public String lblThietDatGiaPhongIconExited = "src/IMG/card.png";
+    public String lblQuanLiNguoiDungIconExited = "src/IMG/profile-user (2).png";
+    public String lblThayDoiMatKhauIconExited = "src/IMG/reset-password (1).png";
+    public String lblDangXuatIconExited = "src/IMG/logout.png";
 
     /**
      * Creates new form GUI_frmMenu
@@ -90,7 +90,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     }
     
     public void load() {
-        lblSoDoPhong.setIcon(new ImageIcon(getClass().getResource(lblSoDoPhongIconClicked)));
+        lblSoDoPhong.setIcon(new ImageIcon(lblSoDoPhongIconClicked));
         setForeground_33_150_243(lblSoDoPhong);
         lbl = lblSoDoPhong;
         lblIcon = lblSoDoPhongIconExited;
@@ -101,9 +101,9 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
     }
     
     public void menuItemClicked(JLabel lblClicked, String lblIconClicked, String lblIconExited, Component component) {
-        lbl.setIcon(new ImageIcon(getClass().getResource(lblIcon)));
+        lbl.setIcon(new ImageIcon(lblIcon));
         setForeground_255_255_255(lbl);
-        lblClicked.setIcon(new ImageIcon(getClass().getResource(lblIconClicked)));
+        lblClicked.setIcon(new ImageIcon(lblIconClicked));
         setForeground_33_150_243(lblClicked);
         lbl = lblClicked;
         lblIcon = lblIconExited;
@@ -944,11 +944,11 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         if (!isWindow) {
             this.setExtendedState(MAXIMIZED_BOTH);
             isWindow = true;
-            lblWindow.setIcon(new ImageIcon(getClass().getResource("/IMG/restore-down.png")));
+            lblWindow.setIcon(new ImageIcon("src/IMG/restore-down.png"));
         } else {
             this.setExtendedState(NORMAL);
             isWindow = false;
-            lblWindow.setIcon(new ImageIcon(getClass().getResource("/IMG/full-screen.png")));
+            lblWindow.setIcon(new ImageIcon("src/IMG/full-screen.png"));
         }
     }//GEN-LAST:event_lblWindowMouseClicked
 

@@ -124,7 +124,7 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
             diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
             diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
             lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
-            FileInputStream file = new FileInputStream(new File(String.valueOf(new ImageIcon(getClass().getResource(filePath))).replaceAll("file:/", "")));
+            FileInputStream file = new FileInputStream(filePath);
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
             if (diffInDay == 0) {

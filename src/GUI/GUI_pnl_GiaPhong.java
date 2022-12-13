@@ -48,14 +48,14 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
     public long diffInMinutes;
     public String path;
     public String setPrice;
-    public static String singleRoom_Day_Rate = "/DOCUMENT/SingleRoom_Day_Rate.xlsx";
-    public static String singleRoom_Hour_Rate = "/DOCUMENT/SingleRoom_Hour_Rate.xlsx";
-    public static String doubleRoom_Day_Rate = "/DOCUMENT/DoubleRoom_Day_Rate.xlsx";
-    public static String doubleRoom_Hour_Rate = "/DOCUMENT/DoubleRoom_Hour_Rate.xlsx";
-    public static String tripleRoom_Day_Rate = "/DOCUMENT/TripleRoom_Day_Rate.xlsx";
-    public static String tripleRoom_Hour_Rate = "/DOCUMENT/TripleRoom_Hour_Rate.xlsx";
-    public static String quadraRoom_Day_Rate = "/DOCUMENT/QuadraRoom_Day_Rate.xlsx";
-    public static String quadraRoom_Hour_Rate = "/DOCUMENT/QuadraRoom_Hour_Rate.xlsx";
+    public static String singleRoom_Day_Rate = "src/DOCUMENT/SingleRoom_Day_Rate.xlsx";
+    public static String singleRoom_Hour_Rate = "src/DOCUMENT/SingleRoom_Hour_Rate.xlsx";
+    public static String doubleRoom_Day_Rate = "src/DOCUMENT/DoubleRoom_Day_Rate.xlsx";
+    public static String doubleRoom_Hour_Rate = "src/DOCUMENT/DoubleRoom_Hour_Rate.xlsx";
+    public static String tripleRoom_Day_Rate = "src/DOCUMENT/TripleRoom_Day_Rate.xlsx";
+    public static String tripleRoom_Hour_Rate = "src/DOCUMENT/TripleRoom_Hour_Rate.xlsx";
+    public static String quadraRoom_Day_Rate = "src/DOCUMENT/QuadraRoom_Day_Rate.xlsx";
+    public static String quadraRoom_Hour_Rate = "src/DOCUMENT/QuadraRoom_Hour_Rate.xlsx";
 
     /**
      * Creates new form GUI_pnlSoDoPhong
@@ -83,7 +83,7 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
         rowIndex = -1;
         columnIndex = -1;
         try {
-            FileInputStream file = new FileInputStream(new File(String.valueOf(new ImageIcon(getClass().getResource(url))).replaceAll("file:/", "")));
+            FileInputStream file = new FileInputStream(url);
             Workbook workbook = new XSSFWorkbook(file);
             DataFormatter dataFormatter = new DataFormatter();
             Iterator<Sheet> sheets = workbook.sheetIterator();
@@ -137,7 +137,7 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
                     }
                 }
             }
-            FileOutputStream out = new FileOutputStream(new File(String.valueOf(new ImageIcon(getClass().getResource(url))).replaceAll("file:/", "")));
+            FileOutputStream out = new FileOutputStream(url);
             wb.write(out);
             wb.close();
             out.close();
@@ -220,7 +220,7 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
             diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
             diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
             lblSetThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
-            FileInputStream file = new FileInputStream(new File(String.valueOf(new ImageIcon(getClass().getResource(filePath))).replaceAll("file:/", "")));
+            FileInputStream file = new FileInputStream(filePath);
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
             if (diffInDay == 0) {

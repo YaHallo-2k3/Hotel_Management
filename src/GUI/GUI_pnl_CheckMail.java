@@ -14,7 +14,9 @@ import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.net.URI;
 import java.util.Random;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import jdk.nashorn.internal.ir.BreakNode;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -67,7 +69,7 @@ public class GUI_pnl_CheckMail extends javax.swing.JPanel {
                     txtOTP_5.setVisible(true);
                     lblDoiMa.setVisible(true);
                     txtTaiKhoan.setEnabled(false);
-                    pnlCheckMail.add(lblTiepTuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, 300, 40));
+                    pnlCheckMail.add(lblTiepTuc, new AbsoluteConstraints(70, 300, 300, 40));
                     lblTiepTuc.setText("XÁC THỰC");
                 }
             }
@@ -91,7 +93,7 @@ public class GUI_pnl_CheckMail extends javax.swing.JPanel {
         HELPER_SendMail.sendMail(txtTaiKhoan.getText(), String.valueOf(otp));
     }
 
-    public void focusOTP(javax.swing.JTextField txtBack, javax.swing.JTextField txtNomal, javax.swing.JTextField txtNext) {
+    public void focusOTP(JTextField txtBack, JTextField txtNomal, JTextField txtNext) {
         if (txtNomal.getText().length() == 1) {
             txtNomal.setText(String.valueOf(txtNomal.getText().charAt(0)));
             txtNext.requestFocus();
@@ -103,34 +105,34 @@ public class GUI_pnl_CheckMail extends javax.swing.JPanel {
         }
     }
 
-    public void focusTxt(javax.swing.JTextField txt, String getText, String setText, int r, int g, int b) {
+    public void focusTxt(JTextField txt, String getText, String setText, int r, int g, int b) {
         if (txt.getText().equals(getText)) {
             txtTaiKhoan.setForeground(new Color(r, g, b));
             txtTaiKhoan.setText(setText);
         }
     }
 
-    public void setBackground_238_238_238(javax.swing.JLabel lbl) {
+    public void setBackground_238_238_238(JLabel lbl) {
         lbl.setBackground(new Color(238, 238, 238));
     }
 
-    public void setBackground_153_153_153(javax.swing.JLabel lbl) {
+    public void setBackground_153_153_153(JLabel lbl) {
         lbl.setBackground(new Color(153, 153, 153));
     }
 
-    public void setBackground_78_87_103(javax.swing.JLabel lbl) {
+    public void setBackground_78_87_103(JLabel lbl) {
         lbl.setBackground(new Color(78, 87, 103));
     }
 
-    public void setBackground_62_73_95(javax.swing.JLabel lbl) {
+    public void setBackground_62_73_95(JLabel lbl) {
         lbl.setBackground(new Color(62, 73, 95));
     }
 
-    public void setForeground_33_150_243(javax.swing.JLabel lbl) {
+    public void setForeground_33_150_243(JLabel lbl) {
         lbl.setForeground(new Color(33, 150, 243));
     }
 
-    public void setForeground_62_73_95(javax.swing.JLabel lbl) {
+    public void setForeground_62_73_95(JLabel lbl) {
         lbl.setForeground(new Color(62, 73, 95));
     }
 

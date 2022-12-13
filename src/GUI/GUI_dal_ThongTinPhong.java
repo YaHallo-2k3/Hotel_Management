@@ -60,6 +60,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -78,6 +79,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     public long diffInHours;
     public long diffInMinutes;
     public static byte[] hinhAnh;
+    public static JDialog dal = null;
 
     /**
      * Creates new form GUI_dalThongTinPhong
@@ -94,6 +96,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         setTongTien();
         setConLai();
         phuongThucThanhToan();
+        dal = this;
     }
 
     public void loadThongTinPhong() {
@@ -240,7 +243,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             diffInHours = Duration.between(dateTimeDen, dateTimeDi).toHours() - diffInDay * 24;
             diffInMinutes = (Duration.between(dateTimeDen, dateTimeDi).toMinutes() - diffInDay * 60 * 24) % 60;
             lblTongThoiGian.setText(String.valueOf(diffInDay + "d " + diffInHours + "h " + diffInMinutes + "m"));
-            FileInputStream file = new FileInputStream(new File(String.valueOf(new ImageIcon(getClass().getResource(filePath))).replaceAll("file:/", "")));
+            FileInputStream file = new FileInputStream(filePath);
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
             if (diffInDay == 0) {
@@ -323,7 +326,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         }
     }
 
-    public void addThanhToan() {
+    public static void addThanhToan() {
         String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateTuNgay.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
         String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateDenNgay.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
         DTO_ThuePhong thuePhong = new DTO_ThuePhong(BLL_MaTenLoai.findMaPhong(lblSetSoPhong.getText().substring(0, 3)), lblSetMaPhieuThue.getText(), BLL_MaTenLoai.findMaNhanVien(lblSetNhanVien.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtCMND.getText(), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), HELPER_ChuyenDoi.getSoInt(txtGiamGia.getText()), null, BLL_MaTenLoai.findMaPhuongThuc(String.valueOf(cboThanhToan.getSelectedItem())), 0);
@@ -986,14 +989,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void lblThanhToanPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThanhToanPhongMouseClicked
         // TODO add your handling code here:     
-        addThanhToan();
-        JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công !!!");
-        if (!GUI_pnl_SoDoPhong.isSelectPhong) {
-            GUI_pnl_SoDoPhong.load();
-        } else {
-            GUI_pnl_SoDoPhong.search();
-        }
-        dispose();
+        new GUI_dal_ThanhToan(null, true).setVisible(true);
     }//GEN-LAST:event_lblThanhToanPhongMouseClicked
 
     private void tblDichVuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMousePressed
@@ -1143,9 +1139,9 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cboThanhToan;
-    private com.toedter.calendar.JDateChooser dateDenNgay;
-    private com.toedter.calendar.JDateChooser dateTuNgay;
+    public static javax.swing.JComboBox<String> cboThanhToan;
+    public static com.toedter.calendar.JDateChooser dateDenNgay;
+    public static com.toedter.calendar.JDateChooser dateTuNgay;
     private javax.swing.JLabel lblCMND;
     private javax.swing.JLabel lblCapNhat;
     private javax.swing.JLabel lblConLai;
@@ -1161,14 +1157,14 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private javax.swing.JLabel lblNgayTao;
     private javax.swing.JLabel lblNhanPhong;
     private javax.swing.JLabel lblNhanVien;
-    private javax.swing.JLabel lblSetConLai;
-    private javax.swing.JLabel lblSetDichVu;
-    private javax.swing.JLabel lblSetGiaPhong;
-    private javax.swing.JLabel lblSetMaPhieuThue;
-    private javax.swing.JLabel lblSetNgayTao;
-    private javax.swing.JLabel lblSetNhanVien;
-    private javax.swing.JLabel lblSetSoPhong;
-    private javax.swing.JLabel lblSetThanhToan;
+    public static javax.swing.JLabel lblSetConLai;
+    public static javax.swing.JLabel lblSetDichVu;
+    public static javax.swing.JLabel lblSetGiaPhong;
+    public static javax.swing.JLabel lblSetMaPhieuThue;
+    public static javax.swing.JLabel lblSetNgayTao;
+    public static javax.swing.JLabel lblSetNhanVien;
+    public static javax.swing.JLabel lblSetSoPhong;
+    public static javax.swing.JLabel lblSetThanhToan;
     private javax.swing.JLabel lblSetTongTien;
     private javax.swing.JLabel lblSetTrangThai;
     private javax.swing.JLabel lblSoLuong;
@@ -1191,15 +1187,15 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
     private javax.swing.JSeparator spt_1;
     private javax.swing.JSeparator spt_2;
     private javax.swing.JTable tblDichVu;
-    private javax.swing.JTextField txtCMND;
-    private javax.swing.JTextField txtGhiChu;
-    private javax.swing.JTextField txtGiamGia;
-    private javax.swing.JTextField txtGioDen;
-    private javax.swing.JTextField txtGioDi;
-    private javax.swing.JTextField txtPhutDen;
-    private javax.swing.JTextField txtPhutDi;
-    private javax.swing.JTextField txtSoLuong;
-    private javax.swing.JTextField txtTenKhach;
-    private javax.swing.JTextField txtTienCoc;
+    public static javax.swing.JTextField txtCMND;
+    public static javax.swing.JTextField txtGhiChu;
+    public static javax.swing.JTextField txtGiamGia;
+    public static javax.swing.JTextField txtGioDen;
+    public static javax.swing.JTextField txtGioDi;
+    public static javax.swing.JTextField txtPhutDen;
+    public static javax.swing.JTextField txtPhutDi;
+    public static javax.swing.JTextField txtSoLuong;
+    public static javax.swing.JTextField txtTenKhach;
+    public static javax.swing.JTextField txtTienCoc;
     // End of variables declaration//GEN-END:variables
 }

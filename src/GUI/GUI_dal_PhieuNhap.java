@@ -22,20 +22,28 @@ import DTO.DTO_LoaiSanPham;
 import DTO.DTO_NhapKho;
 import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_ConnectSQL;
 import HELPER.HELPER_SetIcon;
 import HELPER.HELPER_SetMa;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author CherryCe
  */
 public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
-    
+
     public int row;
     public int column;
     public static String str_1;
@@ -57,7 +65,7 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         loadChiTietNhapKho();
         setTongTien();
     }
-    
+
     public void check() {
         if (GUI_pnl_ChiTietNhapKho.isNhapKho) {
             loadPhieuNhap();
@@ -71,59 +79,60 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
             GUI_pnl_ChiTietNhapKho.isNhapKho = false;
         }
     }
-    
+
     public void addChiTietNhapKho(int row) {
         DTO_ChiTietNhapKho chiTietNhapKho = new DTO_ChiTietNhapKho(HELPER_SetMa.setMaDateTime("NK", DAL_ChiTietNhapKho.count(HELPER_ChuyenDoi.getTimeNow("yyMMdd"))), lblSetMaPhieu.getText(), tblKhoDichVu.getValueAt(row, 0).toString(), HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 2).toString()), HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(row, 3).toString()));
         BLL_ChiTietNhapKho.add(chiTietNhapKho);
     }
-    
+
     public void loadSanPham() {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select();
         BLL_SanPham.loadSanPham(array, tblDichVu);
     }
-    
+
     public void loadTenLoaiSanPham() {
         BLL_LoaiSanPham.loadTenLoaiPhieuNhap();
         lbl_1.setText(str_1);
         lbl_2.setText(str_2);
         lbl_3.setText(str_3);
     }
-    
+
     public void loadSanPham(String maLoaiSanPham) {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select(maLoaiSanPham);
         BLL_SanPham.loadSanPham(array, tblDichVu);
     }
-    
+
     public void loadChiTietNhapKho() {
         ArrayList<DTO_ChiTietNhapKho> arrayChiTiet = BLL_ChiTietNhapKho.select(lblSetMaPhieu.getText());
         BLL_ChiTietNhapKho.load(arrayChiTiet, tblKhoDichVu);
     }
-    
+
     public void loadPhieuNhap() {
         ArrayList<DTO_NhapKho> arrayNhapKho = BLL_NhapKho.search(GUI_pnl_QuanLiKho.tuNgay, GUI_pnl_QuanLiKho.denNgay, GUI_pnl_ChiTietNhapKho.indexPosition + 1);
         BLL_NhapKho.loadChiTietNhapKho(arrayNhapKho, lblSetMaPhieu, lblSetNhanVien, lblSetNgayTao, txtGhiChu);
     }
-    
+
     public void addNhapKho() {
         DTO_NhapKho nhapKho = new DTO_NhapKho(lblSetMaPhieu.getText(), lblSetNhanVien.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), txtGhiChu.getText());
         BLL_NhapKho.add(nhapKho);
     }
-    
+
     public void deleteNhapKho() {
         int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
             String maPhieuNhap = lblSetMaPhieu.getText();
+            BLL_ChiTietNhapKho.delete(maPhieuNhap);
             BLL_NhapKho.delete(maPhieuNhap);
         }
         return;
     }
-    
+
     public void load() {
         lblSetMaPhieu.setText(HELPER_SetMa.setMaDateTime("PN"));
         lblSetNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan)));
         lblSetNgayTao.setText(HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm"));
     }
-    
+
     public void addRow(int row) {
         DefaultTableModel tblModel = (DefaultTableModel) tblKhoDichVu.getModel();
         Object obj[] = new Object[5];
@@ -135,18 +144,31 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         tblKhoDichVu.getColumnModel().getColumn(5).setCellRenderer(new HELPER_SetIcon.iconDelete());
         tblModel.addRow(obj);
     }
-    
+
     public void deleteRow(int row) {
         DefaultTableModel tblModel = (DefaultTableModel) tblKhoDichVu.getModel();
         tblModel.removeRow(row);
     }
-    
+
     public void setTongTien() {
         int total = 0;
         for (int i = 0; i < tblKhoDichVu.getRowCount(); i++) {
             total += HELPER_ChuyenDoi.getSoInt(tblKhoDichVu.getValueAt(i, 4).toString());
         }
         lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(total) + "K");
+    }
+
+    public void xuatPhieuNhapKho(String maNhapKho) {
+        try {
+            Hashtable map = new Hashtable();
+            JasperReport report = JasperCompileManager.compileReport("src/GUI/GUI_rpt_PhieuNhapKho.jrxml");
+            map.put("MaNhapKho", maNhapKho);
+            JasperPrint p = JasperFillManager.fillReport(report, map, HELPER_ConnectSQL.conn);
+            JasperViewer.viewReport(p, false);
+            JasperExportManager.exportReportToPdfFile(p, "PhieuNhapKho.pdf");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -591,11 +613,12 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         if (tblKhoDichVu.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Dữ Liệu Không Được Để Trống !!!");
         } else {
+            addNhapKho();
             for (int i = 0; i < tblKhoDichVu.getRowCount(); i++) {
                 addChiTietNhapKho(i);
             }
-            addNhapKho();
             GUI_pnl_QuanLiKho.search();
+            xuatPhieuNhapKho(lblSetMaPhieu.getText());
             dispose();
         }
     }//GEN-LAST:event_lblInPhieuMouseClicked
@@ -614,21 +637,21 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(GUI_dal_PhieuNhap.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(GUI_dal_PhieuNhap.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(GUI_dal_PhieuNhap.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI_dal_PhieuNhap.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

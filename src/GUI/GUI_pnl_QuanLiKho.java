@@ -41,7 +41,7 @@ public class GUI_pnl_QuanLiKho extends javax.swing.JPanel {
 
     public static void search() {
         int setHeight = BLL_NhapKho.countSearch(tuNgay, denNgay) / 3;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_NhapKho.countSearch(tuNgay, denNgay); i++) {
             index = i;

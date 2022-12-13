@@ -17,12 +17,20 @@ import DTO.DTO_ChiTietDichVu;
 import DTO.DTO_DichVu;
 import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_ConnectSQL;
 import HELPER.HELPER_SetIcon;
 import HELPER.HELPER_SetMa;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -58,14 +66,14 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
             loadPhieuDichVu();
             lblInPhieu.setVisible(false);
             lblCapNhat.setText("Xóa");
-            lblCapNhat.setIcon(new ImageIcon(getClass().getResource("/IMG/delete.png")));
+            lblCapNhat.setIcon(new ImageIcon("src/IMG/delete.png"));
             isUpgrade = true;
             GUI_pnl_ChiTietDichVu.isDichVu = false;
         } else {
             load();
             lblInPhieu.setVisible(true);
             lblCapNhat.setText("Cập Nhật");
-            lblCapNhat.setIcon(new ImageIcon(getClass().getResource("/IMG/upgrade (3).png")));
+            lblCapNhat.setIcon(new ImageIcon("src/IMG/upgrade (3).png"));
             isUpgrade = false;
             GUI_pnl_ChiTietDichVu.isDichVu = false;
         }
@@ -112,6 +120,7 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không ?", "Xóa", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
             String maPhieuDichVu = lblSetMaPhieu.getText();
+            BLL_ChiTietDichVu.delete(maPhieuDichVu);
             BLL_DichVu.delete(maPhieuDichVu);
         }
         return;
@@ -167,6 +176,19 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
             lblSetDaThanhToan.setText("0K");
         } else {
             lblSetDaThanhToan.setText(lblSetTongTien.getText());
+        }
+    }
+
+    public void xuatPhieuDichVu(String maPhieuDichVu) {
+        try {
+            Hashtable map = new Hashtable();
+            JasperReport report = JasperCompileManager.compileReport("src/GUI/GUI_rpt_PhieuDichVu.jrxml");
+            map.put("MaPhieuDichVu", maPhieuDichVu);
+            JasperPrint p = JasperFillManager.fillReport(report, map, HELPER_ConnectSQL.conn);
+            JasperViewer.viewReport(p, false);
+            JasperExportManager.exportReportToPdfFile(p, "PhieuDichVu.pdf");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -607,7 +629,7 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         column = tblKhoDichVu.getSelectedColumn();
         if (!isUpgrade) {
             int rowIndex = 0;
-            if (tblKhoDichVu.getValueAt(row, column) == null) {
+            if (column == 3) {
                 if (tblDichVu.getRowCount() == 0) {
                     addRow(row);
                 } else {
@@ -638,13 +660,12 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         row = tblDichVu.getSelectedRow();
         column = tblDichVu.getSelectedColumn();
         if (!isUpgrade) {
-            if (tblDichVu.getValueAt(row, column) == null) {
+            if (column == 5) {
                 deleteRow(row);
             }
             setTongTien();
-        } else {
-            return;
         }
+        return;
     }//GEN-LAST:event_tblDichVuMouseClicked
 
     private void lblCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapNhatMouseClicked
@@ -653,12 +674,11 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
             if (!isUpgrade) {
                 if (tblDichVu.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(this, "Dữ Liệu Không Được Để Trống !!!");
-                    return;
                 } else {
+                    addDichVu();
                     for (int i = 0; i < tblDichVu.getRowCount(); i++) {
                         addChiTietDichVu(i);
                     }
-                    addDichVu();
                 }
             } else {
                 deleteDichVu();
@@ -698,12 +718,13 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         if (tblDichVu.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Dữ Liệu Không Được Để Trống !!!");
         } else {
+            addDichVu();
             for (int i = 0; i < tblDichVu.getRowCount(); i++) {
                 addChiTietDichVu(i);
             }
-            addDichVu();
             DAL_DichVu.setThanhToan(lblSetMaPhieu.getText());
             GUI_pnl_DichVu.search();
+            xuatPhieuDichVu(lblSetMaPhieu.getText());
             dispose();
         }
     }//GEN-LAST:event_lblInPhieuMouseClicked

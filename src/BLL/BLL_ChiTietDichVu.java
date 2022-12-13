@@ -42,6 +42,10 @@ public class BLL_ChiTietDichVu {
         }
     }
 
+    public static void delete(String maPhieuDichVu) {
+        DAL_ChiTietDichVu.delete(maPhieuDichVu);
+    }
+
     public static ArrayList<DTO_ChiTietDichVu> select(String maDichVu) {
         ResultSet rs = DAL_ChiTietDichVu.selectMaDichVu(maDichVu);
         ArrayList<DTO_ChiTietDichVu> array = new ArrayList<>();
@@ -89,7 +93,7 @@ public class BLL_ChiTietDichVu {
         }
         return 0;
     }
-    
+
     public static int countTienDichVu(String maPhieuDichVu) {
         ResultSet rs = DAL_ChiTietDichVu.countTienDichVu(maPhieuDichVu);
         try {
@@ -125,7 +129,7 @@ public class BLL_ChiTietDichVu {
         }
         return 0;
     }
-    
+
     public static int countGiamGiaByPhieu(String maPhieuThue) {
         ResultSet rs = DAL_ChiTietDichVu.countGiamGiaByPhieu(maPhieuThue);
         try {
@@ -137,7 +141,7 @@ public class BLL_ChiTietDichVu {
         }
         return 0;
     }
-    
+
     public static int countTienCocByMaPhong(String maPhong) {
         ResultSet rs = DAL_ChiTietDichVu.countTienCocByMaPhong(maPhong);
         try {
@@ -149,7 +153,7 @@ public class BLL_ChiTietDichVu {
         }
         return 0;
     }
-    
+
     public static int countTienCocByMaPhieu(String maPhieuThue) {
         ResultSet rs = DAL_ChiTietDichVu.countTienCocByMaPhieu(maPhieuThue);
         try {

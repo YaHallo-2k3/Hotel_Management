@@ -12,7 +12,9 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.net.URI;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -31,7 +33,7 @@ public class GUI_pnl_ChangePassWord extends javax.swing.JPanel {
         load(psdMatKhau, psdXacThucMatKhau);
     }
 
-    public void load(javax.swing.JPasswordField psd, javax.swing.JPasswordField psdConfirm) {
+    public void load(JPasswordField psd, JPasswordField psdConfirm) {
         psd.setText("Nhập Mật Khẩu");
         psd.setEchoChar((char) 0);
         psd.setForeground(new Color(153, 153, 153));
@@ -40,7 +42,7 @@ public class GUI_pnl_ChangePassWord extends javax.swing.JPanel {
         psdConfirm.setForeground(new Color(153, 153, 153));
     }
 
-    public void focusPassWord(javax.swing.JPasswordField psd, String getText, String setText, int r, int g, int b, char c) {
+    public void focusPassWord(JPasswordField psd, String getText, String setText, int r, int g, int b, char c) {
         if (String.valueOf(psd.getPassword()).equals(getText)) {
             psd.setForeground(new Color(r, g, b));
             psd.setText(setText);
@@ -48,29 +50,29 @@ public class GUI_pnl_ChangePassWord extends javax.swing.JPanel {
         }
     }
 
-    public void isPassword(javax.swing.JPasswordField psd, javax.swing.JLabel lbl) {
+    public void isPassword(JPasswordField psd, JLabel lbl) {
         if (!isPassword) {
             psd.setEchoChar((char) 0);
             isPassword = true;
-            lbl.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden.png")));
+            lbl.setIcon(new ImageIcon("src/IMG/hidden.png"));
 
         } else {
             psd.setEchoChar('*');
             isPassword = false;
-            lbl.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden (1).png")));
+            lbl.setIcon(new ImageIcon("src/IMG/hidden (1).png"));
         }
     }
 
-    public void isConfirmPassword(javax.swing.JPasswordField psd, javax.swing.JLabel lbl) {
+    public void isConfirmPassword(JPasswordField psd, JLabel lbl) {
         if (!isConfirmPassword) {
             psd.setEchoChar((char) 0);
             isConfirmPassword = true;
-            lbl.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden.png")));
+            lbl.setIcon(new ImageIcon("src/IMG/hidden.png"));
 
         } else {
             psd.setEchoChar('*');
             isConfirmPassword = false;
-            lbl.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden (1).png")));
+            lbl.setIcon(new ImageIcon("src/IMG/hidden (1).png"));
         }
     }
 
@@ -89,19 +91,19 @@ public class GUI_pnl_ChangePassWord extends javax.swing.JPanel {
         }
     }
 
-    public void setBackground_78_87_103(javax.swing.JLabel lbl) {
+    public void setBackground_78_87_103(JLabel lbl) {
         lbl.setBackground(new Color(78, 87, 103));
     }
 
-    public void setBackground_62_73_95(javax.swing.JLabel lbl) {
+    public void setBackground_62_73_95(JLabel lbl) {
         lbl.setBackground(new Color(62, 73, 95));
     }
 
-    public void setForeground_33_150_243(javax.swing.JLabel lbl) {
+    public void setForeground_33_150_243(JLabel lbl) {
         lbl.setForeground(new Color(33, 150, 243));
     }
 
-    public void setForeground_62_73_95(javax.swing.JLabel lbl) {
+    public void setForeground_62_73_95(JLabel lbl) {
         lbl.setForeground(new Color(62, 73, 95));
     }
 

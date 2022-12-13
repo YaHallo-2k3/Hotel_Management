@@ -19,6 +19,11 @@ public class DAL_ChiTietNhapKho {
         String sqlInsert = "INSERT INTO ChiTietNhapKho VALUES (?, ?, ?, ?, ?)";
         HELPER_ConnectSQL.executeUpdateNoMessage(sqlInsert, chiTietNhapKho.getMaChiTietNhapKho(), chiTietNhapKho.getMaNhapKho(), chiTietNhapKho.getMaSanPham(), chiTietNhapKho.getSoLuong(), chiTietNhapKho.getGiaNhap());
     }
+    
+    public static void delete(String maNhapKho) {
+        String sqlDelete = "DELETE FROM ChiTietNhapKho WHERE MaNhapKho = ?";
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maNhapKho);
+    }
 
     public static ResultSet select(String maNhapKho) {
         String sqlSelect = "SELECT * FROM ChiTietNhapKho WHERE MaNhapKho = ?";

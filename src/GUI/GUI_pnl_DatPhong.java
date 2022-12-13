@@ -697,12 +697,12 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblDatPhong.getSelectedRow();
         int column = tblDatPhong.getSelectedColumn();
-        if (tblDatPhong.getValueAt(row, column) != null && tblDatPhong.getValueAt(row, column + 1) != null || tblDatPhong.getValueAt(row, column) != null && tblDatPhong.getValueAt(row, column - 1) != null) {
+        if (column < 13) {
             fill(row);
-        } else if (tblDatPhong.getValueAt(row, column) == null && tblDatPhong.getValueAt(row, column - 1) != null) {
+        } else if (column == 13) {
             edit();
             loadDatPhong();
-        } else if (tblDatPhong.getValueAt(row, column) == null && tblDatPhong.getValueAt(row, column - 1) == null) {
+        } else if (column == 14) {
             delete(row);
             loadDatPhong();
         }
@@ -827,6 +827,8 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         if (dateTuNgay.getDate() != null && dateDenNgay.getDate() != null) {
             dateDenNgay.setMinSelectableDate(dateTuNgay.getDate());
         }
+        tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
+        denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
         loadDatPhong();
     }//GEN-LAST:event_dateTuNgayPropertyChange
 
@@ -835,6 +837,8 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         if (dateDenNgay.getDate() != null && dateTuNgay.getDate() != null) {
             dateTuNgay.setMaxSelectableDate(dateDenNgay.getDate());
         }
+        tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
+        denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
         loadDatPhong();
     }//GEN-LAST:event_dateDenNgayPropertyChange
 

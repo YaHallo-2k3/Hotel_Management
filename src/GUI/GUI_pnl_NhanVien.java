@@ -121,7 +121,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
 
     public void open() {
         try {
-            JFileChooser chooser = new JFileChooser("C:\\Users\\CherryCe\\Downloads");
+            JFileChooser chooser = new JFileChooser("src/WEBCAM");
             chooser.setDialogTitle("Open File");
             chooser.showOpenDialog(this);
             File nameIMG = chooser.getSelectedFile();

@@ -34,10 +34,10 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         pnlLogin.repaint();
         setForeground_255_255_255(lblDangNhap);
         setBackground_62_73_95(lblDangNhap);
-        lblDangNhap.setIcon(new ImageIcon(getClass().getResource("/IMG/enter (1).png")));
+        lblDangNhap.setIcon(new ImageIcon("src/IMG/enter (1).png"));
         setForeground_62_73_95(lblQuenMatKhau);
         setBackground_255_255_255(lblQuenMatKhau);
-        lblQuenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (2).png")));
+        lblQuenMatKhau.setIcon(new ImageIcon("src/IMG/reset-password (2).png"));
     }
 
     public void pnlQuenMatKhau() {
@@ -47,10 +47,10 @@ public class GUI_frm_Login extends javax.swing.JFrame {
         pnlLogin.repaint();
         setForeground_62_73_95(lblDangNhap);
         setBackground_255_255_255(lblDangNhap);
-        lblDangNhap.setIcon(new ImageIcon(getClass().getResource("/IMG/enter.png")));
+        lblDangNhap.setIcon(new ImageIcon("src/IMG/enter.png"));
         setForeground_255_255_255(lblQuenMatKhau);
         setBackground_62_73_95(lblQuenMatKhau);
-        lblQuenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/reset-password (4).png")));
+        lblQuenMatKhau.setIcon(new ImageIcon("src/IMG/reset-password (4).png"));
     }
 
     public void setBackground_255_255_255(javax.swing.JLabel lbl) {

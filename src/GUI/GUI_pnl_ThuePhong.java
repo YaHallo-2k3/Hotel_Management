@@ -49,7 +49,7 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         daTra = 0;
         giamGia = 0;
         int setHeight = BLL_ThuePhong.countSearch(tuNgay, denNgay) / 4;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_ThuePhong.countSearch(tuNgay, denNgay); i++) {
             index = i;

@@ -11,6 +11,7 @@ import DAL.DAL_PhieuChi;
 import DTO.DTO_ChiTietNhapKho;
 import DTO.DTO_SanPham;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_ConnectSQL;
 import HELPER.HELPER_SetIcon;
 import java.awt.Component;
 import java.sql.ResultSet;
@@ -42,6 +43,10 @@ public class BLL_ChiTietNhapKho {
         } else {
             DAL_ChiTietNhapKho.add(chiTietNhapKho);
         }
+    }
+
+    public static void delete(String maNhapKho) {
+        DAL_ChiTietNhapKho.delete(maNhapKho);
     }
 
     public static ArrayList<DTO_ChiTietNhapKho> select(String maNhapKho) {

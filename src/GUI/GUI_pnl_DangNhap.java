@@ -14,6 +14,9 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -59,14 +62,14 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         }
     }
     
-    public void focusTaiKhoan(javax.swing.JTextField txt, String getText, String setText, int r, int g, int b) {
+    public void focusTaiKhoan(JTextField txt, String getText, String setText, int r, int g, int b) {
         if (txt.getText().equals(getText)) {
             txt.setForeground(new Color(r, g, b));
             txt.setText(setText);
         }
     }
     
-    public void focusMatKhau(javax.swing.JPasswordField psd, String getText, String setText, int r, int g, int b, char c) {
+    public void focusMatKhau(JPasswordField psd, String getText, String setText, int r, int g, int b, char c) {
         if (String.valueOf(psd.getPassword()).equals(getText)) {
             psd.setForeground(new Color(r, g, b));
             psd.setText(setText);
@@ -106,28 +109,28 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
         if (!isPassword) {
             psdMatKhau.setEchoChar((char) 0);
             isPassword = true;
-            lblShowHiddenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden.png")));
+            lblShowHiddenMatKhau.setIcon(new ImageIcon("src/IMG/hidden.png"));
             
         } else {
             psdMatKhau.setEchoChar('*');
             isPassword = false;
-            lblShowHiddenMatKhau.setIcon(new ImageIcon(getClass().getResource("/IMG/hidden (1).png")));
+            lblShowHiddenMatKhau.setIcon(new ImageIcon("src/IMG/hidden (1).png"));
         }
     }
     
-    public void setBackground_78_87_103(javax.swing.JLabel lbl) {
+    public void setBackground_78_87_103(JLabel lbl) {
         lbl.setBackground(new Color(78, 87, 103));
     }
     
-    public void setBackground_62_73_95(javax.swing.JLabel lbl) {
+    public void setBackground_62_73_95(JLabel lbl) {
         lbl.setBackground(new Color(62, 73, 95));
     }
     
-    public void setForeground_33_150_243(javax.swing.JLabel lbl) {
+    public void setForeground_33_150_243(JLabel lbl) {
         lbl.setForeground(new Color(33, 150, 243));
     }
     
-    public void setForeground_62_73_95(javax.swing.JLabel lbl) {
+    public void setForeground_62_73_95(JLabel lbl) {
         lbl.setForeground(new Color(62, 73, 95));
     }
     

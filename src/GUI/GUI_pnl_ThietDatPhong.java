@@ -634,13 +634,13 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblTang.getSelectedRow();
         int column = tblTang.getSelectedColumn();
-        if (tblTang.getValueAt(row, column) != null && tblTang.getValueAt(row, column + 1) != null || tblTang.getValueAt(row, column) != null && tblTang.getValueAt(row, column - 1) != null) {
+        if (column<2) {
             fillSoTang(row);
-        } else if (tblTang.getValueAt(row, column) == null && tblTang.getValueAt(row, column - 1) != null) {
+        } else if (column==2) {
             editSoTang();
             loadSoTang();
             loadTenTang();
-        } else if (tblTang.getValueAt(row, column) == null && tblTang.getValueAt(row, column - 1) == null) {
+        } else if (column==3) {
             deleteSoTang(row);
             loadSoTang();
             loadTenTang();
@@ -658,13 +658,13 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblLoaiPhong.getSelectedRow();
         int column = tblLoaiPhong.getSelectedColumn();
-        if (tblLoaiPhong.getValueAt(row, column) != null && tblLoaiPhong.getValueAt(row, column + 1) != null || tblLoaiPhong.getValueAt(row, column) != null && tblLoaiPhong.getValueAt(row, column - 1) != null) {
+        if (column<4) {
             fillLoaiPhong(row);
-        } else if (tblLoaiPhong.getValueAt(row, column) == null && tblLoaiPhong.getValueAt(row, column - 1) != null) {
+        } else if (column==4) {
             editLoaiPhong();
             loadLoaiPhong();
             loadTenLoaiPhong();
-        } else if (tblLoaiPhong.getValueAt(row, column) == null && tblLoaiPhong.getValueAt(row, column - 1) == null) {
+        } else if (column==5) {
             deleteLoaiPhong(row);
             loadLoaiPhong();
             loadTenLoaiPhong();
@@ -682,13 +682,13 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblPhong.getSelectedRow();
         int column = tblPhong.getSelectedColumn();
-        if (tblPhong.getValueAt(row, column) != null && tblPhong.getValueAt(row, column + 1) != null || tblPhong.getValueAt(row, column) != null && tblPhong.getValueAt(row, column - 1) != null) {
+        if (column<6) {
             fillPhong(row);
-        } else if (tblPhong.getValueAt(row, column) == null && tblPhong.getValueAt(row, column - 1) != null) {
+        } else if (column==6) {
             editPhong();
             loadPhong();
             formatSTT();
-        } else if (tblPhong.getValueAt(row, column) == null && tblPhong.getValueAt(row, column - 1) == null) {
+        } else if (column==7) {
             deletePhong(row);
             loadPhong();
             formatSTT();
