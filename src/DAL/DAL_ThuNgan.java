@@ -18,8 +18,8 @@ import java.sql.ResultSet;
  */
 public class DAL_ThuNgan {
 
-    public static ResultSet countThuePhong(String tuNgay, String denNgay) {
-        String sqlSelect = "SELECT COUNT(*) FROM ThuePhong WHERE CONVERT(DATE, NgayDi) BETWEEN ? AND ? AND TrangThaiThanhToan = 1 OR NgayDi IS NOT NULL";
+    public static ResultSet countHoaDon(String tuNgay, String denNgay) {
+        String sqlSelect = "SELECT COUNT(*) FROM HoaDon WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
     }
     
@@ -33,8 +33,8 @@ public class DAL_ThuNgan {
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
     }
 
-    public static ResultSet rowNumberThuePhong(String tuNgay, String denNgay, int index) {
-        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaPhieuThue) AS RowNumber FROM ThuePhong WHERE CONVERT(DATE, NgayDi) BETWEEN ? AND ? AND TrangThaiThanhToan = 1 OR NgayDi IS NOT NULL) AS ThuePhong JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE ThuePhong.RowNumber = ?";
+    public static ResultSet rowNumberHoadon(String tuNgay, String denNgay, int index) {
+        String sqlSelect = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY MaHoaDon) AS RowNumber FROM HoaDon WHERE CONVERT(DATE, NgayTao) BETWEEN ? AND ?) AS HoaDon JOIN ThuePhong ON ThuePhong.MaPhieuThue = HoaDon.MaPhieuThue JOIN Phong ON Phong.MaPhong = ThuePhong.MaPhong WHERE HoaDon.RowNumber = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay, index);
     }
     

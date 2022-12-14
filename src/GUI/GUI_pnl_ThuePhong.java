@@ -18,6 +18,7 @@ import java.awt.GridLayout;
 public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
 
     public static int index;
+    public static int setHeight;
     public static String tuNgay;
     public static String denNgay;
     public static int tienPhong;
@@ -48,8 +49,12 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         dichVu = 0;
         daTra = 0;
         giamGia = 0;
-        int setHeight = BLL_ThuePhong.countSearch(tuNgay, denNgay) / 4;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
+        if (BLL_ThuePhong.countSearch(tuNgay, denNgay) % 4 == 0) {
+            setHeight = BLL_ThuePhong.countSearch(tuNgay, denNgay) / 4;
+        } else {
+            setHeight = (BLL_ThuePhong.countSearch(tuNgay, denNgay) / 4) + 1;
+        }
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_ThuePhong.countSearch(tuNgay, denNgay); i++) {
             index = i;

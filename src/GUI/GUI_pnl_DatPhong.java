@@ -826,20 +826,20 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (dateTuNgay.getDate() != null && dateDenNgay.getDate() != null) {
             dateDenNgay.setMinSelectableDate(dateTuNgay.getDate());
+            tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
+            denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
+            loadDatPhong();
         }
-        tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
-        denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
-        loadDatPhong();
     }//GEN-LAST:event_dateTuNgayPropertyChange
 
     private void dateDenNgayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateDenNgayPropertyChange
         // TODO add your handling code here:
         if (dateDenNgay.getDate() != null && dateTuNgay.getDate() != null) {
             dateTuNgay.setMaxSelectableDate(dateDenNgay.getDate());
+            tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
+            denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
+            loadDatPhong();
         }
-        tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
-        denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
-        loadDatPhong();
     }//GEN-LAST:event_dateDenNgayPropertyChange
 
     private void cboLoaiKhachItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLoaiKhachItemStateChanged

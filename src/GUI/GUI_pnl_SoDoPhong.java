@@ -26,6 +26,7 @@ import javax.swing.SwingUtilities;
 public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
 
     public static int index;
+    public static int setHeight;
     public static String maTang;
     public static boolean isSelectPhong = false;
     public static boolean isThongTinPhong = false;
@@ -44,8 +45,12 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
     }
 
     public static void load() {
-        int setHeight = BLL_SoDoPhong.countPhong() / 5;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
+        if (BLL_SoDoPhong.countPhong() % 5 == 0) {
+            setHeight = BLL_SoDoPhong.countPhong() / 5;
+        } else {
+            setHeight = (BLL_SoDoPhong.countPhong() / 5) + 1;
+        }
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 250 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_SoDoPhong.countPhong(); i++) {
             index = i;
@@ -57,7 +62,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
 
     public static void search() {
         int setHeight = BLL_SoDoPhong.countPhong(maTang) / 5;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 250 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_SoDoPhong.countPhong(maTang); i++) {
             index = i;

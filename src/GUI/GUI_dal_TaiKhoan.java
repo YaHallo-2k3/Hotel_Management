@@ -48,7 +48,7 @@ public class GUI_dal_TaiKhoan extends javax.swing.JDialog {
     }
 
     public void add() {
-        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(HELPER_SetMa.setMaDateTime("TK"), GUI_pnl_NhanVien.maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), 0, null, null);
+        DTO_TaiKhoan taiKhoan = new DTO_TaiKhoan(HELPER_SetMa.setMaDateTime("TK"), GUI_pnl_NhanVien.maNhanVien, txtTaiKhoan.getText(), String.valueOf(psdMatKhau.getPassword()), 0);
         BLL_TaiKhoan.add(taiKhoan);
     }
 

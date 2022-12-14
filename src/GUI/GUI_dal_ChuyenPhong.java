@@ -35,6 +35,7 @@ public class GUI_dal_ChuyenPhong extends javax.swing.JDialog {
 
     public static String maTang;
     public static int index;
+    public static int setHeight;
     public static JDialog dal = null;
     public static String maPhong;
     public static String maPhieuThue;
@@ -83,7 +84,11 @@ public class GUI_dal_ChuyenPhong extends javax.swing.JDialog {
     }
 
     public void search() {
-        int setHeight = BLL_Phong.countSearchChuyenPhong(maTang) / 4;
+        if (BLL_Phong.countSearchChuyenPhong(maTang) % 4 == 0) {
+            setHeight = BLL_Phong.countSearchChuyenPhong(maTang) / 4;
+        } else {
+            setHeight = (BLL_Phong.countSearchChuyenPhong(maTang) / 4) + 1;
+        }
         pnlDanhSachPhong.setPreferredSize(new Dimension(710, 150 * setHeight));
         pnlDanhSachPhong.removeAll();
         for (int i = 1; i <= BLL_Phong.countSearchChuyenPhong(maTang); i++) {

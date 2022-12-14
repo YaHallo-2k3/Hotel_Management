@@ -33,14 +33,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BLL_ThuNgan {
 
-    public static ArrayList<DTO_ThuePhong> selectThuePhong(String tuNgay, String denNgay, int index) {
-        ResultSet rs = DAL_ThuNgan.rowNumberThuePhong(tuNgay, denNgay, index);
+    public static ArrayList<DTO_ThuePhong> selectHoaDon(String tuNgay, String denNgay, int index) {
+        ResultSet rs = DAL_ThuNgan.rowNumberHoadon(tuNgay, denNgay, index);
         ArrayList<DTO_ThuePhong> array = new ArrayList<>();
         try {
             while (rs.next()) {
                 DTO_ThuePhong thuePhong = new DTO_ThuePhong();
                 thuePhong.setMaPhong(rs.getString("MaPhong"));
-                thuePhong.setMaPhieuThue(rs.getString("MaPhieuThue"));
+                thuePhong.setMaPhieuThue(rs.getString("MaHoaDon"));
                 thuePhong.setMaNhanVien(rs.getString("MaNhanVien"));
                 thuePhong.setNgayTao(rs.getTimestamp("NgayTao"));
                 thuePhong.setNgayDen(rs.getTimestamp("NgayDen"));
@@ -91,8 +91,8 @@ public class BLL_ThuNgan {
         return array;
     }
 
-    public static ArrayList<DTO_Phong> selectByThuePhong(String tuNgay, String denNgay, int index) {
-        ResultSet rs = DAL_ThuNgan.rowNumberThuePhong(tuNgay, denNgay, index);
+    public static ArrayList<DTO_Phong> selectByHoaDon(String tuNgay, String denNgay, int index) {
+        ResultSet rs = DAL_ThuNgan.rowNumberHoadon(tuNgay, denNgay, index);
         ArrayList<DTO_Phong> array = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -194,8 +194,8 @@ public class BLL_ThuNgan {
         }
     }
 
-    public static int countThuePhong(String tuNgay, String denNgay) {
-        ResultSet rs = DAL_ThuNgan.countThuePhong(tuNgay, denNgay);
+    public static int countHoaDon(String tuNgay, String denNgay) {
+        ResultSet rs = DAL_ThuNgan.countHoaDon(tuNgay, denNgay);
         try {
             while (rs.next()) {
                 return rs.getInt(1);

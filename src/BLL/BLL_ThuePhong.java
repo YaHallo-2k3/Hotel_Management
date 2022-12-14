@@ -63,12 +63,8 @@ public class BLL_ThuePhong {
     }
 
     public static void delete(String maPhong) {
-        try {
-            DAL_ThuePhong.delete(maPhong);
-            DAL_ThuePhong.setTrangThaiPhong("PhongTrong", maPhong);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
-        }
+        DAL_ThuePhong.delete(maPhong);
+        DAL_ThuePhong.setTrangThaiPhong("PhongTrong", maPhong);
     }
 
     public static void editThuePhong(DTO_ThuePhong thuePhong) {

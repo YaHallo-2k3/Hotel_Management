@@ -54,6 +54,8 @@ public class HELPER_ConnectSQL {
             } catch (Exception e) {
                 if (e.getMessage().contains("PRIMARY KEY") || e.getMessage().contains("UNIQUE KEY")) {
                     JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại ???");
+                } else if (e.getMessage().contains("REFERENCE")) {
+                    JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
                 } else {
                     e.printStackTrace();
                 }
@@ -71,7 +73,13 @@ public class HELPER_ConnectSQL {
             try {
                 pst.executeUpdate();
             } catch (Exception e) {
-                e.printStackTrace();
+                if (e.getMessage().contains("PRIMARY KEY") || e.getMessage().contains("UNIQUE KEY")) {
+                    JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại ???");
+                } else if (e.getMessage().contains("REFERENCE")) {
+                    JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
+                } else {
+                    e.printStackTrace();
+                }
             } finally {
                 pst.getConnection().close();
             }

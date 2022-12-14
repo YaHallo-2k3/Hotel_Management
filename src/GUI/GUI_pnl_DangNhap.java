@@ -6,6 +6,7 @@
 package GUI;
 
 import BLL.BLL_TaiKhoan;
+import DAL.DAL_NhanVien;
 import DAL.DAL_TaiKhoan;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -90,6 +91,8 @@ public class GUI_pnl_DangNhap extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Đăng Nhập Không Thành Công ???");
                 } else {
                     taiKhoan = txtTenDangNhap.getText();
+                    DAL_NhanVien.setOffline();
+                    DAL_NhanVien.setOnline(BLL_TaiKhoan.selectMaNhanVien(taiKhoan));
                     if (chkLuuDangNhap.isSelected()) {
                         DAL_TaiKhoan.editCheckDangNhap_0();
                         DAL_TaiKhoan.editCheckDangNhap_1(taiKhoan);

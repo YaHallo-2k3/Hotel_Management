@@ -36,4 +36,14 @@ public class DAL_NhanVien {
         String sqlSelect = "SELECT * FROM NhanVien ORDER BY MaNhanVien";
         return HELPER_ConnectSQL.executeQuery(sqlSelect);
     }
+    
+    public static void setOffline() {
+        String sqlUpdate = "UPDATE NhanVien SET TrangThaiNhanVien = 0";
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlUpdate);
+    }
+
+    public static void setOnline(String maNhanVien) {
+        String sqlUpdate = "UPDATE NhanVien SET TrangThaiNhanVien = 1 WHERE MaNhanVien = ?";
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlUpdate, maNhanVien);
+    }
 }

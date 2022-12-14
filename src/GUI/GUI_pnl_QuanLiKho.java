@@ -18,6 +18,7 @@ import java.awt.GridLayout;
 public class GUI_pnl_QuanLiKho extends javax.swing.JPanel {
 
     public static int index;
+    public static int setHeight;
     public static String tuNgay;
     public static String denNgay;
 
@@ -40,8 +41,12 @@ public class GUI_pnl_QuanLiKho extends javax.swing.JPanel {
     }
 
     public static void search() {
-        int setHeight = BLL_NhapKho.countSearch(tuNgay, denNgay) / 3;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
+        if (BLL_NhapKho.countSearch(tuNgay, denNgay) % 3 == 0) {
+            setHeight = BLL_NhapKho.countSearch(tuNgay, denNgay) / 3;
+        } else {
+            setHeight = (BLL_NhapKho.countSearch(tuNgay, denNgay) / 3) + 1;
+        }
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_NhapKho.countSearch(tuNgay, denNgay); i++) {
             index = i;

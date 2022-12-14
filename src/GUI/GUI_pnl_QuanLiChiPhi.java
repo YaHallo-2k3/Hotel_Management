@@ -19,6 +19,7 @@ import java.util.Date;
 public class GUI_pnl_QuanLiChiPhi extends javax.swing.JPanel {
 
     public static int index;
+    public static int setHeight;
     public static String tuNgay;
     public static String denNgay;
 
@@ -41,8 +42,12 @@ public class GUI_pnl_QuanLiChiPhi extends javax.swing.JPanel {
     }
 
     public static void search() {
-        int setHeight = BLL_PhieuChi.countSearch(tuNgay, denNgay) / 4;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
+        if (BLL_PhieuChi.countSearch(tuNgay, denNgay) % 4 == 0) {
+            setHeight = BLL_PhieuChi.countSearch(tuNgay, denNgay) / 4;
+        } else {
+            setHeight = (BLL_PhieuChi.countSearch(tuNgay, denNgay) / 4) + 1;
+        }
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 250 * setHeight));
         pnlFormChinh.removeAll();
         for (int i = 1; i <= BLL_PhieuChi.countSearch(tuNgay, denNgay); i++) {
             index = i;

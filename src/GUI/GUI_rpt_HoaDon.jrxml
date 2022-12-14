@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b86f3d51-1f62-44f1-85a9-eba97987b75c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="139"/>
+	<property name="ireport.y" value="129"/>
 	<parameter name="MaHoaDon" class="java.lang.String">
 		<defaultValueExpression><![CDATA["MaHoaDon"]]></defaultValueExpression>
 	</parameter>
@@ -11,6 +11,9 @@
 	</parameter>
 	<parameter name="MaPhieuDichVu" class="java.lang.String">
 		<defaultValueExpression><![CDATA["MaPhieuDichVu"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MaPhieuThue" class="java.lang.String">
+		<defaultValueExpression><![CDATA["MaPhieuThue"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
@@ -29,11 +32,11 @@
      SanPham."MaSanPham" AS SanPham_MaSanPham,
      SanPham."TenSanPham" AS SanPham_TenSanPham
 FROM
-     "dbo"."ThuePhong" ThuePhong INNER JOIN "dbo"."HoaDon" HoaDon ON ThuePhong."MaPhieuThue" = HoaDon."MaPhieuThue"
-     INNER JOIN "dbo"."Phong" Phong ON ThuePhong."MaPhong" = Phong."MaPhong"
-     INNER JOIN "dbo"."PhieuDichVu" PhieuDichVu ON ThuePhong."MaPhieuThue" = PhieuDichVu."MaPhieuThue"
-     INNER JOIN "dbo"."ChiTietDichVu" ChiTietDichVu ON PhieuDichVu."MaPhieuDichVu" = ChiTietDichVu."MaPhieuDichVu"
-     INNER JOIN "dbo"."SanPham" SanPham ON ChiTietDichVu."MaSanPham" = SanPham."MaSanPham"
+     "dbo"."ThuePhong" ThuePhong LEFT JOIN "dbo"."HoaDon" HoaDon ON ThuePhong."MaPhieuThue" = HoaDon."MaPhieuThue"
+     LEFT JOIN "dbo"."Phong" Phong ON ThuePhong."MaPhong" = Phong."MaPhong"
+     LEFT JOIN "dbo"."PhieuDichVu" PhieuDichVu ON ThuePhong."MaPhieuThue" = PhieuDichVu."MaPhieuThue"
+     LEFT JOIN "dbo"."ChiTietDichVu" ChiTietDichVu ON PhieuDichVu."MaPhieuDichVu" = ChiTietDichVu."MaPhieuDichVu"
+     LEFT JOIN "dbo"."SanPham" SanPham ON ChiTietDichVu."MaSanPham" = SanPham."MaSanPham"
 WHERE
      HoaDon."MaHoaDon" = $P{MaHoaDon}
 GROUP BY
@@ -65,12 +68,6 @@ GROUP BY
 	<field name="ChiTietDichVu_GiaTien" class="java.math.BigDecimal"/>
 	<field name="SanPham_MaSanPham" class="java.lang.String"/>
 	<field name="SanPham_TenSanPham" class="java.lang.String"/>
-	<variable name="Multiply" class="java.lang.Integer">
-		<variableExpression><![CDATA[$F{ChiTietDichVu_SoLuongBan}.intValue() * $F{ChiTietDichVu_GiaTien}.intValue()]]></variableExpression>
-	</variable>
-	<variable name="Total" class="java.lang.Integer">
-		<variableExpression><![CDATA[$F{HoaDon_TienPhong}.intValue() + $F{HoaDon_TienDichVu}.intValue()]]></variableExpression>
-	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -112,7 +109,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Phòng Số]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="290" y="140" width="30" height="20" forecolor="#3E495F" uuid="2ea6fc4d-ae0f-410c-bc3f-7555609ba4bb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true" isUnderline="false" isStrikeThrough="false"/>
@@ -130,7 +127,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Ngày Tạo]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="389" y="17" width="130" height="20" forecolor="#3E495F" uuid="0984d6ba-1ae9-48e5-b0c1-90c704a223d0"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true" isUnderline="false" isStrikeThrough="false"/>
@@ -144,7 +141,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Ngày Đến]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="105" y="57" width="130" height="20" forecolor="#3E495F" uuid="79d3d4d1-6e1d-4354-822b-803eb1f5f539"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
@@ -158,7 +155,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Ngày Đi]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="389" y="57" width="130" height="20" forecolor="#3E495F" uuid="084d2f60-c2b5-4fbb-94cf-0ba0c970923d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
@@ -172,7 +169,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Mã Phiếu]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="105" y="17" width="130" height="20" forecolor="#3E495F" uuid="ca3f253f-9be4-4dae-a16f-a898cad39b1d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
@@ -186,7 +183,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Tiền Phòng]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="290" y="100" width="50" height="20" forecolor="#3E495F" uuid="09e93332-bda8-445f-a614-4872a2e1b257"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
@@ -242,14 +239,14 @@ GROUP BY
 	</columnHeader>
 	<detail>
 		<band height="40" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="2" y="10" width="101" height="20" forecolor="#3E495F" uuid="a9d62819-613a-42b7-9ac5-f8add2c91806"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SanPham_MaSanPham}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="103" y="10" width="149" height="20" forecolor="#3E495F" uuid="cc4bfd24-421f-41ee-865a-a007b796d9d9"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
@@ -275,12 +272,12 @@ GROUP BY
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{Multiply} + "K"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ChiTietDichVu_SoLuongBan}.intValue() * $F{ChiTietDichVu_GiaTien}.intValue() + "K"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<summary>
-		<band height="250" splitType="Stretch">
+		<band height="240" splitType="Stretch">
 			<line>
 				<reportElement x="127" y="20" width="300" height="1" uuid="439842fb-e9cb-4386-bec7-48d5a2bf3eaf"/>
 			</line>
@@ -324,7 +321,7 @@ GROUP BY
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{Total} + "K"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{HoaDon_TienPhong}.intValue() + $F{HoaDon_TienDichVu}.intValue() + "K"]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="419" y="120" width="100" height="20" forecolor="#3E495F" uuid="9c92964d-cf2f-4fa9-856d-e00955afb6cb"/>

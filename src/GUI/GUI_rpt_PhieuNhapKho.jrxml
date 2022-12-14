@@ -113,7 +113,7 @@ WHERE
 		</band>
 	</title>
 	<pageHeader>
-		<band height="90" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<staticText>
 				<reportElement x="319" y="17" width="70" height="20" forecolor="#999999" uuid="c5d122c1-468a-4e1b-b0e7-6fd3c7e6e44c"/>
 				<textElement verticalAlignment="Middle">
@@ -121,7 +121,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[Ngày Tạo]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="389" y="17" width="130" height="20" forecolor="#3E495F" uuid="0984d6ba-1ae9-48e5-b0c1-90c704a223d0"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true" isUnderline="false" isStrikeThrough="false"/>
@@ -135,7 +135,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[Nhân Viên]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="105" y="57" width="130" height="20" forecolor="#3E495F" uuid="79d3d4d1-6e1d-4354-822b-803eb1f5f539"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
@@ -149,7 +149,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[Ghi Chú]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="389" y="57" width="130" height="20" forecolor="#3E495F" uuid="084d2f60-c2b5-4fbb-94cf-0ba0c970923d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
@@ -163,7 +163,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[Mã Phiếu]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="105" y="17" width="130" height="20" forecolor="#3E495F" uuid="ca3f253f-9be4-4dae-a16f-a898cad39b1d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
@@ -219,14 +219,14 @@ WHERE
 	</columnHeader>
 	<detail>
 		<band height="40" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="2" y="10" width="101" height="20" forecolor="#3E495F" uuid="a9d62819-613a-42b7-9ac5-f8add2c91806"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SanPham_MaSanPham}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="103" y="10" width="149" height="20" forecolor="#3E495F" uuid="cc4bfd24-421f-41ee-865a-a007b796d9d9"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="14" isBold="true"/>

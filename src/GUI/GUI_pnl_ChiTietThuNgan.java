@@ -22,6 +22,7 @@ import static GUI.GUI_pnl_GiaPhong.singleRoom_Hour_Rate;
 import static GUI.GUI_pnl_GiaPhong.tripleRoom_Day_Rate;
 import static GUI.GUI_pnl_GiaPhong.tripleRoom_Hour_Rate;
 import HELPER.HELPER_ChuyenDoi;
+import HELPER.HELPER_ConnectSQL;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -33,9 +34,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -62,9 +70,9 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
         if (!GUI_pnl_ThuNgan.isSelect.equals("DichVu")) {
             ArrayList<DTO_Phong> arrayPhong;
             ArrayList<DTO_ThuePhong> arrayThuePhong;
-            if (GUI_pnl_ThuNgan.isSelect.equals("ThuePhong")) {
-                arrayPhong = BLL_ThuNgan.selectByThuePhong(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
-                arrayThuePhong = BLL_ThuNgan.selectThuePhong(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+            if (GUI_pnl_ThuNgan.isSelect.equals("HoaDon")) {
+                arrayPhong = BLL_ThuNgan.selectByHoaDon(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+                arrayThuePhong = BLL_ThuNgan.selectHoaDon(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
             } else {
                 arrayPhong = BLL_ThuNgan.selectByTienCoc(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
                 arrayThuePhong = BLL_ThuNgan.selectTienCoc(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
@@ -166,6 +174,19 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
 
     public void setTienDichVu() {
         lblTongTien.setText(HELPER_ChuyenDoi.getSoString(BLL_ChiTietDichVu.countTienDichVu(lblSetMaPhieu.getText())) + "K");
+    }
+
+    public void export(String maLoaiThuNgan, String value, String filePath, String filePdf) {
+        try {
+            Hashtable map = new Hashtable();
+            JasperReport report = JasperCompileManager.compileReport(filePath);
+            map.put(maLoaiThuNgan, value);
+            JasperPrint p = JasperFillManager.fillReport(report, map, HELPER_ConnectSQL.conn);
+            JasperViewer.viewReport(p, false);
+            JasperExportManager.exportReportToPdfFile(p, filePdf);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -367,6 +388,15 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
 
     private void sdoChiTietThuNganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietThuNganMouseClicked
         // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            if (lblLoaiThanhToan.getText().equals("Hóa Đơn")) {
+                export("MaHoaDon", lblSetMaPhieu.getText(), "src/GUI/GUI_rpt_HoaDon.jrxml", "HoaDon.pdf");
+            } else if (lblLoaiThanhToan.getText().equals("Tiền Cọc")) {
+                export("MaPhieuThue", lblSetMaPhieu.getText(), "src/GUI/GUI_rpt_PhieuThuePhong.jrxml", "PhieuThuePhong.pdf");
+            } else if (lblLoaiThanhToan.getText().equals("Dịch Vụ")) {
+                export("MaPhieuDichVu", lblSetMaPhieu.getText(), "src/GUI/GUI_rpt_PhieuDichVu.jrxml", "PhieuDichVu.pdf");
+            }
+        }
     }//GEN-LAST:event_sdoChiTietThuNganMouseClicked
 
     private void sdoChiTietThuNganMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sdoChiTietThuNganMouseMoved

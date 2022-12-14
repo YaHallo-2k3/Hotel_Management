@@ -16,8 +16,8 @@ import java.sql.ResultSet;
 public class DAL_TaiKhoan {
 
     public static void add(DTO_TaiKhoan taiKhoan) {
-        String sqlInsert = "INSERT INTO taiKhoan VALUES (?, ?, ?, ?, ?, CONVERT(VARCHAR, ?), CONVERT(VARCHAR, ?))";
-        HELPER_ConnectSQL.executeUpdate(sqlInsert, taiKhoan.getMaTaiKhoan(), taiKhoan.getMaNhanVien(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCheckDangNhap(), taiKhoan.getTimeLogIn(), taiKhoan.getTimeLogOut());
+        String sqlInsert = "INSERT INTO taiKhoan VALUES (?, ?, ?, ?, ?)";
+        HELPER_ConnectSQL.executeUpdate(sqlInsert, taiKhoan.getMaTaiKhoan(), taiKhoan.getMaNhanVien(), taiKhoan.getTenDangNhap(), taiKhoan.getMatKhau(), taiKhoan.getCheckDangNhap());
     }
 
     public static void delete(String maNhanVien) {
@@ -48,11 +48,6 @@ public class DAL_TaiKhoan {
     public static ResultSet selectTaiKhoan(String tenDangNhap, String matKhau) {
         String sqlSelect = "SELECT * FROM TaiKhoan WHERE TenDangNhap = ? AND MatKhau = ?";
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tenDangNhap, matKhau);
-    }
-
-    public static ResultSet selectTenDangNhap(String tenDangNhap) {
-        String sqlSelect = "SELECT * FROM TaiKhoan WHERE TenDangNhap = ?";
-        return HELPER_ConnectSQL.executeQuery(sqlSelect, tenDangNhap);
     }
 
     public static ResultSet select(String maNhanVien) {

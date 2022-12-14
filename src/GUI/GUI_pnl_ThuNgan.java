@@ -16,8 +16,9 @@ import java.awt.GridLayout;
  * @author CherryCe
  */
 public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
-    
+
     public static int index;
+    public static int setHeight;
     public static String tuNgay;
     public static String denNgay;
     public static int tongTien;
@@ -31,7 +32,7 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
         load();
         search();
     }
-    
+
     public void load() {
         String dateTimeTuNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
         String dateTimeDenNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
@@ -40,14 +41,18 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
         tuNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateTuNgay.getDate());
         denNgay = HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd", dateDenNgay.getDate());
     }
-    
+
     public static void search() {
         tongTien = 0;
-        int setHeight = (BLL_ThuNgan.countThuePhong(tuNgay, denNgay) + BLL_ThuNgan.countTienCoc(tuNgay, denNgay) + BLL_ThuNgan.countDichVu(tuNgay, denNgay)) / 4;
-        pnlFormChinh.setPreferredSize(new Dimension(1150, 500 * setHeight));
+        if ((BLL_ThuNgan.countHoaDon(tuNgay, denNgay) + BLL_ThuNgan.countTienCoc(tuNgay, denNgay) + BLL_ThuNgan.countDichVu(tuNgay, denNgay)) % 4 == 0) {
+            setHeight = (BLL_ThuNgan.countHoaDon(tuNgay, denNgay) + BLL_ThuNgan.countTienCoc(tuNgay, denNgay) + BLL_ThuNgan.countDichVu(tuNgay, denNgay)) / 4;
+        } else {
+            setHeight = ((BLL_ThuNgan.countHoaDon(tuNgay, denNgay) + BLL_ThuNgan.countTienCoc(tuNgay, denNgay) + BLL_ThuNgan.countDichVu(tuNgay, denNgay)) / 4) + 1;
+        }
+        pnlFormChinh.setPreferredSize(new Dimension(1150, 300 * setHeight));
         pnlFormChinh.removeAll();
-        for (int i = 1; i <= BLL_ThuNgan.countThuePhong(tuNgay, denNgay); i++) {
-            isSelect = "ThuePhong";
+        for (int i = 1; i <= BLL_ThuNgan.countHoaDon(tuNgay, denNgay); i++) {
+            isSelect = "HoaDon";
             index = i;
             pnlFormChinh.add(new GUI_pnl_ChiTietThuNgan().sdoChiTietThuNgan);
         }

@@ -18,20 +18,16 @@ public class DTO_TaiKhoan {
     public String tenDangNhap;
     public String matKhau;
     public int checkDangNhap;
-    public Date timeLogIn;
-    public Date timeLogOut;
 
     public DTO_TaiKhoan() {
     }
 
-    public DTO_TaiKhoan(String maTaiKhoan, String maNhanVien, String tenDangNhap, String matKhau, int checkDangNhap, Date timeLogIn, Date timeLogOut) {
+    public DTO_TaiKhoan(String maTaiKhoan, String maNhanVien, String tenDangNhap, String matKhau, int checkDangNhap) {
         this.maTaiKhoan = maTaiKhoan;
         this.maNhanVien = maNhanVien;
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
         this.checkDangNhap = checkDangNhap;
-        this.timeLogIn = timeLogIn;
-        this.timeLogOut = timeLogOut;
     }
 
     public String getMaTaiKhoan() {
@@ -72,21 +68,5 @@ public class DTO_TaiKhoan {
 
     public void setCheckDangNhap(int checkDangNhap) {
         this.checkDangNhap = checkDangNhap;
-    }
-
-    public Date getTimeLogIn() {
-        return timeLogIn;
-    }
-
-    public void setTimeLogIn(Date timeLogIn) {
-        this.timeLogIn = timeLogIn;
-    }
-
-    public Date getTimeLogOut() {
-        return timeLogOut;
-    }
-
-    public void setTimeLogOut(Date timeLogOut) {
-        this.timeLogOut = timeLogOut;
     }
 }
