@@ -30,7 +30,7 @@ public class DAL_ThuePhong {
 
     public static void delete(String maPhong) {
         String sqlDelete = "DELETE FROM ThuePhong WHERE MaPhong = ? AND TrangThaiThanhToan = 0";
-        HELPER_ConnectSQL.executeUpdate(sqlDelete, maPhong);
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maPhong);
     }
 
     public static void editThuePhong(DTO_ThuePhong thuePhong) {

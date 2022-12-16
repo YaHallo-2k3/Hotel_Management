@@ -7,6 +7,7 @@ package BLL;
 
 import DAL.DAL_HoaDon;
 import DTO.DTO_HoaDon;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -32,4 +33,15 @@ public class BLL_HoaDon {
         }
     }
 
+    public static String findMaPhieuThue(String maHoaDon) {
+        ResultSet rs = DAL_HoaDon.findMaPhieuThue(maHoaDon);
+        try {
+            while (rs.next()) {
+                return rs.getString("MaPhieuThue");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -42,9 +42,14 @@ public class DAL_DichVu {
         return HELPER_ConnectSQL.executeQuery(sqlSelect, tuNgay, denNgay);
     }
 
-    public static void setThanhToan(String maPhieuDichVu) {
+    public static void setThanhToanByDichVu(String maPhieuDichVu) {
         String sqlDelete = "UPDATE PhieuDichVu SET TrangThaiThanhToan = 1 WHERE MaPhieuDichVu = ?";
         HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maPhieuDichVu);
+    }
+    
+    public static void setThanhToanByThuePhong(String maPhieuThue) {
+        String sqlDelete = "UPDATE PhieuDichVu SET TrangThaiThanhToan = 1 WHERE MaPhieuThue = ?";
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maPhieuThue);
     }
 
     public static ResultSet findThanhToan(String maPhieuDichVu) {

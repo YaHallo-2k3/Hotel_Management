@@ -10,6 +10,8 @@ import DAL.DAL_ThuePhong;
 import DTO.DTO_Phong;
 import DTO.DTO_ThuePhong;
 import GUI.GUI_dal_ChuyenPhong;
+import GUI.GUI_dal_ThongTinPhong;
+import GUI.GUI_pnl_ChiTietThuePhong;
 import HELPER.HELPER_ChuyenDoi;
 import HELPER.HELPER_SetIcon;
 import com.toedter.calendar.JDateChooser;
@@ -200,7 +202,7 @@ public class BLL_ThuePhong {
         return array;
     }
 
-    public static void load(ArrayList<DTO_ThuePhong> array, JLabel lblMaPhieu, JLabel lblNhanVien, JLabel lblNgayTao, JLabel lblNgayDen, JLabel lblNgayDi, JTextField txtCMND, JTextField txtTenKhach, JTextField txtSoLuong, JTextField txtGhiChu, JTextField txtTienCoc, JTextField txtGiamGia, JLabel lblImage, JComboBox cboPhuongThuc) {
+    public static void load(ArrayList<DTO_ThuePhong> array, JLabel lblMaPhieu, JLabel lblNhanVien, JLabel lblNgayTao, JLabel lblNgayDen, JLabel lblNgayDi, JTextField txtCMND, JTextField txtTenKhach, JTextField txtSoLuong, JTextField txtGhiChu, JTextField txtTienCoc, JTextField txtGiamGia, JComboBox cboPhuongThuc) {
         for (DTO_ThuePhong thuePhong : array) {
             lblMaPhieu.setText(thuePhong.getMaPhieuThue());
             lblNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(thuePhong.getMaNhanVien()));
@@ -217,9 +219,7 @@ public class BLL_ThuePhong {
             txtGhiChu.setText(thuePhong.getGhiChu());
             txtTienCoc.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getTienCoc()) + "K");
             txtGiamGia.setText(HELPER_ChuyenDoi.getSoString(thuePhong.getGiamGia()) + "K");
-            if (thuePhong.getHinhAnh() != null) {
-                lblImage.setIcon(HELPER_SetIcon.resizeImage(thuePhong.getHinhAnh(), lblImage));
-            }
+            GUI_dal_ThongTinPhong.hinhAnh = thuePhong.getHinhAnh();
             cboPhuongThuc.setSelectedItem(BLL_MaTenLoai.findTenPhuongThuc(thuePhong.getMaPhuongThuc()));
         }
     }
@@ -270,6 +270,7 @@ public class BLL_ThuePhong {
             if (thuePhong.getTrangThaiThanhToan() == 1) {
                 lblTrangThaiPhong.setText("Trả Phòng");
             }
+            GUI_pnl_ChiTietThuePhong.ghiChu = thuePhong.getGhiChu();
         }
     }
 

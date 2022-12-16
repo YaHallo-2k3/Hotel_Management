@@ -112,18 +112,20 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
                 mniHuyPhong.setVisible(true);
                 mniThongTinPhong.setVisible(true);
                 sdoChiTietPhong.setBackground(new Color(255, 142, 113));
+                lblIconTrangThai.setIcon(new ImageIcon("src/IMG/hotel-sign (2).png"));
             } else if (lblSetTrangThai.getText().equals("Đặt Trước")) {
                 mniDonPhong.setVisible(true);
-                mniHuyPhong.setVisible(true);
                 mniThongTinPhong.setVisible(true);
                 mniThuePhong.setVisible(true);
+                mniHuyPhong.setVisible(true);
                 sdoChiTietPhong.setBackground(new Color(102, 153, 255));
+                lblIconTrangThai.setIcon(new ImageIcon("src/IMG/add-group (1).png"));
             } else if (lblSetTrangThai.getText().equals("Trả Phòng")) {
                 mniDonPhong.setVisible(true);
                 mniThongTinPhong.setVisible(true);
                 sdoChiTietPhong.setBackground(new Color(240, 165, 0));
+                lblIconTrangThai.setIcon(new ImageIcon("src/IMG/hotel-sign (2).png"));
             }
-            lblIconTrangThai.setIcon(new ImageIcon("src/IMG/hotel-sign (2).png"));
             isShowHiddenMoney(true);
             isShowHiddenTime(false);
             setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)), HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2)) + 1);
@@ -207,12 +209,12 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
             if (diffInDay == 0) {
-                lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + tongTienDichVu()) + "K");
+                lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + tongTienDichVu() - BLL_ChiTietDichVu.countGiamGiaByPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))) + "K");
             } else {
                 if (HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)) <= HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2))) {
-                    lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString((diffInDay - 1) * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + tongTienDichVu()) + "K");
+                    lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString((diffInDay - 1) * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + tongTienDichVu() - BLL_ChiTietDichVu.countGiamGiaByPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))) + "K");
                 } else {
-                    lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + tongTienDichVu()) + "K");
+                    lblSetTongTien.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + tongTienDichVu() - BLL_ChiTietDichVu.countGiamGiaByPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))) + "K");
                 }
             }
         } catch (Exception e) {
@@ -225,7 +227,11 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     }
 
     public void tongTienConLai() {
-        lblSetConLai.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(lblSetTongTien.getText()) - HELPER_ChuyenDoi.getSoInt(lblSetDatCoc.getText()) - BLL_ChiTietDichVu.countThanhToan(BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))) - BLL_ChiTietDichVu.countGiamGiaByPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()))) + "K");
+        if (lblSetTrangThai.getText().equals("Trả Phòng")) {
+            lblSetConLai.setText("0K");
+        } else {
+            lblSetConLai.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(lblSetTongTien.getText()) - HELPER_ChuyenDoi.getSoInt(lblSetDatCoc.getText()) - BLL_ChiTietDichVu.countThanhToan(BLL_DichVu.findMaPhieuThue(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText())))) + "K");
+        }
     }
 
     /**
@@ -485,7 +491,7 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
         lblLoaiPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblLoaiPhong.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         lblLoaiPhong.setForeground(new java.awt.Color(230, 230, 230));
-        sdoChiTietPhong.add(lblLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 70, 20));
+        sdoChiTietPhong.add(lblLoaiPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 100, 20));
 
         lblConLai.setBackground(new java.awt.Color(255, 255, 255));
         lblConLai.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -693,39 +699,25 @@ public class GUI_pnl_ChiTietPhong extends javax.swing.JPanel {
     private void mniHuyPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHuyPhongActionPerformed
         // TODO add your handling code here:
         String maPhong = null;
-        if (isDatThue) {
-            if (diffInDay == 0 && diffInHours == 0 & diffInMinutes <= 10) {
-                int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Hủy Phòng Không ?", "Hủy", JOptionPane.YES_NO_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
-                    if (!GUI_pnl_SoDoPhong.isSelectPhong) {
-                        maPhong = BLL_SoDoPhong.findMaPhong(indexPosition + 1);
-                        BLL_ThuePhong.delete(maPhong);
-                        GUI_pnl_SoDoPhong.load();
-                    } else {
-                        maPhong = BLL_SoDoPhong.findMaPhong(GUI_pnl_SoDoPhong.maTang, indexPosition + 1);
-                        BLL_ThuePhong.delete(maPhong);
-                        GUI_pnl_SoDoPhong.search();
-                    }
-                }
-                return;
-            } else {
+        if (!lblSetTrangThai.getText().equals("Đặt Trước")) {
+            if (diffInDay != 0 || diffInHours != 0 || diffInMinutes > 10) {
                 JOptionPane.showMessageDialog(this, "Phòng Đã Sử Dụng Quá 10 Phút !!!");
+                return;
             }
-        } else {
-            int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Hủy Phòng Không ?", "Hủy", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
-                if (!GUI_pnl_SoDoPhong.isSelectPhong) {
-                    maPhong = BLL_SoDoPhong.findMaPhong(indexPosition + 1);
-                    BLL_ThuePhong.delete(maPhong);
-                    GUI_pnl_SoDoPhong.load();
-                } else {
-                    maPhong = BLL_SoDoPhong.findMaPhong(GUI_pnl_SoDoPhong.maTang, indexPosition + 1);
-                    BLL_ThuePhong.delete(maPhong);
-                    GUI_pnl_SoDoPhong.search();
-                }
-            }
-            return;
         }
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Hủy Phòng Không ?", "Hủy", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            if (!GUI_pnl_SoDoPhong.isSelectPhong) {
+                maPhong = BLL_SoDoPhong.findMaPhong(indexPosition + 1);
+                BLL_ThuePhong.delete(maPhong);
+                GUI_pnl_SoDoPhong.load();
+            } else {
+                maPhong = BLL_SoDoPhong.findMaPhong(GUI_pnl_SoDoPhong.maTang, indexPosition + 1);
+                BLL_ThuePhong.delete(maPhong);
+                GUI_pnl_SoDoPhong.search();
+            }
+        }
+        return;
     }//GEN-LAST:event_mniHuyPhongActionPerformed
 
     private void mniChuyenPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChuyenPhongActionPerformed

@@ -12,8 +12,8 @@ import javax.swing.table.*;
 public class Test2 {
 
     public static void main(String[] args) {
-        if("PN221212184135".equals("PN221212184135")){
-            System.out.println(true);
-        }
+        
     }
+    
+    
 }

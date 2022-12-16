@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -21,8 +21,6 @@ import javax.swing.table.TableRowSorter;
  *
  * @author CherryCe
  */
-
-
 public class GUI_pnl_SanPham extends javax.swing.JPanel {
 
     /**
@@ -101,7 +99,7 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         ArrayList<DTO_SanPham> array = BLL_SanPham.select();
         BLL_SanPham.load(array, tblSanPham);
     }
-    
+
     public void search() {
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(tblSanPham.getModel());
         tblSanPham.setRowSorter(rowSorter);
@@ -457,31 +455,47 @@ public class GUI_pnl_SanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblSanPham.getSelectedRow();
         int column = tblSanPham.getSelectedColumn();
-        if (column<6) {
+        if (column < 6) {
             fillSanPham(row);
-        } else if (column==6) {
-            editSanPham();
-            loadSanPham();
-        } else if (column==7) {
-            deleteSanPham(row);
-            loadSanPham();
+        } else if (column == 6) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                editSanPham();
+                loadSanPham();
+            }
+        } else if (column == 7) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                deleteSanPham(row);
+                loadSanPham();
+            }
         }
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
     private void tblLoaiSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiSanPhamMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         int row = tblLoaiSanPham.getSelectedRow();
         int column = tblLoaiSanPham.getSelectedColumn();
-        if (column<2) {
+        if (column < 2) {
             fillLoaiSanPham(row);
-        } else if (column==2) {
-            editLoaiSanPham();
-            loadLoaiSanPham();
-            loadTenLoaiSanPham();
-        } else if (column==3) {
-            deleteLoaiSanPham(row);
-            loadLoaiSanPham();
-            loadTenLoaiSanPham();
+        } else if (column == 2) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                editLoaiSanPham();
+                loadLoaiSanPham();
+                loadTenLoaiSanPham();
+            }
+        } else if (column == 3) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                deleteLoaiSanPham(row);
+                loadLoaiSanPham();
+                loadTenLoaiSanPham();
+            }
         }
     }//GEN-LAST:event_tblLoaiSanPhamMouseClicked
 

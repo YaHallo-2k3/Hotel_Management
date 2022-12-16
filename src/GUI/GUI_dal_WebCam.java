@@ -23,6 +23,8 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
 
     public static Webcam webcam;
     public static boolean check = false;
+    public static boolean isOpen = false;
+    public static boolean isClose;
     public static int count;
     public static String path = "src/WEBCAM";
 
@@ -33,9 +35,21 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        load();
-        new videoFeed().start();
-        new photoFeed().start();
+        check();
+
+    }
+
+    public void check() {
+        if (!isOpen) {
+            load();
+            new videoFeed().start();
+            new photoFeed().start();
+        } else {
+            load();
+            lblXoa.setVisible(true);
+            lblShowWebCam.setIcon(HELPER_SetIcon.resizeImage(GUI_dal_ThongTinPhong.hinhAnh, lblShowWebCam));
+        }
+        isClose = false;
     }
 
     public void load() {
@@ -44,7 +58,6 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
         webcam.open();
         File file = new File(path);
         count = file.list().length;
-        System.out.println(count);
         lblXoa.setVisible(false);
         lblLuu.setVisible(false);
     }
@@ -55,11 +68,15 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
         public void run() {
             while (true) {
                 try {
-                    if (check) {
+                    if (isClose) {
                         return;
                     } else {
-                        Image img = webcam.getImage();
-                        lblShowWebCam.setIcon(new ImageIcon(img));
+                        if (check) {
+                            return;
+                        } else {
+                            Image img = webcam.getImage();
+                            lblShowWebCam.setIcon(new ImageIcon(img));
+                        }
                     }
                     Thread.sleep(100);
                 } catch (Exception e) {
@@ -75,21 +92,25 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
         public void run() {
             while (true) {
                 try {
-                    int countThread = new File(path).list().length;
-                    Thread.sleep(1000);
-                    if (countThread != count) {
-                        check = true;
-                        FileInputStream fis = new FileInputStream(getLastModified(path));
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        byte[] buf = new byte[1024];
-                        for (int readnum; (readnum = fis.read(buf)) != -1;) {
-                            bos.write(buf, 0, readnum);
-                        }
-                        GUI_dal_ThongTinPhong.hinhAnh = bos.toByteArray();
-                        lblShowWebCam.setIcon(HELPER_SetIcon.resizeImage(GUI_dal_ThongTinPhong.hinhAnh, lblShowWebCam));
-                        lblXoa.setVisible(true);
-                        lblLuu.setVisible(true);
+                    if (isClose) {
                         return;
+                    } else {
+                        int countThread = new File(path).list().length;
+                        Thread.sleep(1000);
+                        if (countThread != count) {
+                            check = true;
+                            FileInputStream fis = new FileInputStream(getLastModified(path));
+                            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                            byte[] buf = new byte[1024];
+                            for (int readnum; (readnum = fis.read(buf)) != -1;) {
+                                bos.write(buf, 0, readnum);
+                            }
+                            GUI_dal_ThongTinPhong.hinhAnh = bos.toByteArray();
+                            lblShowWebCam.setIcon(HELPER_SetIcon.resizeImage(GUI_dal_ThongTinPhong.hinhAnh, lblShowWebCam));
+                            lblXoa.setVisible(true);
+                            lblLuu.setVisible(true);
+                            return;
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -195,6 +216,8 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
     private void lblLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLuuMouseClicked
         // TODO add your handling code here:
         GUI_dal_ThongTinPhong.lblImage.setIcon(HELPER_SetIcon.resizeImage(GUI_dal_ThongTinPhong.hinhAnh, GUI_dal_ThongTinPhong.lblImage));
+        isClose = true;
+        webcam.close();
         dispose();
     }//GEN-LAST:event_lblLuuMouseClicked
 
@@ -213,6 +236,8 @@ public class GUI_dal_WebCam extends javax.swing.JDialog {
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         // TODO add your handling code here:
+        isClose = true;
+        webcam.close();
         dispose();
     }//GEN-LAST:event_lblThoatMouseClicked
 

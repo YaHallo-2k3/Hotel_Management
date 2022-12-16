@@ -52,7 +52,9 @@ GROUP BY
      Phong."TenPhong",
      ChiTietDichVu."GiaTien",
      SanPham."MaSanPham",
-     SanPham."TenSanPham"]]>
+     SanPham."TenSanPham"
+ORDER BY
+     SanPham."MaSanPham"]]>
 	</queryString>
 	<field name="HoaDon_MaHoaDon" class="java.lang.String"/>
 	<field name="HoaDon_NgayTao" class="java.sql.Timestamp"/>

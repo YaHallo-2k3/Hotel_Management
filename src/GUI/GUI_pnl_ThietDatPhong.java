@@ -634,16 +634,24 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblTang.getSelectedRow();
         int column = tblTang.getSelectedColumn();
-        if (column<2) {
+        if (column < 2) {
             fillSoTang(row);
-        } else if (column==2) {
-            editSoTang();
-            loadSoTang();
-            loadTenTang();
-        } else if (column==3) {
-            deleteSoTang(row);
-            loadSoTang();
-            loadTenTang();
+        } else if (column == 2) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                editSoTang();
+                loadSoTang();
+                loadTenTang();
+            }
+        } else if (column == 3) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                deleteSoTang(row);
+                loadSoTang();
+                loadTenTang();
+            }
         }
     }//GEN-LAST:event_tblTangMouseClicked
 
@@ -658,16 +666,24 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblLoaiPhong.getSelectedRow();
         int column = tblLoaiPhong.getSelectedColumn();
-        if (column<4) {
+        if (column < 4) {
             fillLoaiPhong(row);
-        } else if (column==4) {
-            editLoaiPhong();
-            loadLoaiPhong();
-            loadTenLoaiPhong();
-        } else if (column==5) {
-            deleteLoaiPhong(row);
-            loadLoaiPhong();
-            loadTenLoaiPhong();
+        } else if (column == 4) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                editLoaiPhong();
+                loadLoaiPhong();
+                loadTenLoaiPhong();
+            }
+        } else if (column == 5) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                deleteLoaiPhong(row);
+                loadLoaiPhong();
+                loadTenLoaiPhong();
+            }
         }
     }//GEN-LAST:event_tblLoaiPhongMouseClicked
 
@@ -682,16 +698,24 @@ public class GUI_pnl_ThietDatPhong extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblPhong.getSelectedRow();
         int column = tblPhong.getSelectedColumn();
-        if (column<6) {
+        if (column < 6) {
             fillPhong(row);
-        } else if (column==6) {
-            editPhong();
-            loadPhong();
-            formatSTT();
-        } else if (column==7) {
-            deletePhong(row);
-            loadPhong();
-            formatSTT();
+        } else if (column == 6) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                editPhong();
+                loadPhong();
+                formatSTT();
+            }
+        } else if (column == 7) {
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                deletePhong(row);
+                loadPhong();
+                formatSTT();
+            }
         }
     }//GEN-LAST:event_tblPhongMouseClicked
 

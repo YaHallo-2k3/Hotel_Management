@@ -65,10 +65,14 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
         if (GUI_pnl_ChiTietDichVu.isDichVu) {
             loadPhieuDichVu();
             lblInPhieu.setVisible(false);
-            lblCapNhat.setText("Xóa");
-            lblCapNhat.setIcon(new ImageIcon("src/IMG/delete.png"));
-            isUpgrade = true;
-            GUI_pnl_ChiTietDichVu.isDichVu = false;
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                lblCapNhat.setVisible(false);
+            } else {
+                lblCapNhat.setText("Xóa");
+                lblCapNhat.setIcon(new ImageIcon("src/IMG/delete.png"));
+                isUpgrade = true;
+                GUI_pnl_ChiTietDichVu.isDichVu = false;
+            }
         } else {
             load();
             lblInPhieu.setVisible(true);
@@ -722,7 +726,7 @@ public class GUI_dal_ThongTinDichVu extends javax.swing.JDialog {
             for (int i = 0; i < tblDichVu.getRowCount(); i++) {
                 addChiTietDichVu(i);
             }
-            DAL_DichVu.setThanhToan(lblSetMaPhieu.getText());
+            DAL_DichVu.setThanhToanByDichVu(lblSetMaPhieu.getText());
             GUI_pnl_DichVu.search();
             xuatPhieuDichVu(lblSetMaPhieu.getText());
             dispose();

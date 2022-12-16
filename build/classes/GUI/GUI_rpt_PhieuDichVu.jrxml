@@ -12,6 +12,9 @@
 	<parameter name="MaPhieuDichVu" class="java.lang.String">
 		<defaultValueExpression><![CDATA["MaPhieuDichVu"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="MaHoaDon" class="java.lang.String">
+		<defaultValueExpression><![CDATA["MaHoaDon"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      PhieuDichVu."MaPhieuDichVu" AS PhieuDichVu_MaPhieuDichVu,
@@ -47,7 +50,9 @@ FROM
      INNER JOIN "dbo"."NhanVien" NhanVien ON PhieuDichVu."MaNhanVien" = NhanVien."MaNhanVien"
      INNER JOIN "dbo"."SanPham" SanPham ON ChiTietDichVu."MaSanPham" = SanPham."MaSanPham"
 WHERE
-     PhieuDichVu."MaPhieuDichVu" = $P{MaPhieuDichVu}]]>
+     PhieuDichVu."MaPhieuDichVu" = $P{MaPhieuDichVu}
+ORDER BY
+     SanPham."MaSanPham"]]>
 	</queryString>
 	<field name="PhieuDichVu_MaPhieuDichVu" class="java.lang.String"/>
 	<field name="PhieuDichVu_MaPhieuThue" class="java.lang.String"/>

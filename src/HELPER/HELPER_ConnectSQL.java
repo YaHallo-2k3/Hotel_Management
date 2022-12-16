@@ -56,6 +56,8 @@ public class HELPER_ConnectSQL {
                     JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại ???");
                 } else if (e.getMessage().contains("REFERENCE")) {
                     JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
+                } else if (e.getMessage().contains("NullPointerException")) {
+                    JOptionPane.showMessageDialog(null, "Lỗi Truy Vấn Dữ Liệu ???");
                 } else {
                     e.printStackTrace();
                 }
@@ -77,6 +79,8 @@ public class HELPER_ConnectSQL {
                     JOptionPane.showMessageDialog(null, "Giá Trị Đã Tồn Tại ???");
                 } else if (e.getMessage().contains("REFERENCE")) {
                     JOptionPane.showMessageDialog(null, "Dữ Liệu Đang Được Sử Dụng !!!");
+                } else if (e.getMessage().contains("NullPointerException")) {
+                    JOptionPane.showMessageDialog(null, "Lỗi Truy Vấn Dữ Liệu ???");
                 } else {
                     e.printStackTrace();
                 }
@@ -93,6 +97,9 @@ public class HELPER_ConnectSQL {
             PreparedStatement pst = prepareStatement(sql, args);
             return pst.executeQuery();
         } catch (SQLException e) {
+            if (e.getMessage().contains("NullPointerException")) {
+                JOptionPane.showMessageDialog(null, "Lỗi Truy Vấn Dữ Liệu ???");
+            }
             throw new RuntimeException(e);
         }
     }

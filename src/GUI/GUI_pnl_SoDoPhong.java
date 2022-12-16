@@ -186,7 +186,7 @@ public class GUI_pnl_SoDoPhong extends javax.swing.JPanel {
         lblDatPhong.setBackground(new java.awt.Color(255, 255, 255));
         lblDatPhong.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblDatPhong.setForeground(new java.awt.Color(62, 73, 95));
-        lblDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/add.png"))); // NOI18N
+        lblDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/add-group (2).png"))); // NOI18N
         lblDatPhong.setText("Đặt Phòng");
         lblDatPhong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblDatPhong.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

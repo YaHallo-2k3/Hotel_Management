@@ -22,11 +22,9 @@ import javax.swing.JPanel;
  * @author CherryCe
  */
 public class GUI_frm_Menu extends javax.swing.JFrame {
-    
+
     static boolean isShowHidden = false;
     public boolean isWindow = false;
-    public String tenNhanVien;
-    public String chucVu;
     public JLabel lbl;
     public String lblIcon;
     public String lblSoDoPhongIconClicked = "src/IMG/app.png";
@@ -67,28 +65,22 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         load();
-//            auThenTiCaTion();
     }
-    
-    public void auThenTiCaTion() {
+
+    public static boolean auThenTiCaTion() {
         ResultSet rs = DAL_TaiKhoan.auThenTiCaTion(GUI_pnl_DangNhap.taiKhoan);
         try {
             while (rs.next()) {
-                tenNhanVien = rs.getString("TenNhanVien");
-                chucVu = BLL_MaTenLoai.findTenChucVu(rs.getString("MaChucVu"));
+                if (rs.getString("MaChucVu").equals("user")) {
+                    return false;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        lblSetTenMenu.setText(tenNhanVien);
-        if (chucVu.equals("Nhân Viên")) {
-            lblQuanLiSanPham.setEnabled(false);
-            lblThietDatPhong.setEnabled(false);
-            lblThietDatGiaPhong.setEnabled(false);
-            lblQuanLiNguoiDung.setEnabled(false);
-        }
+        return true;
     }
-    
+
     public void load() {
         lblSoDoPhong.setIcon(new ImageIcon(lblSoDoPhongIconClicked));
         setForeground_33_150_243(lblSoDoPhong);
@@ -99,7 +91,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
 //        pnlFormChinh.validate();
 //        pnlFormChinh.repaint();
     }
-    
+
     public void menuItemClicked(JLabel lblClicked, String lblIconClicked, String lblIconExited, Component component) {
         lbl.setIcon(new ImageIcon(lblIcon));
         setForeground_255_255_255(lbl);
@@ -113,7 +105,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         pnlFormChinh.validate();
         pnlFormChinh.repaint();
     }
-    
+
     public void logOut() {
         int choice = JOptionPane.showConfirmDialog(null, "Bạn Có Muốn Đăng Xuất ???", "LogOut", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
@@ -123,7 +115,7 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         }
         return;
     }
-    
+
     public void exit() {
         int choice = JOptionPane.showConfirmDialog(null, "Bạn Có Muốn Thoát Chương Trình ???", "Thoát", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
@@ -131,19 +123,19 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
         }
         return;
     }
-    
+
     public void setBackground_78_87_103(javax.swing.JLabel lbl) {
         lbl.setBackground(new Color(78, 87, 103));
     }
-    
+
     public void setBackground_62_73_95(javax.swing.JLabel lbl) {
         lbl.setBackground(new Color(62, 73, 95));
     }
-    
+
     public void setForeground_255_255_255(javax.swing.JLabel lbl) {
         lbl.setForeground(new Color(255, 255, 255));
     }
-    
+
     public void setForeground_33_150_243(javax.swing.JLabel lbl) {
         lbl.setForeground(new Color(33, 150, 243));
     }
@@ -855,9 +847,11 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
             lblSoDoPhong.setText(null);
             lblThuNgan.setText(null);
             lblLichSuThuePhong.setText(null);
+            lblDanhSachDatPhong.setText(null);
             lblDichVu.setText(null);
             lblQuanLiSanPham.setText(null);
             lblThongKeTrongNgay.setText(null);
+            lblChiTietGiaoCa.setText(null);
             lblQuanLiKho.setText(null);
             lblQuanLiChiPhi.setText(null);
             lblThietDatPhong.setText(null);
@@ -870,9 +864,11 @@ public class GUI_frm_Menu extends javax.swing.JFrame {
             lblSoDoPhong.setText("Sơ Đồ Phòng");
             lblThuNgan.setText("Thu Ngân");
             lblLichSuThuePhong.setText("Lịch Sử Thuê Phòng");
+            lblDanhSachDatPhong.setText("Danh Sách Đặt Phòng");
             lblDichVu.setText("Minibar - Dịch Vụ");
             lblQuanLiSanPham.setText("Giao Ca");
             lblThongKeTrongNgay.setText("Thống Kê Trong Ngày");
+            lblChiTietGiaoCa.setText("Chi Tiết Giao Ca");
             lblQuanLiKho.setText("Quản Lí Kho");
             lblQuanLiChiPhi.setText("Quản Lí Chi Phí");
             lblThietDatPhong.setText("Thiết Đặt Phòng");

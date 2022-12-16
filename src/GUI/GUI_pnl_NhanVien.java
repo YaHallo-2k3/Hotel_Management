@@ -54,6 +54,7 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, -18);
         dateNgaySinh.setMaxSelectableDate(calendar.getTime());
+        dateNgaySinh.getDateEditor().setEnabled(false);
     }
 
     public void add() {
@@ -125,14 +126,17 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
             chooser.setDialogTitle("Open File");
             chooser.showOpenDialog(this);
             File nameIMG = chooser.getSelectedFile();
-            FileInputStream fis = new FileInputStream(nameIMG.getAbsolutePath());
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            for (int readnum; (readnum = fis.read(buf)) != -1;) {
-                bos.write(buf, 0, readnum);
+            if (nameIMG != null) {
+                FileInputStream fis = new FileInputStream(nameIMG.getAbsolutePath());
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readnum; (readnum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readnum);
+                }
+                hinhAnh = bos.toByteArray();
+                lblImage.setIcon(HELPER_SetIcon.resizeImage(hinhAnh, lblImage));
             }
-            hinhAnh = bos.toByteArray();
-            lblImage.setIcon(HELPER_SetIcon.resizeImage(hinhAnh, lblImage));
+            return;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -510,13 +514,25 @@ public class GUI_pnl_NhanVien extends javax.swing.JPanel {
         if (column <= 10) {
             fill(row);
         } else if (column == 13) {
-            delete(row);
-            load();
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                delete(row);
+                load();
+            }
         } else if (column == 12) {
-            edit();
-            load();
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                edit();
+                load();
+            }
         } else if (column == 11) {
-            loadTaiKhoan();
+            if (!GUI_frm_Menu.auThenTiCaTion()) {
+                return;
+            } else {
+                loadTaiKhoan();
+            }
         }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 

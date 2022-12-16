@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 public class BLL_DatPhong {
 
     public static boolean check(DTO_DatPhong datPhong) {
-        if (datPhong.getMaPhieu().isEmpty() || datPhong.getMaLoaiPhong().isEmpty() || datPhong.getLoaiKhach().isEmpty() || datPhong.getMaNhanVien().isEmpty() || datPhong.getNgayTao() == null || datPhong.getNgayDen() == null || datPhong.getNgayDi() == null || datPhong.getTenKhachHang().isEmpty() || datPhong.getSoLuongKhach() == 0 || datPhong.getSoDienThoai() == 0) {
+        if (datPhong.getMaPhieu().isEmpty() || datPhong.getLoaiKhach().isEmpty() || datPhong.getMaNhanVien().isEmpty() || datPhong.getNgayTao() == null || datPhong.getNgayDen() == null || datPhong.getNgayDi() == null || datPhong.getTenKhachHang().isEmpty() || datPhong.getSoLuongKhach() == 0 || datPhong.getSoDienThoai() == 0) {
             return false;
         }
         return true;

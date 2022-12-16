@@ -36,6 +36,8 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
     }
 
     public void load() {
+        dateTuNgay.getDateEditor().setEnabled(false);
+        dateDenNgay.getDateEditor().setEnabled(false);
         String dateTimeTuNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
         String dateTimeDenNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
         dateTuNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeTuNgay));
@@ -66,7 +68,7 @@ public class GUI_pnl_ThuePhong extends javax.swing.JPanel {
         lblSetDichVu.setText(HELPER_ChuyenDoi.getSoString(dichVu) + "K");
         lblSetTongCong.setText(HELPER_ChuyenDoi.getSoString(tienPhong + dichVu) + "K");
         lblsetDaTra.setText(HELPER_ChuyenDoi.getSoString(daTra) + "K");
-        lblSetConLai.setText(HELPER_ChuyenDoi.getSoString(tienPhong + dichVu - giamGia - daTra) + "K");
+        lblSetConLai.setText(HELPER_ChuyenDoi.getSoString(tienPhong + dichVu - daTra) + "K");
     }
 
     /**

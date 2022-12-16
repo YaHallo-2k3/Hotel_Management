@@ -15,19 +15,19 @@ import java.util.ArrayList;
 public class HELPER_Validate {
 
     public static void validateString(javax.swing.JTextField txt) {
-        txt.setText(txt.getText().replaceAll("[1234567890[*/+-]]", ""));
+        txt.setText(txt.getText().replaceAll("[1234567890[`~!@#$%^&*()-_=+]]", ""));
     }
 
     public static void validateNumber(javax.swing.JTextField txt) {
-        txt.setText(txt.getText().replaceAll("[abcdefghijklmnopqrstuvwxyz[*/-]]", ""));
+        txt.setText(txt.getText().replaceAll("[abcdefghijklmnopqrstuvwxyz[`~!@#$%^&*()_=]]", ""));
     }
 
     public static void setTextLimited(javax.swing.JTextField txt, int limited) {
         if (txt.getText().length() > limited) {
             txt.setText(txt.getText().substring(0, limited));
         }
-    }  
-    
+    }
+
     public static boolean alreayExits(ResultSet resultSet, String data, String value) {
         ResultSet rs = resultSet;
         ArrayList<String> array = new ArrayList<>();

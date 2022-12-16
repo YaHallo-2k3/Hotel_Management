@@ -7,6 +7,7 @@ package GUI;
 
 import BLL.BLL_ChiTietDichVu;
 import BLL.BLL_DichVu;
+import BLL.BLL_HoaDon;
 import BLL.BLL_MaTenLoai;
 import BLL.BLL_ThuNgan;
 import BLL.BLL_ThuePhong;
@@ -67,24 +68,19 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
     }
 
     public void load() {
-        if (!GUI_pnl_ThuNgan.isSelect.equals("DichVu")) {
-            ArrayList<DTO_Phong> arrayPhong;
-            ArrayList<DTO_ThuePhong> arrayThuePhong;
-            if (GUI_pnl_ThuNgan.isSelect.equals("HoaDon")) {
-                arrayPhong = BLL_ThuNgan.selectByHoaDon(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
-                arrayThuePhong = BLL_ThuNgan.selectHoaDon(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
-            } else {
-                arrayPhong = BLL_ThuNgan.selectByTienCoc(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
-                arrayThuePhong = BLL_ThuNgan.selectTienCoc(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
-            }
+        if (GUI_pnl_ThuNgan.isSelect.equals("HoaDon")) {
+            ArrayList<DTO_Phong> arrayPhong = BLL_ThuNgan.selectByHoaDon(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+            ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuNgan.selectHoaDon(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
             BLL_ThuNgan.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong);
             BLL_ThuNgan.loadThuePhong(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblSetMaPhieu, lblSetNgay, lblSetGio, lblLoaiThanhToan, lblNhanVien, lblLoaiTien);
-            if (GUI_pnl_ThuNgan.isSelect.equals("ThuePhong")) {
-                setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)), HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2)) + 1);
-            } else {
-                setTienCoc();
-            }
-        } else {
+            setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)), HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2)) + 1);
+        } else if (GUI_pnl_ThuNgan.isSelect.equals("TienCoc")) {
+            ArrayList<DTO_Phong> arrayPhong = BLL_ThuNgan.selectByTienCoc(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+            ArrayList<DTO_ThuePhong> arrayThuePhong = BLL_ThuNgan.selectTienCoc(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
+            BLL_ThuNgan.loadPhong(arrayPhong, lblSoPhong, lblLoaiPhong);
+            BLL_ThuNgan.loadTienCoc(arrayThuePhong, lblNgayDen, lblThangDen, lblGioPhutDen, lblNgayDi, lblThangDi, lblGioPhutDi, lblSetMaPhieu, lblSetNgay, lblSetGio, lblLoaiThanhToan, lblNhanVien, lblLoaiTien);
+            setThoiGian_GiaTien(24 - HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)), HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2)) + 1);
+        } else if (GUI_pnl_ThuNgan.isSelect.equals("DichVu")) {
             ArrayList<DTO_DichVu> arrayDichVu = BLL_ThuNgan.selectDichVu(GUI_pnl_ThuNgan.tuNgay, GUI_pnl_ThuNgan.denNgay, GUI_pnl_ThuNgan.index);
             BLL_ThuNgan.loadDichVu(arrayDichVu, lblSoPhong, lblNhanVien, lblSetMaPhieu, lblSetNgay, lblSetGio, lblLoaiThanhToan, lblLoaiTien);
             setTienDichVu();
@@ -154,13 +150,17 @@ public class GUI_pnl_ChiTietThuNgan extends javax.swing.JPanel {
             FileInputStream file = new FileInputStream(filePath);
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
-            if (diffInDay == 0) {
-                lblTongTien.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + BLL_ChiTietDichVu.tongTienDichVu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countTienCocByMaPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countGiamGiaByPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countThanhToan(lblSetMaPhieu.getText())) + "K");
+            if (lblLoaiThanhToan.getText().equals("Tiền Cọc")) {
+                setTienCoc();
             } else {
-                if (HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)) <= HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2))) {
-                    lblTongTien.setText(HELPER_ChuyenDoi.getSoString((diffInDay - 1) * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + BLL_ChiTietDichVu.tongTienDichVu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countTienCocByMaPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countGiamGiaByPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countThanhToan(lblSetMaPhieu.getText())) + "K");
+                if (diffInDay == 0) {
+                    lblTongTien.setText(HELPER_ChuyenDoi.getSoString(HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) - BLL_ChiTietDichVu.countTienCocByMaPhieu(BLL_HoaDon.findMaPhieuThue(lblSetMaPhieu.getText())) - BLL_ChiTietDichVu.countGiamGiaByPhieu(BLL_HoaDon.findMaPhieuThue(lblSetMaPhieu.getText()))) + "K");
                 } else {
-                    lblTongTien.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) + BLL_ChiTietDichVu.tongTienDichVu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countTienCocByMaPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countGiamGiaByPhieu(lblSetMaPhieu.getText()) - BLL_ChiTietDichVu.countThanhToan(lblSetMaPhieu.getText())) + "K");
+                    if (HELPER_ChuyenDoi.getSoInt(lblGioPhutDen.getText().substring(0, 2)) <= HELPER_ChuyenDoi.getSoInt(lblGioPhutDi.getText().substring(0, 2))) {
+                        lblTongTien.setText(HELPER_ChuyenDoi.getSoString((diffInDay - 1) * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) - BLL_ChiTietDichVu.countTienCocByMaPhieu(BLL_HoaDon.findMaPhieuThue(lblSetMaPhieu.getText())) - BLL_ChiTietDichVu.countGiamGiaByPhieu(BLL_HoaDon.findMaPhieuThue(lblSetMaPhieu.getText()))) + "K");
+                    } else {
+                        lblTongTien.setText(HELPER_ChuyenDoi.getSoString(diffInDay * price + HELPER_ChuyenDoi.getSoInt(String.valueOf(sheet.getRow(row).getCell(column))) - BLL_ChiTietDichVu.countTienCocByMaPhieu(BLL_HoaDon.findMaPhieuThue(lblSetMaPhieu.getText())) - BLL_ChiTietDichVu.countGiamGiaByPhieu(BLL_HoaDon.findMaPhieuThue(lblSetMaPhieu.getText()))) + "K");
+                    }
                 }
             }
         } catch (Exception e) {

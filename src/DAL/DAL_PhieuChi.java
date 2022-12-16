@@ -31,7 +31,7 @@ public class DAL_PhieuChi {
 
     public static void delete(String maPhieuChi) {
         String sqlDelete = "DELETE FROM PhieuChi WHERE MaPhieuChi = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlDelete, maPhieuChi);
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maPhieuChi);
     }
 
     public static ResultSet search(String tuNgay, String denNgay, int index) {

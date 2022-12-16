@@ -64,9 +64,19 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
         initComponents();
         loadTenLoaiPhong();
         load();
+        validation();
+    }
+
+    public void validation() {
+        if (!GUI_frm_Menu.auThenTiCaTion()) {
+            lblCapNhat.setVisible(false);
+        }
+        return;
     }
 
     public void load() {
+        dateTuNgay.getDateEditor().setEnabled(false);
+        dateDenNgay.getDateEditor().setEnabled(false);
         String dateTimeNgayDen = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
         String dateTimeNgayDi = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
         dateTuNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeNgayDen));

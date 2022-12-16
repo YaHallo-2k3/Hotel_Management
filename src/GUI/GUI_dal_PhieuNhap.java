@@ -64,6 +64,14 @@ public class GUI_dal_PhieuNhap extends javax.swing.JDialog {
         loadTenLoaiSanPham();
         loadChiTietNhapKho();
         setTongTien();
+        validation();
+    }
+    
+    public void validation() {
+        if (!GUI_frm_Menu.auThenTiCaTion()) {
+            lblXoa.setVisible(false);
+        }
+        return;
     }
 
     public void check() {

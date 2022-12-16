@@ -75,8 +75,8 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         cboLoaiKhach.setSelectedItem(null);
         lblSetNhanVien.setText(null);
         lblSetNgayTao.setText(null);
-        dateNgayDen.setDate(null);
-        dateNgayDi.setDate(null);
+        dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy")));
+        dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy")));
         txtTenKhach.setText(null);
         txtSoLuong.setText(null);
         txtSoDienThoai.setText(null);
@@ -86,30 +86,30 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     }
 
     public void fill(int index) {
-        try {
-            lblSetMaPhieu.setText(tblDatPhong.getValueAt(index, 0).toString());
-            txtTenKhach.setText(tblDatPhong.getValueAt(index, 1).toString());
-            txtSoDienThoai.setText(tblDatPhong.getValueAt(index, 2).toString());
-            txtSoLuong.setText(tblDatPhong.getValueAt(index, 3).toString());
-            dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 4).toString()));
-            txtGioDen.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "HH", tblDatPhong.getValueAt(index, 4).toString()));
-            txtPhutDen.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "mm", tblDatPhong.getValueAt(index, 4).toString()));
-            dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 5).toString()));
-            txtGioDi.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "HH", tblDatPhong.getValueAt(index, 5).toString()));
-            txtPhutDi.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "mm", tblDatPhong.getValueAt(index, 5).toString()));
-            txtTienCoc.setText(tblDatPhong.getValueAt(index, 6).toString());
-            cboLoaiPhong.setSelectedItem(tblDatPhong.getValueAt(index, 7).toString());
-            cboLoaiKhach.setSelectedItem(tblDatPhong.getValueAt(index, 8).toString());
-            txtGhiChu.setText(tblDatPhong.getValueAt(index, 9).toString());
-            lblSetNhanVien.setText(tblDatPhong.getValueAt(index, 10).toString());
-            lblSetNgayTao.setText(tblDatPhong.getValueAt(index, 11).toString());
-            lblSetTrangThai.setText(tblDatPhong.getValueAt(index, 12).toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        lblSetMaPhieu.setText(tblDatPhong.getValueAt(index, 0).toString());
+        txtTenKhach.setText(tblDatPhong.getValueAt(index, 1).toString());
+        txtSoDienThoai.setText(tblDatPhong.getValueAt(index, 2).toString());
+        txtSoLuong.setText(tblDatPhong.getValueAt(index, 3).toString());
+        dateNgayDen.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 4).toString()));
+        txtGioDen.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "HH", tblDatPhong.getValueAt(index, 4).toString()));
+        txtPhutDen.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "mm", tblDatPhong.getValueAt(index, 4).toString()));
+        dateNgayDi.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", tblDatPhong.getValueAt(index, 5).toString()));
+        txtGioDi.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "HH", tblDatPhong.getValueAt(index, 5).toString()));
+        txtPhutDi.setText(HELPER_ChuyenDoi.convertDate("dd-MM-yyyy HH:mm", "mm", tblDatPhong.getValueAt(index, 5).toString()));
+        txtTienCoc.setText(tblDatPhong.getValueAt(index, 6).toString());
+        cboLoaiPhong.setSelectedItem(String.valueOf(tblDatPhong.getValueAt(index, 7)));
+        cboLoaiKhach.setSelectedItem(String.valueOf(tblDatPhong.getValueAt(index, 8)));
+        txtGhiChu.setText(tblDatPhong.getValueAt(index, 9).toString());
+        lblSetNhanVien.setText(tblDatPhong.getValueAt(index, 10).toString());
+        lblSetNgayTao.setText(tblDatPhong.getValueAt(index, 11).toString());
+        lblSetTrangThai.setText(tblDatPhong.getValueAt(index, 12).toString());
     }
 
     public void load() {
+        dateTuNgay.getDateEditor().setEnabled(false);
+        dateDenNgay.getDateEditor().setEnabled(false);
+        dateNgayDen.getDateEditor().setEnabled(false);
+        dateNgayDi.getDateEditor().setEnabled(false);
         String dateTimeTuNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
         String dateTimeDenNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
         dateTuNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeTuNgay));

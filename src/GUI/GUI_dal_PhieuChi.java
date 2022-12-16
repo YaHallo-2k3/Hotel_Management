@@ -37,6 +37,14 @@ public class GUI_dal_PhieuChi extends javax.swing.JDialog {
         loadMucChi();
         loadPhuongThuc();
         check();
+        validation();
+    }
+    
+    public void validation() {
+        if (!GUI_frm_Menu.auThenTiCaTion()) {
+            lblXoa.setVisible(false);
+        }
+        return;
     }
 
     public void check() {

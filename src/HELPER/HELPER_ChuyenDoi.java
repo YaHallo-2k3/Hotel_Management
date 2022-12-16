@@ -13,6 +13,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,18 +22,21 @@ import java.util.Locale;
  */
 public class HELPER_ChuyenDoi {
 
-    public static String convertDate(String input, String output, String value) throws ParseException {
-        SimpleDateFormat inputFormat = new SimpleDateFormat(input);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(output);
-
-        Date date = null;
-        String requiredDate = null;
-        date = inputFormat.parse(value);
-        requiredDate = outputFormat.format(date);
-
-        return requiredDate;
+    public static String convertDate(String input, String output, String value) {
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat(input);
+            SimpleDateFormat outputFormat = new SimpleDateFormat(output);
+            Date date = null;
+            String requiredDate = null;
+            date = inputFormat.parse(value);
+            requiredDate = outputFormat.format(date);
+            return requiredDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-    
+
     public static String getTimeNow(String time) {
         return new SimpleDateFormat(time).format(new Date());
     }
@@ -52,7 +57,7 @@ public class HELPER_ChuyenDoi {
     public static String getSoString(double so) {
         return NumberFormat.getNumberInstance().format(so);
     }
-    
+
     public static String getSoString(int so) {
         return NumberFormat.getNumberInstance().format(so);
     }

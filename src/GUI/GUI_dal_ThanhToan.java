@@ -10,6 +10,7 @@ import BLL.BLL_HoaDon;
 import BLL.BLL_MaTenLoai;
 import BLL.BLL_PhuongThucThanhToan;
 import BLL.BLL_TaiKhoan;
+import DAL.DAL_DichVu;
 import DTO.DTO_HangMucChi;
 import DTO.DTO_HoaDon;
 import DTO.DTO_PhuongThucThanhToan;
@@ -312,6 +313,7 @@ public class GUI_dal_ThanhToan extends javax.swing.JDialog {
         GUI_dal_ThongTinPhong.addThanhToan();
         DTO_HoaDon hoaDon = new DTO_HoaDon(lblSetMaPhieu.getText(), GUI_dal_ThongTinPhong.lblSetMaPhieuThue.getText(), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), BLL_MaTenLoai.findMaNhanVien(lblSetNhanVien.getText()), HELPER_ChuyenDoi.getSoInt(lblSetTienPhong.getText()), HELPER_ChuyenDoi.getSoInt(lblSetDichVu.getText()), HELPER_ChuyenDoi.getSoInt(lblSetDatCoc.getText()) + HELPER_ChuyenDoi.getSoInt(lblSetThanhToan.getText()), HELPER_ChuyenDoi.getSoInt(lblSetConLai.getText()), BLL_MaTenLoai.findMaPhuongThuc(String.valueOf(cboPhuongThuc.getSelectedItem())));
         BLL_HoaDon.addHoaDon(hoaDon);
+        DAL_DichVu.setThanhToanByThuePhong(GUI_dal_ThongTinPhong.lblSetMaPhieuThue.getText());
         JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công !!!");
         if (!GUI_pnl_SoDoPhong.isSelectPhong) {
             GUI_pnl_SoDoPhong.load();

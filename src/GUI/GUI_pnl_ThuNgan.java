@@ -8,6 +8,8 @@ package GUI;
 import BLL.BLL_ThuNgan;
 import GUI.GUI_pnl_ChiTietPhong;
 import HELPER.HELPER_ChuyenDoi;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -34,6 +36,8 @@ public class GUI_pnl_ThuNgan extends javax.swing.JPanel {
     }
 
     public void load() {
+        dateTuNgay.getDateEditor().setEnabled(false);
+        dateDenNgay.getDateEditor().setEnabled(false);
         String dateTimeTuNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
         String dateTimeDenNgay = HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm");
         dateTuNgay.setDate(HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", dateTimeTuNgay));

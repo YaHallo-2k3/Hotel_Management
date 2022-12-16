@@ -6,9 +6,11 @@
 package GUI;
 
 import BLL.BLL_TaiKhoan;
+import DAL.DAL_TaiKhoan;
 import DTO.DTO_TaiKhoan;
 import static GUI.GUI_frm_Login.frm;
 import HELPER.HELPER_SendMail;
+import HELPER.HELPER_Validate;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.KeyEvent;
@@ -53,7 +55,7 @@ public class GUI_pnl_CheckMail extends javax.swing.JPanel {
 
     public void loadForm() {
         if (lblTiepTuc.getText().equals("TIẾP TỤC")) {
-            if (BLL_TaiKhoan.alreayExits("TenDangNhap", txtTaiKhoan.getText())) {
+            if (HELPER_Validate.alreayExits(DAL_TaiKhoan.select(), "TenDangNhap", txtTaiKhoan.getText())) {
                 JOptionPane.showMessageDialog(this, "Mail Chưa Được Đăng Kí ???");
             } else {
                 otp = new Random().nextInt(99999 - 10000) + 10000;

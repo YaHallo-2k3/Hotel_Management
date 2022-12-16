@@ -24,6 +24,14 @@ public class GUI_dal_HangMucChi extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         load();
+        validation();
+    }
+
+    public void validation() {
+        if (!GUI_frm_Menu.auThenTiCaTion()) {
+            lblCapNhat.setVisible(false);
+        }
+        return;
     }
 
     public void add() {

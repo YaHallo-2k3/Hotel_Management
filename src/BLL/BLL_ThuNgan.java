@@ -61,7 +61,7 @@ public class BLL_ThuNgan {
         }
         return array;
     }
-    
+
     public static ArrayList<DTO_ThuePhong> selectTienCoc(String tuNgay, String denNgay, int index) {
         ResultSet rs = DAL_ThuNgan.rowNumberTienCoc(tuNgay, denNgay, index);
         ArrayList<DTO_ThuePhong> array = new ArrayList<>();
@@ -109,7 +109,7 @@ public class BLL_ThuNgan {
         }
         return array;
     }
-    
+
     public static ArrayList<DTO_Phong> selectByTienCoc(String tuNgay, String denNgay, int index) {
         ResultSet rs = DAL_ThuNgan.rowNumberTienCoc(tuNgay, denNgay, index);
         ArrayList<DTO_Phong> array = new ArrayList<>();
@@ -170,11 +170,30 @@ public class BLL_ThuNgan {
                 lblGioPhutDi.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDi()));
             }
             lblMaPhieu.setText(thuePhong.getMaPhieuThue());
-            if (thuePhong.getTrangThaiThanhToan() == 1 || thuePhong.getNgayDi() != null && thuePhong.getTienCoc() == 0) {
-                lblLoaiThanhToan.setText("Hóa Đơn");
+            lblLoaiThanhToan.setText("Hóa Đơn");
+            lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", thuePhong.getNgayTao()));
+            lblGioPhutTao.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayTao()));
+            lblNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(thuePhong.getMaNhanVien()));
+            lblPhuongThuc.setText(BLL_MaTenLoai.findTenPhuongThuc(thuePhong.getMaPhuongThuc()));
+        }
+    }
+
+    public static void loadTienCoc(ArrayList<DTO_ThuePhong> array, JLabel lblNgayDen, JLabel lblThangDen, JLabel lblGioPhutDen, JLabel lblNgayDi, JLabel lblThangDi, JLabel lblGioPhutDi, JLabel lblMaPhieu, JLabel lblNgayTao, JLabel lblGioPhutTao, JLabel lblLoaiThanhToan, JLabel lblNhanVien, JLabel lblPhuongThuc) {
+        for (DTO_ThuePhong thuePhong : array) {
+            lblNgayDen.setText(HELPER_ChuyenDoi.getNgayString("dd", thuePhong.getNgayDen()));
+            lblThangDen.setText(HELPER_ChuyenDoi.getNgayString("MM", thuePhong.getNgayDen()));
+            lblGioPhutDen.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDen()));
+            if (thuePhong.getNgayDi() == null) {
+                lblNgayDi.setText(HELPER_ChuyenDoi.getTimeNow("dd"));
+                lblThangDi.setText(HELPER_ChuyenDoi.getTimeNow("MM"));
+                lblGioPhutDi.setText(HELPER_ChuyenDoi.getTimeNow("HH:mm"));
             } else {
-                lblLoaiThanhToan.setText("Tiền Cọc");
+                lblNgayDi.setText(HELPER_ChuyenDoi.getNgayString("dd", thuePhong.getNgayDi()));
+                lblThangDi.setText(HELPER_ChuyenDoi.getNgayString("MM", thuePhong.getNgayDi()));
+                lblGioPhutDi.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayDi()));
             }
+            lblMaPhieu.setText(thuePhong.getMaPhieuThue());
+            lblLoaiThanhToan.setText("Tiền Cọc");
             lblNgayTao.setText(HELPER_ChuyenDoi.getNgayString("dd-MM-yy", thuePhong.getNgayTao()));
             lblGioPhutTao.setText(HELPER_ChuyenDoi.getNgayString("HH:mm", thuePhong.getNgayTao()));
             lblNhanVien.setText(BLL_MaTenLoai.findTenNhanVien(thuePhong.getMaNhanVien()));
@@ -205,7 +224,7 @@ public class BLL_ThuNgan {
         }
         return 0;
     }
-    
+
     public static int countTienCoc(String tuNgay, String denNgay) {
         ResultSet rs = DAL_ThuNgan.countTienCoc(tuNgay, denNgay);
         try {

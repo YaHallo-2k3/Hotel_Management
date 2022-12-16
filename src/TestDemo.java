@@ -48,7 +48,7 @@ public class TestDemo extends javax.swing.JFrame {
     public int rowIndex;
     public int columnIndex;
     public String setPrice = "";
-    public String url = String.valueOf(new ImageIcon(getClass().getResource("/DOCUMENT/SingleRoom_Day_Rate.xlsx"))).replaceAll("file:/", "");
+    public String url = String.valueOf(new ImageIcon(getClass().getResource("/DOCUMENT/SingleRoom_Day_Rate.xlsx")));
     public XSSFWorkbook workbook;
     public XSSFSheet sheet;
     public String xlFiflePath;
@@ -60,7 +60,7 @@ public class TestDemo extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
-        readExcel();
+//        readExcel();
 
         System.out.println(url);
     }
