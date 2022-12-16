@@ -177,7 +177,6 @@ public class GUI_pnl_ChiTietThuePhong extends javax.swing.JPanel {
         } else {
             GUI_pnl_ThuePhong.giamGia += BLL_ChiTietDichVu.countGiamGiaByPhong(BLL_MaTenLoai.findMaPhong(lblSoPhong.getText()));
         }
-
     }
 
     /**

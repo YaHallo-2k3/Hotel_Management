@@ -150,7 +150,7 @@ public class GUI_pnl_ChiTietDichVu extends javax.swing.JPanel {
         lblSetMaPhieu.setBackground(new java.awt.Color(255, 255, 255));
         lblSetMaPhieu.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblSetMaPhieu.setForeground(new java.awt.Color(62, 73, 95));
-        sdoChiTietDichVu.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 100, 20));
+        sdoChiTietDichVu.add(lblSetMaPhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 120, 20));
 
         lblNgay.setBackground(new java.awt.Color(255, 255, 255));
         lblNgay.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N

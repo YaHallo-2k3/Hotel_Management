@@ -49,7 +49,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     public void add() {
         String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
         String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
-        DTO_DatPhong datPhong = new DTO_DatPhong(HELPER_SetMa.setMaDateTime("DP"), BLL_MaTenLoai.findMaLoaiPhong(String.valueOf(cboLoaiPhong.getSelectedItem())), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yyyy HH:mm")), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), "Không Phòng");
+        DTO_DatPhong datPhong = new DTO_DatPhong(HELPER_SetMa.setMaDateTime("DP"), BLL_MaTenLoai.findMaLoaiPhong(String.valueOf(cboLoaiPhong.getSelectedItem())), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_TaiKhoan.selectMaNhanVien(GUI_pnl_DangNhap.taiKhoan), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", HELPER_ChuyenDoi.getTimeNow("dd-MM-yy HH:mm")), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), "Không Phòng");
         BLL_DatPhong.add(datPhong);
     }
 
@@ -65,7 +65,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     public void edit() {
         String ngayGioDen = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDen.getDate()) + " " + txtGioDen.getText() + ":" + txtPhutDen.getText();
         String ngayGioDi = HELPER_ChuyenDoi.getNgayString("dd-MM-yyyy", dateNgayDi.getDate()) + " " + txtGioDi.getText() + ":" + txtPhutDi.getText();
-        DTO_DatPhong datPhong = new DTO_DatPhong(lblSetMaPhieu.getText(), BLL_MaTenLoai.findMaLoaiPhong(String.valueOf(cboLoaiPhong.getSelectedItem())), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_MaTenLoai.findMaNhanVien(lblSetNhanVien.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), lblSetTrangThai.getText());
+        DTO_DatPhong datPhong = new DTO_DatPhong(lblSetMaPhieu.getText(), BLL_MaTenLoai.findMaLoaiPhong(String.valueOf(cboLoaiPhong.getSelectedItem())), String.valueOf(cboLoaiKhach.getSelectedItem()), BLL_MaTenLoai.findMaNhanVien(lblSetNhanVien.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yy HH:mm", lblSetNgayTao.getText()), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy HH:mm", ngayGioDen), HELPER_ChuyenDoi.getNgayDate("dd-MM-yyyy", ngayGioDi), txtTenKhach.getText(), HELPER_ChuyenDoi.getSoInt(txtSoLuong.getText()), HELPER_ChuyenDoi.getSoInt(txtSoDienThoai.getText()), txtGhiChu.getText(), HELPER_ChuyenDoi.getSoInt(txtTienCoc.getText()), lblSetTrangThai.getText());
         BLL_DatPhong.edit(datPhong);
     }
 
@@ -482,6 +482,11 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
                 txtPhutDenActionPerformed(evt);
             }
         });
+        txtPhutDen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPhutDenKeyReleased(evt);
+            }
+        });
         sdoFormChinh.add(txtPhutDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 20, 20));
 
         txtGioDen.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -555,6 +560,11 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
         txtPhutDi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPhutDiActionPerformed(evt);
+            }
+        });
+        txtPhutDi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPhutDiKeyReleased(evt);
             }
         });
         sdoFormChinh.add(txtPhutDi, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 20, 20));
@@ -800,6 +810,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
 
     private void txtGioDenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGioDenKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.setTextLimited(txtGioDen, 2);
     }//GEN-LAST:event_txtGioDenKeyReleased
 
     private void txtGioDiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtGioDiMouseReleased
@@ -812,6 +823,7 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
 
     private void txtGioDiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGioDiKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.setTextLimited(txtGioDi, 2);
     }//GEN-LAST:event_txtGioDiKeyReleased
 
     private void txtPhutDiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPhutDiMouseReleased
@@ -855,6 +867,16 @@ public class GUI_pnl_DatPhong extends javax.swing.JPanel {
     private void txtSoLuongKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoLuongKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSoLuongKeyPressed
+
+    private void txtPhutDenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhutDenKeyReleased
+        // TODO add your handling code here:
+        HELPER_Validate.setTextLimited(txtPhutDen, 2);
+    }//GEN-LAST:event_txtPhutDenKeyReleased
+
+    private void txtPhutDiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhutDiKeyReleased
+        // TODO add your handling code here:
+        HELPER_Validate.setTextLimited(txtPhutDi, 2);
+    }//GEN-LAST:event_txtPhutDiKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

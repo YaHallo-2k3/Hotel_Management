@@ -272,7 +272,7 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi Định Dạng ???");
+            return;
         }
     }
 
@@ -696,6 +696,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
                 txtPhutDenActionPerformed(evt);
             }
         });
+        txtPhutDen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPhutDenKeyReleased(evt);
+            }
+        });
         sdoThongTinPhong.add(txtPhutDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 20, 20));
 
         lblDoubleDotDen.setBackground(new java.awt.Color(255, 255, 255));
@@ -722,6 +727,9 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
             }
         });
         txtGioDi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtGioDiKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtGioDiKeyReleased(evt);
             }
@@ -1044,6 +1052,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void txtGioDenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGioDenKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtGioDen);
+        HELPER_Validate.setTextLimited(txtGioDen, 2);
+        if (HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()) < 0 || HELPER_ChuyenDoi.getSoInt(txtGioDen.getText()) > 23 || txtGioDen.getText().isEmpty()) {
+            txtGioDen.setText("00");
+        }
     }//GEN-LAST:event_txtGioDenKeyReleased
 
     private void txtGioDiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtGioDiMouseReleased
@@ -1056,6 +1069,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void txtGioDiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGioDiKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtGioDi);
+        HELPER_Validate.setTextLimited(txtGioDi, 2);
+        if (HELPER_ChuyenDoi.getSoInt(txtGioDi.getText()) < 0 || HELPER_ChuyenDoi.getSoInt(txtGioDi.getText()) > 59 || txtGioDi.getText().isEmpty()) {
+            txtGioDi.setText("00");
+        }
     }//GEN-LAST:event_txtGioDiKeyReleased
 
     private void txtPhutDiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPhutDiMouseReleased
@@ -1068,6 +1086,11 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
 
     private void txtPhutDiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhutDiKeyReleased
         // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtPhutDi);
+        HELPER_Validate.setTextLimited(txtPhutDi, 2);
+        if (HELPER_ChuyenDoi.getSoInt(txtPhutDi.getText()) < 0 || HELPER_ChuyenDoi.getSoInt(txtPhutDi.getText()) > 59 || txtPhutDi.getText().isEmpty()) {
+            txtPhutDi.setText("00");
+        }
     }//GEN-LAST:event_txtPhutDiKeyReleased
 
     private void txtGiamGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiamGiaKeyReleased
@@ -1103,6 +1126,19 @@ public class GUI_dal_ThongTinPhong extends javax.swing.JDialog {
         }
         return;
     }//GEN-LAST:event_txtSoLuongKeyReleased
+
+    private void txtPhutDenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhutDenKeyReleased
+        // TODO add your handling code here:
+        HELPER_Validate.validateNumber(txtPhutDen);
+        HELPER_Validate.setTextLimited(txtPhutDen, 2);
+        if (HELPER_ChuyenDoi.getSoInt(txtPhutDen.getText()) < 0 || HELPER_ChuyenDoi.getSoInt(txtPhutDen.getText()) > 59 || txtPhutDen.getText().isEmpty()) {
+            txtPhutDen.setText("00");
+        }
+    }//GEN-LAST:event_txtPhutDenKeyReleased
+
+    private void txtGioDiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGioDiKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGioDiKeyPressed
 
     /**
      * @param args the command line arguments

@@ -491,6 +491,9 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtGioTuNgayKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtGioTuNgayKeyTyped(evt);
+            }
         });
         sdoChucNang.add(txtGioTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 20, 20));
 
@@ -755,6 +758,10 @@ public class GUI_pnl_GiaPhong extends javax.swing.JPanel {
         HELPER_Validate.validateNumber(txtGioDenNgay);
         HELPER_Validate.setTextLimited(txtGioDenNgay, 2);
     }//GEN-LAST:event_txtGioDenNgayKeyReleased
+
+    private void txtGioTuNgayKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGioTuNgayKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGioTuNgayKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboLoaiGia;

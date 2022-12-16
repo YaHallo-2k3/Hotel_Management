@@ -24,12 +24,12 @@ public class DAL_DatPhong {
 
     public static void delete(String maDatPhong) {
         String sqlDelete = "DELETE FROM DatPhong WHERE MaPhieuDat = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlDelete, maDatPhong);
+        HELPER_ConnectSQL.executeUpdateNoMessage(sqlDelete, maDatPhong);
     }
 
     public static void edit(DTO_DatPhong datPhong) {
         String sqlUpdate = "UPDATE DatPhong SET MaLoaiPhong = ?, LoaiKhach = ?, MaNhanVien = ?, NgayTao = CONVERT(VARCHAR, ?), NgayDen = CONVERT(VARCHAR, ?), NgayDi = CONVERT(VARCHAR, ?), TenKhachHang = ?, SoLuongKhach = ?, SoDienThoai = ?, GhiChu = ?, TienCoc = ?, TrangThai = ? WHERE MaPhieuDat = ?";
-        HELPER_ConnectSQL.executeUpdate(sqlUpdate, datPhong.getMaLoaiPhong(), datPhong.getLoaiKhach(), datPhong.getMaNhanVien(), datPhong.getNgayTao(), datPhong.getNgayDen(), datPhong.getNgayDi(), datPhong.getTenKhachHang(), datPhong.getSoLuongKhach(), datPhong.getSoDienThoai(), datPhong.getGhiChu(), datPhong.getTienCoc(), datPhong.getTrangThai(), datPhong.getMaPhieu());
+        HELPER_ConnectSQL.executeUpdate(sqlUpdate, datPhong.getMaLoaiPhong(), datPhong.getLoaiKhach(), datPhong.getMaNhanVien(), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", datPhong.getNgayTao()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", datPhong.getNgayDen()), HELPER_ChuyenDoi.getNgayString("yyyy-MM-dd HH:mm", datPhong.getNgayDi()), datPhong.getTenKhachHang(), datPhong.getSoLuongKhach(), datPhong.getSoDienThoai(), datPhong.getGhiChu(), datPhong.getTienCoc(), datPhong.getTrangThai(), datPhong.getMaPhieu());
     }
 
     public static ResultSet select(String dateTuNgay, String dateDenNgay) {
